@@ -154,6 +154,7 @@ public final class DockingPageGame
         return Page.game;
     }
     public void init(GL10 gl){
+
         stale = false;
 
         glViewport(0,0,width,height);
@@ -208,9 +209,6 @@ public final class DockingPageGame
 
     }
     public void draw(GL10 gl){
-        if (stale){
-            init(gl);
-        }
 
         if (stale){
             init(gl);
@@ -219,9 +217,9 @@ public final class DockingPageGame
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            glPushMatrix();
+            // glPushMatrix();
 
-            glMultMatrixf(matrixR);
+            // glMultMatrixf(matrixR);
 
             /* Model
              */
@@ -235,14 +233,14 @@ public final class DockingPageGame
 
             GeometrySyntelos.Instance.draw();
 
-            glPopMatrix();
+            // glPopMatrix();
 
-            m0.draw();
-            m1.draw();
-            m2.draw();
+            // m0.draw();
+            // m1.draw();
+            // m2.draw();
 
-            el.draw();
-            az.draw();
+            // el.draw();
+            // az.draw();
 
             glFlush();
         }

@@ -24,8 +24,6 @@ public class DockingActivityView
 
     private View3D view;
 
-    private SensorOrientation orientation;
-
     private SharedPreferences preferences;
 
 
@@ -41,8 +39,6 @@ public class DockingActivityView
         }
 
         this.preferences = this.getSharedPreferences("llg.properties",MODE_PRIVATE);
-
-        this.orientation = SensorOrientation.Instance(this);
 
         this.view = new View3D(this);
 
@@ -66,16 +62,6 @@ public class DockingActivityView
         info("onResume");
 
         this.view.onResume();
-    }
-    @Override
-    public void surfaceCreated(SurfaceHolder holder){
-
-        orientation.open();
-    }
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder){
-
-        orientation.close();
     }
     protected SharedPreferences preferences(){
 

@@ -3,7 +3,6 @@
  */
 package com.johnpritchard.docking;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ConfigurationInfo;
@@ -30,21 +29,16 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public final class View3D
     extends android.opengl.GLSurfaceView
-    implements View,
-               android.opengl.GLSurfaceView.Renderer
+    implements View
 {
     protected final static String TAG = ObjectLog.TAG;
 
 
-    private SurfaceHolder holder;
-
     private SharedPreferences preferences;
 
-    private volatile ViewPage3D page;
+    private SurfaceHolder holder;
 
-    private boolean plumb = false;
-
-    private int width = -1, height = -1;
+    private View3DRenderer renderer;
 
 
     public View3D(ObjectActivity context){
@@ -52,9 +46,11 @@ public final class View3D
 
         holder = getHolder();
 
-        setRenderer(this);
+        renderer = new View3DRenderer(this);
 
-        holder.addCallback(context);
+        setRenderer(renderer);
+
+        holder.addCallback(renderer);
 
         holder.setKeepScreenOn(true);
     }
@@ -78,60 +74,21 @@ public final class View3D
 
         this.preferences = state;
 
-        this.pageTo(state.getString("view.page","game"));
+        this.renderer.onCreate(state);
     }
     public void onResume(){
         info("onResume");
 
         ViewAnimation.Start(this);
+
+        this.renderer.onResume();
     }
     public void onPause(SharedPreferences.Editor state){
         info("onPause");
 
-        if (null != this.page){
-
-            state.putString("view.page",this.page.name());
-
-            this.page.down(state);
-        }
-
-        this.plumb = false;
+        this.renderer.onPause(state);
 
         ViewAnimation.Stop();
-    }
-    public void surfaceCreated(SurfaceHolder holder){
-        info("surfaceCreated");
-
-        this.plumb = false;
-    }
-    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
-        info("surfaceChanged");
-
-        this.width = w;
-        this.height = h;
-
-        this.plumb = true;
-
-        this.page.up(this,width,height);
-
-    }
-    public void surfaceDestroyed(SurfaceHolder holder){
-        info("surfaceDestroyed");
-
-        this.plumb = false;
-    }
-    /**
-     * Called from {@link #onCreate} followed by {@link #repaint}.
-     * @see #script
-     */
-    private void pageTo(String name){
-        try {
-            this.pageTo(Page.valueOf(name));
-        }
-        catch (RuntimeException exc){
-
-            this.pageTo(Page.start);
-        }
     }
     /**
      * Called from {@link ViewAnimator}
@@ -139,75 +96,9 @@ public final class View3D
      */
     public void pageTo(Page page){
 
-        if (null == page){
-
-            return;
-        }
-        else if (null != this.page){
-
-            if (page.page != this.page){
-
-                this.page.down();
-
-                this.page = (ViewPage3D)page.page;
-
-                if (this.plumb){
-
-                    this.page.up(this,width,height);
-                }
-            }
-        }
-        else {
-            this.page = (ViewPage3D)page.page;
-
-            if (this.plumb){
-
-                this.page.up(this,width,height);
-            }
-        }
+        this.renderer.pageTo(page);
     }
-    /**
-     * Renderer
-     */
-    public void onDrawFrame(GL10 gl){
-        if (null != page){
-
-            if (plumb){
-
-                page.draw(gl);
-            }
-            else {
-
-                page.up(this,width,height);
-
-                plumb = true;
-            }
-        }
-    }
-    /**
-     * Renderer
-     */
-    public void onSurfaceChanged(GL10 gl, int width, int height){
-
-        this.width = width;
-        this.height = height;
-
-        if (null != page){
-
-            page.down();
-
-            plumb = false;
-
-            page.up(this,width,height);
-
-            plumb = true;
-        }
-    }
-    /**
-     * Renderer
-     */
-    public void onSurfaceCreated(GL10 gl, EGLConfig config){
-    }
+
     protected Display display(){
 
         return ((ObjectActivity)getContext()).display();

@@ -23,7 +23,7 @@ public class ObjectLog
     extends java.lang.Object
     implements android.view.SurfaceHolder.Callback
 {
-    public final static String TAG = "ULSF";
+    public final static String TAG = "Docking";
 
 
     protected ObjectActivity context;
