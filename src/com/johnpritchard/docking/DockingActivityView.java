@@ -38,7 +38,7 @@ public class DockingActivityView
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        this.preferences = this.getSharedPreferences("llg.properties",MODE_PRIVATE);
+        this.preferences = this.getSharedPreferences("docking.properties",MODE_PRIVATE);
 
         this.view = new View3D(this);
 

@@ -50,7 +50,7 @@ public final class View3DRenderer
 
         this.pageTo(state.getString("view.page","game"));
     }
-    public synchronized void onResume(){
+    public void onResume(){
     }
     public synchronized void onPause(SharedPreferences.Editor state){
 
