@@ -3,7 +3,7 @@
 case "${1}" in
 u)
     set -x
-    adb -d uninstall com.johnpritchard.llg
+    adb -d uninstall com.johnpritchard.docking
     ;;
 i)
     set -x

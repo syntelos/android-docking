@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2014, John Pritchard
  */
-package com.johnpritchard.llg;
+package com.johnpritchard.docking;
 
 import android.graphics.Canvas;
 import static android.opengl.GLES10.*;

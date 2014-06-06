@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2014, John Pritchard
  */
-package com.johnpritchard.llg;
+package com.johnpritchard.docking;
 
 import android.app.ActivityManager;
 import android.content.pm.ConfigurationInfo;

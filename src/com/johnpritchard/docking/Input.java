@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2014 John Pritchard.  All rights reserved.
  */
-package com.johnpritchard.llg;
+package com.johnpritchard.docking;
 
 /**
  * Serial input events represent DPAD navigation in contrast to random

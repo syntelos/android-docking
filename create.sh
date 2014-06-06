@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pkg=com.johnpritchard.llg
+pkg=com.johnpritchard.docking
 pkg_dir=src/$(echo ${pkg} | sed 's%\.%/%g;')
 
 head_file=HEAD.txt

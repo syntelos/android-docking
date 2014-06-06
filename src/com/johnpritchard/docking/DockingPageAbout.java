@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2014 John Pritchard.  All rights reserved.
  */
-package com.johnpritchard.llg;
+package com.johnpritchard.docking;
 
 import android.graphics.Canvas;
 import android.graphics.RectF;
@@ -12,6 +12,9 @@ import android.graphics.RectF;
 public final class DockingPageAbout
     extends ViewPage2D
 {
+    public final String AboutString = "Docking for Android version "+DockingVersion.String+'\n'+
+                                      "Copyright (C) 2014 John Pritchard."+'\n'+
+                                      "All rights reserved.";
 
     public final static DockingPageAbout Instance = new DockingPageAbout();
 
@@ -19,7 +22,7 @@ public final class DockingPageAbout
 
     private DockingPageAbout(){
         super(new ViewPageComponent[]{
-                new TextMultiline("Lunar Lander version G for Android\nCopyright (C) 2014 John Pritchard.\nAll rights reserved.")
+                new TextMultiline(AboutString)
             });
     }
 
