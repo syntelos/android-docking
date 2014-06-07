@@ -26,19 +26,19 @@ import android.util.Log;
  * and display surface dimensions.
  * 
  * @see ViewPage
- * @see ViewPageComponent
+ * @see ViewPage2DComponent
  */
 public abstract class ViewPage2D
     extends ViewPage
 {
 
 
-    protected final ViewPageComponent[] components;
+    protected final ViewPage2DComponent[] components;
 
-    protected ViewPageComponent current;
+    protected ViewPage2DComponent current;
 
 
-    protected ViewPage2D(ViewPageComponent[] components){
+    protected ViewPage2D(ViewPage2DComponent[] components){
         super();
         this.components = components;
         info("init");
@@ -55,12 +55,12 @@ public abstract class ViewPage2D
         return measure(0,components.length);
     }
     protected RectF measure(int offset, int count){
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
 
         RectF g = new RectF();
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             g.union(c.bounds());
         }
@@ -70,12 +70,12 @@ public abstract class ViewPage2D
         return scale(0,components.length,s);
     }
     protected RectF scale(int offset, int count, float s){
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
 
         RectF g = new RectF();
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             c.scale(s);
 
@@ -94,11 +94,11 @@ public abstract class ViewPage2D
 
             m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
         }
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
 
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             c.transform(m);
         }
@@ -107,7 +107,7 @@ public abstract class ViewPage2D
      * scale to viewport (layout)
      */
     protected void scale(){
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
         if (0 < width && 0 < height && null != components){
 
             final Matrix m = new Matrix();
@@ -119,7 +119,7 @@ public abstract class ViewPage2D
                 m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
             }
 
-            for (ViewPageComponent c : components){
+            for (ViewPage2DComponent c : components){
 
                 c.transform(m);
             }
@@ -138,7 +138,7 @@ public abstract class ViewPage2D
      * abstract or self center
      */
     protected RectF center(int offset, int count){
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
 
         RectF re = new RectF();
 
@@ -157,7 +157,7 @@ public abstract class ViewPage2D
         final float gh2 = ((g.bottom-g.top)/2.0f);
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             final RectF cb = c.bounds();
             /*
@@ -186,13 +186,13 @@ public abstract class ViewPage2D
         center(0,components.length,g);
     }
     protected void center(int offset, int count, RectF g){
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
 
         final float gw2 = ((g.right-g.left)/2.0f);
         final float gh2 = ((g.bottom-g.top)/2.0f);
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             final RectF cb = c.bounds();
 
@@ -213,16 +213,16 @@ public abstract class ViewPage2D
         return group(offset,count,g,pad(g));
     }
     protected RectF group(int offset, int count, RectF g, float p){
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
 
         RectF re = new RectF();
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
-            if (c instanceof ViewPageComponentGroup){
+            if (c instanceof ViewPage2DComponentGroup){
 
-                ((ViewPageComponentGroup)c).group(g,p);
+                ((ViewPage2DComponentGroup)c).group(g,p);
             }
             re.union(c.bounds());
         }
@@ -240,7 +240,7 @@ public abstract class ViewPage2D
         }
     }
     protected void vertical(){
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
         if (null != components){
 
             RectF group = center(0,components.length);
@@ -255,7 +255,7 @@ public abstract class ViewPage2D
     }
     protected void group_vertical(){
 
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
         if (null != components){
 
             RectF group = center(0,components.length);
@@ -271,7 +271,7 @@ public abstract class ViewPage2D
         }
     }
     protected RectF location(int offset, int count, RectF g, float x, float y){
-        final ViewPageComponent[] components = this.components;
+        final ViewPage2DComponent[] components = this.components;
 
         RectF re = new RectF();
 
@@ -279,7 +279,7 @@ public abstract class ViewPage2D
         final float dy = (y - g.top);
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             c.translate(dx,dy);
 
@@ -296,7 +296,7 @@ public abstract class ViewPage2D
         float tx = row_x;
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             final RectF cb = c.bounds();
 
@@ -324,7 +324,7 @@ public abstract class ViewPage2D
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
 
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             final RectF cb = c.bounds();
 
@@ -349,7 +349,7 @@ public abstract class ViewPage2D
         float ty = col_y;
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             final RectF cb = c.bounds();
 
@@ -387,7 +387,7 @@ public abstract class ViewPage2D
     /**
      * @see #first()
      */
-    protected boolean navigationInclude(int index, ViewPageComponent c){
+    protected boolean navigationInclude(int index, ViewPage2DComponent c){
         return true;
     }
     /**
@@ -396,7 +396,7 @@ public abstract class ViewPage2D
     @Override
     protected final void navigation(){
         for (int cc = 0, count = components.length; cc < count; cc++){
-            ViewPageComponent c = components[cc];
+            ViewPage2DComponent c = components[cc];
 
             c.clearCardinals();
 
@@ -407,7 +407,7 @@ public abstract class ViewPage2D
 
                 for (int bb = 0; bb < count; bb++){
                     if (bb != cc){
-                        ViewPageComponent b = components[bb];
+                        ViewPage2DComponent b = components[bb];
 
                         if (navigationInclude(bb,b)){
 
@@ -442,7 +442,7 @@ public abstract class ViewPage2D
         else {
             current = components[first];
         }
-        for (ViewPageComponent c : components){
+        for (ViewPage2DComponent c : components){
 
             if (c == current){
                 c.setCurrent();
@@ -526,7 +526,7 @@ public abstract class ViewPage2D
     /**
      * Append to list while "distance" is decreasing or direction is "enter".
      */
-    protected Input[] script(Input[] list, float x, float y, float distance, ViewPageComponent current){
+    protected Input[] script(Input[] list, float x, float y, float distance, ViewPage2DComponent current){
 
         if (null != current){
 
@@ -583,17 +583,17 @@ public abstract class ViewPage2D
     @Override
     protected void input_emphasis(){
 
-        if (current instanceof ViewPageComponentPath){
+        if (current instanceof ViewPage2DComponentPath){
 
-            ((ViewPageComponentPath)current).emphasis(true);
+            ((ViewPage2DComponentPath)current).emphasis(true);
         }
     }
     @Override
     protected void input_deemphasis(){
 
-        if (current instanceof ViewPageComponentPath){
+        if (current instanceof ViewPage2DComponentPath){
 
-            ((ViewPageComponentPath)current).emphasis(false);
+            ((ViewPage2DComponentPath)current).emphasis(false);
         }
     }
     /**
@@ -604,7 +604,7 @@ public abstract class ViewPage2D
 
         if (event.geometric){
 
-            ViewPageComponent next = current.getCardinal(event);
+            ViewPage2DComponent next = current.getCardinal(event);
             if (null != next && next != current){
 
                 //info("input select "+event.name()+" => "+next.getName());
@@ -624,7 +624,7 @@ public abstract class ViewPage2D
     @Override
     public void draw(Canvas g){
 
-        for (ViewPageComponent c : components){
+        for (ViewPage2DComponent c : components){
 
             c.draw(g);
         }
@@ -642,7 +642,7 @@ public abstract class ViewPage2D
      * this will not return negative one.
      */
     protected int current(){
-        ViewPageComponent[] components = this.components;
+        ViewPage2DComponent[] components = this.components;
 
         final int count = components.length;
         for (int cc = 0; cc < count; cc++){
@@ -670,7 +670,7 @@ public abstract class ViewPage2D
 
             for (int cc = 0; cc < count; cc++){
 
-                ViewPageComponent c = components[cc];
+                ViewPage2DComponent c = components[cc];
 
                 int c_score = c.countCardinals();
 
@@ -684,33 +684,33 @@ public abstract class ViewPage2D
         return first;
     }
     protected Path.FillType getFillType(){
-        for (ViewPageComponent c : components){
-            if (c instanceof ViewPageComponentPath){
-                return ((ViewPageComponentPath)c).getFillType();
+        for (ViewPage2DComponent c : components){
+            if (c instanceof ViewPage2DComponentPath){
+                return ((ViewPage2DComponentPath)c).getFillType();
             }
         }
         return Path.FillType.WINDING;
     }
     protected void setFillType(Path.FillType ft){
-        for (ViewPageComponent c : components){
-            if (c instanceof ViewPageComponentPath){
-                ViewPageComponentPath p = (ViewPageComponentPath)c;
+        for (ViewPage2DComponent c : components){
+            if (c instanceof ViewPage2DComponentPath){
+                ViewPage2DComponentPath p = (ViewPage2DComponentPath)c;
                 p.setFillType(ft);
             }
         }
     }
     protected void rotateFillType(){
-        for (ViewPageComponent c : components){
-            if (c instanceof ViewPageComponentPath){
-                ViewPageComponentPath p = (ViewPageComponentPath)c;
+        for (ViewPage2DComponent c : components){
+            if (c instanceof ViewPage2DComponentPath){
+                ViewPage2DComponentPath p = (ViewPage2DComponentPath)c;
                 p.rotateFillType();
             }
         }
     }
     protected void logFillType(){
-        for (ViewPageComponent c : components){
-            if (c instanceof ViewPageComponentPath){
-                ViewPageComponentPath p = (ViewPageComponentPath)c;
+        for (ViewPage2DComponent c : components){
+            if (c instanceof ViewPage2DComponentPath){
+                ViewPage2DComponentPath p = (ViewPage2DComponentPath)c;
                 p.logFillType();
             }
         }

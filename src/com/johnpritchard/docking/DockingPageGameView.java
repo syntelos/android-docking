@@ -19,7 +19,7 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * 
  */
-public final class DockingPageGame
+public final class DockingPageGameView
     extends ViewPage3D
 {
 
@@ -54,7 +54,7 @@ public final class DockingPageGame
     };
 
 
-    public final static DockingPageGame Instance = new DockingPageGame();
+    public final static DockingPageGameView Instance = new DockingPageGameView();
 
 
     private final FloatBuffer camera;
@@ -74,7 +74,7 @@ public final class DockingPageGame
     private final FontGlyphVector az = new FontGlyphVector(+1.0, +0.9,  1.0, 0.2);
 
 
-    private DockingPageGame(){
+    private DockingPageGameView(){
         super();
         {
             final ByteBuffer ib_camera = ByteBuffer.allocateDirect(CAMERA.length * bpf);
@@ -147,11 +147,11 @@ public final class DockingPageGame
 
     @Override
     public String name(){
-        return Page.game.name();
+        return Page.gameView.name();
     }
     @Override
     public Page value(){
-        return Page.game;
+        return Page.gameView;
     }
     public void init(GL10 gl){
 
@@ -206,7 +206,6 @@ public final class DockingPageGame
         glEnable(GL_LIGHT0);
         glEnable(GL_LIGHT1);
         glEnable(GL_LIGHTING);
-
     }
     public void draw(GL10 gl){
 
@@ -223,15 +222,13 @@ public final class DockingPageGame
 
             /* Model
              */
-            glColor4f(0.0f,0.4f,0.7f,1.0f);
+            glColor4f(0.9f,0.9f,0.9f,1.0f);
 
 
             glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
             glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
 
-            GeometryAttitude.Instance.draw();
-
-            GeometrySyntelos.Instance.draw();
+            GeometrySphere.Instance.draw();
 
             // glPopMatrix();
 

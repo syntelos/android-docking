@@ -13,16 +13,16 @@ import android.util.Log;
  * Implementation of the page component interface independent of the
  * implementation of geometry
  */
-public abstract class ViewPageComponentAbstract
+public abstract class ViewPage2DComponentAbstract
     extends Epsilon
-    implements ViewPageComponent
+    implements ViewPage2DComponent
 {
     public final static String TAG = ObjectLog.TAG;
 
 
     protected String name;
 
-    protected ViewPageComponent[] cardinals = new ViewPageComponent[Input.GeometricCount];
+    protected ViewPage2DComponent[] cardinals = new ViewPage2DComponent[Input.GeometricCount];
 
     protected boolean focus;
 
@@ -31,7 +31,7 @@ public abstract class ViewPageComponentAbstract
     protected final RectF bounds = new RectF();
 
 
-    public ViewPageComponentAbstract(){
+    public ViewPage2DComponentAbstract(){
         super();
         this.name = Basename(getClass().getName());
     }
@@ -68,7 +68,7 @@ public abstract class ViewPageComponentAbstract
 
         return this.clip;
     }
-    public ViewPageComponentAbstract clip(Operand[] list){
+    public ViewPage2DComponentAbstract clip(Operand[] list){
         if (null != list){
             this.clear();
 
@@ -137,7 +137,7 @@ public abstract class ViewPageComponentAbstract
 
         return (float)Math.sqrt(Z(dx*dx) + Z(dy*dy));
     }
-    public final float distance(ViewPageComponent c){
+    public final float distance(ViewPage2DComponent c){
 
         if (c == this){
 
@@ -197,11 +197,11 @@ public abstract class ViewPageComponentAbstract
         }
         return count;
     }
-    public final void setCardinal(Input direction, ViewPageComponent component){
+    public final void setCardinal(Input direction, ViewPage2DComponent component){
 
         if (direction.geometric){
 
-            ViewPageComponent existing = cardinals[direction.index];
+            ViewPage2DComponent existing = cardinals[direction.index];
 
             if (null == existing || distance(component) < distance(existing)){
 
@@ -211,7 +211,7 @@ public abstract class ViewPageComponentAbstract
             }
         }
     }
-    public final ViewPageComponent getCardinal(Input direction){
+    public final ViewPage2DComponent getCardinal(Input direction){
 
         if (direction.geometric){
 

@@ -36,7 +36,7 @@ public class TextMultiline
     }
 
 
-    public ViewPageComponentPath setText(String text){
+    public ViewPage2DComponentPath setText(String text){
         if (null != text){
             reset();
 

@@ -19,8 +19,8 @@ import android.graphics.Typeface;
 /**
  * 
  */
-public class ViewPageComponentPath
-    extends ViewPageComponentAbstract
+public class ViewPage2DComponentPath
+    extends ViewPage2DComponentAbstract
     implements path.Path
 {
     protected final static float TextSize = 10.0f;
@@ -35,7 +35,7 @@ public class ViewPageComponentPath
     protected final Paint stroke = new Paint(Paint.ANTI_ALIAS_FLAG);
 
 
-    public ViewPageComponentPath(){
+    public ViewPage2DComponentPath(){
         super();
         fill.setColor(Color.BLACK);
         fill.setTextSize(TextSize);
@@ -45,20 +45,20 @@ public class ViewPageComponentPath
         stroke.setStyle(Paint.Style.STROKE);
         stroke.setStrokeWidth(3.0f);
     }
-    public ViewPageComponentPath(String text){
+    public ViewPage2DComponentPath(String text){
         this();
         setText(text);
     }
-    public ViewPageComponentPath(Operand[] path){
+    public ViewPage2DComponentPath(Operand[] path){
         this();
         this.path(path);
     }
-    public ViewPageComponentPath(Operand[] path, Operand[] group){
+    public ViewPage2DComponentPath(Operand[] path, Operand[] group){
         this();
         this.path(path);
         this.group(group);
     }
-    public ViewPageComponentPath(Operand[] path, Operand[] group, Operand[] clip){
+    public ViewPage2DComponentPath(Operand[] path, Operand[] group, Operand[] clip){
         this();
         this.path(path);
         this.group(group);
@@ -77,7 +77,7 @@ public class ViewPageComponentPath
             fill.setColor(Color.BLACK);
         }
     }
-    public ViewPageComponentPath setText(String text){
+    public ViewPage2DComponentPath setText(String text){
         reset();
         this.fill.getTextPath(text,0,text.length(),0.0f,TextSize,this.path);
         this.appendName(text);
@@ -117,7 +117,7 @@ public class ViewPageComponentPath
     public boolean isEmpty(){
         return this.path.isEmpty();
     }
-    public ViewPageComponentPath incCapacity(int delta){
+    public ViewPage2DComponentPath incCapacity(int delta){
         this.path.incReserve(delta);
         return this;
     }
@@ -127,12 +127,12 @@ public class ViewPageComponentPath
     public void toggleInverseFillType(){
         this.path.toggleInverseFillType();
     }
-    public ViewPageComponentPath plainFillType(){
+    public ViewPage2DComponentPath plainFillType(){
 
         this.path.plainFillType();
         return this;
     }
-    public ViewPageComponentPath inverseFillType(){
+    public ViewPage2DComponentPath inverseFillType(){
 
         this.path.inverseFillType();
         return this;
@@ -143,13 +143,13 @@ public class ViewPageComponentPath
     public void setFillType(Path.FillType ft){
         this.path.setFillType(ft);
     }
-    public ViewPageComponentPath rotateFillType(){
+    public ViewPage2DComponentPath rotateFillType(){
 
         this.path.rotateFillType();
         this.clip.rotateFillType();
         return this;
     }
-    public ViewPageComponentPath logFillType(){
+    public ViewPage2DComponentPath logFillType(){
         switch(this.path.getFillType()){
         case WINDING:
             info(getName()+" path: WINDING");
@@ -296,7 +296,7 @@ public class ViewPageComponentPath
 
         return this.path.apply(p);
     }
-    public ViewPageComponentPath path(Operand[] list){
+    public ViewPage2DComponentPath path(Operand[] list){
         if (null != list){
             this.clear();
 
@@ -304,7 +304,7 @@ public class ViewPageComponentPath
         }
         return this;
     }
-    public ViewPageComponentPath group(Operand[] list){
+    public ViewPage2DComponentPath group(Operand[] list){
         if (null != list){
             this.clear();
 

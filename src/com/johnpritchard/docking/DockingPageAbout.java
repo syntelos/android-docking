@@ -21,7 +21,7 @@ public final class DockingPageAbout
 
 
     private DockingPageAbout(){
-        super(new ViewPageComponent[]{
+        super(new ViewPage2DComponent[]{
                 new TextMultiline(AboutString)
             });
     }

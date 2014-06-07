@@ -8,8 +8,8 @@ import android.graphics.RectF;
 /**
  * 
  */
-public interface ViewPageComponentGroup
-    extends ViewPageComponent
+public interface ViewPage2DComponentGroup
+    extends ViewPage2DComponent
 {
     /**
      * Group dimension and derived margin

@@ -13,9 +13,9 @@ import android.graphics.RectF;
  * Drawable, and differs primarily in its emphasis on a simplified
  * model of interaction.
  * 
- * @see ViewPageComponentPath
+ * @see ViewPage2DComponentPath
  */
-public interface ViewPageComponent {
+public interface ViewPage2DComponent {
     /**
      * Instance object identity defaults to a derivation of the class
      * name
@@ -77,7 +77,7 @@ public interface ViewPageComponent {
     /**
      * Measure the distance between the centroids of two components
      */
-    public float distance(ViewPageComponent c);
+    public float distance(ViewPage2DComponent c);
     /**
      * Indicate the apparent visual relationship between screen
      * coordinates X and Y and this component, including the geometric
@@ -98,11 +98,11 @@ public interface ViewPageComponent {
      * @param direction An input having geometric application
      * @param component A component member of the same page
      */
-    public void setCardinal(Input direction, ViewPageComponent component);
+    public void setCardinal(Input direction, ViewPage2DComponent component);
     /**
      * Navigational operator
      */
-    public ViewPageComponent getCardinal(Input direction);
+    public ViewPage2DComponent getCardinal(Input direction);
     /**
      * Navigational focus
      */

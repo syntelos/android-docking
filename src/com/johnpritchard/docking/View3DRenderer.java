@@ -48,7 +48,7 @@ public final class View3DRenderer
 
         this.preferences = state;
 
-        this.pageTo(state.getString("view.page","game"));
+        this.pageTo(state.getString("view.page","gameView"));
     }
     public void onResume(){
     }

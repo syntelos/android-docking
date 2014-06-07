@@ -30,14 +30,14 @@ import android.util.Log;
  * 
  * <h3>Structure<h3>
  * 
- * A {@link ViewPage page} is a list of {@link ViewPageComponent
+ * A {@link ViewPage page} is a list of {@link ViewPage2DComponent
  * components}, each always visible and focusable and occupying a
  * unique region in 2D XY space (without overlapping).
  * 
- * Conceptually a {@link ViewPageComponent page component} is a list
+ * Conceptually a {@link ViewPage2DComponent page component} is a list
  * of vertices and functions for operating on that set of geometric
  * vertices.  In practice, a vertex set may be represented by a {@link
- * ViewPageComponentPath path}.  In all cases, matrix operations
+ * ViewPage2DComponentPath path}.  In all cases, matrix operations
  * transform the geometry of a component, and the boundaries of the
  * component geometry are independent of its location.
  * 
@@ -65,7 +65,7 @@ import android.util.Log;
  * and display surface dimensions.
  * 
  * @see View
- * @see ViewPageComponent
+ * @see ViewPage2DComponent
  */
 public abstract class ViewPage
     extends Epsilon

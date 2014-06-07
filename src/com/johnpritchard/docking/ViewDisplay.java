@@ -5,7 +5,7 @@ package com.johnpritchard.docking;
 
 /**
  * Parameters set by {@link ViewPage} for use from {@link
- * ViewPageComponent} in the {@link ViewPage} layout stage processing.
+ * ViewPage2DComponent} in the {@link ViewPage} layout stage processing.
  */
 public abstract class ViewDisplay {
 

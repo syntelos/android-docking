@@ -20,7 +20,7 @@ public final class DockingPageHistory
 
 
     private DockingPageHistory(){
-        super(new ViewPageComponent[]{
+        super(new ViewPage2DComponent[]{
                 new TextLabel("History")
             });
     }

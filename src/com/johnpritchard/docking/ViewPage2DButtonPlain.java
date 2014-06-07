@@ -8,24 +8,24 @@ import path.Operand;
 /**
  * 
  */
-public class DockingButtonPlain
-    extends ViewPageComponentPath
+public class ViewPage2DButtonPlain
+    extends ViewPage2DComponentPath
 {
 
 
-    public DockingButtonPlain(){
+    public ViewPage2DButtonPlain(){
         super();
     }
-    public DockingButtonPlain(String text){
+    public ViewPage2DButtonPlain(String text){
         super(text);
     }
-    public DockingButtonPlain(Operand[] path){
+    public ViewPage2DButtonPlain(Operand[] path){
         super(path);
     }
-    public DockingButtonPlain(Operand[] path, Operand[] group){
+    public ViewPage2DButtonPlain(Operand[] path, Operand[] group){
         super(path,group);
     }
-    public DockingButtonPlain(Operand[] path, Operand[] group, Operand[] clip){
+    public ViewPage2DButtonPlain(Operand[] path, Operand[] group, Operand[] clip){
         super(path,group,clip);
     }
 

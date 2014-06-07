@@ -22,11 +22,11 @@ public final class DockingPageStart
 
 
     private DockingPageStart(){
-        super(new ViewPageComponent[]{
-                new DockingButtonIntro(),
-                new DockingButtonGame(),
-                new DockingButtonHistory(),
-                new DockingButtonAbout()
+        super(new ViewPage2DComponent[]{
+                new ViewPage2DButtonGroup("Intro"),
+                new ViewPage2DButtonGroup("Game"),
+                new ViewPage2DButtonGroup("History"),
+                new ViewPage2DButtonGroup("About")
             });
     }
 
