@@ -21,7 +21,18 @@ public final class DockingPageGameInput
 
     private DockingPageGameInput(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DButtonGroup("Game Input")
+                new ViewPage2DButtonGroup(""),
+                new ViewPage2DButtonGroup("1"),
+                new ViewPage2DButtonGroup("2"),
+                new ViewPage2DButtonGroup("3"),
+                new ViewPage2DButtonGroup("4"),
+                new ViewPage2DButtonGroup("5"),
+                new ViewPage2DButtonGroup("6"),
+                new ViewPage2DButtonGroup("7"),
+                new ViewPage2DButtonGroup("8"),
+                new ViewPage2DButtonGroup("9"),
+                new ViewPage2DButtonGroup("."),
+                new ViewPage2DButtonGroup("Enter")
             });
     }
 

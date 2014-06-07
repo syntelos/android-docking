@@ -21,7 +21,7 @@ public final class DockingPageHistory
 
     private DockingPageHistory(){
         super(new ViewPage2DComponent[]{
-                new TextLabel("History")
+                new View2DTextLabel("History")
             });
     }
 

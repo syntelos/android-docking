@@ -22,7 +22,7 @@ public final class DockingPageAbout
 
     private DockingPageAbout(){
         super(new ViewPage2DComponent[]{
-                new TextMultiline(AboutString)
+                new View2DTextMultiline(AboutString)
             });
     }
 

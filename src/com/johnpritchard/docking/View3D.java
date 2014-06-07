@@ -6,10 +6,6 @@ package com.johnpritchard.docking;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ConfigurationInfo;
-import android.graphics.SurfaceTexture;
-import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import static android.opengl.GLES11.*;
 import static android.opengl.GLES11Ext.*;
 import android.util.Log;
@@ -106,22 +102,6 @@ public final class View3D
     protected DisplayMetrics displayMetrics(){
 
         return ((ObjectActivity)getContext()).displayMetrics();
-    }
-    protected SensorManager sensorManager(){
-
-        return ((ObjectActivity)getContext()).sensorManager();
-    }
-    protected Sensor sensor(int sensor){
-
-        return ((ObjectActivity)getContext()).sensor(sensor);
-    }
-    protected boolean sensorRegister(SensorEventListener li, Sensor sensor, int rate){
-
-        return ((ObjectActivity)getContext()).sensorRegister(li,sensor,rate);
-    }
-    protected void sensorUnregister(SensorEventListener li){
-
-        ((ObjectActivity)getContext()).sensorUnregister(li);
     }
     protected void verbose(String m){
         Log.i(TAG,m);

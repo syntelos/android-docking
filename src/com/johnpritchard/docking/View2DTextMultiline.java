@@ -8,8 +8,8 @@ import java.util.StringTokenizer;
 /**
  * 
  */
-public class TextMultiline
-    extends TextLabel
+public class View2DTextMultiline
+    extends View2DTextLabel
 {
     public final static int DefaultLineWidth = 20;
 
@@ -17,13 +17,13 @@ public class TextMultiline
     public final int line_width;
 
 
-    public TextMultiline(){
+    public View2DTextMultiline(){
         this(null,DefaultLineWidth);
     }
-    public TextMultiline(String text){
+    public View2DTextMultiline(String text){
         this(text,DefaultLineWidth);
     }
-    public TextMultiline(String text, int lw){
+    public View2DTextMultiline(String text, int lw){
         super();
 
         if (0 < lw){
