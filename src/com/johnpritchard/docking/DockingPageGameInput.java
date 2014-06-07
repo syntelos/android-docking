@@ -15,37 +15,13 @@ public final class DockingPageGameInput
     public final static DockingPageGameInput Instance = new DockingPageGameInput();
 
 
-    private final static int INTRO     = 0;
-
 
 
     private DockingPageGameInput(){
-        super(new ViewPage2DComponent[]{
-                new ViewPage2DButtonGroup(""),
-                new ViewPage2DButtonGroup("1"),
-                new ViewPage2DButtonGroup("2"),
-                new ViewPage2DButtonGroup("3"),
-                new ViewPage2DButtonGroup("4"),
-                new ViewPage2DButtonGroup("5"),
-                new ViewPage2DButtonGroup("6"),
-                new ViewPage2DButtonGroup("7"),
-                new ViewPage2DButtonGroup("8"),
-                new ViewPage2DButtonGroup("9"),
-                new ViewPage2DButtonGroup("."),
-                new ViewPage2DButtonGroup("Enter")
-            });
+        super();
     }
 
-    @Override
-    protected void init(){
 
-        group_vertical();
-    }
-    @Override
-    protected int first(){
-
-        return 0;
-    }
     @Override
     public String name(){
         return Page.gameInput.name();
@@ -54,19 +30,25 @@ public final class DockingPageGameInput
     public Page value(){
         return Page.gameInput;
     }
-    @Override
-    public void input(Input in){
+    public void draw(GL10 gl){
 
-        if (Input.Enter == in){
-
-            switch(enter()){
-            case INTRO:
-
-                break;
-            }
+        if (stale){
+            init(gl);
         }
         else {
-            super.input(in);
+
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            glColor4f(0.9f,0.9f,0.9f,1.0f);
+
+            m0.draw();
+            m1.draw();
+            m2.draw();
+
+            el.draw();
+            az.draw();
+
+            glFlush();
         }
     }
 }
