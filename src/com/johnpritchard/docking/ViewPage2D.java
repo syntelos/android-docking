@@ -458,7 +458,7 @@ public abstract class ViewPage2D
      * method.
      */
     @Override
-    public final Input[] script(MotionEvent event){
+    public final InputScript[] script(MotionEvent event){
         if (null != event){
 
             if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)){
@@ -502,18 +502,18 @@ public abstract class ViewPage2D
 
                         if (0.0f < x){
 
-                            return new Input[]{Input.Left};
+                            return new InputScript[]{Input.Left};
                         }
                         else {
-                            return new Input[]{Input.Right};
+                            return new InputScript[]{Input.Right};
                         }
                     }
                     else if (0.0f < y){
 
-                        return new Input[]{Input.Down}; // like a dpad?
+                        return new InputScript[]{Input.Down}; // like a dpad?
                     }
                     else {
-                        return new Input[]{Input.Up};
+                        return new InputScript[]{Input.Up};
                     }
                 }
             }
@@ -526,7 +526,7 @@ public abstract class ViewPage2D
     /**
      * Append to list while "distance" is decreasing or direction is "enter".
      */
-    protected Input[] script(Input[] list, float x, float y, float distance, ViewPage2DComponent current){
+    protected InputScript[] script(InputScript[] list, float x, float y, float distance, ViewPage2DComponent current){
 
         if (null != current){
 
@@ -547,7 +547,7 @@ public abstract class ViewPage2D
                      */
                     if (null == list){
 
-                        return View2D.ScriptEnt();
+                        return View.Script.Enter();
                     }
                     else {
                         return list;
@@ -560,7 +560,7 @@ public abstract class ViewPage2D
                         /*
                          * Visual code generation to not repeat {Deemphasis}
                          */
-                        final Input[] add = View2D.ScriptDir(dir);
+                        final InputScript[] add = View.Script.Direction(dir);
 
                         if (null == list){
 
@@ -600,14 +600,14 @@ public abstract class ViewPage2D
      * Convert navigation activity to navigational focus status.
      */
     @Override
-    public void input(Input event){
+    public void input(InputScript event){
 
-        if (event.geometric){
+        Input in = event.type();
 
-            ViewPage2DComponent next = current.getCardinal(event);
+        if (in.geometric){
+
+            ViewPage2DComponent next = current.getCardinal(in);
             if (null != next && next != current){
-
-                //info("input select "+event.name()+" => "+next.getName());
 
                 current.clearCurrent();
                 current = next;

@@ -12,10 +12,12 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
+import javax.microedition.khronos.opengles.GL10;
+
 /**
  * 
  */
-public class DockingPageGameAbstract
+public abstract class DockingPageGameAbstract
     extends ViewPage3D
 {
     protected final static float[] CAMERA = fv3.math.Matrix.Identity();
@@ -68,68 +70,68 @@ public class DockingPageGameAbstract
         {
             final ByteBuffer ib_camera = ByteBuffer.allocateDirect(CAMERA.length * bpf);
             ib_camera.order(nativeOrder);
-            this.camera = ib_camera.asFloatBuffer();
-            this.camera.put(CAMERA);
-            this.camera.position(0);
+            camera = ib_camera.asFloatBuffer();
+            camera.put(CAMERA);
+            camera.position(0);
         }
         {
             final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_AMB.length * bpf);
             ib_light.order(nativeOrder);
-            this.lightAmbient = ib_light.asFloatBuffer();
-            this.lightAmbient.put(LIGHT_AMB);
-            this.lightAmbient.position(0);
+            lightAmbient = ib_light.asFloatBuffer();
+            lightAmbient.put(LIGHT_AMB);
+            lightAmbient.position(0);
         }
         {
             final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_POS0.length * bpf);
             ib_light.order(nativeOrder);
-            this.lightPos0 = ib_light.asFloatBuffer();
-            this.lightPos0.put(LIGHT_POS0);
-            this.lightPos0.position(0);
+            lightPos0 = ib_light.asFloatBuffer();
+            lightPos0.put(LIGHT_POS0);
+            lightPos0.position(0);
         }
         {
             final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIF0.length * bpf);
             ib_light.order(nativeOrder);
-            this.lightDif0 = ib_light.asFloatBuffer();
-            this.lightDif0.put(LIGHT_DIF0);
-            this.lightDif0.position(0);
+            lightDif0 = ib_light.asFloatBuffer();
+            lightDif0.put(LIGHT_DIF0);
+            lightDif0.position(0);
         }
         {
             final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_POS1.length * bpf);
             ib_light.order(nativeOrder);
-            this.lightPos1 = ib_light.asFloatBuffer();
-            this.lightPos1.put(LIGHT_POS1);
-            this.lightPos1.position(0);
+            lightPos1 = ib_light.asFloatBuffer();
+            lightPos1.put(LIGHT_POS1);
+            lightPos1.position(0);
         }
         {
             final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIF1.length * bpf);
             ib_light.order(nativeOrder);
-            this.lightDif1 = ib_light.asFloatBuffer();
-            this.lightDif1.put(LIGHT_DIF1);
-            this.lightDif1.position(0);
+            lightDif1 = ib_light.asFloatBuffer();
+            lightDif1.put(LIGHT_DIF1);
+            lightDif1.position(0);
         }
         {
             final ByteBuffer ib_mat = ByteBuffer.allocateDirect(MAT_SHIN.length * bpf);
             ib_mat.order(nativeOrder);
-            this.matShin = ib_mat.asFloatBuffer();
-            this.matShin.put(MAT_SHIN);
-            this.matShin.position(0);
+            matShin = ib_mat.asFloatBuffer();
+            matShin.put(MAT_SHIN);
+            matShin.position(0);
         }
         {
             final ByteBuffer ib_mat = ByteBuffer.allocateDirect(MAT_SPEC.length * bpf);
             ib_mat.order(nativeOrder);
-            this.matSpec = ib_mat.asFloatBuffer();
-            this.matSpec.put(MAT_SPEC);
-            this.matSpec.position(0);
+            matSpec = ib_mat.asFloatBuffer();
+            matSpec.put(MAT_SPEC);
+            matSpec.position(0);
         }
         {
             final ByteBuffer ib_mat = ByteBuffer.allocateDirect(16 * bpf);
             ib_mat.order(nativeOrder);
-            this.matrixR = ib_mat.asFloatBuffer();
+            matrixR = ib_mat.asFloatBuffer();
         }
         {
             final ByteBuffer ib_mat = ByteBuffer.allocateDirect(16 * bpf);
             ib_mat.order(nativeOrder);
-            this.matrixI = ib_mat.asFloatBuffer();
+            matrixI = ib_mat.asFloatBuffer();
         }
     }
 
@@ -180,7 +182,7 @@ public class DockingPageGameAbstract
         glMultMatrixf(camera);
     }
     @Override
-    public void input(Input in){
+    public void input(InputScript in){
 
         if (Input.Back == in){
 
@@ -196,7 +198,7 @@ public class DockingPageGameAbstract
          */
         float[] m = r.rotationMatrix();
 
-        MatrixCopy(m,this.matrixR);
+        MatrixCopy(m,matrixR);
 
         m0.format("M00 %s M01 %s M02 %s",Format7(m[0]),Format7(m[1]),Format7(m[2]));
         m1.format("M10 %s M11 %s M12 %s",Format7(m[4]),Format7(m[5]),Format7(m[6]));

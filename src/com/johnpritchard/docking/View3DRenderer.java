@@ -23,8 +23,10 @@ public final class View3DRenderer
     private View3D view;
 
     private SharedPreferences preferences;
-
-    private volatile ViewPage3D page;
+    /**
+     * Accessed from {@link View3D}
+     */
+    protected volatile ViewPage3D page;
 
     private boolean plumb = false;
 
@@ -48,7 +50,7 @@ public final class View3DRenderer
 
         this.preferences = state;
 
-        this.pageTo(state.getString("view.page","gameView"));
+        this.pageTo(state.getString("view.page","gameInput"));
     }
     public void onResume(){
     }

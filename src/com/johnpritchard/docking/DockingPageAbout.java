@@ -36,9 +36,9 @@ public final class DockingPageAbout
         return Page.about;
     }
     @Override
-    public void input(Input in){
+    public void input(InputScript in){
 
-        switch(in){
+        switch(in.type()){
 
         case Enter:
 

@@ -32,4 +32,19 @@ public interface View
 
     public SharedPreferences preferences();
 
+    public class Script {
+
+        protected final static InputScript[] Direction(Input dir){
+
+            return new InputScript[]{Input.Skip,dir,Input.Emphasis,Input.Skip,Input.Deemphasis};
+        }
+        protected final static InputScript[] Enter(){
+
+            return new InputScript[]{Input.Emphasis,Input.Skip,Input.Deemphasis,Input.Enter};
+        }
+
+
+        private Script(){
+        }
+    }
 }

@@ -190,7 +190,7 @@ public final class View2D
         case KeyEvent.KEYCODE_CTRL_LEFT:
         case KeyEvent.KEYCODE_META_LEFT:
 
-            script(ScriptDir(Input.Left));
+            script(View.Script.Direction(Input.Left));
             return true;
 
         case KeyEvent.KEYCODE_SOFT_RIGHT:
@@ -201,28 +201,32 @@ public final class View2D
         case KeyEvent.KEYCODE_CTRL_RIGHT:
         case KeyEvent.KEYCODE_META_RIGHT:
 
-            script(ScriptDir(Input.Right));
+            script(View.Script.Direction(Input.Right));
             return true;
 
         case KeyEvent.KEYCODE_DPAD_UP:
         case KeyEvent.KEYCODE_PAGE_UP:
 
-            script(ScriptDir(Input.Up));
+            script(View.Script.Direction(Input.Up));
             return true;
 
         case KeyEvent.KEYCODE_DPAD_DOWN:
         case KeyEvent.KEYCODE_PAGE_DOWN:
 
-            script(ScriptDir(Input.Down));
+            script(View.Script.Direction(Input.Down));
             return true;
 
         case KeyEvent.KEYCODE_DPAD_CENTER:
         case KeyEvent.KEYCODE_ENTER:
 
-            script(ScriptEnt());
+            script(View.Script.Enter());
             return true;
 
         default:
+            if (event.isPrintingKey()){
+
+                script((char)event.getUnicodeChar());
+            }
             return false;
         }
     }
@@ -307,20 +311,24 @@ public final class View2D
     /**
      * General access to animated input.
      */
-    protected void script(Input in){
+    protected void script(InputScript in){
 
         if (null != in){
 
-            ViewAnimation.Script(page,new Input[]{in});
+            ViewAnimation.Script(page,new InputScript[]{in});
         }
     }
-    protected void script(Input[] in){
+    protected void script(InputScript[] in){
 
         ViewAnimation.Script(page,in);
     }
     protected void script(MotionEvent event){
 
         ViewAnimation.Script(page,event);
+    }
+    protected void script(char key){
+
+        ViewAnimation.Script(page,key);
     }
     @Override
     protected void onDraw(Canvas g){
@@ -373,12 +381,4 @@ public final class View2D
         Log.wtf(TAG,(getClass().getName()+' '+m),t);
     }
 
-    protected final static Input[] ScriptDir(Input dir){
-
-        return new Input[]{Input.Skip,dir,Input.Emphasis,Input.Skip,Input.Deemphasis};
-    }
-    protected final static Input[] ScriptEnt(){
-
-        return new Input[]{Input.Emphasis,Input.Skip,Input.Deemphasis,Input.Enter};
-    }
 }

@@ -59,7 +59,7 @@ public abstract class ViewPage3D
      * method.
      */
     @Override
-    public final Input[] script(MotionEvent event){
+    public final InputScript[] script(MotionEvent event){
         if (null != event){
 
             if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)){
@@ -91,18 +91,18 @@ public abstract class ViewPage3D
 
                                         if (0.0f < dx){
 
-                                            return new Input[]{Input.Left};
+                                            return new InputScript[]{Input.Left};
                                         }
                                         else {
-                                            return new Input[]{Input.Right};
+                                            return new InputScript[]{Input.Right};
                                         }
                                     }
                                     else if (0.0f < dy){
 
-                                        return new Input[]{Input.Down}; // like a dpad?
+                                        return new InputScript[]{Input.Down}; // like a dpad?
                                     }
                                     else {
-                                        return new Input[]{Input.Up};
+                                        return new InputScript[]{Input.Up};
                                     }
                                 }
                             }
@@ -130,18 +130,18 @@ public abstract class ViewPage3D
 
                         if (0.0f < x){
 
-                            return new Input[]{Input.Left};
+                            return new InputScript[]{Input.Left};
                         }
                         else {
-                            return new Input[]{Input.Right};
+                            return new InputScript[]{Input.Right};
                         }
                     }
                     else if (0.0f < y){
 
-                        return new Input[]{Input.Down}; // like a dpad?
+                        return new InputScript[]{Input.Down}; // like a dpad?
                     }
                     else {
-                        return new Input[]{Input.Up};
+                        return new InputScript[]{Input.Up};
                     }
                 }
             }

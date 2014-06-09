@@ -109,7 +109,7 @@ public final class ViewAnimation
     /**
      * Used by {@link View}
      */
-    protected static void Script(ViewPage page, Input[] in){
+    protected static void Script(ViewPage page, InputScript[] in){
 
         if (null != Instance){
 
@@ -132,6 +132,19 @@ public final class ViewAnimation
             Warn("script: dropped motion");
         }
     }
+    /**
+     * Used by {@link View}
+     */
+    protected static void Script(ViewPage page, char key){
+
+        if (null != Instance){
+
+            Instance.script(page,key);
+        }
+        else {
+            Warn("script: dropped key");
+        }
+    }
 
     /**
      * Animation event used by {@link ViewAnimation}
@@ -146,7 +159,7 @@ public final class ViewAnimation
 
         private MotionEvent motion;
 
-        private Input[] input;
+        private InputScript[] input;
 
         private Script next;
 
@@ -177,7 +190,13 @@ public final class ViewAnimation
             this.page = page;
             this.motion = motion;
         }
-        private Script(Script head, ViewPage page, Input[] input){
+        private Script(Script head, ViewPage page, char key){
+            this(head);
+
+            this.page = page;
+            this.input = new InputScript[]{new InputScript.Key(key)};
+        }
+        private Script(Script head, ViewPage page, InputScript[] input){
             this(head);
 
             this.page = page;
@@ -265,7 +284,16 @@ public final class ViewAnimation
             this.monitor.notify();
         }
     }
-    private void script(ViewPage page, Input[] input){
+    private void script(ViewPage page, char key){
+
+        this.queue = (new Script(this.queue,page,key)).head();
+
+        synchronized(this.monitor){
+
+            this.monitor.notify();
+        }
+    }
+    private void script(ViewPage page, InputScript[] input){
 
         this.queue = (new Script(this.queue,page,input)).head();
 
@@ -305,7 +333,7 @@ public final class ViewAnimation
                     }
                 }
                 else {
-                    Input in = null;
+                    InputScript in = null;
 
                     while (null != sequence){
 
@@ -321,7 +349,7 @@ public final class ViewAnimation
                             /*
                              * motion and input
                              */
-                            Input[] script = null;
+                            InputScript[] script = null;
 
                             if (null != sequence.motion){
 

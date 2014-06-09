@@ -6,11 +6,18 @@ package com.johnpritchard.docking;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 
+import android.opengl.GLES10;
+import static android.opengl.GLES10.*;
+import android.opengl.GLU;
+import android.opengl.Matrix;
+
+import javax.microedition.khronos.opengles.GL10;
+
 /**
  * 
  */
 public final class DockingPageGameInput
-    extends ViewPage2D
+    extends DockingPageGameAbstract
 {
     public final static DockingPageGameInput Instance = new DockingPageGameInput();
 
@@ -39,7 +46,7 @@ public final class DockingPageGameInput
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            glColor4f(0.9f,0.9f,0.9f,1.0f);
+            glColor4f(0.0f,0.0f,0.0f,1.0f);
 
             m0.draw();
             m1.draw();

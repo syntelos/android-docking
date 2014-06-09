@@ -10,7 +10,9 @@ package com.johnpritchard.docking;
  * the context of a two dimensional space in which geometric shapes
  * are not overlapping.
  */
-public enum Input {
+public enum Input
+    implements InputScript
+{
     Up        (0,true),
     Down      (1,true),
     Left      (2,true), 
@@ -37,14 +39,18 @@ public enum Input {
      * Visual operator to invert the effect of {@link #Emphasis},
      * restoring the visual presentation to its ground state.
      */
-    Deemphasis(8,false);
+    Deemphasis(8,false),
+    /**
+     * Type of printable (glyph) key (character) input.
+     */
+    Key       (9,false);
 
 
     public final static Input[] List = Input.values();
 
     public final static int ListCount = List.length;
 
-    public final static int NonGeometricCount = 4;
+    public final static int NonGeometricCount = 5;
 
     public final static Input[] Geometric = Head(Input.List,(ListCount-NonGeometricCount));
 
@@ -62,6 +68,14 @@ public enum Input {
     }
 
 
+    public boolean isEnum(){
+        return true;
+    }
+    public Input type(){
+        return this;
+    }
+
+
     public final static Input[] Head(Input[] list, final int count){
 
         final Input[] head = new Input[count];
@@ -70,15 +84,7 @@ public enum Input {
 
         return head;
     }
-    public final static Input[] Tail(Input[] list, final int count){
-
-        final Input[] head = new Input[count];
-
-        System.arraycopy(list,(list.length-count),head,0,count);
-
-        return head;
-    }
-    public final static Input[] Add(Input[] a, Input[] b){
+    public final static InputScript[] Add(InputScript[] a, InputScript[] b){
         if (null == a)
             return b;
         else if (null == b)
@@ -87,13 +93,13 @@ public enum Input {
             int a_len = a.length;
             int b_len = b.length;
             int len = (a_len+b_len);
-            Input[] copier = new Input[len];
+            InputScript[] copier = new InputScript[len];
             System.arraycopy(a,0,copier,0,a_len);
             System.arraycopy(b,0,copier,a_len,b_len);
             return copier;
         }
     }
-    public final static Input[] Add(Input[] a, Input[] b, int skip){
+    public final static InputScript[] Add(InputScript[] a, InputScript[] b, int skip){
         if (null == a)
             return b;
         else if (null == b)
@@ -106,7 +112,7 @@ public enum Input {
 
             if (0 > skip || skip > len){
 
-                final Input[] copier = new Input[len+1];
+                final InputScript[] copier = new InputScript[len+1];
 
                 System.arraycopy(a,0,copier,0,a_len);
                 System.arraycopy(b,0,copier,a_len,b_len);
@@ -114,7 +120,7 @@ public enum Input {
                 return copier;
             }
             else {
-                final Input[] copier = new Input[len];
+                final InputScript[] copier = new InputScript[len];
 
                 if (0 == skip){
 
@@ -144,7 +150,7 @@ public enum Input {
             }
         }
     }
-    public final static int IndexOf(Input[] list, Input item){
+    public final static int IndexOf(InputScript[] list, InputScript item){
         if (null == list || null == item)
             return -1;
         else {
@@ -157,7 +163,7 @@ public enum Input {
             return -1;
         }
     }
-    public final static int LastIndexOf(Input[] list, Input item){
+    public final static int LastIndexOf(InputScript[] list, InputScript item){
         if (null == list || null == item)
             return -1;
         else {

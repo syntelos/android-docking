@@ -20,7 +20,7 @@ import javax.microedition.khronos.opengles.GL10;
  * 
  */
 public final class DockingPageGameView
-    extends ViewPage3D
+    extends DockingPageGameAbstract
 {
 
     public final static DockingPageGameView Instance = new DockingPageGameView();
@@ -80,6 +80,8 @@ public final class DockingPageGameView
             GeometrySphere.Instance.draw();
 
             // glPopMatrix();
+
+            glColor4f(0.0f,0.0f,0.0f,1.0f);
 
             m0.draw();
             m1.draw();

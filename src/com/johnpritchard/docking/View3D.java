@@ -10,6 +10,8 @@ import static android.opengl.GLES11.*;
 import static android.opengl.GLES11Ext.*;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
 import android.util.DisplayMetrics;
@@ -86,6 +88,119 @@ public final class View3D
 
         ViewAnimation.Stop();
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+
+        switch(keyCode){
+
+        case KeyEvent.KEYCODE_SOFT_LEFT:
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+        case KeyEvent.KEYCODE_ALT_LEFT:
+        case KeyEvent.KEYCODE_SHIFT_LEFT:
+        case KeyEvent.KEYCODE_LEFT_BRACKET:
+        case KeyEvent.KEYCODE_CTRL_LEFT:
+        case KeyEvent.KEYCODE_META_LEFT:
+            return true;
+
+        case KeyEvent.KEYCODE_SOFT_RIGHT:
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+        case KeyEvent.KEYCODE_ALT_RIGHT:
+        case KeyEvent.KEYCODE_SHIFT_RIGHT:
+        case KeyEvent.KEYCODE_RIGHT_BRACKET:
+        case KeyEvent.KEYCODE_CTRL_RIGHT:
+        case KeyEvent.KEYCODE_META_RIGHT:
+            return true;
+
+        case KeyEvent.KEYCODE_DPAD_UP:
+        case KeyEvent.KEYCODE_PAGE_UP:
+            return true;
+
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+        case KeyEvent.KEYCODE_PAGE_DOWN:
+            return true;
+
+        case KeyEvent.KEYCODE_DPAD_CENTER:
+        case KeyEvent.KEYCODE_ENTER:
+            return true;
+
+        default:
+            return false;
+        }
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event){
+
+        switch(keyCode){
+
+        case KeyEvent.KEYCODE_SOFT_LEFT:
+        case KeyEvent.KEYCODE_DPAD_LEFT:
+        case KeyEvent.KEYCODE_ALT_LEFT:
+        case KeyEvent.KEYCODE_SHIFT_LEFT:
+        case KeyEvent.KEYCODE_LEFT_BRACKET:
+        case KeyEvent.KEYCODE_CTRL_LEFT:
+        case KeyEvent.KEYCODE_META_LEFT:
+
+            script(View.Script.Direction(Input.Left));
+            return true;
+
+        case KeyEvent.KEYCODE_SOFT_RIGHT:
+        case KeyEvent.KEYCODE_DPAD_RIGHT:
+        case KeyEvent.KEYCODE_ALT_RIGHT:
+        case KeyEvent.KEYCODE_SHIFT_RIGHT:
+        case KeyEvent.KEYCODE_RIGHT_BRACKET:
+        case KeyEvent.KEYCODE_CTRL_RIGHT:
+        case KeyEvent.KEYCODE_META_RIGHT:
+
+            script(View.Script.Direction(Input.Right));
+            return true;
+
+        case KeyEvent.KEYCODE_DPAD_UP:
+        case KeyEvent.KEYCODE_PAGE_UP:
+
+            script(View.Script.Direction(Input.Up));
+            return true;
+
+        case KeyEvent.KEYCODE_DPAD_DOWN:
+        case KeyEvent.KEYCODE_PAGE_DOWN:
+
+            script(View.Script.Direction(Input.Down));
+            return true;
+
+        case KeyEvent.KEYCODE_DPAD_CENTER:
+        case KeyEvent.KEYCODE_ENTER:
+
+            script(View.Script.Enter());
+            return true;
+
+        default:
+            if (event.isPrintingKey()){
+
+                script((char)event.getUnicodeChar());
+            }
+            return false;
+        }
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+
+        script(event);
+
+        return true;
+    }
+    @Override
+    public boolean onTrackballEvent(MotionEvent event){
+
+        script(event);
+
+        return true;
+    }
+    @Override
+    public boolean onGenericMotionEvent(MotionEvent event){
+
+        script(event);
+
+        return true;
+    }
     /**
      * Called from {@link ViewAnimator}
      * @see #script
@@ -95,6 +210,35 @@ public final class View3D
         this.renderer.pageTo(page);
     }
 
+    /**
+     * Application access to {@link #pageTo} for animated interaction.
+     */
+    protected void script(Page page){
+
+        ViewAnimation.Script(page);
+    }
+    /**
+     * General access to animated input.
+     */
+    protected void script(InputScript in){
+
+        if (null != in){
+
+            ViewAnimation.Script(renderer.page,new InputScript[]{in});
+        }
+    }
+    protected void script(InputScript[] in){
+
+        ViewAnimation.Script(renderer.page,in);
+    }
+    protected void script(MotionEvent event){
+
+        ViewAnimation.Script(renderer.page,event);
+    }
+    protected void script(char key){
+
+        ViewAnimation.Script(renderer.page,key);
+    }
     protected Display display(){
 
         return ((ObjectActivity)getContext()).display();

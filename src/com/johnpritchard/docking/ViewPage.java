@@ -175,7 +175,7 @@ public abstract class ViewPage
      * to navigation activity for subsequent delivery to the input
      * method.
      */
-    public abstract Input[] script(MotionEvent event);
+    public abstract InputScript[] script(MotionEvent event);
 
     protected void input_back(){
     }
@@ -186,9 +186,9 @@ public abstract class ViewPage
     /**
      * Convert navigation activity to navigational focus status.
      */
-    public void input(Input event){
+    public void input(InputScript in){
 
-        switch(event){
+        switch(in.type()){
 
         case Back:
             input_back();

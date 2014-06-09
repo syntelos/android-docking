@@ -23,12 +23,13 @@
 
     <activity android:name="DockingActivityView"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:screenOrientation="landscape">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.ALTERNATIVE" />
-      </intent-filter>
-    </activity>
+              android:screenOrientation="landscape" />
+
+    <service android:name="DockingKeyboard"
+             android:permission="android.permission.BIND_INPUT_METHOD">
+
+      <meta-data android:name="android.view.im" android:resource="@xml/method" />
+    </service>
 
   </application>
 

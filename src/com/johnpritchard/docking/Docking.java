@@ -13,6 +13,7 @@ public class Docking
 {
     private static DockingActivityMain Main;
     private static DockingActivityView View;
+    private static DockingKeyboard Keyboard;
 
     /**
      * Called from main to start view.
@@ -34,6 +35,15 @@ public class Docking
         View.finish();
     }
     /**
+     * Called from view to raise keyboard
+     */
+    public final static void RaiseKeyboard(){
+        Intent intent = new Intent();
+        intent.setClass(View, DockingKeyboard.class);
+
+        View.startActivity(intent);
+    }
+    /**
      * Called from main
      */
     protected final static void MainActivate(DockingActivityMain instance){
@@ -44,6 +54,12 @@ public class Docking
      */
     protected final static void ViewActivate(DockingActivityView instance){
         View = instance;
+    }
+    /**
+     * Called from keyboard
+     */
+    protected final static void KeyboardActivate(DockingKeyboard instance){
+        Keyboard = instance;
     }
 
 
