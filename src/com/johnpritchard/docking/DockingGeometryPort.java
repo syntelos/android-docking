@@ -13,7 +13,7 @@ import java.nio.FloatBuffer;
  * 
  */
 public final class DockingGeometryPort
-    extends GeometryCircle
+    extends View3DGeometryCircle
 {
 
     private final static double Radius = 1.0;

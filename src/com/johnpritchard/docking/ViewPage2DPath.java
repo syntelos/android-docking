@@ -15,7 +15,7 @@ import android.graphics.RectF;
  * algorithms: rounding and margin can be set to create derived shapes
  * from a generic call to "set".
  */
-public class Path
+public class ViewPage2DPath
     extends android.graphics.Path
     implements path.Path
 {
@@ -25,7 +25,7 @@ public class Path
     protected float margin = 0.0f;
 
 
-    public Path(){
+    public ViewPage2DPath(){
         super();
     }
 
@@ -34,7 +34,7 @@ public class Path
 
         return this.margin;
     }
-    public Path margin(float margin){
+    public ViewPage2DPath margin(float margin){
 
         if (0.0f <= margin){
 
@@ -49,7 +49,7 @@ public class Path
 
         return this.rounding;
     }
-    public Path rounding(boolean rounding){
+    public ViewPage2DPath rounding(boolean rounding){
 
         this.rounding = rounding;
 
@@ -58,7 +58,7 @@ public class Path
     /**
      * Use margin and rounding to define path
      */
-    public Path set(RectF s){
+    public ViewPage2DPath set(RectF s){
 
         if (this.rounding){
 
@@ -72,14 +72,14 @@ public class Path
     /**
      * Use margin to define rect
      */
-    public Path rect(RectF s){
+    public ViewPage2DPath rect(RectF s){
 
         return this.rect(s,this.margin);
     }
     /**
      * Define rect with margin from the argument
      */
-    public Path rect(RectF s, float margin){
+    public ViewPage2DPath rect(RectF s, float margin){
         this.reset();
 
         super.addRect((s.left-margin),(s.top-margin),
@@ -90,14 +90,14 @@ public class Path
     /**
      * Define round rect with default margin from the argument
      */
-    public Path rrect(RectF r){
+    public ViewPage2DPath rrect(RectF r){
 
         return this.rrect(r,this.margin);
     }
     /**
      * Define round rect with margin from the argument
      */
-    public Path rrect(RectF r, float margin){
+    public ViewPage2DPath rrect(RectF r, float margin){
 
         this.reset();
 
@@ -115,11 +115,11 @@ public class Path
     /**
      * Define clip with default margin
      */
-    public Path circle(RectF r){
+    public ViewPage2DPath circle(RectF r){
 
         return this.circle(r,this.margin);
     }
-    public Path circle(RectF r, float margin){
+    public ViewPage2DPath circle(RectF r, float margin){
 
         final float x0 = r.left-margin;
         final float y0 = r.top-margin;
@@ -136,55 +136,55 @@ public class Path
     /**
      * Define clip literal
      */
-    public Path circle(float cx, float cy, float r){
+    public ViewPage2DPath circle(float cx, float cy, float r){
         this.reset();
 
         super.addCircle(cx,cy,r,Direction.CCW);
         return this;
     }
-    public Path incCapacity(int delta){
+    public ViewPage2DPath incCapacity(int delta){
         super.incReserve(delta);
         return this;
     }
-    public Path plainFillType(){
+    public ViewPage2DPath plainFillType(){
         switch(super.getFillType()){
         case INVERSE_WINDING:
-            super.setFillType(Path.FillType.WINDING);
+            super.setFillType(ViewPage2DPath.FillType.WINDING);
             break;
         case INVERSE_EVEN_ODD:
-            super.setFillType(Path.FillType.EVEN_ODD);
+            super.setFillType(ViewPage2DPath.FillType.EVEN_ODD);
             break;
         default:
             break;
         }
         return this;
     }
-    public Path inverseFillType(){
+    public ViewPage2DPath inverseFillType(){
         switch(super.getFillType()){
         case WINDING:
-            super.setFillType(Path.FillType.INVERSE_WINDING);
+            super.setFillType(ViewPage2DPath.FillType.INVERSE_WINDING);
             break;
         case EVEN_ODD:
-            super.setFillType(Path.FillType.INVERSE_EVEN_ODD);
+            super.setFillType(ViewPage2DPath.FillType.INVERSE_EVEN_ODD);
             break;
         default:
             break;
         }
         return this;
     }
-    public Path rotateFillType(){
+    public ViewPage2DPath rotateFillType(){
         switch(super.getFillType()){
         case WINDING:
-            super.setFillType(Path.FillType.EVEN_ODD);
+            super.setFillType(ViewPage2DPath.FillType.EVEN_ODD);
             break;
         case EVEN_ODD:
-            super.setFillType(Path.FillType.INVERSE_WINDING);
+            super.setFillType(ViewPage2DPath.FillType.INVERSE_WINDING);
             break;
         case INVERSE_WINDING:
-            super.setFillType(Path.FillType.INVERSE_EVEN_ODD);
+            super.setFillType(ViewPage2DPath.FillType.INVERSE_EVEN_ODD);
             break;
         default:
-            super.setFillType(Path.FillType.WINDING);
+            super.setFillType(ViewPage2DPath.FillType.WINDING);
             break;
         }
         return this;
@@ -198,10 +198,10 @@ public class Path
     public path.Path setWinding(Winding winding){
         switch(winding){
         case NonZero:
-            super.setFillType(Path.FillType.WINDING);
+            super.setFillType(ViewPage2DPath.FillType.WINDING);
             break;
         case EvenOdd:
-            super.setFillType(Path.FillType.EVEN_ODD);
+            super.setFillType(ViewPage2DPath.FillType.EVEN_ODD);
             break;
         default:
             break;
@@ -209,7 +209,7 @@ public class Path
         return this;
     }
     public Winding getWinding(){
-        Path.FillType ft = super.getFillType();
+        ViewPage2DPath.FillType ft = super.getFillType();
         switch(ft){
         case WINDING:
         case INVERSE_WINDING:
@@ -297,7 +297,7 @@ public class Path
 
         return Parser.Apply(this,p);
     }
-    public Path apply(Operand[] list){
+    public ViewPage2DPath apply(Operand[] list){
         if (null != list){
             this.reset();
             this.incCapacity(list.length);
@@ -308,7 +308,7 @@ public class Path
         }
         return this;
     }
-    public void set(Path path){
+    public void set(ViewPage2DPath path){
         this.reset();
         this.margin = path.margin;
         this.rounding = path.rounding;
@@ -317,7 +317,7 @@ public class Path
         this.reset();
         this.add(path);
     }
-    public void add(Path path){
+    public void add(ViewPage2DPath path){
 
         super.addPath(path);
     }

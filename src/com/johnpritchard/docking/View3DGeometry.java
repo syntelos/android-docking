@@ -8,7 +8,7 @@ import java.nio.ByteOrder;
 /**
  * 
  */
-public abstract class Geometry {
+public abstract class View3DGeometry {
     /**
      * Bytes per float (32 bits) is four.
      */
@@ -22,7 +22,7 @@ public abstract class Geometry {
 
     protected final static java.nio.ByteOrder nativeOrder = java.nio.ByteOrder.nativeOrder();
 
-    public Geometry(){
+    public View3DGeometry(){
         super();
     }
 

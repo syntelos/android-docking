@@ -58,4 +58,9 @@ public final class DockingPageGameInput
             glFlush();
         }
     }
+    @Override
+    public void input(InputScript in){
+
+        super.input(in);
+    }
 }

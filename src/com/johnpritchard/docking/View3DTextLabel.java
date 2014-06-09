@@ -15,8 +15,8 @@ import java.nio.FloatBuffer;
  * Double buffered vertex array assures clean display of dynamic
  * content.
  */
-public final class FontGlyphVector
-    extends Geometry
+public final class View3DTextLabel
+    extends View3DGeometry
 {
     protected final static int bpf3 = (bpf * 3);
 
@@ -38,7 +38,7 @@ public final class FontGlyphVector
     private int b_current = 0;
 
 
-    public FontGlyphVector(double x, double y, double z, double h){
+    public View3DTextLabel(double x, double y, double z, double h){
         super();
         this.x = x;
         this.y = y;
@@ -179,26 +179,26 @@ public final class FontGlyphVector
     }
     public float em(){
 
-        return FontFutural.Em;
+        return View3DFontFutural.Em;
     }
     public float ascent(){
 
-        return FontFutural.Ascent;
+        return View3DFontFutural.Ascent;
     }
     public float descent(){
 
-        return FontFutural.Descent;
+        return View3DFontFutural.Descent;
     }
     public float leading(){
 
-        return FontFutural.Leading;
+        return View3DFontFutural.Leading;
     }
     public float[] glyph(char ch){
         int idx = (int)(ch-' ');
 
-        if (-1 < idx && idx < FontFutural.GlyphSet.length){
+        if (-1 < idx && idx < View3DFontFutural.GlyphSet.length){
 
-            return FontFutural.GlyphSet[idx];
+            return View3DFontFutural.GlyphSet[idx];
         }
         else
             return null;

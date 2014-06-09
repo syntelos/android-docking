@@ -32,8 +32,8 @@ package com.johnpritchard.docking;
 /**
  * Largely derived from Freeglut geometry by Pawel W. Olszta.
  */
-public abstract class GeometryCircle
-    extends Geometry
+public abstract class View3DGeometryCircle
+    extends View3DGeometry
 {
 
     protected final static int CircleTableSize(int n){
@@ -69,7 +69,7 @@ public abstract class GeometryCircle
     }
 
 
-    public GeometryCircle(){
+    public View3DGeometryCircle(){
         super();
     }
 

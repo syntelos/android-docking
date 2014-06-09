@@ -27,9 +27,9 @@ public interface ViewPage2DComponent {
     public void setName(String name);
     /**
      * Geometric clipping area should default to the shape boundary
-     * @see Clip#shape
+     * @see ViewPage2DClip#shape
      */
-    public Clip clip();
+    public ViewPage2DClip clip();
     /**
      * Centroid location
      */

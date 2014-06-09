@@ -91,7 +91,7 @@ public class View2DTextMultiline
                 }
             }
 
-            final Path line = new Path();
+            final ViewPage2DPath line = new ViewPage2DPath();
 
             final int count = lines.length;
 

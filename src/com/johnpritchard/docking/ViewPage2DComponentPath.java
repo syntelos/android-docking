@@ -26,9 +26,9 @@ public class ViewPage2DComponentPath
     protected final static float TextSize = 10.0f;
 
 
-    protected final Path path = new Path();
+    protected final ViewPage2DPath path = new ViewPage2DPath();
 
-    protected final Path group = new Path();
+    protected final ViewPage2DPath group = new ViewPage2DPath();
 
     protected final Paint fill = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -137,10 +137,10 @@ public class ViewPage2DComponentPath
         this.path.inverseFillType();
         return this;
     }
-    public Path.FillType getFillType(){
+    public ViewPage2DPath.FillType getFillType(){
         return this.path.getFillType();
     }
-    public void setFillType(Path.FillType ft){
+    public void setFillType(ViewPage2DPath.FillType ft){
         this.path.setFillType(ft);
     }
     public ViewPage2DComponentPath rotateFillType(){

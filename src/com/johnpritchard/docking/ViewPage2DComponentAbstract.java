@@ -26,7 +26,7 @@ public abstract class ViewPage2DComponentAbstract
 
     protected boolean focus;
 
-    protected final Clip clip = new Clip();
+    protected final ViewPage2DClip clip = new ViewPage2DClip();
 
     protected final RectF bounds = new RectF();
 
@@ -64,7 +64,7 @@ public abstract class ViewPage2DComponentAbstract
             }
         }
     }
-    public final Clip clip(){
+    public final ViewPage2DClip clip(){
 
         return this.clip;
     }

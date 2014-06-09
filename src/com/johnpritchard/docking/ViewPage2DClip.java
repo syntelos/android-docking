@@ -6,14 +6,14 @@ package com.johnpritchard.docking;
 import android.graphics.RectF;
 
 /**
- * Clipping area in geometric coordinate space
+ * ViewPage2DClipping area in geometric coordinate space
  */
-public class Clip
-    extends Path
+public class ViewPage2DClip
+    extends ViewPage2DPath
 {
 
 
-    public Clip(){
+    public ViewPage2DClip(){
         super();
     }
 

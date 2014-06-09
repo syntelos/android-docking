@@ -38,14 +38,14 @@ import java.nio.FloatBuffer;
 /**
  * Largely derived from Freeglut geometry by Pawel W. Olszta.
  */
-public final class GeometrySphere
-    extends GeometryCircle
+public final class View3DGeometrySphere
+    extends View3DGeometryCircle
 {
 
     private final static double SphereRadius = 1.0;
     private final static int SphereSlices = 32;
 
-    public final static GeometrySphere Instance = new GeometrySphere(SphereRadius,SphereSlices);
+    public final static View3DGeometrySphere Instance = new View3DGeometrySphere(SphereRadius,SphereSlices);
 
     /**
      * Triangle fan
@@ -69,10 +69,10 @@ public final class GeometrySphere
     private final FloatBuffer b_top_n, b_top_v, b_middle_n, b_middle_v, b_bottom_n, b_bottom_v;
 
 
-    private GeometrySphere(final double radius, final int slices){
+    private View3DGeometrySphere(final double radius, final int slices){
         this(radius,slices,slices);
     }
-    private GeometrySphere(final double radius, final int slices, final int stacks){
+    private View3DGeometrySphere(final double radius, final int slices, final int stacks){
         super();
 
         int i,j,cc,count;

@@ -12,14 +12,14 @@ import java.nio.FloatBuffer;
 /**
  * 
  */
-public final class GeometryAttitude
-    extends GeometryCircle
+public final class View3DGeometryAttitude
+    extends View3DGeometryCircle
 {
 
     private final static double SphereRadius = 1.0;
     private final static int SphereSlices = 32;
 
-    public final static GeometryAttitude Instance = new GeometryAttitude(SphereRadius,SphereSlices);
+    public final static View3DGeometryAttitude Instance = new View3DGeometryAttitude(SphereRadius,SphereSlices);
 
     /**
      * Line loop
@@ -86,7 +86,7 @@ public final class GeometryAttitude
     private final FloatBuffer b_glyphZ;
 
 
-    private GeometryAttitude(final double radius, final int slices){
+    private View3DGeometryAttitude(final double radius, final int slices){
         super();
 
         final int table = CircleTableSize(slices);

@@ -683,15 +683,15 @@ public abstract class ViewPage2D
         }
         return first;
     }
-    protected Path.FillType getFillType(){
+    protected ViewPage2DPath.FillType getFillType(){
         for (ViewPage2DComponent c : components){
             if (c instanceof ViewPage2DComponentPath){
                 return ((ViewPage2DComponentPath)c).getFillType();
             }
         }
-        return Path.FillType.WINDING;
+        return ViewPage2DPath.FillType.WINDING;
     }
-    protected void setFillType(Path.FillType ft){
+    protected void setFillType(ViewPage2DPath.FillType ft){
         for (ViewPage2DComponent c : components){
             if (c instanceof ViewPage2DComponentPath){
                 ViewPage2DComponentPath p = (ViewPage2DComponentPath)c;

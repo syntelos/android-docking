@@ -10,7 +10,7 @@ import android.graphics.RectF;
  * The display matrix adds translation and transformation convenience
  * features to the Android 2D (3x3) matrix.
  */
-public final class Display
+public final class ViewPage2DDisplay
     extends android.graphics.Matrix
 {
     private final static float[] clear = {
@@ -25,7 +25,7 @@ public final class Display
     private final float[] cache = new float[9];
 
 
-    public Display(){
+    public ViewPage2DDisplay(){
         super();
     }
 
@@ -57,15 +57,15 @@ public final class Display
 
         return cache()[MTRANS_Y];
     }
-    public Display identity(){
+    public ViewPage2DDisplay identity(){
         super.reset();
         return this;
     }
-    public Display transform(RectF src){
+    public ViewPage2DDisplay transform(RectF src){
 
         return this.transform(src,src);
     }
-    public Display transform(RectF src, RectF dst){
+    public ViewPage2DDisplay transform(RectF src, RectF dst){
 
         float[] fv_src = {
             src.left, src.top,

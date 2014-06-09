@@ -77,7 +77,7 @@ public final class DockingPageGameView
             glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
             glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
 
-            GeometrySphere.Instance.draw();
+            View3DGeometrySphere.Instance.draw();
 
             // glPopMatrix();
 
@@ -92,5 +92,10 @@ public final class DockingPageGameView
 
             glFlush();
         }
+    }
+    @Override
+    public void input(InputScript in){
+
+        super.input(in);
     }
 }

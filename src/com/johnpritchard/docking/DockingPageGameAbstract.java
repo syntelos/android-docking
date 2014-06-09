@@ -59,12 +59,12 @@ public abstract class DockingPageGameAbstract
     protected final static FloatBuffer matrixR, matrixI;
 
 
-    protected final static FontGlyphVector m0 = new FontGlyphVector(-2.5, -1.2,  1.0, 0.1);
-    protected final static FontGlyphVector m1 = new FontGlyphVector(-2.5, -1.35, 1.0, 0.1);
-    protected final static FontGlyphVector m2 = new FontGlyphVector(-2.5, -1.5,  1.0, 0.1);
+    protected final static View3DTextLabel m0 = new View3DTextLabel(-2.5, -1.2,  1.0, 0.1);
+    protected final static View3DTextLabel m1 = new View3DTextLabel(-2.5, -1.35, 1.0, 0.1);
+    protected final static View3DTextLabel m2 = new View3DTextLabel(-2.5, -1.5,  1.0, 0.1);
 
-    protected final static FontGlyphVector el = new FontGlyphVector(+1.0, +1.2,  1.0, 0.2);
-    protected final static FontGlyphVector az = new FontGlyphVector(+1.0, +0.9,  1.0, 0.2);
+    protected final static View3DTextLabel el = new View3DTextLabel(+1.0, +1.2,  1.0, 0.2);
+    protected final static View3DTextLabel az = new View3DTextLabel(+1.0, +0.9,  1.0, 0.2);
 
     static {
         {
@@ -189,23 +189,14 @@ public abstract class DockingPageGameAbstract
             Docking.StartMain();
         }
     }
-    public void update(InterfaceRotation r){
-        /*
-         * Absolute put for coherency in the race condition
-         * 
-         * The MT conflict between the Sensor and the GPU is limited
-         * to the changes in values within the buffer.
-         */
-        float[] m = r.rotationMatrix();
+    public void update(){
 
-        MatrixCopy(m,matrixR);
+        // m0.format("M00 %s M01 %s M02 %s",Format7(m[0]),Format7(m[1]),Format7(m[2]));
+        // m1.format("M10 %s M11 %s M12 %s",Format7(m[4]),Format7(m[5]),Format7(m[6]));
+        // m2.format("M20 %s M21 %s M22 %s",Format7(m[8]),Format7(m[9]),Format7(m[10]));
 
-        m0.format("M00 %s M01 %s M02 %s",Format7(m[0]),Format7(m[1]),Format7(m[2]));
-        m1.format("M10 %s M11 %s M12 %s",Format7(m[4]),Format7(m[5]),Format7(m[6]));
-        m2.format("M20 %s M21 %s M22 %s",Format7(m[8]),Format7(m[9]),Format7(m[10]));
-
-        el.format("EL %s",Format4(r.rotationEL()*DEG));
-        az.format("AZ %s",Format4(r.rotationAZ()*DEG));
+        // el.format("EL %s",Format4(r.rotationEL()*DEG));
+        // az.format("AZ %s",Format4(r.rotationAZ()*DEG));
     }
     protected final static double DEG = 180.0/Math.PI;
 
