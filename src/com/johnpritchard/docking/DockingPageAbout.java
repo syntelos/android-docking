@@ -12,7 +12,7 @@ import android.graphics.RectF;
 public final class DockingPageAbout
     extends ViewPage2D
 {
-    public final static String AboutString = "Docking for Android version "+DockingVersion.String+'\n'+
+    public final static String AboutString = "Docking for Android version "+DockingVersion.Name+'\n'+
                                              "Copyright (C) 2014 John Pritchard."+'\n'+
                                              "All rights reserved.";
 
