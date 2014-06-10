@@ -27,7 +27,9 @@ public final class DockingPageGameView
 
 
     private DockingPageGameView(){
-        super();
+        super(new ViewPage3DComponent[]{
+                in_t1, in_t2
+            });
     }
 
 
@@ -81,16 +83,16 @@ public final class DockingPageGameView
 
             glPopMatrix();
 
-            sv0.draw();
-            sv1.draw();
-            sv2.draw();
+            out_s0.draw();
+
+            draw();
 
             glFlush();
         }
     }
-    @Override
-    public void input(InputScript in){
+    // @Override
+    // public void input(InputScript in){
 
-        view.script(Page.start);
-    }
+    //     view.script(Page.start);
+    // }
 }

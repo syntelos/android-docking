@@ -148,17 +148,26 @@ public final class View2D
     }
     /**
      * Works on Sony-TV, but not MB860
+     * 
+     * The back button or input script should always have the same
+     * effect as on devices where the back button operates directly on
+     * the activity stack (without passing through the View key event
+     * process).
      */
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
 
         if (KeyEvent.KEYCODE_BACK == keyCode){
             switch(event.getAction()){
+
             case KeyEvent.ACTION_DOWN:
+
                 return (Page.start != this.pageId);
 
             case KeyEvent.ACTION_UP:
+
                 if (Page.start != this.pageId){
+
                     script(Input.Back);
                     return true;
                 }
@@ -302,6 +311,8 @@ public final class View2D
      */
     public void pageTo(Page page){
 
+        info("pageTo "+page);
+
         if (null == page){
 
             return;
@@ -405,41 +416,41 @@ public final class View2D
             }
         }
     }
+
     protected void verbose(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
+        Log.i(TAG,("View2D "+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
+        Log.i(TAG,("View2D "+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,(getClass().getName()+' '+m));
+        Log.d(TAG,("View2D "+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,(getClass().getName()+' '+m),t);
+        Log.d(TAG,("View2D "+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
+        Log.i(TAG,("View2D "+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
+        Log.i(TAG,("View2D "+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,(getClass().getName()+' '+m));
+        Log.w(TAG,("View2D "+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,(getClass().getName()+' '+m),t);
+        Log.w(TAG,("View2D "+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,(getClass().getName()+' '+m));
+        Log.e(TAG,("View2D "+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,(getClass().getName()+' '+m),t);
+        Log.e(TAG,("View2D "+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,(getClass().getName()+' '+m));
+        Log.wtf(TAG,("View2D "+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,(getClass().getName()+' '+m),t);
+        Log.wtf(TAG,("View2D "+m),t);
     }
-
 }

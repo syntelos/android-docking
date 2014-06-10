@@ -55,6 +55,7 @@ public final class DockingPageAbout
             return;
 
         default:
+            super.input(in);
             return;
         }
     }

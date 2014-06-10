@@ -11,7 +11,7 @@ public class ViewPage3DInputField
     implements ViewPageComponentInteractive
 {
 
-    private volatile boolean interactive;
+    protected volatile boolean interactive;
 
 
     public ViewPage3DInputField(double x, double y, double z, double h){

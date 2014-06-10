@@ -61,13 +61,20 @@ public final class View3DRenderer
     }
     public void onResume(){
 
-        pageTo(Page.valueOf(preferences.getString("page","gameInput")));
+        pageTo(Page.valueOf(preferences.getString("page","game")));
     }
     public synchronized void onPause(SharedPreferences.Editor state){
 
         if (null != this.pageId){
-
-            state.putString("page",this.pageId.name());
+            /*
+             * {Input.Back} -> {Page.start}
+             * 
+             * This rule permits the back button to have the desired
+             * effect on devices where the back button operates on the
+             * activity stack without passing through the View key
+             * event process.
+             */
+            state.putString("page","start");
 
             if (null != this.page){
 
@@ -103,6 +110,8 @@ public final class View3DRenderer
      * @see #script
      */
     public synchronized void pageTo(Page page){
+
+        info("pageTo "+page);
 
         if (null == page){
 

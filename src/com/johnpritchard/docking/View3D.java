@@ -37,11 +37,11 @@ public final class View3D
 
     private final GestureDetector touch;
 
+    private final SurfaceHolder holder;
+
+    private final View3DRenderer renderer;
+
     private SharedPreferences preferences;
-
-    private SurfaceHolder holder;
-
-    private View3DRenderer renderer;
 
 
 
@@ -106,16 +106,23 @@ public final class View3D
     }
     /**
      * Works on Sony-TV, but not MB860
+     * 
+     * The back button or input script should always have the same
+     * effect as on devices where the back button operates directly on
+     * the activity stack (without passing through the View key event
+     * process).
      */
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
 
         if (KeyEvent.KEYCODE_BACK == keyCode){
             switch(event.getAction()){
+
             case KeyEvent.ACTION_DOWN:
                 return true;
 
             case KeyEvent.ACTION_UP:
+
                 script(Input.Back);
                 return true;
 
@@ -393,40 +400,41 @@ public final class View3D
 
         return ((ObjectActivity)getContext()).displayMetrics();
     }
+
     protected void verbose(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
+        Log.i(TAG,("View3D "+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
+        Log.i(TAG,("View3D "+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,(getClass().getName()+' '+m));
+        Log.d(TAG,("View3D "+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,(getClass().getName()+' '+m),t);
+        Log.d(TAG,("View3D "+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
+        Log.i(TAG,("View3D "+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
+        Log.i(TAG,("View3D "+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,(getClass().getName()+' '+m));
+        Log.w(TAG,("View3D "+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,(getClass().getName()+' '+m),t);
+        Log.w(TAG,("View3D "+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,(getClass().getName()+' '+m));
+        Log.e(TAG,("View3D "+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,(getClass().getName()+' '+m),t);
+        Log.e(TAG,("View3D "+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,(getClass().getName()+' '+m));
+        Log.wtf(TAG,("View3D "+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,(getClass().getName()+' '+m),t);
+        Log.wtf(TAG,("View3D "+m),t);
     }
 }

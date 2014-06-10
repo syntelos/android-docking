@@ -17,19 +17,17 @@ public abstract class ViewPageComponentAbstract
     extends Epsilon
     implements ViewPageComponent
 {
-    public final static String TAG = ObjectLog.TAG;
-
 
     protected String name;
 
-    protected boolean focus;
+    protected volatile boolean current;
 
     protected final RectF bounds = new RectF();
 
 
     public ViewPageComponentAbstract(){
         super();
-        this.name = Basename(getClass().getName());
+        this.name = this.baseName;
     }
 
 
@@ -176,57 +174,14 @@ public abstract class ViewPageComponentAbstract
     }
     public final boolean isCurrent(){
 
-        return this.focus;
+        return this.current;
     }
     public void setCurrent(){
 
-        this.focus = true;
+        this.current = true;
     }
     public void clearCurrent(){
 
-        this.focus = false;
-    }
-    protected void verbose(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
-    }
-    protected void verbose(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected void debug(String m){
-        Log.d(TAG,(getClass().getName()+' '+m));
-    }
-    protected void debug(String m, Throwable t){
-        Log.d(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected void info(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
-    }
-    protected void info(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected void warn(String m){
-        Log.w(TAG,(getClass().getName()+' '+m));
-    }
-    protected void warn(String m, Throwable t){
-        Log.w(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected void error(String m){
-        Log.e(TAG,(getClass().getName()+' '+m));
-    }
-    protected void error(String m, Throwable t){
-        Log.e(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected void wtf(String m){
-        Log.wtf(TAG,(getClass().getName()+' '+m));
-    }
-    protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected final static String Basename(String cn){
-        int idx = cn.lastIndexOf('.');
-        if (0 < idx)
-            return cn.substring(idx+1);
-        else
-            return cn;
+        this.current = false;
     }
 }

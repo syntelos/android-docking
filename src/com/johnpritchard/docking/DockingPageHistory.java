@@ -54,6 +54,7 @@ public final class DockingPageHistory
             return;
 
         default:
+            super.input(in);
             return;
         }
     }

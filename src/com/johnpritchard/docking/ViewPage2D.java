@@ -39,9 +39,9 @@ public abstract class ViewPage2D
      */
     protected final ViewPage2DComponent[] components;
 
-    protected ViewPage2DComponent current;
+    protected volatile ViewPage2DComponent current;
 
-    protected ViewPageComponentInteractive interactive;
+    protected volatile ViewPageComponentInteractive interactive;
 
 
     protected ViewPage2D(ViewPage2DComponent[] components){
@@ -437,24 +437,32 @@ public abstract class ViewPage2D
      */
     @Override
     protected void focus(){
-        SharedPreferences preferences = preferences();
-        int first = first();
-        int focus = preferences.getInt(name()+".focus",first);
+        final int count = components.length;
 
-        if (focus < components.length){
+        if (0 != count){
+            final SharedPreferences preferences = preferences();
+            final int first = first();
+            final int focus = preferences.getInt(name()+".focus",first);
 
-            current(components[focus]);
-        }
-        else {
-            current(components[first]);
-        }
-        for (ViewPage2DComponent c : components){
+            if (-1 < focus && focus < count){
 
-            if (c == current){
-                c.setCurrent();
+                current(components[focus]);
             }
-            else {
-                c.clearCurrent();
+            else if (-1 < first && first < count){
+
+                current(components[first]);
+            }
+
+            final ViewPage2DComponent current = this.current;
+
+            for (ViewPage2DComponent c : components){
+
+                if (c == current){
+                    c.setCurrent();
+                }
+                else {
+                    c.clearCurrent();
+                }
             }
         }
     }
@@ -589,44 +597,51 @@ public abstract class ViewPage2D
     @Override
     protected void input_emphasis(){
 
-        if (current instanceof ViewPage2DComponentPath){
+        if (current instanceof ViewPageComponentEmphasis){
 
-            ((ViewPage2DComponentPath)current).emphasis(true);
+            ((ViewPageComponentEmphasis)current).emphasis(true);
         }
     }
     @Override
     protected void input_deemphasis(){
 
-        if (current instanceof ViewPage2DComponentPath){
+        if (current instanceof ViewPageComponentEmphasis){
 
-            ((ViewPage2DComponentPath)current).emphasis(false);
+            ((ViewPageComponentEmphasis)current).emphasis(false);
         }
     }
     /**
      * Convert navigation activity to navigational focus status.
+     * 
+     * The back button or input script should always have the same
+     * effect as on devices where the back button operates directly on
+     * the activity stack (without passing through the View key event
+     * process).
      */
     @Override
     public void input(InputScript event){
 
-        if (null != interactive && interactive.interactive()){
+        Input in = event.type();
 
+        if (Input.Back == in){
+            /*
+             * Special case: the "view.script(page)" would return here
+             * without preserving the back button requirement.
+             */
+            view.pageTo(Page.start);
+        }
+        else if (in.geometric && null != interactive &&
+                 interactive.interactive())
+        {
             interactive.input(event);
         }
         else {
 
             ViewPage2DComponent current = this.current;
 
-            Input in = event.type();
-
             if (in.geometric && null != current){
 
-                ViewPage2DComponent next = current.getCardinal(in);
-                if (null != next && next != current){
-
-                    current.clearCurrent();
-                    current(next);
-                    current.setCurrent();
-                }
+                current(current.getCardinal(in));
             }
             else {
                 super.input(event);
@@ -669,13 +684,27 @@ public abstract class ViewPage2D
         }
         return -1;
     }
-    protected void current(ViewPage2DComponent c){
-        current = c;
-        if (c instanceof ViewPageComponentInteractive){
-            interactive = (ViewPageComponentInteractive)c;
-        }
-        else {
-            interactive = null;
+    protected void current(ViewPage2DComponent next){
+
+        final ViewPage2DComponent prev = this.current;
+
+        if (null != next && next != prev){
+
+            if (null != prev){
+                prev.clearCurrent();
+            }
+
+            this.current = next;
+
+            next.setCurrent();
+
+            if (next instanceof ViewPageComponentInteractive){
+
+                this.interactive = (ViewPageComponentInteractive)next;
+            }
+            else {
+                this.interactive = null;
+            }
         }
     }
     /**

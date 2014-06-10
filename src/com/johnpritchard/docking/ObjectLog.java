@@ -26,14 +26,21 @@ public class ObjectLog
     public final static String TAG = "Docking";
 
 
-    protected ObjectActivity context;
+    protected final ObjectActivity context;
+
+    protected final String className;
+
+    protected final String baseName;
 
 
     protected ObjectLog(){
-        super();
+        this(null);
     }
     protected ObjectLog(ObjectActivity context){
         super();
+
+        this.className = this.getClass().getName();
+        this.baseName = Basename(className);
 
         this.context = context;
     }
@@ -78,39 +85,46 @@ public class ObjectLog
         context.sensorUnregister(li);
     }
     protected void verbose(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
+        Log.i(TAG,(baseName+' '+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
+        Log.i(TAG,(baseName+' '+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,(getClass().getName()+' '+m));
+        Log.d(TAG,(baseName+' '+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,(getClass().getName()+' '+m),t);
+        Log.d(TAG,(baseName+' '+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
+        Log.i(TAG,(baseName+' '+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
+        Log.i(TAG,(baseName+' '+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,(getClass().getName()+' '+m));
+        Log.w(TAG,(baseName+' '+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,(getClass().getName()+' '+m),t);
+        Log.w(TAG,(baseName+' '+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,(getClass().getName()+' '+m));
+        Log.e(TAG,(baseName+' '+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,(getClass().getName()+' '+m),t);
+        Log.e(TAG,(baseName+' '+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,(getClass().getName()+' '+m));
+        Log.wtf(TAG,(baseName+' '+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,(getClass().getName()+' '+m),t);
+        Log.wtf(TAG,(baseName+' '+m),t);
+    }
+    protected final static String Basename(String cn){
+        int idx = cn.lastIndexOf('.');
+        if (0 < idx)
+            return cn.substring(idx+1);
+        else
+            return cn;
     }
 }

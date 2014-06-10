@@ -21,7 +21,8 @@ import android.graphics.Typeface;
  */
 public class ViewPage2DComponentPath
     extends ViewPage2DComponentAbstract
-    implements path.Path
+    implements path.Path,
+               ViewPageComponentEmphasis
 {
     protected final static float TextSize = 10.0f;
 
@@ -66,7 +67,7 @@ public class ViewPage2DComponentPath
     }
 
 
-    protected void emphasis(boolean on){
+    public void emphasis(boolean on){
 
         if (on){
 

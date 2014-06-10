@@ -26,8 +26,17 @@ public class ObjectActivity
     protected final static String TAG = ObjectLog.TAG;
 
 
+    protected final String className;
+
+    protected final String baseName;
+
+
     public ObjectActivity(){
         super();
+
+        this.className = this.getClass().getName();
+
+        this.baseName = ObjectLog.Basename(className);
     }
 
 
@@ -107,39 +116,39 @@ public class ObjectActivity
         sensorManager().unregisterListener(li);
     }
     protected void verbose(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
+        Log.i(TAG,(baseName+' '+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
+        Log.i(TAG,(baseName+' '+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,(getClass().getName()+' '+m));
+        Log.d(TAG,(baseName+' '+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,(getClass().getName()+' '+m),t);
+        Log.d(TAG,(baseName+' '+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
+        Log.i(TAG,(baseName+' '+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
+        Log.i(TAG,(baseName+' '+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,(getClass().getName()+' '+m));
+        Log.w(TAG,(baseName+' '+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,(getClass().getName()+' '+m),t);
+        Log.w(TAG,(baseName+' '+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,(getClass().getName()+' '+m));
+        Log.e(TAG,(baseName+' '+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,(getClass().getName()+' '+m),t);
+        Log.e(TAG,(baseName+' '+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,(getClass().getName()+' '+m));
+        Log.wtf(TAG,(baseName+' '+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,(getClass().getName()+' '+m),t);
+        Log.wtf(TAG,(baseName+' '+m),t);
     }
 }

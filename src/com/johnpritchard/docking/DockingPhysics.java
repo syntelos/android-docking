@@ -133,40 +133,40 @@ public final class DockingPhysics
         }
     }
     protected void verbose(String m){
-        Log.i(TAG,getName()+' '+m);
+        Log.i(TAG,"Phys/Animation "+m);
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,getName()+' '+m,t);
+        Log.i(TAG,"Phys/Animation "+m,t);
     }
     protected void debug(String m){
-        Log.d(TAG,getName()+' '+m);
+        Log.d(TAG,"Phys/Animation "+m);
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,getName()+' '+m,t);
+        Log.d(TAG,"Phys/Animation "+m,t);
     }
     protected void info(String m){
-        Log.i(TAG,getName()+' '+m);
+        Log.i(TAG,"Phys/Animation "+m);
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,getName()+' '+m,t);
+        Log.i(TAG,"Phys/Animation "+m,t);
     }
     protected void warn(String m){
-        Log.w(TAG,getName()+' '+m);
+        Log.w(TAG,"Phys/Animation "+m);
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,getName()+' '+m,t);
+        Log.w(TAG,"Phys/Animation "+m,t);
     }
     protected void error(String m){
-        Log.e(TAG,getName()+' '+m);
+        Log.e(TAG,"Phys/Animation "+m);
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,getName()+' '+m,t);
+        Log.e(TAG,"Phys/Animation "+m,t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,getName()+' '+m);
+        Log.wtf(TAG,"Phys/Animation "+m);
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,getName()+' '+m,t);
+        Log.wtf(TAG,"Phys/Animation "+m,t);
     }
     protected static void Verbose(String m){
         Log.i(TAG,"Phys/Animation "+m);

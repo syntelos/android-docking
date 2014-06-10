@@ -350,25 +350,31 @@ public final class ViewAnimation
                             InputScript[] script = null;
 
                             if (null != sequence.motion){
-
-                                info("motion");
                                 /*
                                  * touch input filtering
                                  */
                                 if (touchInputFilter < SystemClock.uptimeMillis()){
+
+                                    info("motion");
 
                                     script = sequence.page.script(sequence.motion);
                                 }
+                                else {
+                                    warn("motion");
+                                }
                             }
                             else if (null != sequence.input){
-
-                                info("input");
                                 /*
                                  * touch input filtering
                                  */
                                 if (touchInputFilter < SystemClock.uptimeMillis()){
 
+                                    info("input");
+
                                     script = sequence.input;
+                                }
+                                else {
+                                    warn("input");
                                 }
                             }
 
@@ -457,40 +463,40 @@ public final class ViewAnimation
         }
     }
     protected void verbose(String m){
-        Log.i(TAG,getName()+' '+m);
+        Log.i(TAG,"View/Animation "+m);
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,getName()+' '+m,t);
+        Log.i(TAG,"View/Animation "+m,t);
     }
     protected void debug(String m){
-        Log.d(TAG,getName()+' '+m);
+        Log.d(TAG,"View/Animation "+m);
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,getName()+' '+m,t);
+        Log.d(TAG,"View/Animation "+m,t);
     }
     protected void info(String m){
-        Log.i(TAG,getName()+' '+m);
+        Log.i(TAG,"View/Animation "+m);
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,getName()+' '+m,t);
+        Log.i(TAG,"View/Animation "+m,t);
     }
     protected void warn(String m){
-        Log.w(TAG,getName()+' '+m);
+        Log.w(TAG,"View/Animation "+m);
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,getName()+' '+m,t);
+        Log.w(TAG,"View/Animation "+m,t);
     }
     protected void error(String m){
-        Log.e(TAG,getName()+' '+m);
+        Log.e(TAG,"View/Animation "+m);
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,getName()+' '+m,t);
+        Log.e(TAG,"View/Animation "+m,t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,getName()+' '+m);
+        Log.wtf(TAG,"View/Animation "+m);
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,getName()+' '+m,t);
+        Log.wtf(TAG,"View/Animation "+m,t);
     }
     protected static void Verbose(String m){
         Log.i(TAG,"View/Animation "+m);

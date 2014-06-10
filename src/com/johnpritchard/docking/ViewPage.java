@@ -71,8 +71,6 @@ public abstract class ViewPage
     extends Epsilon
 {
 
-    protected final static String TAG = ObjectLog.TAG;
-
     protected final static float PAD_RATIO = 0.05f;
 
     /**
@@ -177,22 +175,21 @@ public abstract class ViewPage
      */
     public abstract InputScript[] script(MotionEvent event);
 
-    protected void input_back(){
-    }
     protected void input_emphasis(){
     }
     protected void input_deemphasis(){
     }
     /**
      * Convert navigation activity to navigational focus status.
+     * 
+     * The back button or input script should always have the same
+     * effect as on devices where the back button operates directly on
+     * the activity stack (without passing through the View key event
+     * process).
      */
     public void input(InputScript in){
 
         switch(in.type()){
-
-        case Back:
-            input_back();
-            break;
 
         case Emphasis:
             input_emphasis();
@@ -216,42 +213,6 @@ public abstract class ViewPage
             throw new IllegalStateException();
         }
     }
-    protected final void verbose(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
-    }
-    protected final void verbose(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected final void debug(String m){
-        Log.d(TAG,(getClass().getName()+' '+m));
-    }
-    protected final void debug(String m, Throwable t){
-        Log.d(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected final void info(String m){
-        Log.i(TAG,(getClass().getName()+' '+m));
-    }
-    protected final void info(String m, Throwable t){
-        Log.i(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected final void warn(String m){
-        Log.w(TAG,(getClass().getName()+' '+m));
-    }
-    protected final void warn(String m, Throwable t){
-        Log.w(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected final void error(String m){
-        Log.e(TAG,(getClass().getName()+' '+m));
-    }
-    protected final void error(String m, Throwable t){
-        Log.e(TAG,(getClass().getName()+' '+m),t);
-    }
-    protected final void wtf(String m){
-        Log.wtf(TAG,(getClass().getName()+' '+m));
-    }
-    protected final void wtf(String m, Throwable t){
-        Log.wtf(TAG,(getClass().getName()+' '+m),t);
-    }
     protected static float[] Convert(MotionEvent event){
         if (1 == event.getPointerCount()){
 
@@ -264,67 +225,6 @@ public abstract class ViewPage
         }
         else {
             return null;
-        }
-    }
-    protected final static String Format7(float value){
-        final String string = String.format("%3.4f",value);
-        final char[] sary = string.toCharArray();
-        final int strlen = sary.length;
-        if (7 <= strlen)
-            return string;
-        else {
-            char[] cary = new char[7];
-            {
-                for (int cc = 0, sp = (7-strlen); cc < 7; cc++){
-                    if (cc < sp){
-                        cary[cc] = ' ';
-                    }
-                    else {
-                        cary[cc] = sary[cc-sp];
-                    }
-                }
-            }
-            return new String(cary,0,7);
-        }
-    }
-    protected final static String FormatT(float value){
-        final String string = String.format("%3.3f",value);
-        final char[] sary = string.toCharArray();
-        final int strlen = sary.length;
-        {
-            char[] cary = new char[7];
-            {
-                for (int cc = 0, sp = (7-strlen); cc < 7; cc++){
-                    if (cc < sp){
-                        cary[cc] = '0';
-                    }
-                    else {
-                        cary[cc] = sary[cc-sp];
-                    }
-                }
-            }
-            return new String(cary,0,7);
-        }
-    }
-    protected final static String Format4(double value){
-        final String string = String.format("%3.0f",value);
-        final char[] sary = string.toCharArray();
-        final int strlen = sary.length;
-        if (4 <= strlen)
-            return string;
-        else {
-            char[] cary = new char[4];
-            {
-                for (int cc = 0, sp = (4-strlen); cc < 4; cc++){
-                    if (cc < sp){
-                        cary[cc] = ' ';
-                    }
-                    else {
-                        cary[cc] = sary[cc-sp];
-                    }
-                }
-            }
-            return new String(cary,0,4);
         }
     }
 
