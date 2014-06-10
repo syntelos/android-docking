@@ -32,7 +32,10 @@ public abstract class ViewPage3D
     protected final static java.nio.ByteOrder nativeOrder = java.nio.ByteOrder.nativeOrder();
 
 
-
+    /**
+     * Relative navigation and visualization for {@link InputScript}
+     * events via {@link ViewAnimation}.
+     */
     protected final ViewPage3DComponent[] components;
 
     protected ViewPage3DComponent current;
@@ -45,7 +48,13 @@ public abstract class ViewPage3D
     }
     protected ViewPage3D(ViewPage3DComponent[] components){
         super();
-        this.components = components;
+        if (null == components){
+
+            this.components = new ViewPage3DComponent[0];
+        }
+        else {
+            this.components = components;
+        }
         info("init");
         init();
     }

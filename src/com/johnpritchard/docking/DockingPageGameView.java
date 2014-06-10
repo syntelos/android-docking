@@ -88,9 +88,9 @@ public final class DockingPageGameView
             glFlush();
         }
     }
-    // @Override
-    // public void input(InputScript in){
+    @Override
+    public void input(InputScript in){
 
-    //     view.script(Page.start);
-    // }
+        view.script(Page.start);
+    }
 }

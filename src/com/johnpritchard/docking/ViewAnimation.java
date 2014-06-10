@@ -363,8 +363,13 @@ public final class ViewAnimation
                             else if (null != sequence.input){
 
                                 info("input");
+                                /*
+                                 * touch input filtering
+                                 */
+                                if (touchInputFilter < SystemClock.uptimeMillis()){
 
-                                script = sequence.input;
+                                    script = sequence.input;
+                                }
                             }
 
 

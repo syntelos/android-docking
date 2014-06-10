@@ -33,6 +33,10 @@ public abstract class ViewPage2D
 {
 
 
+    /**
+     * Relative navigation and visualization for {@link InputScript}
+     * events via {@link ViewAnimation}.
+     */
     protected final ViewPage2DComponent[] components;
 
     protected ViewPage2DComponent current;
