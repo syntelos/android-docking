@@ -16,6 +16,8 @@
                android:icon="@drawable/icon">
 
     <service android:name="DockingKeyboard"
+             android:enabled="true"
+             android:exported="false"
              android:permission="android.permission.BIND_INPUT_METHOD">
       <intent-filter>
         <action android:name="android.view.InputMethod" />

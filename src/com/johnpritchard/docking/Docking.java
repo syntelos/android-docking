@@ -6,7 +6,10 @@ package com.johnpritchard.docking;
 import android.content.Context;
 import android.content.Intent;
 import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodInfo;
 import android.util.Log;
+
+import java.util.List;
 
 /**
  * 
@@ -50,6 +53,13 @@ public final class Docking
                 imm.showSoftInput(View.view,InputMethodManager.SHOW_IMPLICIT);
 
                 Info("RaiseKeyboard completed");
+
+                {
+                    List<InputMethodInfo> list = imm.getEnabledInputMethodList();
+                    for (InputMethodInfo info: list){
+                        Info("input-method enabled "+info.getId()+" "+info.getPackageName()+" "+info.getServiceName());
+                    }
+                }
             }
             catch (Throwable t){
                 Error("RaiseKeyboard",t);
