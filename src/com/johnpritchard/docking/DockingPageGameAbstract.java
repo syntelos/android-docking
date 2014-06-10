@@ -60,9 +60,9 @@ public abstract class DockingPageGameAbstract
 
 
 
-    protected final static View3DTextLabel sv0 = new View3DTextLabel(-2.5, +1.5,  1.0, 0.1);
-    protected final static View3DTextLabel sv1 = new View3DTextLabel(-2.5, +1.35, 1.0, 0.1);
-    protected final static View3DTextLabel sv2 = new View3DTextLabel(-2.5, +1.2,  1.0, 0.1);
+    protected final static View3DTextLabel sv0 = new View3DTextLabel(-2.6, +1.35, 1.0, 0.12);
+    protected final static View3DTextLabel sv1 = new View3DTextLabel(-2.6,  +1.1, 1.0, 0.12);
+    protected final static View3DTextLabel sv2 = new View3DTextLabel(-2.6, +0.95, 1.0, 0.12);
 
     static {
         {
@@ -200,51 +200,7 @@ public abstract class DockingPageGameAbstract
             t = (float)copy.time/1000.0f;
         }
 
-        sv0.format("Vx %s Ax %s T %s",Format7(v_x),Format7(a_x),Format7(t));
-    }
-    protected final static double DEG = 180.0/Math.PI;
-
-    protected final static String Format7(float value){
-        final String string = String.format("%3.4f",value);
-        final char[] sary = string.toCharArray();
-        final int strlen = sary.length;
-        if (7 <= strlen)
-            return string;
-        else {
-            char[] cary = new char[7];
-            {
-                for (int cc = 0, sp = (7-strlen); cc < 7; cc++){
-                    if (cc < sp){
-                        cary[cc] = ' ';
-                    }
-                    else {
-                        cary[cc] = sary[cc-sp];
-                    }
-                }
-            }
-            return new String(cary,0,7);
-        }
-    }
-    protected final static String Format4(double value){
-        final String string = String.format("%3.0f",value);
-        final char[] sary = string.toCharArray();
-        final int strlen = sary.length;
-        if (4 <= strlen)
-            return string;
-        else {
-            char[] cary = new char[4];
-            {
-                for (int cc = 0, sp = (4-strlen); cc < 4; cc++){
-                    if (cc < sp){
-                        cary[cc] = ' ';
-                    }
-                    else {
-                        cary[cc] = sary[cc-sp];
-                    }
-                }
-            }
-            return new String(cary,0,4);
-        }
+        sv0.format("Vx %s   Ax %s   T %s",Format7(v_x),Format7(a_x),FormatT(t));
     }
 
 }

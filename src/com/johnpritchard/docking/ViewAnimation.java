@@ -438,11 +438,17 @@ public final class ViewAnimation
 
         if (this.is2D){
 
-            Canvas g = this.holder.lockCanvas();
+            try {
+                Canvas g = this.holder.lockCanvas();
 
-            ((View2D)this.view).onDraw(g);
+                ((View2D)this.view).onDraw(g);
 
-            this.holder.unlockCanvasAndPost(g);
+                this.holder.unlockCanvasAndPost(g);
+            }
+            catch (RuntimeException exc){
+
+                warn("paint",exc);
+            }
         }
     }
     protected void verbose(String m){

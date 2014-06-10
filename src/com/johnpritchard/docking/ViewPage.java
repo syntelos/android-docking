@@ -266,4 +266,66 @@ public abstract class ViewPage
             return null;
         }
     }
+    protected final static String Format7(float value){
+        final String string = String.format("%3.4f",value);
+        final char[] sary = string.toCharArray();
+        final int strlen = sary.length;
+        if (7 <= strlen)
+            return string;
+        else {
+            char[] cary = new char[7];
+            {
+                for (int cc = 0, sp = (7-strlen); cc < 7; cc++){
+                    if (cc < sp){
+                        cary[cc] = ' ';
+                    }
+                    else {
+                        cary[cc] = sary[cc-sp];
+                    }
+                }
+            }
+            return new String(cary,0,7);
+        }
+    }
+    protected final static String FormatT(float value){
+        final String string = String.format("%3.3f",value);
+        final char[] sary = string.toCharArray();
+        final int strlen = sary.length;
+        {
+            char[] cary = new char[7];
+            {
+                for (int cc = 0, sp = (7-strlen); cc < 7; cc++){
+                    if (cc < sp){
+                        cary[cc] = '0';
+                    }
+                    else {
+                        cary[cc] = sary[cc-sp];
+                    }
+                }
+            }
+            return new String(cary,0,7);
+        }
+    }
+    protected final static String Format4(double value){
+        final String string = String.format("%3.0f",value);
+        final char[] sary = string.toCharArray();
+        final int strlen = sary.length;
+        if (4 <= strlen)
+            return string;
+        else {
+            char[] cary = new char[4];
+            {
+                for (int cc = 0, sp = (4-strlen); cc < 4; cc++){
+                    if (cc < sp){
+                        cary[cc] = ' ';
+                    }
+                    else {
+                        cary[cc] = sary[cc-sp];
+                    }
+                }
+            }
+            return new String(cary,0,4);
+        }
+    }
+
 }

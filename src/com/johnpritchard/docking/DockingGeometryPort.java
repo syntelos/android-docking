@@ -22,25 +22,19 @@ public final class DockingGeometryPort
     public final static DockingGeometryPort Instance = new DockingGeometryPort(Radius,Slices);
 
     /**
-     * Triangle fan
+     * Disk: triangle fan
      */
-    private final float[] top_n;
-    private final float[] top_v;
-    private final int top_count;
-    /**
-     * Quad strip (triangle fan)
-     */
-    private final float[] middle_n;
-    private final float[] middle_v;
-    private final int middle_count;
-    /**
-     * Triangle fan
-     */
-    private final float[] bottom_n;
-    private final float[] bottom_v;
-    private final int bottom_count;
+    private final float[] disk_A_n;
+    private final float[] disk_A_v;
+    private final int disk_A_count;
 
-    private final FloatBuffer b_top_n, b_top_v, b_middle_n, b_middle_v, b_bottom_n, b_bottom_v;
+    private final FloatBuffer b_disk_A_n, b_disk_A_v;
+
+    private final float[] disk_B_n;
+    private final float[] disk_B_v;
+    private final int disk_B_count;
+
+    private final FloatBuffer b_disk_B_n, b_disk_B_v;
 
 
     private DockingGeometryPort(final double radius, final int slices){
@@ -70,187 +64,126 @@ public final class DockingGeometryPort
         CircleTable(sin_t1,cos_t1,(-slices));
         CircleTable(sin_t2,cos_t2,(stacks<<1));
 
-        /* The top stack is covered with a triangle fan
-         */
+        float z = -1.0f;
 
-        z0 = 1.0;
-        z1 = cos_t2[(stacks>0)?1:0];
-        r0 = 0.0;
-        r1 = sin_t2[(stacks>0)?1:0];
+        /* Disk A
+         */
 
         /*
          * Normals
          */
         cc = 0;
         count = 3*(slices+2);
-        float[] top_n = new float[count];
-        float[] top_v = new float[count];
+        float[] disk_A_n = new float[count];
+        float[] disk_A_v = new float[count];
 
-        top_n[cc++] = 0.0f;
-        top_n[cc++] = 0.0f;
-        top_n[cc++] = 1.0f;
-
-        for (j=slices; j>=0; j--){
-
-            top_n[cc++] = (float)(cos_t1[j]*r1);
-            top_n[cc++] = (float)(sin_t1[j]*r1);
-            top_n[cc++] = (float)(z1);
-        }
-        /*
-         * Vertices
-         */
-        cc = 0;
-        top_v[cc++] = 0.0f;
-        top_v[cc++] = 0.0f;
-        top_v[cc++] = (float)radius;
+        disk_A_n[cc++] = 0.0f;
+        disk_A_n[cc++] = 0.0f;
+        disk_A_n[cc++] = 1.0f;
 
         for (j=slices; j>=0; j--){
 
-            top_v[cc++] = (float)(cos_t1[j]*r1*radius);
-            top_v[cc++] = (float)(sin_t1[j]*r1*radius);
-            top_v[cc++] = (float)(z1*radius);
+            disk_A_n[cc++] = 0.0f;
+            disk_A_n[cc++] = 0.0f;
+            disk_A_n[cc++] = 1.0f;
         }
-
-        /*
-         * Normals
-         */
-        cc = 0;
-        count = 3*(stacks-2)*((slices+1)*2);
-        float[] middle_n = new float[count];
-        float[] middle_v = new float[count];
-
-        for( i=1; i<stacks-1; i++ ){
-            z0 = z1; z1 = cos_t2[i+1];
-            r0 = r1; r1 = sin_t2[i+1];
-
-            for(j=0; j<=slices; j++){
-                middle_n[cc++] = (float)(cos_t1[j]*r1);
-                middle_n[cc++] = (float)(sin_t1[j]*r1);
-                middle_n[cc++] = (float)(z1);
-
-                middle_n[cc++] = (float)(cos_t1[j]*r0);
-                middle_n[cc++] = (float)(sin_t1[j]*r0);
-                middle_n[cc++] = (float)(z0);
-            }
-        }
-
-        z0 = 1.0;
-        z1 = cos_t2[(stacks>0)?1:0];
-        r0 = 0.0;
-        r1 = sin_t2[(stacks>0)?1:0];
 
         /*
          * Vertices
          */
+        final double r_A = radius;
+
         cc = 0;
+        disk_A_v[cc++] = 0.0f;
+        disk_A_v[cc++] = 0.0f;
+        disk_A_v[cc++] = 0.0f;
 
-        for( i=1; i<stacks-1; i++ ){
-            z0 = z1; z1 = cos_t2[i+1];
-            r0 = r1; r1 = sin_t2[i+1];
+        for (j=slices; j>=0; j--){
 
-            for(j=0; j<=slices; j++){
-
-                middle_v[cc++] = (float)(cos_t1[j]*r1*radius);
-                middle_v[cc++] = (float)(sin_t1[j]*r1*radius);
-                middle_v[cc++] = (float)(z1*radius);
-
-                middle_v[cc++] = (float)(cos_t1[j]*r0*radius);
-                middle_v[cc++] = (float)(sin_t1[j]*r0*radius);
-                middle_v[cc++] = (float)(z0*radius);
-            }
+            disk_A_v[cc++] = (float)(cos_t1[j]*r_A);
+            disk_A_v[cc++] = (float)(sin_t1[j]*r_A);
+            disk_A_v[cc++] = z;
         }
 
-        z0 = z1;
-        r0 = r1;
+
+        this.disk_A_n = disk_A_n;
+        this.disk_A_v = disk_A_v;
+        this.disk_A_count = disk_A_v.length/3;
+
+        {
+            final ByteBuffer ib_disk_A = ByteBuffer.allocateDirect(this.disk_A_n.length * bpf);
+            ib_disk_A.order(nativeOrder);
+            this.b_disk_A_n = ib_disk_A.asFloatBuffer();
+            this.b_disk_A_n.put(this.disk_A_n);
+            this.b_disk_A_n.position(0);
+        }
+        {
+            final ByteBuffer ib_disk_A = ByteBuffer.allocateDirect(this.disk_A_v.length * bpf);
+            ib_disk_A.order(nativeOrder);
+            this.b_disk_A_v = ib_disk_A.asFloatBuffer();
+            this.b_disk_A_v.put(this.disk_A_v);
+            this.b_disk_A_v.position(0);
+        }
+
+        z += 0.01f;
+
+        /* Disk B
+         */
 
         /*
          * Normals
          */
         cc = 0;
         count = 3*(slices+2);
-        float[] bottom_n = new float[count];
-        float[] bottom_v = new float[count];
+        float[] disk_B_n = new float[count];
+        float[] disk_B_v = new float[count];
 
-        bottom_n[cc++] = 0.0f;
-        bottom_n[cc++] = 0.0f;
-        bottom_n[cc++] = -1.0f;
+        disk_B_n[cc++] = 0.0f;
+        disk_B_n[cc++] = 0.0f;
+        disk_B_n[cc++] = 1.0f;
 
-        for (j=0; j<=slices; j++){
+        for (j=slices; j>=0; j--){
 
-            bottom_n[cc++] = (float)(cos_t1[j]*r0);
-            bottom_n[cc++] = (float)(sin_t1[j]*r0);
-            bottom_n[cc++] = (float)(z0);
+            disk_B_n[cc++] = 0.0f;
+            disk_B_n[cc++] = 0.0f;
+            disk_B_n[cc++] = 1.0f;
         }
 
         /*
          * Vertices
          */
+        final double r_B = (radius/2.0);
+
         cc = 0;
+        disk_B_v[cc++] = 0.0f;
+        disk_B_v[cc++] = 0.0f;
+        disk_B_v[cc++] = z;
 
-        bottom_v[cc++] = 0.0f;
-        bottom_v[cc++] = 0.0f;
-        bottom_v[cc++] = (float)(-radius);
+        for (j=slices; j>=0; j--){
 
-        for (j=0; j<=slices; j++){
-
-            bottom_v[cc++] = (float)(cos_t1[j]*r0*radius);
-            bottom_v[cc++] = (float)(sin_t1[j]*r0*radius);
-            bottom_v[cc++] = (float)(z0*radius);
+            disk_B_v[cc++] = (float)(cos_t1[j]*r_B);
+            disk_B_v[cc++] = (float)(sin_t1[j]*r_B);
+            disk_B_v[cc++] = z;
         }
 
 
-        this.top_n = top_n;
-        this.top_v = top_v;
-        this.top_count = top_v.length/3;
+        this.disk_B_n = disk_B_n;
+        this.disk_B_v = disk_B_v;
+        this.disk_B_count = disk_B_v.length/3;
 
-        this.middle_n = middle_n;
-        this.middle_v = middle_v;
-        this.middle_count = middle_v.length/3;
-
-        this.bottom_n = bottom_n;
-        this.bottom_v = bottom_v;
-        this.bottom_count = bottom_v.length/3;
         {
-            final ByteBuffer ib_top = ByteBuffer.allocateDirect(this.top_n.length * bpf);
-            ib_top.order(nativeOrder);
-            this.b_top_n = ib_top.asFloatBuffer();
-            this.b_top_n.put(this.top_n);
-            this.b_top_n.position(0);
+            final ByteBuffer ib_disk_A = ByteBuffer.allocateDirect(this.disk_B_n.length * bpf);
+            ib_disk_A.order(nativeOrder);
+            this.b_disk_B_n = ib_disk_A.asFloatBuffer();
+            this.b_disk_B_n.put(this.disk_B_n);
+            this.b_disk_B_n.position(0);
         }
         {
-            final ByteBuffer ib_top = ByteBuffer.allocateDirect(this.top_v.length * bpf);
-            ib_top.order(nativeOrder);
-            this.b_top_v = ib_top.asFloatBuffer();
-            this.b_top_v.put(this.top_v);
-            this.b_top_v.position(0);
-        }
-        {
-            final ByteBuffer ib_middle = ByteBuffer.allocateDirect(this.middle_n.length * bpf);
-            ib_middle.order(nativeOrder);
-            this.b_middle_n = ib_middle.asFloatBuffer();
-            this.b_middle_n.put(this.middle_n);
-            this.b_middle_n.position(0);
-        }
-        {
-            final ByteBuffer ib_middle = ByteBuffer.allocateDirect(this.middle_v.length * bpf);
-            ib_middle.order(nativeOrder);
-            this.b_middle_v = ib_middle.asFloatBuffer();
-            this.b_middle_v.put(this.middle_v);
-            this.b_middle_v.position(0);
-        }
-        {
-            final ByteBuffer ib_bottom = ByteBuffer.allocateDirect(this.bottom_n.length * bpf);
-            ib_bottom.order(nativeOrder);
-            this.b_bottom_n = ib_bottom.asFloatBuffer();
-            this.b_bottom_n.put(this.bottom_n);
-            this.b_bottom_n.position(0);
-        }
-        {
-            final ByteBuffer ib_bottom = ByteBuffer.allocateDirect(this.bottom_v.length * bpf);
-            ib_bottom.order(nativeOrder);
-            this.b_bottom_v = ib_bottom.asFloatBuffer();
-            this.b_bottom_v.put(this.bottom_v);
-            this.b_bottom_v.position(0);
+            final ByteBuffer ib_disk_A = ByteBuffer.allocateDirect(this.disk_B_v.length * bpf);
+            ib_disk_A.order(nativeOrder);
+            this.b_disk_B_v = ib_disk_A.asFloatBuffer();
+            this.b_disk_B_v.put(this.disk_B_v);
+            this.b_disk_B_v.position(0);
         }
     }
 
@@ -259,16 +192,17 @@ public final class DockingGeometryPort
         glEnableClientState(GL_NORMAL_ARRAY);
         glEnableClientState(GL_VERTEX_ARRAY);
 
-        glNormalPointer(GL_FLOAT,stride,this.b_top_n);
-        glVertexPointer(3,GL_FLOAT,stride,this.b_top_v);
-        glDrawArrays(GL_TRIANGLE_FAN,0,this.top_count);
+        glColor4f(0.0f,0.0f,0.0f,1.0f);
 
-        glNormalPointer(GL_FLOAT,stride,this.b_middle_n);
-        glVertexPointer(3,GL_FLOAT,stride,this.b_middle_v);
-        glDrawArrays(GL_TRIANGLE_FAN,0,this.middle_count);
+        glNormalPointer(GL_FLOAT,stride,this.b_disk_A_n);
+        glVertexPointer(3,GL_FLOAT,stride,this.b_disk_A_v);
+        glDrawArrays(GL_TRIANGLE_FAN,0,this.disk_A_count);
 
-        glNormalPointer(GL_FLOAT,stride,this.b_bottom_n);
-        glVertexPointer(3,GL_FLOAT,stride,this.b_bottom_v);
-        glDrawArrays(GL_TRIANGLE_FAN,0,this.bottom_count);
+        glColor4f(1.0f,1.0f,1.0f,1.0f);
+
+        glNormalPointer(GL_FLOAT,stride,this.b_disk_B_n);
+        glVertexPointer(3,GL_FLOAT,stride,this.b_disk_B_v);
+        glDrawArrays(GL_TRIANGLE_FAN,0,this.disk_B_count);
+
     }
 }

@@ -33,11 +33,11 @@ public final class DockingPageGameView
 
     @Override
     public String name(){
-        return Page.gameView.name();
+        return Page.game.name();
     }
     @Override
     public Page value(){
-        return Page.gameView;
+        return Page.game;
     }
     public void init(GL10 gl){
         super.init(gl);
@@ -65,21 +65,19 @@ public final class DockingPageGameView
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-            // glPushMatrix();
+            glPushMatrix();
 
-            // glMultMatrixf(matrixR);
+            //glMultMatrixf(matrixR);
 
             /* Model
              */
-            glColor4f(0.9f,0.9f,0.9f,1.0f);
-
 
             glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
             glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
 
             DockingGeometryPort.Instance.draw();
 
-            // glPopMatrix();
+            glPopMatrix();
 
             glColor4f(0.0f,0.0f,0.0f,1.0f);
 
@@ -93,17 +91,6 @@ public final class DockingPageGameView
     @Override
     public void input(InputScript in){
 
-        info(in.toString());
-
-        Input type = in.type();
-
-        if (Input.Key == type || Input.Enter == type){
-
-            view.script(Page.gameInput);
-        }
-        else {
-
-            super.input(in);
-        }
+        view.script(Page.start);
     }
 }

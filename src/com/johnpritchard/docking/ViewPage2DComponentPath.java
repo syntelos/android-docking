@@ -77,6 +77,10 @@ public class ViewPage2DComponentPath
             fill.setColor(Color.BLACK);
         }
     }
+    public final void format(String fmt, Object... args){
+
+        this.setText(String.format(fmt,args));
+    }
     public ViewPage2DComponentPath setText(String text){
         reset();
         this.fill.getTextPath(text,0,text.length(),0.0f,TextSize,this.path);

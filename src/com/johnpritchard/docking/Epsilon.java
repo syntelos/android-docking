@@ -53,4 +53,5 @@ public abstract class Epsilon {
             return constant;
     }
 
+    protected final static double DEG = 180.0/Math.PI;
 }
