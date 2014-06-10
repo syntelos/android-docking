@@ -15,7 +15,7 @@ import java.nio.FloatBuffer;
  * Double buffered vertex array assures clean display of dynamic
  * content.
  */
-public final class View3DTextLabel
+public class View3DTextLabel
     extends ViewPage3DComponentAbstract
 {
     protected final static int bpf3 = (bpf * 3);
