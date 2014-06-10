@@ -43,12 +43,11 @@ public final class DockingGeometryPort
     private DockingGeometryPort(final double radius, final int slices, final int stacks){
         super();
 
+        final double r_A = radius;
+        final double r_B = (radius/2.0);
+
         int i,j,cc,count;
 
-        /* Adjust z and radius as stacks are drawn.
-         */
-        double z0,z1;
-        double r0,r1;
 
         /* Pre-computed circle
          * Allocate memory for n samples, plus duplicate of first entry at the end
@@ -91,7 +90,6 @@ public final class DockingGeometryPort
         /*
          * Vertices
          */
-        final double r_A = radius;
 
         cc = 0;
         disk_A_v[cc++] = 0.0f;
@@ -152,8 +150,6 @@ public final class DockingGeometryPort
         /*
          * Vertices
          */
-        final double r_B = (radius/2.0);
-
         cc = 0;
         disk_B_v[cc++] = 0.0f;
         disk_B_v[cc++] = 0.0f;
