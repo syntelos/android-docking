@@ -10,6 +10,7 @@ import static android.opengl.GLES11.*;
 import static android.opengl.GLES11Ext.*;
 import android.util.Log;
 import android.view.Display;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -27,10 +28,14 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public final class View3D
     extends android.opengl.GLSurfaceView
-    implements View
+    implements View, 
+               GestureDetector.OnGestureListener, 
+               GestureDetector.OnDoubleTapListener
 {
     protected final static String TAG = ObjectLog.TAG;
 
+
+    private final GestureDetector touch;
 
     private SharedPreferences preferences;
 
@@ -42,6 +47,8 @@ public final class View3D
 
     public View3D(ObjectActivity context){
         super(context);
+
+        touch = new GestureDetector(context,this);
 
         holder = getHolder();
 
@@ -220,7 +227,106 @@ public final class View3D
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
-        script(event);
+        touch.onTouchEvent(event);
+
+        return true;
+    }
+    /**
+     * @see android.view.GestureDetector$OnGestureListener
+     */
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        //info("onSingleTapUp");
+
+        return false;
+    }
+    public void onLongPress(MotionEvent e) {
+        info("onLongPress {Enter}");
+
+        script(Input.Enter);
+    }
+    public boolean onScroll(MotionEvent e1, MotionEvent e2,
+                            float dx, float dy)
+    {
+        info("onScroll");
+
+        /*
+         * Relative coordinate space [LANDSCAPE]
+         */
+        if (Math.abs(dx) > Math.abs(dy)){
+
+            if (0.0f < dx){
+
+                script(Input.Left);
+            }
+            else {
+                script(Input.Right);
+            }
+        }
+        else if (0.0f < dy){
+
+            script(Input.Up);
+        }
+        else {
+            script(Input.Down);
+        }
+        return true;
+    }
+    public boolean onFling(MotionEvent e1, MotionEvent e2,
+                           float dx, float dy)
+    {
+        info("onFling");
+
+        /*
+         * Relative coordinate space [LANDSCAPE]
+         */
+        if (Math.abs(dx) > Math.abs(dy)){
+
+            if (0.0f < dx){
+
+                script(Input.Left);
+            }
+            else {
+                script(Input.Right);
+            }
+        }
+        else if (0.0f < dy){
+
+            script(Input.Up);
+        }
+        else {
+            script(Input.Down);
+        }
+        return true;
+    }
+    public void onShowPress(MotionEvent e){
+        //info("onShowPress");
+
+    }
+    public boolean onDown(MotionEvent e){
+        //info("onDown");
+
+        return false;
+    }
+    /**
+     * @see android.view.GestureDetector$OnDoubleTapListener
+     */
+    public boolean onSingleTapConfirmed(MotionEvent e){
+        info("onSingleTapConfirmed {Enter}");
+
+        script(Input.Enter);
+
+        return true;
+    }
+    public boolean onDoubleTap(MotionEvent e){
+        info("onDoubleTap {Enter}");
+
+        script(Input.Enter);
+
+        return true;
+    }
+    public boolean onDoubleTapEvent(MotionEvent e){
+        //info("onDoubleTapEvent");
 
         return true;
     }

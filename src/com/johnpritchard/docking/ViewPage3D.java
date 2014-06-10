@@ -95,18 +95,18 @@ public abstract class ViewPage3D
 
                                         if (0.0f < dx){
 
-                                            return new InputScript[]{Input.Up};
+                                            return new InputScript[]{Input.Left};
                                         }
                                         else {
-                                            return new InputScript[]{Input.Down};
+                                            return new InputScript[]{Input.Right};
                                         }
                                     }
                                     else if (0.0f < dy){
 
-                                        return new InputScript[]{Input.Left};
+                                        return new InputScript[]{Input.Up};
                                     }
                                     else {
-                                        return new InputScript[]{Input.Right};
+                                        return new InputScript[]{Input.Down};
                                     }
                                 }
                                 else {
@@ -126,30 +126,35 @@ public abstract class ViewPage3D
             }
             else {
                 /*
+                 */
+                final int px = event.getActionIndex();
+                final float dx = event.getX(px);
+                final float dy = event.getY(px);
+                /*
                  * Relative coordinate space [LANDSCAPE]
                  */
-                int px = event.getActionIndex();
-                float x = event.getX(px);
-                float y = event.getY(px);
-                if (0.0f != x || 0.0f != y){
+                if ( 0.0f != Z(dx) || 0.0f != Z(dy)){
 
-                    if (Math.abs(x) > Math.abs(y)){
+                    if (Math.abs(dx) > Math.abs(dy)){
 
-                        if (0.0f < x){
+                        if (0.0f < dx){
 
-                            return new InputScript[]{Input.Up};
+                            return new InputScript[]{Input.Left};
                         }
                         else {
-                            return new InputScript[]{Input.Down};
+                            return new InputScript[]{Input.Right};
                         }
                     }
-                    else if (0.0f < y){
+                    else if (0.0f < dy){
 
-                        return new InputScript[]{Input.Left};
+                        return new InputScript[]{Input.Up};
                     }
                     else {
-                        return new InputScript[]{Input.Right};
+                        return new InputScript[]{Input.Down};
                     }
+                }
+                else {
+                    return new InputScript[]{Input.Enter};
                 }
             }
         }

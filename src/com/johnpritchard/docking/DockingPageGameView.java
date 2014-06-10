@@ -69,6 +69,8 @@ public final class DockingPageGameView
 
             //glMultMatrixf(matrixR);
 
+            glColor4f(0.0f,0.0f,0.0f,1.0f);
+
             /* Model
              */
 
@@ -79,8 +81,6 @@ public final class DockingPageGameView
 
             glPopMatrix();
 
-            glColor4f(0.0f,0.0f,0.0f,1.0f);
-
             sv0.draw();
             sv1.draw();
             sv2.draw();
@@ -88,9 +88,9 @@ public final class DockingPageGameView
             glFlush();
         }
     }
-    @Override
-    public void input(InputScript in){
+    // @Override
+    // public void input(InputScript in){
 
-        view.script(Page.start);
-    }
+    //     view.script(Page.start);
+    // }
 }
