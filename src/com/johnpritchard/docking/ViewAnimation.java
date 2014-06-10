@@ -422,7 +422,7 @@ public final class ViewAnimation
                                 touchInputFilter = SystemClock.uptimeMillis()+TouchInputFilter;
                             }
                             else {
-                                info("script <null>");
+                                warn("script <null>");
                             }
                         }
 
