@@ -78,39 +78,39 @@ public class ObjectLog
         context.sensorUnregister(li);
     }
     protected void verbose(String m){
-        Log.i(TAG,m);
+        Log.i(TAG,(getClass().getName()+' '+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,m,t);
+        Log.i(TAG,(getClass().getName()+' '+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,m);
+        Log.d(TAG,(getClass().getName()+' '+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,m,t);
+        Log.d(TAG,(getClass().getName()+' '+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,m);
+        Log.i(TAG,(getClass().getName()+' '+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,m,t);
+        Log.i(TAG,(getClass().getName()+' '+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,m);
+        Log.w(TAG,(getClass().getName()+' '+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,m,t);
+        Log.w(TAG,(getClass().getName()+' '+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,m);
+        Log.e(TAG,(getClass().getName()+' '+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,m,t);
+        Log.e(TAG,(getClass().getName()+' '+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,m);
+        Log.wtf(TAG,(getClass().getName()+' '+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,m,t);
+        Log.wtf(TAG,(getClass().getName()+' '+m),t);
     }
 }

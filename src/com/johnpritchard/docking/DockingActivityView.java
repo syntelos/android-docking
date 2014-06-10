@@ -22,9 +22,9 @@ public class DockingActivityView
     extends ObjectActivity
 {
 
-    private View3D view;
+    View3D view;
 
-    private SharedPreferences preferences;
+    SharedPreferences preferences;
 
 
     @Override
@@ -59,12 +59,15 @@ public class DockingActivityView
     @Override
     protected void onResume(){
         super.onResume();
-        info("onResume");
 
         this.view.onResume();
     }
     protected SharedPreferences preferences(){
 
         return this.preferences;
+    }
+    protected void physicsUpdate(){
+
+        this.view.physicsUpdate();
     }
 }

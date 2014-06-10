@@ -63,9 +63,9 @@ public final class View3DTextLabel
 
     public void format(String fmt, Object... args){
 
-        this.define(String.format(fmt,args));
+        this.setText(String.format(fmt,args));
     }
-    public void define(String sstring){
+    public void setText(String sstring){
 
         array = null;
 

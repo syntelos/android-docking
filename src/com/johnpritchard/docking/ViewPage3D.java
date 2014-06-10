@@ -51,6 +51,8 @@ public abstract class ViewPage3D
      */
     public abstract void draw(GL10 gl);
 
+    public abstract void physicsUpdate();
+
     public final void draw(Canvas g){
     }
     /**
@@ -79,31 +81,36 @@ public abstract class ViewPage3D
 
                             if (0.0f != this.lx || 0.0f != this.ly){
 
-                                final float dx = (lx-x);
-                                final float dy = (ly-y);
+                                final float dx = (lx-x)/10f;
+                                final float dy = (ly-y)/10f;
 
                                 lx = x;
                                 ly = y;
-
-                                if (0.0f != dx || 0.0f != dy){
+                                /*
+                                 * Relative coordinate space [LANDSCAPE]
+                                 */
+                                if ( 0.0f != Z(dx) || 0.0f != Z(dy)){
 
                                     if (Math.abs(dx) > Math.abs(dy)){
 
                                         if (0.0f < dx){
 
-                                            return new InputScript[]{Input.Left};
+                                            return new InputScript[]{Input.Up};
                                         }
                                         else {
-                                            return new InputScript[]{Input.Right};
+                                            return new InputScript[]{Input.Down};
                                         }
                                     }
                                     else if (0.0f < dy){
 
-                                        return new InputScript[]{Input.Down}; // like a dpad?
+                                        return new InputScript[]{Input.Left};
                                     }
                                     else {
-                                        return new InputScript[]{Input.Up};
+                                        return new InputScript[]{Input.Right};
                                     }
+                                }
+                                else {
+                                    return new InputScript[]{Input.Enter};
                                 }
                             }
                             else {
@@ -119,7 +126,7 @@ public abstract class ViewPage3D
             }
             else {
                 /*
-                 * Relative coordinate space
+                 * Relative coordinate space [LANDSCAPE]
                  */
                 int px = event.getActionIndex();
                 float x = event.getX(px);
@@ -130,18 +137,18 @@ public abstract class ViewPage3D
 
                         if (0.0f < x){
 
-                            return new InputScript[]{Input.Left};
+                            return new InputScript[]{Input.Up};
                         }
                         else {
-                            return new InputScript[]{Input.Right};
+                            return new InputScript[]{Input.Down};
                         }
                     }
                     else if (0.0f < y){
 
-                        return new InputScript[]{Input.Down}; // like a dpad?
+                        return new InputScript[]{Input.Left};
                     }
                     else {
-                        return new InputScript[]{Input.Up};
+                        return new InputScript[]{Input.Right};
                     }
                 }
             }

@@ -23,9 +23,9 @@ public final class View3DRenderer
     private View3D view;
 
     private SharedPreferences preferences;
-    /**
-     * Accessed from {@link View3D}
-     */
+
+    protected volatile Page pageId;
+
     protected volatile ViewPage3D page;
 
     private boolean plumb = false;
@@ -43,24 +43,36 @@ public final class View3DRenderer
 
         return this.preferences;
     }
+    public void physicsUpdate(){
+
+        ViewPage3D page = this.page;
+
+        if (null != page){
+
+            page.physicsUpdate();
+        }
+    }
     /**
      * Occurs before surface created
      */
     public synchronized void onCreate(SharedPreferences state){
 
         this.preferences = state;
-
-        this.pageTo(state.getString("view.page","gameInput"));
     }
     public void onResume(){
+
+        pageTo(Page.valueOf(preferences.getString("page","gameInput")));
     }
     public synchronized void onPause(SharedPreferences.Editor state){
 
-        if (null != this.page){
+        if (null != this.pageId){
 
-            state.putString("view.page",this.page.name());
+            state.putString("page",this.pageId.name());
 
-            this.page.down(state);
+            if (null != this.page){
+
+                this.page.down(state);
+            }
         }
 
         this.plumb = false;
@@ -76,26 +88,15 @@ public final class View3DRenderer
 
         this.plumb = true;
 
-        this.page.up(view,width,height);
+        if (null != this.page){
 
+            this.page.up(view,width,height);
+        }
     }
     public synchronized void surfaceDestroyed(SurfaceHolder holder){
         info("surfaceDestroyed");
 
         this.plumb = false;
-    }
-    /**
-     * Called from {@link #onCreate} followed by {@link #repaint}.
-     * @see #script
-     */
-    private void pageTo(String name){
-        try {
-            this.pageTo(Page.valueOf(name));
-        }
-        catch (RuntimeException exc){
-
-            this.pageTo(Page.start);
-        }
     }
     /**
      * Called from {@link ViewAnimator}
@@ -112,6 +113,29 @@ public final class View3DRenderer
             if (page.page != this.page){
 
                 this.page.down();
+                try {
+                    this.pageId = page;
+
+                    this.page = (ViewPage3D)page.page;
+
+                    if (this.plumb){
+
+                        this.page.up(view,width,height);
+                    }
+                }
+                catch (ClassCastException exc){
+
+                    this.page = null;
+
+                    warn("switching to 2D for page: "+page);
+
+                    Docking.StartMain();
+                }
+            }
+        }
+        else {
+            try {
+                this.pageId = page;
 
                 this.page = (ViewPage3D)page.page;
 
@@ -120,13 +144,13 @@ public final class View3DRenderer
                     this.page.up(view,width,height);
                 }
             }
-        }
-        else {
-            this.page = (ViewPage3D)page.page;
+            catch (ClassCastException exc){
 
-            if (this.plumb){
+                this.page = null;
 
-                this.page.up(view,width,height);
+                warn("switching to 2D for page: "+page);
+
+                Docking.StartMain();
             }
         }
     }

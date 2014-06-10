@@ -94,13 +94,13 @@ public final class ViewAnimation
         }
     }
     /**
-     * Used by {@link View}
+     * Used by {@link View2D} for repaint
      */
-    protected static void Script(ViewPage page){
+    protected static void Script(){
 
         if (null != Instance){
 
-            Instance.script(page);
+            Instance.script();
         }
         else {
             Warn("script: dropped page-to");
@@ -173,11 +173,6 @@ public final class ViewAnimation
 
                 head.append(this);
             }
-        }
-        private Script(Script head, ViewPage page){
-            this(head);
-
-            this.page = page;
         }
         private Script(Script head, Page pageTo){
             this(head);
@@ -266,9 +261,12 @@ public final class ViewAnimation
             this.monitor.notify();
         }
     }
-    private void script(ViewPage page){
+    /**
+     * Repaint (2D only)
+     */
+    private void script(){
 
-        this.queue = (new Script(this.queue,page)).head();
+        this.queue = (new Script(this.queue)).head();
 
         synchronized(this.monitor){
 

@@ -43,14 +43,14 @@ public final class DockingPageIntro
 
             if (-1 < enter()){
 
-                ((View2D)view).script(Page.start);
+                view.script(Page.start);
             }
             return;
 
         case Back:
         case Up:
         case Down:
-            ((View2D)view).script(Page.start);
+            view.script(Page.start);
             return;
 
         default:

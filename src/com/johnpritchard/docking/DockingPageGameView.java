@@ -77,18 +77,15 @@ public final class DockingPageGameView
             glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
             glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
 
-            View3DGeometrySphere.Instance.draw();
+            DockingGeometryPort.Instance.draw();
 
             // glPopMatrix();
 
             glColor4f(0.0f,0.0f,0.0f,1.0f);
 
-            m0.draw();
-            m1.draw();
-            m2.draw();
-
-            el.draw();
-            az.draw();
+            sv0.draw();
+            sv1.draw();
+            sv2.draw();
 
             glFlush();
         }
@@ -96,6 +93,17 @@ public final class DockingPageGameView
     @Override
     public void input(InputScript in){
 
-        super.input(in);
+        info(in.toString());
+
+        Input type = in.type();
+
+        if (Input.Key == type || Input.Enter == type){
+
+            view.script(Page.gameInput);
+        }
+        else {
+
+            super.input(in);
+        }
     }
 }

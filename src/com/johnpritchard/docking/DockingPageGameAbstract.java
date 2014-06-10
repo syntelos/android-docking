@@ -59,12 +59,10 @@ public abstract class DockingPageGameAbstract
     protected final static FloatBuffer matrixR, matrixI;
 
 
-    protected final static View3DTextLabel m0 = new View3DTextLabel(-2.5, -1.2,  1.0, 0.1);
-    protected final static View3DTextLabel m1 = new View3DTextLabel(-2.5, -1.35, 1.0, 0.1);
-    protected final static View3DTextLabel m2 = new View3DTextLabel(-2.5, -1.5,  1.0, 0.1);
 
-    protected final static View3DTextLabel el = new View3DTextLabel(+1.0, +1.2,  1.0, 0.2);
-    protected final static View3DTextLabel az = new View3DTextLabel(+1.0, +0.9,  1.0, 0.2);
+    protected final static View3DTextLabel sv0 = new View3DTextLabel(-2.5, +1.5,  1.0, 0.1);
+    protected final static View3DTextLabel sv1 = new View3DTextLabel(-2.5, +1.35, 1.0, 0.1);
+    protected final static View3DTextLabel sv2 = new View3DTextLabel(-2.5, +1.2,  1.0, 0.1);
 
     static {
         {
@@ -186,17 +184,23 @@ public abstract class DockingPageGameAbstract
 
         if (Input.Back == in){
 
-            Docking.StartMain();
+            view.script(Page.start);
         }
     }
-    public void update(){
+    @Override
+    public void physicsUpdate(){
 
-        // m0.format("M00 %s M01 %s M02 %s",Format7(m[0]),Format7(m[1]),Format7(m[2]));
-        // m1.format("M10 %s M11 %s M12 %s",Format7(m[4]),Format7(m[5]),Format7(m[6]));
-        // m2.format("M20 %s M21 %s M22 %s",Format7(m[8]),Format7(m[9]),Format7(m[10]));
+        DockingCraftStateVector copy = DockingPhysics.Copy();
 
-        // el.format("EL %s",Format4(r.rotationEL()*DEG));
-        // az.format("AZ %s",Format4(r.rotationAZ()*DEG));
+        float v_x = 0, a_x = 0, t = 0;
+
+        if (null != copy){
+            v_x = (float)copy.velocity_x;
+            a_x = (float)copy.acceleration_x;
+            t = (float)copy.time/1000.0f;
+        }
+
+        sv0.format("Vx %s Ax %s T %s",Format7(v_x),Format7(a_x),Format7(t));
     }
     protected final static double DEG = 180.0/Math.PI;
 

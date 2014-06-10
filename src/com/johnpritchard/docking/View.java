@@ -32,6 +32,12 @@ public interface View
 
     public SharedPreferences preferences();
 
+    public void script(Page pageTo);
+
+    public void script(InputScript in);
+
+    public void script(InputScript[] sequence);
+
     public class Script {
 
         protected final static InputScript[] Direction(Input dir){

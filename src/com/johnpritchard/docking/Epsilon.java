@@ -8,14 +8,20 @@ package com.johnpritchard.docking;
  */
 public abstract class Epsilon {
 
-    protected final static float EPSILON = 1.0e-7f;
-    protected final static double EPSILON_D = 1.0e-7;
+    protected final static float EPSILON_F = 1.0e-7f;
+    protected final static double EPSILON_D = 1.0e-15;
     /**
      * A delta-epsilon operator performs a first approximation to
      * floating point numeric error for a difference from zero
      */
     protected final static float Z(float value){
-        if (EPSILON < Math.abs(0.0f-value))
+        if (EPSILON_F < Math.abs(0.0f-value))
+            return value;
+        else
+            return 0.0f;
+    }
+    protected final static double Z(double value){
+        if (EPSILON_D < Math.abs(0.0-value))
             return value;
         else
             return 0.0f;
@@ -29,7 +35,7 @@ public abstract class Epsilon {
         if (1.0f < constant){
             final double c = constant;
             final double v = variable;
-            final double e = c * EPSILON_D;
+            final double e = c * EPSILON_F;
 
             if (e < Math.abs(c-v)){
 
@@ -39,7 +45,7 @@ public abstract class Epsilon {
                 return constant;
             }
         }
-        else if (EPSILON < Math.abs(constant-variable)){
+        else if (EPSILON_F < Math.abs(constant-variable)){
 
             return variable;
         }

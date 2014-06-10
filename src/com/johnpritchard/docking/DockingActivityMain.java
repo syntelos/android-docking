@@ -21,9 +21,9 @@ public class DockingActivityMain
     extends ObjectActivity
 {
 
-    private View2D view;
+    View2D view;
 
-    private SharedPreferences preferences;
+    SharedPreferences preferences;
 
 
     @Override
@@ -58,7 +58,6 @@ public class DockingActivityMain
     @Override
     protected void onResume(){
         super.onResume();
-        info("onResume");
 
         this.view.onResume();
     }

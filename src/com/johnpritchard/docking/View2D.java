@@ -57,6 +57,8 @@ public final class View2D
 
     private SharedPreferences preferences;
 
+    protected volatile Page pageId;
+
     private volatile ViewPage2D page;
 
     private int bg = Color.WHITE;
@@ -95,21 +97,25 @@ public final class View2D
 
         this.preferences = state;
 
-        this.pageTo(state.getString("main.page","start"));
     }
     public void onResume(){
         info("onResume");
 
         ViewAnimation.Start(this);
+
+        pageTo(Page.valueOf(preferences.getString("page","start")));
     }
     public void onPause(SharedPreferences.Editor state){
         info("onPause");
 
-        if (null != this.page){
+        if (null != this.pageId){
 
-            state.putString("main.page",this.page.name());
+            state.putString("page",this.pageId.name());
 
-            this.page.down(state);
+            if (null != this.page){
+
+                this.page.down(state);
+            }
         }
 
         this.plumb = false;
@@ -129,8 +135,10 @@ public final class View2D
 
         this.plumb = true;
 
-        this.page.up(this,width,height);
+        if (null != this.page){
 
+            this.page.up(this,width,height);
+        }
         this.repaint();
     }
     public void surfaceDestroyed(SurfaceHolder holder){
@@ -138,10 +146,38 @@ public final class View2D
 
         this.plumb = false;
     }
+    /**
+     * Works on Sony-TV, but not MB860
+     */
+    @Override
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+
+        if (KeyEvent.KEYCODE_BACK == keyCode){
+            switch(event.getAction()){
+            case KeyEvent.ACTION_DOWN:
+                return (Page.start != this.pageId);
+
+            case KeyEvent.ACTION_UP:
+                if (Page.start != this.pageId){
+                    script(Input.Back);
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            default:
+                break;
+            }
+        }
+        return false;
+    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
 
         switch(keyCode){
+
+        case KeyEvent.KEYCODE_BACK:
+            return (Page.start != this.pageId);
 
         case KeyEvent.KEYCODE_SOFT_LEFT:
         case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -181,6 +217,15 @@ public final class View2D
     public boolean onKeyUp(int keyCode, KeyEvent event){
 
         switch(keyCode){
+
+        case KeyEvent.KEYCODE_BACK:
+            if (Page.start != this.pageId){
+                script(Input.Back);
+                return true;
+            }
+            else {
+                return false;
+            }
 
         case KeyEvent.KEYCODE_SOFT_LEFT:
         case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -252,19 +297,6 @@ public final class View2D
         return true;
     }
     /**
-     * Called from {@link #onCreate} followed by {@link #repaint}.
-     * @see #script
-     */
-    private void pageTo(String name){
-        try {
-            this.pageTo(Page.valueOf(name));
-        }
-        catch (RuntimeException exc){
-
-            this.pageTo(Page.start);
-        }
-    }
-    /**
      * Called from {@link ViewAnimator}
      * @see #script
      */
@@ -279,6 +311,29 @@ public final class View2D
             if (page.page != this.page){
 
                 this.page.down();
+                try {
+                    this.pageId = page;
+
+                    this.page = (ViewPage2D)page.page;
+
+                    if (this.plumb){
+
+                        this.page.up(this,width,height);
+                    }
+                }
+                catch (ClassCastException exc){
+
+                    this.page = null;
+
+                    warn("switching to 3D for page: "+page);
+
+                    Docking.StartView();
+                }
+            }
+        }
+        else {
+            try {
+                this.pageId = page;
 
                 this.page = (ViewPage2D)page.page;
 
@@ -287,38 +342,44 @@ public final class View2D
                     this.page.up(this,width,height);
                 }
             }
-        }
-        else {
-            this.page = (ViewPage2D)page.page;
+            catch (ClassCastException exc){
 
-            if (this.plumb){
+                this.page = null;
 
-                this.page.up(this,width,height);
+                warn("switching to 3D for page: "+page);
+
+                Docking.StartView();
             }
         }
     }
+    /**
+     * Repaint (2D only)
+     */
     protected void repaint(){
 
-        ViewAnimation.Script(page);
+        ViewAnimation.Script();
     }
     /**
      * Application access to {@link #pageTo} for animated interaction.
      */
-    protected void script(Page page){
+    @Override
+    public void script(Page page){
 
         ViewAnimation.Script(page);
     }
     /**
      * General access to animated input.
      */
-    protected void script(InputScript in){
+    @Override
+    public void script(InputScript in){
 
         if (null != in){
 
             ViewAnimation.Script(page,new InputScript[]{in});
         }
     }
-    protected void script(InputScript[] in){
+    @Override
+    public void script(InputScript[] in){
 
         ViewAnimation.Script(page,in);
     }

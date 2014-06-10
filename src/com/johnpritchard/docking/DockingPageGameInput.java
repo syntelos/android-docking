@@ -23,7 +23,6 @@ public final class DockingPageGameInput
 
 
 
-
     private DockingPageGameInput(){
         super();
     }
@@ -48,12 +47,9 @@ public final class DockingPageGameInput
 
             glColor4f(0.0f,0.0f,0.0f,1.0f);
 
-            m0.draw();
-            m1.draw();
-            m2.draw();
-
-            el.draw();
-            az.draw();
+            sv0.draw();
+            sv1.draw();
+            sv2.draw();
 
             glFlush();
         }
@@ -61,6 +57,51 @@ public final class DockingPageGameInput
     @Override
     public void input(InputScript in){
 
-        super.input(in);
+        info(in.toString());
+
+        Input type = in.type();
+
+        if (Input.Key == type){
+
+            InputScript.Key kin = (InputScript.Key)in;
+
+            sv1.format("Fx %s",View3DInputEditable.Instance.toString());
+        }
+        else if (Input.Enter == type){
+
+            String string = View3DInputEditable.Instance.toString();
+            try {
+                float opd = Float.parseFloat(string);
+
+                sv1.format("Fx %s",Format7(opd));
+
+                DockingPhysics.Script(new PhysicsScript(PhysicsOperator.FX,opd));
+            }
+            catch (NumberFormatException exc){
+
+                sv1.setText("Fx");
+            }
+            View3DInputEditable.Instance.clear();
+
+            Docking.LowerKeyboard();
+
+            view.script(Page.gameView);
+        }
+        else {
+            sv1.setText("Fx");
+
+            View3DInputEditable.Instance.clear();
+
+            super.input(in);
+        }
+    }
+    @Override
+    protected void focus(){
+
+        info("focus");
+
+        View3DInputEditable.Instance.clear();
+
+        Docking.RaiseKeyboard();
     }
 }

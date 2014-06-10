@@ -55,16 +55,16 @@ public final class DockingPageStart
 
             switch(enter()){
             case INTRO:
-                ((View2D)view).script(Page.intro);
+                view.script(Page.intro);
                 break;
             case GAME:
-                Docking.StartView();
+                view.script(Page.gameInput);
                 break;
             case HISTORY:
-                ((View2D)view).script(Page.history);
+                view.script(Page.history);
                 break;
             case ABOUT:
-                ((View2D)view).script(Page.about);
+                view.script(Page.about);
                 break;
             }
         }
