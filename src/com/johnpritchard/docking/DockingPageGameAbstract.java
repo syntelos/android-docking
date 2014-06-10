@@ -60,9 +60,9 @@ public abstract class DockingPageGameAbstract
 
 
 
-    protected final static View3DTextLabel sv0 = new View3DTextLabel(-2.6, +1.35, 1.0, 0.12);
-    protected final static View3DTextLabel sv1 = new View3DTextLabel(-2.6,  +1.1, 1.0, 0.12);
-    protected final static View3DTextLabel sv2 = new View3DTextLabel(-2.6, +0.95, 1.0, 0.12);
+    protected final static ViewPage3DTextLabel sv0 = new ViewPage3DTextLabel(-2.6, +1.35, 1.0, 0.12);
+    protected final static ViewPage3DTextLabel sv1 = new ViewPage3DTextLabel(-2.6,  +1.1, 1.0, 0.12);
+    protected final static ViewPage3DTextLabel sv2 = new ViewPage3DTextLabel(-2.6, +0.95, 1.0, 0.12);
 
     static {
         {

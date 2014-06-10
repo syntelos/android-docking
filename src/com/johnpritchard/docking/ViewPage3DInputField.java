@@ -7,7 +7,7 @@ package com.johnpritchard.docking;
  * 
  */
 public class ViewPage3DInputField
-    extends View3DTextLabel
+    extends ViewPage3DTextLabel
     implements ViewPageComponentInteractive
 {
 

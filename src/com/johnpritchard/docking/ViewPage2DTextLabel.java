@@ -13,16 +13,16 @@ import android.graphics.Region;
 /**
  * 
  */
-public class View2DTextLabel
+public class ViewPage2DTextLabel
     extends ViewPage2DComponentPath
     implements ViewPageComponentGroup
 {
 
 
-    public View2DTextLabel(){
+    public ViewPage2DTextLabel(){
         super();
     }
-    public View2DTextLabel(String label){
+    public ViewPage2DTextLabel(String label){
         super(label);
     }
 

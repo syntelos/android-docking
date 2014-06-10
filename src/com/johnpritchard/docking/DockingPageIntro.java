@@ -21,7 +21,7 @@ public final class DockingPageIntro
 
     private DockingPageIntro(){
         super(new ViewPage2DComponent[]{
-                new View2DTextMultiline("Intro")
+                new ViewPage2DTextMultiline("Intro")
             });
     }
 
