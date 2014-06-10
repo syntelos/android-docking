@@ -22,6 +22,8 @@ import android.view.inputmethod.InputMethodManager;
 public class DockingKeyboard
     extends InputMethodService
 {
+    protected final static String TAG = ObjectLog.TAG;
+
 
     private Keyboard keyboard;
 
@@ -37,6 +39,8 @@ public class DockingKeyboard
 
     @Override
     public void onInitializeInterface(){
+
+        info("onInitializeInterface");
 
         Docking.KeyboardActivate(this);
 
@@ -54,6 +58,8 @@ public class DockingKeyboard
     @Override
     public View onCreateInputView(){
 
+        info("onCreateInputView");
+
         keyboardView = (KeyboardView)getLayoutInflater().inflate(R.layout.keyboard,
                                                                  null);
         keyboardView.setKeyboard(keyboard);
@@ -69,13 +75,54 @@ public class DockingKeyboard
     public void onFinishInput(){
         super.onFinishInput();
 
+        info("onFinishInput");
+
         keyboardView.closing();
     }
     @Override
     public void onStartInputView(EditorInfo attribute, boolean restarting){
         super.onStartInputView(attribute, restarting);
 
+        info("onStartInputView");
+
         keyboardView.setKeyboard(keyboard);
         keyboardView.closing();
+    }
+
+    protected void verbose(String m){
+        Log.i(TAG,(getClass().getName()+' '+m));
+    }
+    protected void verbose(String m, Throwable t){
+        Log.i(TAG,(getClass().getName()+' '+m),t);
+    }
+    protected void debug(String m){
+        Log.d(TAG,(getClass().getName()+' '+m));
+    }
+    protected void debug(String m, Throwable t){
+        Log.d(TAG,(getClass().getName()+' '+m),t);
+    }
+    protected void info(String m){
+        Log.i(TAG,(getClass().getName()+' '+m));
+    }
+    protected void info(String m, Throwable t){
+        Log.i(TAG,(getClass().getName()+' '+m),t);
+    }
+    protected void warn(String m){
+        Log.w(TAG,(getClass().getName()+' '+m));
+    }
+    protected void warn(String m, Throwable t){
+        Log.w(TAG,(getClass().getName()+' '+m),t);
+    }
+    protected void error(String m){
+        Log.e(TAG,(getClass().getName()+' '+m));
+    }
+    protected void error(String m, Throwable t){
+        Log.e(TAG,(getClass().getName()+' '+m),t);
+    }
+    protected void wtf(String m){
+        Log.wtf(TAG,(getClass().getName()+' '+m));
+    }
+    protected void wtf(String m, Throwable t){
+        Log.wtf(TAG,(getClass().getName()+' '+m),t);
     }
 }

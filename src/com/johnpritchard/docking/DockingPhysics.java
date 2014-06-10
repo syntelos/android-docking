@@ -54,7 +54,7 @@ public final class DockingPhysics
         }
     }
 
-    private final static long TINC = 10L;
+    private final static long TINC = 20L;
 
     private final static long FCOPY = 500L;
 
@@ -103,6 +103,8 @@ public final class DockingPhysics
     }
     public void run(){
         try {
+            info("running");
+
             double pt = 0.0;
 
             while (running){
@@ -125,6 +127,9 @@ public final class DockingPhysics
         }
         catch (InterruptedException inx){
             return;
+        }
+        finally {
+            info("returning");
         }
     }
     protected void verbose(String m){

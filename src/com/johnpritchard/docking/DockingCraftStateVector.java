@@ -71,6 +71,7 @@ public final class DockingCraftStateVector
                 velocity_x = 0.0;
             }
         }
+        time = SystemClock.uptimeMillis();
     }
     public synchronized DockingCraftStateVector clone(){
         try {
