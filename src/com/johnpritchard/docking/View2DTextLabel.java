@@ -15,7 +15,7 @@ import android.graphics.Region;
  */
 public class View2DTextLabel
     extends ViewPage2DComponentPath
-    implements ViewPage2DComponentGroup
+    implements ViewPageComponentGroup
 {
 
 

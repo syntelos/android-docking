@@ -220,9 +220,9 @@ public abstract class ViewPage2D
         for (int cc = offset, end = (offset+count); cc < end; cc++){
             ViewPage2DComponent c = components[cc];
 
-            if (c instanceof ViewPage2DComponentGroup){
+            if (c instanceof ViewPageComponentGroup){
 
-                ((ViewPage2DComponentGroup)c).group(g,p);
+                ((ViewPageComponentGroup)c).group(g,p);
             }
             re.union(c.bounds());
         }
@@ -411,7 +411,7 @@ public abstract class ViewPage2D
 
                         if (navigationInclude(bb,b)){
 
-                            final Input dir = c.direction(b.getX(),b.getY());
+                            final Input dir = c.direction(b);
 
                             if (Input.Enter != dir){
 

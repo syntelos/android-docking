@@ -3,6 +3,7 @@
  */
 package com.johnpritchard.docking;
 
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import static android.opengl.GLES10.*;
 import android.view.InputDevice;
@@ -31,11 +32,20 @@ public abstract class ViewPage3D
     protected final static java.nio.ByteOrder nativeOrder = java.nio.ByteOrder.nativeOrder();
 
 
+
+    protected final ViewPage3DComponent[] components;
+
+    protected ViewPage3DComponent current;
+
     private float lx, ly;
 
 
     protected ViewPage3D(){
+        this(new ViewPage3DComponent[0]);
+    }
+    protected ViewPage3D(ViewPage3DComponent[] components){
         super();
+        this.components = components;
         info("init");
         init();
     }
@@ -54,6 +64,13 @@ public abstract class ViewPage3D
     public abstract void physicsUpdate();
 
     public final void draw(Canvas g){
+    }
+    @Override
+    public void down(SharedPreferences.Editor preferences){
+
+        this.down();
+
+        preferences.putInt(name()+".focus",this.current());
     }
     /**
      * Called from {@link ViewAnimation} to convert pointer activity
@@ -159,6 +176,166 @@ public abstract class ViewPage3D
             }
         }
         return null;
+    }
+    /**
+     * Convert navigation activity to navigational focus status.
+     */
+    @Override
+    public void input(InputScript event){
+        ViewPage3DComponent current = this.current;
+
+        Input in = event.type();
+
+        if (in.geometric && null != current){
+
+            ViewPage3DComponent next = current.getCardinal(in);
+            if (null != next && next != current){
+
+                current.clearCurrent();
+                current = next;
+                current.setCurrent();
+            }
+        }
+        else {
+            super.input(event);
+        }
+    }
+    /**
+     * @see #first()
+     */
+    protected boolean navigationInclude(int index, ViewPage3DComponent c){
+        return true;
+    }
+    /**
+     * Initialize navigation
+     */
+    @Override
+    protected final void navigation(){
+        for (int cc = 0, count = components.length; cc < count; cc++){
+            ViewPage3DComponent c = components[cc];
+
+            c.clearCardinals();
+
+            if (navigationInclude(cc,c)){
+
+                final float cx = c.getX();
+                final float cy = c.getY();
+
+                for (int bb = 0; bb < count; bb++){
+                    if (bb != cc){
+                        ViewPage3DComponent b = components[bb];
+
+                        if (navigationInclude(bb,b)){
+
+                            final Input dir = c.direction(b);
+
+                            if (Input.Enter != dir){
+
+                                c.setCardinal(dir,b);
+                            }
+                        }
+                    }
+                    else {
+                        c.setCardinal(Input.Enter,c);
+                    }
+                }
+            }
+        }
+    }
+    /**
+     * Initialize focus
+     */
+    @Override
+    protected void focus(){
+        if (0 != components.length){
+            SharedPreferences preferences = preferences();
+            int first = first();
+            int focus = preferences.getInt(name()+".focus",first);
+
+            if (focus < components.length){
+
+                current = components[focus];
+            }
+            else {
+                current = components[first];
+            }
+            for (ViewPage3DComponent c : components){
+
+                if (c == current){
+                    c.setCurrent();
+                }
+                else {
+                    c.clearCurrent();
+                }
+            }
+        }
+    }
+    /**
+     * Call draw on each component
+     */
+    protected void draw(){
+
+        for (ViewPage3DComponent c: this.components){
+
+            c.draw();
+        }
+    }
+    /**
+     * This may return negative one when a subclass is filtering
+     * (excluding) enter events.
+     */
+    protected int enter(){
+
+        return this.current();
+    }
+    /**
+     * According to the typical implementation of {@link #focus()},
+     * this will not return negative one.
+     */
+    protected int current(){
+        ViewPage3DComponent current = this.current;
+        if (null != current){
+            ViewPage3DComponent[] components = this.components;
+
+            final int count = components.length;
+            for (int cc = 0; cc < count; cc++){
+
+                if (current == components[cc]){
+
+                    return cc;
+                }
+            }
+        }
+        return -1;
+    }
+    /**
+     * Initialize focus with a central component
+     * 
+     * @see #navigationInclude
+     */
+    protected int first(){
+        int first = 0;
+
+        if (1 < components.length){
+
+            int first_score = -1;
+
+            final int count = (int)Math.ceil((float)components.length/2.0f);
+
+            for (int cc = 0; cc < count; cc++){
+
+                ViewPage3DComponent c = components[cc];
+
+                int c_score = c.countCardinals();
+
+                if (c_score >= first_score){
+
+                    first = cc;
+                    first_score = c_score;
+                }
+            }
+        }
+        return first;
     }
     /*
      * glu method for static GL interface (GLES10)

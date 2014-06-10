@@ -10,7 +10,7 @@ import path.Operand;
  */
 public class ViewPage2DButtonGroup
     extends ViewPage2DButtonPlain
-    implements ViewPage2DComponentGroup
+    implements ViewPageComponentGroup
 {
 
 

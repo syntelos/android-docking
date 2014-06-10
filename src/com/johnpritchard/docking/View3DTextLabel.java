@@ -16,7 +16,7 @@ import java.nio.FloatBuffer;
  * content.
  */
 public final class View3DTextLabel
-    extends View3DGeometry
+    extends ViewPage3DComponentAbstract
 {
     protected final static int bpf3 = (bpf * 3);
 
@@ -145,6 +145,7 @@ public final class View3DTextLabel
                         xp += fw;
                     }
                 }
+                bounds.set((float)minX,(float)minY,(float)maxX,(float)maxY);
 
                 fit();
 

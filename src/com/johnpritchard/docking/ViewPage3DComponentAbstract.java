@@ -9,37 +9,38 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.util.Log;
 
+import java.nio.ByteOrder;
+
 /**
  * Implementation of the page component interface independent of the
  * implementation of geometry
  */
-public abstract class ViewPage2DComponentAbstract
+public abstract class ViewPage3DComponentAbstract
     extends ViewPageComponentAbstract
-    implements ViewPage2DComponent
+    implements ViewPage3DComponent
 {
+    /**
+     * Bytes per float (32 bits) is four.
+     */
+    protected final static int bpf = 4;
+    /**
+     * Anything using nio buffers and 3-tuple floats will have stride
+     * (3*bpf) because the nio buffers are employed as a partial or
+     * incomplete pointer lacking position - offset.
+     */
+    protected final static int stride = (3*bpf);
 
-    protected ViewPage2DComponent[] cardinals = new ViewPage2DComponent[Input.GeometricCount];
-
-    protected final ViewPage2DClip clip = new ViewPage2DClip();
+    protected final static java.nio.ByteOrder nativeOrder = java.nio.ByteOrder.nativeOrder();
 
 
-    public ViewPage2DComponentAbstract(){
+    protected ViewPage3DComponent[] cardinals = new ViewPage3DComponent[Input.GeometricCount];
+
+
+    public ViewPage3DComponentAbstract(){
         super();
     }
 
 
-    public final ViewPage2DClip clip(){
-
-        return this.clip;
-    }
-    public ViewPage2DComponentAbstract clip(Operand[] list){
-        if (null != list){
-            this.clear();
-
-            this.clip.apply(list);
-        }
-        return this;
-    }
     public final void clearCardinals(){
 
         for (Input dir: Input.Geometric){
@@ -59,11 +60,11 @@ public abstract class ViewPage2DComponentAbstract
         }
         return count;
     }
-    public final void setCardinal(Input direction, ViewPage2DComponent component){
+    public final void setCardinal(Input direction, ViewPage3DComponent component){
 
         if (direction.geometric){
 
-            ViewPage2DComponent existing = cardinals[direction.index];
+            ViewPage3DComponent existing = cardinals[direction.index];
 
             if (null == existing || distance(component) < distance(existing)){
 
@@ -71,7 +72,7 @@ public abstract class ViewPage2DComponentAbstract
             }
         }
     }
-    public final ViewPage2DComponent getCardinal(Input direction){
+    public final ViewPage3DComponent getCardinal(Input direction){
 
         if (direction.geometric){
 
