@@ -5,8 +5,6 @@ package com.johnpritchard.docking;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.inputmethod.InputMethodManager;
-import android.view.inputmethod.InputMethodInfo;
 import android.util.Log;
 
 import java.util.List;
@@ -21,7 +19,6 @@ public final class Docking
 
     private static DockingActivityMain Main;
     private static DockingActivityView View;
-    private static DockingKeyboard Keyboard;
 
     /**
      * Called from main to start view.
@@ -40,42 +37,6 @@ public final class Docking
         View.finish();
     }
     /**
-     * Called from view to raise keyboard
-     */
-    public final static void RaiseKeyboard(){
-
-        if (View.view.requestFocus()){
-
-            Info("RaiseKeyboard succeeded to focus view");
-            try {
-                InputMethodManager imm = (InputMethodManager)View.getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                imm.showSoftInput(View.view,InputMethodManager.SHOW_IMPLICIT);
-
-                Info("RaiseKeyboard completed");
-
-                {
-                    List<InputMethodInfo> list = imm.getEnabledInputMethodList();
-                    for (InputMethodInfo info: list){
-                        Info("input-method enabled "+info.getId()+" "+info.getPackageName()+" "+info.getServiceName());
-                    }
-                }
-            }
-            catch (Throwable t){
-                Error("RaiseKeyboard",t);
-            }
-        }
-        else {
-            Info("RaiseKeyboard failed to focus view");
-        }
-    }
-    public final static void LowerKeyboard(){
-
-        InputMethodManager imm = (InputMethodManager)View.getSystemService(Context.INPUT_METHOD_SERVICE);
-
-        imm.hideSoftInputFromWindow(View.view.getWindowToken(),0); 
-    }
-    /**
      * Called from main
      */
     protected final static void MainActivate(DockingActivityMain instance){
@@ -88,13 +49,6 @@ public final class Docking
     protected final static void ViewActivate(DockingActivityView instance){
 
         View = instance;
-    }
-    /**
-     * Called from keyboard
-     */
-    protected final static void KeyboardActivate(DockingKeyboard instance){
-
-        Keyboard = instance;
     }
     /**
      * Called from DockingPhysics

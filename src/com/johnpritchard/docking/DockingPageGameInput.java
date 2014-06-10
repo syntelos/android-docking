@@ -61,47 +61,13 @@ public final class DockingPageGameInput
 
         Input type = in.type();
 
-        if (Input.Key == type){
-
-            InputScript.Key kin = (InputScript.Key)in;
-
-            sv1.format("Fx %s",View3DInputEditable.Instance.toString());
-        }
-        else if (Input.Enter == type){
-
-            String string = View3DInputEditable.Instance.toString();
-            try {
-                float opd = Float.parseFloat(string);
-
-                sv1.format("Fx %s",Format7(opd));
-
-                DockingPhysics.Script(new PhysicsScript(PhysicsOperator.FX,opd));
-            }
-            catch (NumberFormatException exc){
-
-                sv1.setText("Fx");
-            }
-            View3DInputEditable.Instance.clear();
-
-            Docking.LowerKeyboard();
+        if (Input.Enter == type){
 
             view.script(Page.gameView);
         }
         else {
-            sv1.setText("Fx");
-
-            View3DInputEditable.Instance.clear();
 
             super.input(in);
         }
-    }
-    @Override
-    protected void focus(){
-
-        info("focus");
-
-        View3DInputEditable.Instance.clear();
-
-        Docking.RaiseKeyboard();
     }
 }

@@ -15,16 +15,6 @@
                android:name="@string/app_name"
                android:icon="@drawable/icon">
 
-    <service android:name="DockingKeyboard"
-             android:enabled="true"
-             android:exported="false"
-             android:permission="android.permission.BIND_INPUT_METHOD">
-      <intent-filter>
-        <action android:name="android.view.InputMethod" />
-      </intent-filter>
-      <meta-data android:name="android.view.im" android:resource="@xml/method" />
-    </service>
-
     <activity android:name="DockingActivityMain"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:windowSoftInputMode="stateAlwaysHidden">

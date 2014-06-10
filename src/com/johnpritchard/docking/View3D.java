@@ -6,9 +6,6 @@ package com.johnpritchard.docking;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ConfigurationInfo;
-import android.view.inputmethod.BaseInputConnection;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 import static android.opengl.GLES11.*;
 import static android.opengl.GLES11Ext.*;
 import android.util.Log;
@@ -41,7 +38,6 @@ public final class View3D
 
     private View3DRenderer renderer;
 
-    private View3DInputConnection input_connection;
 
 
     public View3D(ObjectActivity context){
@@ -56,9 +52,6 @@ public final class View3D
         holder.addCallback(renderer);
 
         holder.setKeepScreenOn(true);
-
-        setFocusable(true); // keyboard
-        setFocusableInTouchMode(true); // keyboard
     }
 
 
@@ -245,31 +238,6 @@ public final class View3D
 
         return true;
     }
-    /**
-     * Support for soft keyboard
-     */
-    public boolean onCheckIsTextEditor() {
-
-        info("onCheckIsTextEditor");
-
-        return true;
-    }
-    /**
-     * Support for soft keyboard
-     */
-    public InputConnection onCreateInputConnection(EditorInfo attrs) {
-
-        info("onCreateInputConnection");
-
-        if (null == this.input_connection){
-            this.input_connection = new View3DInputConnection(this);
-        }
-
-        //attrs.imeOptions = EditorInfo.IME_ACTION_DONE;
-
-        return this.input_connection;
-    }
-
     /**
      * Called from {@link ViewAnimator}
      * @see #script
