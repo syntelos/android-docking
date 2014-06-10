@@ -41,6 +41,8 @@ public abstract class ViewPage2D
 
     protected ViewPage2DComponent current;
 
+    protected ViewPageComponentInteractive interactive;
+
 
     protected ViewPage2D(ViewPage2DComponent[] components){
         super();
@@ -441,10 +443,10 @@ public abstract class ViewPage2D
 
         if (focus < components.length){
 
-            current = components[focus];
+            current(components[focus]);
         }
         else {
-            current = components[first];
+            current(components[first]);
         }
         for (ViewPage2DComponent c : components){
 
@@ -606,20 +608,29 @@ public abstract class ViewPage2D
     @Override
     public void input(InputScript event){
 
-        Input in = event.type();
+        if (null != interactive && interactive.interactive()){
 
-        if (in.geometric){
-
-            ViewPage2DComponent next = current.getCardinal(in);
-            if (null != next && next != current){
-
-                current.clearCurrent();
-                current = next;
-                current.setCurrent();
-            }
+            interactive.input(event);
         }
         else {
-            super.input(event);
+
+            ViewPage2DComponent current = this.current;
+
+            Input in = event.type();
+
+            if (in.geometric && null != current){
+
+                ViewPage2DComponent next = current.getCardinal(in);
+                if (null != next && next != current){
+
+                    current.clearCurrent();
+                    current(next);
+                    current.setCurrent();
+                }
+            }
+            else {
+                super.input(event);
+            }
         }
     }
     /**
@@ -657,6 +668,15 @@ public abstract class ViewPage2D
             }
         }
         return -1;
+    }
+    protected void current(ViewPage2DComponent c){
+        current = c;
+        if (c instanceof ViewPageComponentInteractive){
+            interactive = (ViewPageComponentInteractive)c;
+        }
+        else {
+            interactive = null;
+        }
     }
     /**
      * Initialize focus with a central component

@@ -40,6 +40,8 @@ public abstract class ViewPage3D
 
     protected ViewPage3DComponent current;
 
+    protected ViewPageComponentInteractive interactive;
+
     private float lx, ly;
 
 
@@ -191,22 +193,30 @@ public abstract class ViewPage3D
      */
     @Override
     public void input(InputScript event){
-        ViewPage3DComponent current = this.current;
 
-        Input in = event.type();
+        if (null != interactive && interactive.interactive()){
 
-        if (in.geometric && null != current){
-
-            ViewPage3DComponent next = current.getCardinal(in);
-            if (null != next && next != current){
-
-                current.clearCurrent();
-                current = next;
-                current.setCurrent();
-            }
+            interactive.input(event);
         }
         else {
-            super.input(event);
+
+            ViewPage3DComponent current = this.current;
+
+            Input in = event.type();
+
+            if (in.geometric && null != current){
+
+                ViewPage3DComponent next = current.getCardinal(in);
+                if (null != next && next != current){
+
+                    current.clearCurrent();
+                    current(next);
+                    current.setCurrent();
+                }
+            }
+            else {
+                super.input(event);
+            }
         }
     }
     /**
@@ -263,10 +273,10 @@ public abstract class ViewPage3D
 
             if (focus < components.length){
 
-                current = components[focus];
+                current(components[focus]);
             }
             else {
-                current = components[first];
+                current(components[first]);
             }
             for (ViewPage3DComponent c : components){
 
@@ -316,6 +326,15 @@ public abstract class ViewPage3D
             }
         }
         return -1;
+    }
+    protected void current(ViewPage3DComponent c){
+        current = c;
+        if (c instanceof ViewPageComponentInteractive){
+            interactive = (ViewPageComponentInteractive)c;
+        }
+        else {
+            interactive = null;
+        }
     }
     /**
      * Initialize focus with a central component
