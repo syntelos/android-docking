@@ -630,22 +630,40 @@ public abstract class ViewPage2D
              */
             view.pageTo(Page.start);
         }
-        else if (in.geometric && null != interactive &&
-                 interactive.interactive())
-        {
-            interactive.input(event);
-        }
-        else {
+        else if (in.geometric){
 
-            ViewPage2DComponent current = this.current;
+            final ViewPageComponentInteractive interactive = this.interactive;
 
-            if (in.geometric && null != current){
+            if (null != interactive && interactive.interactive()){
 
-                current(current.getCardinal(in));
+                info("interactive "+event);
+
+                interactive.input(event);
             }
             else {
-                super.input(event);
+
+                ViewPage2DComponent current = this.current;
+
+                if (null != current){
+
+                    info("navigation "+event);
+
+                    current(current.getCardinal(in));
+                }
+                else {
+                    current = this.current(in);
+
+                    if (null != current){
+
+                        info("navigation "+event);
+
+                        current(current);
+                    }
+                }
             }
+        }
+        else {
+            super.input(event);
         }
     }
     /**
@@ -683,6 +701,29 @@ public abstract class ViewPage2D
             }
         }
         return -1;
+    }
+    protected ViewPage2DComponent current(Input in){
+
+        final ViewPage2DComponent current = this.current;
+
+        if (null != current){
+
+            return current;
+        }
+        else {
+            final int count = this.components.length;
+            if (0 < count){
+                if (Input.Down == in){
+                    return this.components[0];
+                }
+                else {
+                    return this.components[count-1];
+                }
+            }
+            else {
+                return null;
+            }
+        }
     }
     protected void current(ViewPage2DComponent next){
 
