@@ -71,8 +71,6 @@ public abstract class ViewPage
     extends Epsilon
 {
 
-    protected final static float PAD_RATIO = 0.05f;
-
     /**
      * Surface properties
      */

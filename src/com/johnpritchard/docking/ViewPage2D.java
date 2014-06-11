@@ -634,8 +634,9 @@ public abstract class ViewPage2D
 
             final ViewPageComponentInteractive interactive = this.interactive;
 
-            if (null != interactive && interactive.interactive()){
-
+            if (null != interactive && 
+                (Input.Enter == in || interactive.interactive()))
+            {
                 info("interactive "+event);
 
                 interactive.input(event);

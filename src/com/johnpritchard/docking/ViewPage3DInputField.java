@@ -26,8 +26,11 @@ public class ViewPage3DInputField
     }
     protected void input_value(InputScript in){
     }
-    protected void input_close(InputScript in){
-        this.interactive = false;
+    protected void input_io(InputScript in){
+        if (this.interactive)
+            this.interactive = false;
+        else
+            this.interactive = true;
     }
     protected void input_inter(InputScript in){
     }
@@ -44,7 +47,7 @@ public class ViewPage3DInputField
             input_value(in);
             break;
         case Enter:
-            input_close(in);
+            input_io(in);
             break;
         default:
             input_inter(in);

@@ -18,10 +18,8 @@ import java.nio.FloatBuffer;
 public class ViewPage3DTextLabel
     extends ViewPage3DComponentAbstract
 {
-    protected final static int bpf3 = (bpf * 3);
 
-
-    private final double x, y, z, h;
+    protected final double x, y, z, h;
 
     private double minX, minY;
 
@@ -36,6 +34,8 @@ public class ViewPage3DTextLabel
     private int[] b_count = {0,0};
 
     private int b_current = 0;
+
+    protected ViewPage3DTextSelection selection;
 
 
     public ViewPage3DTextLabel(double x, double y, double z, double h){
@@ -65,7 +65,13 @@ public class ViewPage3DTextLabel
 
         this.setText(String.format(fmt,args));
     }
-    public void setText(String sstring){
+    public final void setText(String sstring){
+
+        final ViewPage3DTextSelection selection = this.selection;
+        if (null != selection){
+
+            selection.open();
+        }
 
         array = null;
 
@@ -108,6 +114,11 @@ public class ViewPage3DTextLabel
 
                         minX = Math.min(minX,x);
                         maxX = Math.max(maxX,xp);
+
+                        if (null != selection){
+
+                            selection.update(cc,x);
+                        }
                     }
                     else {
                         int glen = glyph.length-9;
@@ -136,6 +147,11 @@ public class ViewPage3DTextLabel
 
                             minY = Math.min(minY,y);
                             maxY = Math.max(maxY,y);
+
+                            if (null != selection){
+
+                                selection.update(cc,x,y);
+                            }
                         }
 
                         /*
@@ -144,12 +160,18 @@ public class ViewPage3DTextLabel
                          */
                         xp += fw;
                     }
+
                 }
                 bounds.set((float)minX,(float)minY,(float)maxX,(float)maxY);
 
                 fit();
 
                 pack();
+
+                if (null != selection){
+
+                    selection.close();
+                }
             }
         }
     }
@@ -203,6 +225,14 @@ public class ViewPage3DTextLabel
         }
         else
             return null;
+    }
+    public ViewPage3DTextSelection getSelection(){
+
+        return selection;
+    }
+    public void setSelection(ViewPage3DTextSelection selection){
+
+        this.selection = selection;
     }
     protected void append(float[] vertices, int ofs, int len){
         if (null == array){
@@ -260,6 +290,13 @@ public class ViewPage3DTextLabel
                     b_m.position(0);
                 }
                 this.b_count[next] = (count/3);
+
+
+                final ViewPage3DTextSelection selection = this.selection;
+                if (null != selection){
+
+                    selection.update(fm);
+                }
             }
             else {
                 this.b_count[next] = 0;

@@ -57,6 +57,8 @@ public abstract class Epsilon
 
     protected final static double DEG = 180.0/Math.PI;
 
+    protected final static float PAD_RATIO = 0.05f;
+
     protected final static String Format7(float value){
         final String string = String.format("%3.4f",value);
         final char[] sary = string.toCharArray();
@@ -79,13 +81,13 @@ public abstract class Epsilon
         }
     }
     protected final static String FormatT(float value){
-        final String string = String.format("%3.3f",value);
+        final String string = String.format("%3.1f",value);
         final char[] sary = string.toCharArray();
         final int strlen = sary.length;
         {
-            char[] cary = new char[7];
+            char[] cary = new char[5];
             {
-                for (int cc = 0, sp = (7-strlen); cc < 7; cc++){
+                for (int cc = 0, sp = (5-strlen); cc < 5; cc++){
                     if (cc < sp){
                         cary[cc] = '0';
                     }
@@ -94,7 +96,7 @@ public abstract class Epsilon
                     }
                 }
             }
-            return new String(cary,0,7);
+            return new String(cary,0,5);
         }
     }
     protected final static String Format4(double value){

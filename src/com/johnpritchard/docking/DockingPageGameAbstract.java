@@ -64,6 +64,10 @@ public abstract class DockingPageGameAbstract
     protected final static DockingInputT1 in_t1 = new DockingInputT1(-2.6,  +1.1, 1.0, 0.12);
     protected final static DockingInputT2 in_t2 = new DockingInputT2(-2.6, +0.85, 1.0, 0.12);
 
+    protected final static ViewPage3DTextSelection in_t1_sel = in_t1.getSelection();
+
+    protected final static ViewPage3DTextSelection in_t2_sel = in_t2.getSelection();
+
     static {
         {
             final ByteBuffer ib_camera = ByteBuffer.allocateDirect(CAMERA.length * bpf);
@@ -154,8 +158,8 @@ public abstract class DockingPageGameAbstract
         glShadeModel(GL_SMOOTH);    
         glDisable(GL_DITHER);
 
-        glLineWidth(3.0f);
-        glPointSize(3.0f);
+        //glLineWidth(1.0f);
+        //glPointSize(1.0f);
         glFrontFace(GL_CCW);
         glDisable(GL_CULL_FACE);
         glClearColor(1.0f,1.0f,1.0f,1.0f);
@@ -181,14 +185,6 @@ public abstract class DockingPageGameAbstract
         glLoadIdentity();
 
         glMultMatrixf(camera);
-    }
-    @Override
-    public void input(InputScript in){
-
-        if (Input.Back == in){
-
-            view.script(Page.start);
-        }
     }
     @Override
     public void physicsUpdate(){

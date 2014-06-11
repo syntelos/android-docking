@@ -7,6 +7,7 @@ import path.Operand;
 
 import android.graphics.Matrix;
 import android.graphics.RectF;
+import android.os.SystemClock;
 import android.util.Log;
 
 import java.nio.ByteOrder;
@@ -24,16 +25,26 @@ public abstract class ViewPage3DComponentAbstract
      */
     protected final static int bpf = 4;
     /**
+     * Bytes for float 3-tuple
+     */
+    protected final static int bpf3 = (bpf * 3);
+    /**
      * Anything using nio buffers and 3-tuple floats will have stride
      * (3*bpf) because the nio buffers are employed as a partial or
-     * incomplete pointer lacking position - offset.
+     * incomplete pointer (not using position - offset information).
      */
-    protected final static int stride = (3*bpf);
+    protected final static int stride = bpf3;
+
+
 
     protected final static java.nio.ByteOrder nativeOrder = java.nio.ByteOrder.nativeOrder();
 
 
     protected ViewPage3DComponent[] cardinals = new ViewPage3DComponent[Input.GeometricCount];
+
+    private long blinkTime;
+
+    private boolean blinkState = true;
 
 
     public ViewPage3DComponentAbstract(){
@@ -81,5 +92,26 @@ public abstract class ViewPage3DComponentAbstract
         else
             throw new IllegalArgumentException(direction.name());
     }
+    public final void unblink(){
 
+        blinkTime = 0L;
+        blinkState = true;
+
+        draw();
+    }
+    public final void blink(long period){
+
+        final long time = SystemClock.uptimeMillis();
+
+        if (time >= (blinkTime+period)){
+
+            blinkTime = time;
+            blinkState = (!blinkState);
+        }
+
+        if (blinkState){
+
+            draw();
+        }
+    }
 }

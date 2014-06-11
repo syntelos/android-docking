@@ -17,6 +17,8 @@ public class DockingInputT2
     public DockingInputT2(double x, double y, double z, double h){
         super(x,y,z,h);
 
+        this.selection = new ViewPage3DTextSelection(5,z);
+
         format(0);
     }
 
@@ -29,6 +31,15 @@ public class DockingInputT2
     public void draw(){
 
         glColor4f(0.0f,0.0f,0.0f,1.0f);
+
+        if (interactive){
+
+            this.selection.blink(500L);
+        }
+        else if (current){
+
+            this.selection.unblink();
+        }
 
         super.draw();
     }
