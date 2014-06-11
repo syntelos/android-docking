@@ -20,6 +20,89 @@ import javax.microedition.khronos.opengles.GL10;
 public abstract class DockingPageGameAbstract
     extends ViewPage3D
 {
+
+    protected final static DockingOutputVx out_vx = new DockingOutputVx(-2.6, +1.35, 1.0, 0.12);
+
+    protected final static DockingOutputAx out_ax = new DockingOutputAx(-0.6, +1.35, 1.0, 0.12);
+
+    protected final static DockingOutputT  out_t  = new DockingOutputT (+1.2, +1.35, 1.0, 0.12);
+
+
+    protected final static DockingOutputRx out_rx = new DockingOutputRx(-2.6, +1.1, 1.0, 0.12);
+
+    protected final static DockingOutputTr out_tr = new DockingOutputTr(+1.2, +1.1, 1.0, 0.12);
+
+
+    protected final static DockingFieldIO in_xp0 = new DockingFieldIO(PhysicsOperator.TX0,
+                                                                     PhysicsDOF.XP,
+                                                                     -2.6,  +0.85, 1.0, 0.12);
+
+    protected final static DockingFieldIO in_xm0 = new DockingFieldIO(PhysicsOperator.TX0,
+                                                                     PhysicsDOF.XM,
+                                                                     -2.6, +0.60, 1.0, 0.12);
+
+
+    protected final static DockingFieldIO in_xp1 = new DockingFieldIO(PhysicsOperator.TX1,
+                                                                     PhysicsDOF.XP,
+                                                                     -2.6,  +0.35, 1.0, 0.12);
+
+    protected final static DockingFieldIO in_xm1 = new DockingFieldIO(PhysicsOperator.TX1,
+                                                                     PhysicsDOF.XM,
+                                                                     -2.6, +0.10, 1.0, 0.12);
+
+
+
+    public final static void Format(){
+
+        final DockingCraftStateVector copy = DockingCraftStateVector.Instance;
+
+        final float r_x = copy.range_x;
+        final float v_x = copy.velocity_x;
+        final float a_x = copy.acceleration_x;
+        final float t_last = Seconds(copy.time_last);
+        final float t_source = copy.time_source.secondsf();
+        final float t_xp0 = copy.time_xp0.secondsf();
+        final float t_xm0 = copy.time_xm0.secondsf();
+        final float t_xp1 = copy.time_xp1.secondsf();
+        final float t_xm1 = copy.time_xm1.secondsf();
+
+        out_vx.format(v_x);
+
+        out_ax.format(a_x);
+
+        out_t.format(t_last);
+
+        out_rx.format(r_x);
+
+        out_tr.format(t_source);
+
+        in_xp0.format(t_xp0);
+
+        in_xm0.format(t_xm0);
+
+        in_xp1.format(t_xp1);
+
+        in_xm1.format(t_xm1);
+
+        Range(r_x);
+    }
+    public final static void Range(float r_x){
+
+        final int next = (0 == model_matrix_current)?(1):(0);
+
+        final FloatBuffer mm = model_matrix[next];
+        {
+            float[] m = fv3.math.Matrix.Identity();
+
+            fv3.math.Matrix.Translate(m,0f,0f,-r_x);
+
+            mm.put(m);
+            mm.position(0);
+        }
+        model_matrix_current = next;
+    }
+
+
     protected final static float[] CAMERA = fv3.math.Matrix.Identity();
     static {
         Matrix.setLookAtM(CAMERA, 0,
@@ -59,60 +142,6 @@ public abstract class DockingPageGameAbstract
     protected final static FloatBuffer[] model_matrix = new FloatBuffer[2];
 
     protected volatile static int model_matrix_current = -1;
-
-
-
-    protected final static DockingOutputS0 out_s0 = new DockingOutputS0(-2.6, +1.35, 1.0, 0.12);
-
-    protected final static DockingOutputS1 out_s1 = new DockingOutputS1(-2.6, +1.1,  1.0, 0.12);
-
-    protected final static DockingFieldIO in_xp = new DockingFieldIO(PhysicsOperator.TX,
-                                                                     PhysicsDOF.XP,
-                                                                     -2.6,  +0.85, 1.0, 0.12);
-
-    protected final static DockingFieldIO in_xm = new DockingFieldIO(PhysicsOperator.TX,
-                                                                     PhysicsDOF.XM,
-                                                                     -2.6, +0.60, 1.0, 0.12);
-
-
-
-    public final static void Format(DockingCraftStateVector copy){
-
-
-        float r_x = (float)copy.range_x;
-        float v_x = (float)copy.velocity_x;
-        float a_x = (float)copy.acceleration_x;
-        float t_last = (float)copy.time_last/1000.0f;
-        float t_source = copy.time_source.secondsf();
-        float t_xp = copy.time_xp.secondsf();
-        float t_xm = copy.time_xm.secondsf();
-
-        out_s0.format(v_x,a_x,t_source);
-
-        out_s1.format(r_x,t_last);
-
-        in_xp.format(t_xp);
-
-        in_xm.format(t_xm);
-
-        Range(r_x);
-    }
-    public final static void Range(float r_x){
-
-        final int next = (0 == model_matrix_current)?(1):(0);
-
-        final FloatBuffer mm = model_matrix[next];
-        {
-            float[] m = fv3.math.Matrix.Identity();
-
-            fv3.math.Matrix.Translate(m,0f,0f,-r_x);
-
-            mm.put(m);
-            mm.position(0);
-        }
-        model_matrix_current = next;
-    }
-
 
     static {
         {
@@ -232,6 +261,22 @@ public abstract class DockingPageGameAbstract
         glLoadIdentity();
 
         glMultMatrixf(camera);
+    }
+
+
+    protected void draw(){
+
+        out_vx.draw();
+
+        out_ax.draw();
+
+        out_t.draw();
+
+        out_rx.draw();
+
+        out_tr.draw();
+
+        super.draw();
     }
 
 }

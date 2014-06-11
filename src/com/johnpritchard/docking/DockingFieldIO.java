@@ -20,6 +20,8 @@ public final class DockingFieldIO
 
     protected volatile int editable;
 
+    protected volatile boolean sent;
+
 
     public DockingFieldIO(PhysicsOperator op, PhysicsDOF dof,
                           double x, double y, double z, double h)
@@ -43,7 +45,13 @@ public final class DockingFieldIO
     }
     protected final void format(float seconds){
 
-        if (current || interactive){
+        if (sent){
+
+            editable = (int)seconds;
+
+            format();
+        }
+        else if (current || interactive){
 
             return;
         }
@@ -55,6 +63,10 @@ public final class DockingFieldIO
         }
     }
     protected void input_edit(Input in){
+        editable = 0;
+        format();
+    }
+    protected void input_edit(InputScript.Key in){
         editable = 0;
         format();
     }
@@ -79,10 +91,16 @@ public final class DockingFieldIO
             if (0 < editable){
 
                 DockingPhysics.Script(new PhysicsScript(op,dof,editable));
+
+                sent = true;
+            }
+            else {
+                sent = false;
             }
         }
         else {
             editable = 0;
+            sent = false;
             format();
         }
         super.input_io(in);

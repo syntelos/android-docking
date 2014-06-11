@@ -88,13 +88,9 @@ public final class View3D
         ViewAnimation.Start(this);
 
         this.renderer.onResume();
-
-        DockingPhysics.Start(this.preferences);
     }
     public void onPause(SharedPreferences.Editor state){
         info("onPause");
-
-        DockingPhysics.Stop(state);
 
         this.renderer.onPause(state);
 

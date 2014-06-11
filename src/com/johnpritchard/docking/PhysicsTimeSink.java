@@ -6,13 +6,11 @@ package com.johnpritchard.docking;
 /**
  * 
  */
-public final class PhysicsTimeSink {
+public final class PhysicsTimeSink
+    extends PhysicsTime
+{
 
     protected final PhysicsTimeSource source;
-    /**
-     * ms
-     */
-    protected long value;
 
     protected long last;
 
@@ -39,15 +37,6 @@ public final class PhysicsTimeSink {
         final PhysicsOperator op = prog.operator;
 
         value = op.milliseconds(op.seconds(value) + prog.seconds());
-    }
-    public int seconds(){
-        return (int)(value/1000);
-    }
-    public float secondsf(){
-        return ((float)value/1000.0f);
-    }
-    public boolean active(){
-        return (0 != value);
     }
     public void update(long time){
 

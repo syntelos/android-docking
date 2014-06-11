@@ -8,26 +8,13 @@ import android.os.SystemClock;
 /**
  * 
  */
-public final class PhysicsTimeSource {
-
-    /**
-     * ms
-     */
-    protected long value;
+public final class PhysicsTimeSource
+    extends PhysicsTime
+{
 
 
     public PhysicsTimeSource(long value){
-        super();
-        if (0 < value){
-            this.value = value;
-        }
+        super(value);
     }
 
-
-    public int seconds(){
-        return (int)(value/1000);
-    }
-    public float secondsf(){
-        return ((float)value/1000.0f);
-    }
 }

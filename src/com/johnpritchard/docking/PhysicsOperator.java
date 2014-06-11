@@ -4,21 +4,16 @@
 package com.johnpritchard.docking;
 
 /**
- * Thruster operational values have an integer number of seconds.
+ *
  */
 public enum PhysicsOperator {
     /**
      * Translation in axis
+     *
+     * Thruster operational values have an integer number of seconds.
      */
-    TX("T","%03d"),
-    TY("T","%03d"),
-    TZ("T","%03d"),
-    /**
-     * Rotation in axis
-     */
-    RX("R","%03d"),
-    RY("R","%03d"),
-    RZ("R","%03d");
+    TX0("T0","%03d"),
+    TX1("T1","%03d");
 
 
     public final String label;

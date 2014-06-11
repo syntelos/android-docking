@@ -24,6 +24,10 @@ public final class DockingPhysics
 
             Instance.start(state);
         }
+        else {
+
+            DockingCraftStateVector.Instance.open(state);
+        }
     }
     public static void Stop(SharedPreferences.Editor state){
         if (null != Instance){
@@ -33,6 +37,10 @@ public final class DockingPhysics
             finally {
                 Instance = null;
             }
+        }
+        else {
+
+            DockingCraftStateVector.Instance.close(state);
         }
     }
     public static void Script(PhysicsScript in){
@@ -49,7 +57,7 @@ public final class DockingPhysics
 
 
 
-    private final DockingCraftStateVector sv;
+    private final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
 
     private final Object monitor = new Object();
 
@@ -60,7 +68,6 @@ public final class DockingPhysics
 
     private DockingPhysics(){
         super("Phys/Animation");
-        sv = new DockingCraftStateVector();
     }
 
 
@@ -68,7 +75,7 @@ public final class DockingPhysics
 
         this.sv.open(state);
 
-        this.running = true;
+        this.running = this.sv.running();
 
         super.start();
     }
@@ -92,22 +99,30 @@ public final class DockingPhysics
             info("running");
 
             while (running){
+                {
+                    PhysicsScript prog = this.queue;
+                    this.queue = null;
 
-                PhysicsScript prog = this.queue;
-                this.queue = null;
+                    while (null != prog){
 
-                while (null != prog){
+                        sv.add(prog);
 
-                    sv.add(prog);
-
-                    prog = prog.pop();
+                        prog = prog.pop();
+                    }
                 }
 
-                this.sv.update(FCOPY);
+                running = this.sv.update(FCOPY);
 
                 synchronized(this.monitor){
                     this.monitor.wait(TINC);
                 }
+            }
+
+            DockingPageGameAbstract.Format();
+
+            if (sv.crash()){
+
+                ViewAnimation.Script(Page.gamecrash);
             }
         }
         catch (InterruptedException inx){

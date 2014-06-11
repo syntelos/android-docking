@@ -58,7 +58,7 @@ public final class DockingPageStart
                 view.script(Page.intro);
                 break;
             case GAME:
-                view.script(Page.game);
+                view.script(Page.gameview);
                 break;
             case HISTORY:
                 view.script(Page.history);

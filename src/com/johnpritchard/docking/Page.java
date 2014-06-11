@@ -7,11 +7,12 @@ package com.johnpritchard.docking;
  * 
  */
 public enum Page {
-    start    (DockingPageStart.Instance),
-    intro    (DockingPageIntro.Instance),
-    game     (DockingPageGameView.Instance),
-    history  (DockingPageHistory.Instance),
-    about    (DockingPageAbout.Instance);
+    start     (DockingPageStart.Instance),
+    intro     (DockingPageIntro.Instance),
+    gameview  (DockingPageGameView.Instance),
+    gamecrash (DockingPageGameCrash.Instance),
+    history   (DockingPageHistory.Instance),
+    about     (DockingPageAbout.Instance);
 
 
     public final ViewPage page;

@@ -31,6 +31,8 @@ public abstract class ViewPage3D
 
     protected final static java.nio.ByteOrder nativeOrder = java.nio.ByteOrder.nativeOrder();
 
+    protected final static int CLR = (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
 
     /**
      * Relative navigation and visualization for {@link InputScript}
@@ -186,6 +188,12 @@ public abstract class ViewPage3D
             }
         }
         return null;
+    }
+    protected final boolean interactive(){
+
+        final ViewPageComponentInteractive interactive = this.interactive;
+
+        return (null != interactive && interactive.interactive());
     }
     /**
      * Convert navigation activity to navigational focus status.

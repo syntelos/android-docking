@@ -111,7 +111,7 @@ public abstract class ViewPage
      */
     public abstract void draw(Canvas g);
 
-    public final ViewPage up(View view, int width, int height)
+    public ViewPage up(View view, int width, int height)
     {
         if (width != this.width || height != this.height){
             this.view = view;

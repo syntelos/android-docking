@@ -4,9 +4,11 @@
 package com.johnpritchard.docking;
 
 /**
- * 
+ * @see DockingCraftStateVector
  */
-public class DockingCraftModel {
+public final class DockingCraftModel
+    extends Epsilon
+{
 
     /**
      * kg
@@ -15,9 +17,15 @@ public class DockingCraftModel {
     /**
      * N = kg m/s/s
      */
-    public final static double force_thruster = 10.0;
+    public final static double force_thruster_0 = 100.0;
 
-    public final static double acceleration_under_thrust = (force_thruster / mass_static);
+    public final static double force_thruster_1 = 10.0;
+    /**
+     * m/s/s
+     */
+    public final static double accel_thruster_0 = (force_thruster_0 / mass_static);
+
+    public final static double accel_thruster_1 = (force_thruster_1 / mass_static);
 
 
     private DockingCraftModel(){

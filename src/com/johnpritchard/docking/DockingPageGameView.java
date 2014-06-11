@@ -3,6 +3,7 @@
  */
 package com.johnpritchard.docking;
 
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.opengl.GLES10;
@@ -28,18 +29,18 @@ public final class DockingPageGameView
 
     private DockingPageGameView(){
         super(new ViewPage3DComponent[]{
-                in_xp, in_xm
+                in_xp0, in_xm0, in_xp1, in_xm1
             });
     }
 
 
     @Override
     public String name(){
-        return Page.game.name();
+        return Page.gameview.name();
     }
     @Override
     public Page value(){
-        return Page.game;
+        return Page.gameview;
     }
     public void init(GL10 gl){
         super.init(gl);
@@ -66,7 +67,7 @@ public final class DockingPageGameView
         else {
             FloatBuffer mm = model_matrix[model_matrix_current];
 
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClear(CLR);
 
             glPushMatrix();
 
@@ -84,18 +85,23 @@ public final class DockingPageGameView
 
             glPopMatrix();
 
-            out_s0.draw();
-
-            out_s1.draw();
-
             draw();
 
             glFlush();
         }
     }
-    // @Override
-    // public void input(InputScript in){
+    @Override
+    public ViewPage up(View view, int w, int h){
+        super.up(view,w,h);
 
-    //     view.script(Page.start);
-    // }
+        DockingPhysics.Start(view.preferences());
+
+        return this;
+    }
+    @Override
+    public void down(SharedPreferences.Editor state){
+        super.down(state);
+
+        DockingPhysics.Stop(state);
+    }
 }

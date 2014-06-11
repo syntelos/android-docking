@@ -55,6 +55,31 @@ public abstract class Epsilon
             return constant;
     }
 
+    protected final static float Seconds(double ms){
+
+        return (float)(ms/1000.0);
+    }
+    protected final static float Clamp(double value, double precis){
+
+        return (float)(Math.floor(value*precis)/precis);
+    }
+    protected final static float AddClamp(double a, double b, double precis){
+
+        return Clamp((a+b),precis);
+    }
+    protected final static float SubClamp(double a, double b, double precis){
+
+        return Clamp((a-b),precis);
+    }
+    protected final static float MulClamp(double a, double b, double precis){
+
+        return Clamp((a*b),precis);
+    }
+    protected final static float DivClamp(double a, double b, double precis){
+
+        return Clamp((a/b),precis);
+    }
+
     protected final static double DEG = 180.0/Math.PI;
 
     protected final static float PAD_RATIO = 0.05f;

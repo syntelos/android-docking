@@ -52,7 +52,7 @@ public final class View3DRenderer
     }
     public void onResume(){
 
-        pageTo(Page.valueOf(preferences.getString("page","game")));
+        pageTo(Page.valueOf(preferences.getString("page","gameview")));
     }
     public synchronized void onPause(SharedPreferences.Editor state){
 

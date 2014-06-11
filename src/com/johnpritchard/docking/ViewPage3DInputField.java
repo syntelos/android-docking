@@ -24,6 +24,8 @@ public class ViewPage3DInputField
     }
     protected void input_edit(Input in){
     }
+    protected void input_edit(InputScript.Key in){
+    }
     protected void input_value(Input in){
     }
     protected void input_io(Input in){
@@ -39,8 +41,10 @@ public class ViewPage3DInputField
         switch(type){
         case Left:
         case Right:
-        case Key:
             input_edit(type);
+            break;
+        case Key:
+            input_edit((InputScript.Key)in);
             break;
         case Up:
         case Down:

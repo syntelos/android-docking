@@ -38,6 +38,12 @@ public class ViewPage3DTextLabel
     protected ViewPage3DTextSelection selection;
 
 
+    public ViewPage3DTextLabel(double x, double y, double z, double h,
+                               String text)
+    {
+        this(x,y,z,h);
+        this.setText(text);
+    }
     public ViewPage3DTextLabel(double x, double y, double z, double h){
         super();
         this.x = x;
@@ -162,7 +168,7 @@ public class ViewPage3DTextLabel
                     }
 
                 }
-                bounds.set((float)minX,(float)minY,(float)maxX,(float)maxY);
+                bounds.set((float)(x+minX),(float)(y+minY),(float)(x+maxX),(float)(y+maxY));
 
                 fit();
 
