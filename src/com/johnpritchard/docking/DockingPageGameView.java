@@ -28,7 +28,7 @@ public final class DockingPageGameView
 
     private DockingPageGameView(){
         super(new ViewPage3DComponent[]{
-                in_t1, in_t2
+                in_xp, in_xm
             });
     }
 
@@ -64,12 +64,13 @@ public final class DockingPageGameView
             init(gl);
         }
         else {
+            FloatBuffer mm = model_matrix[model_matrix_current];
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             glPushMatrix();
 
-            //glMultMatrixf(matrixR);
+            glMultMatrixf(mm);
 
             glColor4f(0.0f,0.0f,0.0f,1.0f);
 
@@ -84,6 +85,8 @@ public final class DockingPageGameView
             glPopMatrix();
 
             out_s0.draw();
+
+            out_s1.draw();
 
             draw();
 

@@ -842,6 +842,13 @@ public class Matrix
             m[I(i,3)] += m[I(i,0)] * x + m[I(i,1)] * y + m[I(i,2)] * z;
         }
     }
+    public final static void Translate(float[] m, float x, float y, float z){
+
+        for (int i = 0; i < 3; i++) {
+
+            m[I(i,3)] += m[I(i,0)] * x + m[I(i,1)] * y + m[I(i,2)] * z;
+        }
+    }
     public final static void Transform(double[] m, float[] v){
 
         if (3 < v.length){

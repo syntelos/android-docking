@@ -56,17 +56,63 @@ public abstract class DockingPageGameAbstract
 
     protected final static FloatBuffer matShin, matSpec;
 
-    protected final static FloatBuffer matrixR, matrixI;
+    protected final static FloatBuffer[] model_matrix = new FloatBuffer[2];
+
+    protected volatile static int model_matrix_current = -1;
 
 
 
     protected final static DockingOutputS0 out_s0 = new DockingOutputS0(-2.6, +1.35, 1.0, 0.12);
-    protected final static DockingInputT1 in_t1 = new DockingInputT1(-2.6,  +1.1, 1.0, 0.12);
-    protected final static DockingInputT2 in_t2 = new DockingInputT2(-2.6, +0.85, 1.0, 0.12);
 
-    protected final static ViewPage3DTextSelection in_t1_sel = in_t1.getSelection();
+    protected final static DockingOutputS1 out_s1 = new DockingOutputS1(-2.6, +1.1,  1.0, 0.12);
 
-    protected final static ViewPage3DTextSelection in_t2_sel = in_t2.getSelection();
+    protected final static DockingFieldIO in_xp = new DockingFieldIO(PhysicsOperator.TX,
+                                                                     PhysicsDOF.XP,
+                                                                     -2.6,  +0.85, 1.0, 0.12);
+
+    protected final static DockingFieldIO in_xm = new DockingFieldIO(PhysicsOperator.TX,
+                                                                     PhysicsDOF.XM,
+                                                                     -2.6, +0.60, 1.0, 0.12);
+
+
+
+    public final static void Format(DockingCraftStateVector copy){
+
+
+        float r_x = (float)copy.range_x;
+        float v_x = (float)copy.velocity_x;
+        float a_x = (float)copy.acceleration_x;
+        float t_last = (float)copy.time_last/1000.0f;
+        float t_source = copy.time_source.secondsf();
+        float t_xp = copy.time_xp.secondsf();
+        float t_xm = copy.time_xm.secondsf();
+
+        out_s0.format(v_x,a_x,t_source);
+
+        out_s1.format(r_x,t_last);
+
+        in_xp.format(t_xp);
+
+        in_xm.format(t_xm);
+
+        Range(r_x);
+    }
+    public final static void Range(float r_x){
+
+        final int next = (0 == model_matrix_current)?(1):(0);
+
+        final FloatBuffer mm = model_matrix[next];
+        {
+            float[] m = fv3.math.Matrix.Identity();
+
+            fv3.math.Matrix.Translate(m,0f,0f,-r_x);
+
+            mm.put(m);
+            mm.position(0);
+        }
+        model_matrix_current = next;
+    }
+
 
     static {
         {
@@ -126,15 +172,16 @@ public abstract class DockingPageGameAbstract
             matSpec.position(0);
         }
         {
-            final ByteBuffer ib_mat = ByteBuffer.allocateDirect(16 * bpf);
-            ib_mat.order(nativeOrder);
-            matrixR = ib_mat.asFloatBuffer();
+            final ByteBuffer ib_mx = ByteBuffer.allocateDirect(16 * bpf);
+            ib_mx.order(nativeOrder);
+            model_matrix[0] = ib_mx.asFloatBuffer();
         }
         {
-            final ByteBuffer ib_mat = ByteBuffer.allocateDirect(16 * bpf);
-            ib_mat.order(nativeOrder);
-            matrixI = ib_mat.asFloatBuffer();
+            final ByteBuffer ib_mx = ByteBuffer.allocateDirect(16 * bpf);
+            ib_mx.order(nativeOrder);
+            model_matrix[1] = ib_mx.asFloatBuffer();
         }
+        model_matrix_current = 0;
     }
 
 
@@ -185,21 +232,6 @@ public abstract class DockingPageGameAbstract
         glLoadIdentity();
 
         glMultMatrixf(camera);
-    }
-    @Override
-    public void physicsUpdate(){
-
-        DockingCraftStateVector copy = DockingPhysics.Copy();
-
-        float v_x = 0, a_x = 0, t = 0;
-
-        if (null != copy){
-            v_x = (float)copy.velocity_x;
-            a_x = (float)copy.acceleration_x;
-            t = (float)copy.time/1000.0f;
-        }
-
-        out_s0.format(v_x,a_x,t);
     }
 
 }

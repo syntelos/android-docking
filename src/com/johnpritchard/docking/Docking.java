@@ -50,16 +50,6 @@ public final class Docking
 
         View = instance;
     }
-    /**
-     * Called from DockingPhysics
-     */
-    protected final synchronized static void PhysicsUpdate(){
-
-        if (null != View){
-
-            View.physicsUpdate();
-        }
-    }
 
 
     public Docking(){

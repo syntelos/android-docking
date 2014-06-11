@@ -35,17 +35,6 @@ public final class DockingPhysics
             }
         }
     }
-    public static DockingCraftStateVector Copy(){
-        DockingPhysics instance = Instance;
-        if (null != instance){
-
-            return instance.copy();
-        }
-        else {
-
-            return null;
-        }
-    }
     public static void Script(PhysicsScript in){
         DockingPhysics instance = Instance;
         if (null != instance){
@@ -60,9 +49,11 @@ public final class DockingPhysics
 
 
 
-    private final DockingCraftStateVector sv, copy;
+    private final DockingCraftStateVector sv;
 
     private final Object monitor = new Object();
+
+    private volatile PhysicsScript queue;
 
     private volatile boolean running = true;
 
@@ -70,19 +61,12 @@ public final class DockingPhysics
     private DockingPhysics(){
         super("Phys/Animation");
         sv = new DockingCraftStateVector();
-        copy = new DockingCraftStateVector();
     }
 
 
-    private synchronized DockingCraftStateVector copy(){
-
-        return this.copy;
-    }
     private void start(SharedPreferences state){
 
         this.sv.open(state);
-
-        this.copy.copy(this.sv,0L);
 
         this.running = true;
 
@@ -100,25 +84,26 @@ public final class DockingPhysics
         }
     }
     private void script(PhysicsScript in){
+
+        this.queue = in.push(this.queue);
     }
     public void run(){
         try {
             info("running");
 
-            double pt = 0.0;
-
             while (running){
-                /*
-                 * Call SV for math
-                 */
-                this.sv.update(pt);
 
-                if (this.copy.copy(this.sv,FCOPY)){
-                    /*
-                     * Call PAGE for output
-                     */
-                    Docking.PhysicsUpdate();
+                PhysicsScript prog = this.queue;
+                this.queue = null;
+
+                while (null != prog){
+
+                    sv.add(prog);
+
+                    prog = prog.pop();
                 }
+
+                this.sv.update(FCOPY);
 
                 synchronized(this.monitor){
                     this.monitor.wait(TINC);

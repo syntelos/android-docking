@@ -66,8 +66,4 @@ public class DockingActivityView
 
         return this.preferences;
     }
-    protected void physicsUpdate(){
-
-        this.view.physicsUpdate();
-    }
 }

@@ -72,7 +72,6 @@ public abstract class ViewPage3D
      */
     public abstract void draw(GL10 gl);
 
-    public abstract void physicsUpdate();
 
     public final void draw(Canvas g){
     }

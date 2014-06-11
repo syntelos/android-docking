@@ -72,10 +72,6 @@ public final class View3D
 
         return this.preferences;
     }
-    protected synchronized void physicsUpdate(){
-
-        renderer.physicsUpdate();
-    }
     /**
      * Occurs before surface created
      */

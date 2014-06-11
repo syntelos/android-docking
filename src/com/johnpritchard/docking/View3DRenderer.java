@@ -43,15 +43,6 @@ public final class View3DRenderer
 
         return this.preferences;
     }
-    public void physicsUpdate(){
-
-        ViewPage3D page = this.page;
-
-        if (null != page){
-
-            page.physicsUpdate();
-        }
-    }
     /**
      * Occurs before surface created
      */

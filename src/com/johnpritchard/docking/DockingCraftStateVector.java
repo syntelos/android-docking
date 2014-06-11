@@ -14,20 +14,37 @@ public final class DockingCraftStateVector
     implements Cloneable
 {
 
+    private final static String SV_R_X = "sv.r_x";
     private final static String SV_V_X = "sv.v_x";
     private final static String SV_A_X = "sv.a_x";
+    private final static String SV_T_SOURCE = "sv.t";
+    private final static String SV_T_SINK_XP = "sv.t_xp";
+    private final static String SV_T_SINK_XM = "sv.t_xm";
 
+    public final static long SECONDS = 1000L;
+
+    public final static float KILOMETERS = 1000.0f;
+
+
+    private final static long SV_T_SOURCE_INIT(){
+
+        return 999L*SECONDS;
+    }
+    private final static float SV_R_X_INIT(){
+
+        return 10.0f*KILOMETERS;
+    }
     private final static float SV_V_X_INIT(){
-        return 1.0f;
+        return 10.0f;
     }
     private final static float SV_A_X_INIT(){
         return 0.0f;
     }
 
     /**
-     * millis
+     * m
      */
-    public long time;
+    public double range_x;
     /**
      * m/s
      */
@@ -36,6 +53,16 @@ public final class DockingCraftStateVector
      * m/s/s
      */
     public double acceleration_x;
+    /**
+     * millis
+     */
+    public long time_last;
+
+    public PhysicsTimeSource time_source;
+    public PhysicsTimeSink time_xp;
+    public PhysicsTimeSink time_xm;
+
+    private long copy;
 
 
     protected DockingCraftStateVector(){
@@ -43,57 +70,113 @@ public final class DockingCraftStateVector
     }
 
 
+    public void add(PhysicsScript prog){
+
+        switch(prog.operator){
+        case TX:
+            switch(prog.dof){
+            case XP:
+                time_xp.add(prog);
+                break;
+            case XM:
+                time_xm.add(prog);
+                break;
+            default:
+                error("prog dof: "+prog.dof);
+                break;
+            }
+            break;
+        default:
+            error("prog op: "+prog.operator);
+            break;
+        }
+    }
     protected synchronized void open(SharedPreferences state){
+
+        range_x = state.getFloat(SV_R_X,SV_R_X_INIT());
 
         velocity_x = state.getFloat(SV_V_X,SV_V_X_INIT());
 
         acceleration_x = state.getFloat(SV_A_X,SV_A_X_INIT());
 
-        time = SystemClock.uptimeMillis();
+        time_source = new PhysicsTimeSource(state.getLong(SV_T_SOURCE,SV_T_SOURCE_INIT()));
+
+        time_xp = new PhysicsTimeSink(time_source,state.getLong(SV_T_SINK_XP,0L));
+
+        time_xm = new PhysicsTimeSink(time_source,state.getLong(SV_T_SINK_XM,0L));
+
     }
     protected synchronized void close(SharedPreferences.Editor state){
+        float r_x = (float)range_x;
         float v_x = (float)velocity_x;
         float a_x = (float)acceleration_x;
 
+        state.putFloat(SV_R_X,r_x);
         state.putFloat(SV_V_X,v_x);
         state.putFloat(SV_A_X,a_x);
+
+        state.putLong(SV_T_SOURCE,time_source.value);
+        state.putLong(SV_T_SINK_XP,time_xp.value);
+        state.putLong(SV_T_SINK_XM,time_xm.value);
     }
-    protected synchronized void update(double pt){
+    protected synchronized void update(long copy){
 
-        double pa = pt*acceleration_x;
+        long last = this.time_last;
 
-        if (0.0 != Z(pa)){
+        long time = SystemClock.uptimeMillis();
 
-            velocity_x += pa;
+        if (0 != last){
 
-            if (0.0 == Z(velocity_x)){
+            double dt = ((double)(time-last))/1000.0;
 
-                velocity_x = 0.0;
+            if (this.time_xp.active()){
+
+                double da = dt*DockingCraftModel.acceleration_under_thrust;
+
+                acceleration_x += da;
+            }
+            if (this.time_xm.active()){
+
+                double da = dt*DockingCraftModel.acceleration_under_thrust;
+
+                acceleration_x -= da;
+            }
+
+            double dv = dt*acceleration_x;
+
+            if (0.0 != Z(dv)){
+
+                velocity_x += dv;
+
+                if (0.0 == Z(velocity_x)){
+
+                    velocity_x = 0.0;
+                }
+                else {
+
+                    double dr = dt*velocity_x;
+
+                    range_x -= dr;
+
+                    if (0.0 == Z(range_x)){
+
+                        range_x = 0.0;
+                    }
+                }
             }
         }
-        time = SystemClock.uptimeMillis();
-    }
-    public synchronized DockingCraftStateVector clone(){
-        try {
-            return (DockingCraftStateVector)super.clone();
-        }
-        catch (CloneNotSupportedException exc){
-            throw new InternalError();
-        }
-    }
-    public synchronized boolean copy(DockingCraftStateVector source, long dt){
+        this.time_last = time;
+        this.time_xp.update(time);
+        this.time_xm.update(time);
 
-        if (SystemClock.uptimeMillis() > (this.time+dt)){
+        if (time > (this.copy+copy)){
 
-            this.time = source.time;
-            this.velocity_x = source.velocity_x;
-            this.acceleration_x = source.acceleration_x;
+            this.copy = time;
 
-            return true;
+            DockingPageGameAbstract.Format(this);
         }
         else {
-            return false;
+            DockingPageGameAbstract.Range((float)this.range_x);
         }
     }
-
 }

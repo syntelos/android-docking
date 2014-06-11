@@ -62,14 +62,16 @@ public abstract class ViewPageComponentAbstract
         return bounds;
     }
     public final float getCX(){
-        final float cx0 = getX();
-        final float cx1 = (cx0+getWidth());
+        final RectF bounds = this.bounds();
+        final float cx0 = bounds.left;
+        final float cx1 = bounds.right;
 
         return (cx0+cx1)/2.0f;
     }
     public final float getCY(){
-        final float cy0 = getY();
-        final float cy1 = (cy0+getHeight());
+        final RectF bounds = this.bounds();
+        final float cy0 = bounds.top;
+        final float cy1 = bounds.bottom;
 
         return (cy0+cy1)/2.0f;
     }
