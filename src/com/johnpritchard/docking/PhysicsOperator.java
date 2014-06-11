@@ -7,9 +7,15 @@ package com.johnpritchard.docking;
  * 
  */
 public enum PhysicsOperator {
-    FX,
-    FY,
-    FZ,
+    /**
+     * Translation in axis
+     */
+    TX,
+    TY,
+    TZ,
+    /**
+     * Rotation in axis
+     */
     RX,
     RY,
     RZ;

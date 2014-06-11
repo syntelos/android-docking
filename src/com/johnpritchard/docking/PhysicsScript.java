@@ -19,4 +19,15 @@ public class PhysicsScript {
         this.operand = operand;
     }
 
+
+    public String toString(){
+        StringBuilder string = new StringBuilder();
+        {
+            string.append(operator.name());
+            string.append('=');
+            string.append(operand);
+        }
+        return string.toString();
+    }
+
 }

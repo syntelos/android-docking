@@ -22,11 +22,11 @@ public class ViewPage3DInputField
     public final boolean interactive(){
         return this.interactive;
     }
-    protected void input_edit(InputScript in){
+    protected void input_edit(Input in){
     }
-    protected void input_value(InputScript in){
+    protected void input_value(Input in){
     }
-    protected void input_io(InputScript in){
+    protected void input_io(Input in){
         if (this.interactive)
             this.interactive = false;
         else
@@ -34,20 +34,20 @@ public class ViewPage3DInputField
     }
     protected void input_inter(InputScript in){
     }
-    public boolean input(InputScript in){
+    public final boolean input(InputScript in){
         Input type = in.type();
         switch(type){
         case Left:
         case Right:
         case Key:
-            input_edit(in);
+            input_edit(type);
             break;
         case Up:
         case Down:
-            input_value(in);
+            input_value(type);
             break;
         case Enter:
-            input_io(in);
+            input_io(type);
             break;
         default:
             input_inter(in);

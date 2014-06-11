@@ -9,38 +9,46 @@ import static android.opengl.GLES10.*;
  * 
  */
 public class DockingInputT1
-    extends ViewPage3DInputField
+    extends DockingInputT
 {
     private final static String FMT = "T X+ %03d";
 
 
     public DockingInputT1(double x, double y, double z, double h){
         super(x,y,z,h);
-
-        this.selection = new ViewPage3DTextSelection(5,z);
-
-        format(0);
     }
 
 
-    protected final void format(int t){
+    protected final void format(){
 
-        format(FMT,t);
+        format(FMT,value);
     }
-    @Override
-    public void draw(){
+    protected void input_edit(Input in){
+        value = 0;
+        format();
+    }
+    protected void input_value(Input in){
+        if (Input.Up == in){
 
-        glColor4f(0.0f,0.0f,0.0f,1.0f);
+            if (999 > value){
 
-        if (interactive){
-
-            this.selection.blink(500L);
+                value += 1;
+            }
         }
-        else if (current){
+        else if (0 < value){
 
-            this.selection.unblink();
+            value -= 1;
         }
+        format();
+    }
+    protected void input_io(Input in){
 
-        super.draw();
+        if (interactive && 0 < value){
+
+            float svalue = value;
+
+            DockingPhysics.Script(new PhysicsScript(PhysicsOperator.TX,svalue));
+        }
+        super.input_io(in);
     }
 }
