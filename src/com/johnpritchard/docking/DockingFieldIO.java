@@ -31,7 +31,11 @@ public final class DockingFieldIO
         this.op = op;
         this.dof = dof;
 
-        this.fmt = op.label+' '+dof.label+' '+op.format;
+        final String id = op.label+' '+dof.label;
+
+        this.fmt = id+' '+op.format;
+
+        this.appendName(id);
 
         this.selection = new ViewPage3DTextSelection((op.llen+dof.llen+2),z);
 

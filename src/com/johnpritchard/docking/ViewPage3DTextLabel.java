@@ -168,7 +168,6 @@ public class ViewPage3DTextLabel
                     }
 
                 }
-                bounds.set((float)(x+minX),(float)(y+minY),(float)(x+maxX),(float)(y+maxY));
 
                 fit();
 
@@ -282,6 +281,7 @@ public class ViewPage3DTextLabel
                 final double ty = ((y/s) - minY);
                 final double tz = (z/s);
 
+
                 double[] m = Matrix.IVIdentity();
 
                 Matrix.Scale(m,s);
@@ -296,8 +296,22 @@ public class ViewPage3DTextLabel
                     b_m.position(0);
                 }
                 this.b_count[next] = (count/3);
+                {
+                    float[] bc = new float[]{
+                        (float)minX, (float)minY, 0f,
+                        (float)maxX, (float)maxY, 0f
+                    };
 
+                    Matrix.Transform(m,bc);
 
+                    minX = bc[0];
+                    minY = bc[1];
+
+                    maxX = bc[3];
+                    maxY = bc[4];
+
+                    bounds.set((float)(minX),(float)(minY),(float)(maxX),(float)(maxY));
+                }
                 final ViewPage3DTextSelection selection = this.selection;
                 if (null != selection){
 

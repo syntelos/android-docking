@@ -143,37 +143,6 @@ public abstract class ViewPageComponentAbstract
 
         return direction(c.getCX(),c.getCY());
     }
-    public final Input direction(float cx, float cy){
-
-        final float cx0 = getX();
-        final float cy0 = getY();
-        final float cx1 = (cx0+getWidth());
-        final float cy1 = (cy0+getHeight());
-
-        if (cx0 <= cx && cx1 >= cx &&
-            cy0 <= cy && cy1 >= cy)
-        {
-            return Input.Enter;
-        }
-        else {
-
-            if (cy < cy0){
-
-                return Input.Up;
-            }
-            else if (cy > cy1){
-
-                return Input.Down;
-            }
-            else if (cx < cx0){
-
-                return Input.Left;
-            }
-            else {
-                return Input.Right;
-            }
-        }
-    }
     public final boolean isCurrent(){
 
         return this.current;

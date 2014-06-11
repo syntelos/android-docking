@@ -285,6 +285,9 @@ public abstract class ViewPage3D
 
                                 c.setCardinal(dir,b);
                             }
+                            else {
+                                warn("navigation "+c.getName()+' '+c.bounds()+" <"+dir+"> ~ "+b.getName()+' '+b.bounds());
+                            }
                         }
                     }
                     else {
@@ -403,6 +406,8 @@ public abstract class ViewPage3D
 
             next.setCurrent();
 
+            info("navigation current = "+next.getName());
+
             if (next instanceof ViewPageComponentInteractive){
 
                 this.interactive = (ViewPageComponentInteractive)next;
@@ -412,6 +417,7 @@ public abstract class ViewPage3D
             }
         }
         else {
+            warn("navigation current = <null>");
             if (null != prev){
                 prev.clearCurrent();
             }

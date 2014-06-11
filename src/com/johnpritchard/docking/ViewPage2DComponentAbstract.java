@@ -80,5 +80,29 @@ public abstract class ViewPage2DComponentAbstract
         else
             throw new IllegalArgumentException(direction.name());
     }
+    public final Input direction(float x, float y){
+
+        final RectF bounds = bounds();
+
+        if (bounds.contains(x,y)){
+
+            return Input.Enter;
+        }
+        else if (y < bounds.top){
+
+            return Input.Up;
+        }
+        else if (y > bounds.bottom){
+
+            return Input.Down;
+        }
+        else if (x < bounds.left){
+
+            return Input.Left;
+        }
+        else {
+            return Input.Right;
+        }
+    }
 
 }

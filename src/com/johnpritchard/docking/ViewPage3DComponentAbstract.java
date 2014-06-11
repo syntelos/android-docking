@@ -80,6 +80,8 @@ public abstract class ViewPage3DComponentAbstract
             if (null == existing || distance(component) < distance(existing)){
 
                 cardinals[direction.index] = component;
+
+                info("navigation "+getName()+' '+direction+" = "+component.getName());
             }
         }
     }
@@ -114,4 +116,29 @@ public abstract class ViewPage3DComponentAbstract
             draw();
         }
     }
+    public final Input direction(float x, float y){
+
+        final RectF bounds = bounds();
+
+        if (bounds.contains(x,y)){
+
+            return Input.Enter;
+        }
+        else if (y < bounds.top){
+
+            return Input.Down;
+        }
+        else if (y > bounds.bottom){
+
+            return Input.Up;
+        }
+        else if (x < bounds.left){
+
+            return Input.Left;
+        }
+        else {
+            return Input.Right;
+        }
+    }
+
 }
