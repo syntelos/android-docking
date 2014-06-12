@@ -240,14 +240,14 @@ public final class View3D
         return false;
     }
     public void onLongPress(MotionEvent e) {
-        info("onLongPress {Enter}");
+        //info("onLongPress {Enter}");
 
         script(Input.Enter);
     }
     public boolean onScroll(MotionEvent e1, MotionEvent e2,
                             float dx, float dy)
     {
-        info("onScroll");
+        //info("onScroll");
 
         /*
          * Relative coordinate space [LANDSCAPE]
@@ -274,7 +274,7 @@ public final class View3D
     public boolean onFling(MotionEvent e1, MotionEvent e2,
                            float dx, float dy)
     {
-        info("onFling");
+        //info("onFling");
 
         /*
          * Relative coordinate space [LANDSCAPE]
@@ -311,14 +311,14 @@ public final class View3D
      * @see android.view.GestureDetector$OnDoubleTapListener
      */
     public boolean onSingleTapConfirmed(MotionEvent e){
-        info("onSingleTapConfirmed {Enter}");
+        //info("onSingleTapConfirmed {Enter}");
 
         script(Input.Enter);
 
         return true;
     }
     public boolean onDoubleTap(MotionEvent e){
-        info("onDoubleTap {Enter}");
+        //info("onDoubleTap {Enter}");
 
         script(Input.Enter);
 

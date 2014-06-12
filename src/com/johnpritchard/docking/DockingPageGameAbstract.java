@@ -23,14 +23,14 @@ public abstract class DockingPageGameAbstract
 
     protected final static DockingOutputVx out_vx = new DockingOutputVx(-2.6, +1.35, 1.0, 0.12);
 
-    protected final static DockingOutputAx out_ax = new DockingOutputAx(-0.6, +1.35, 1.0, 0.12);
+    protected final static DockingOutputAx out_ax = new DockingOutputAx(-0.3, +1.35, 1.0, 0.12);
 
-    protected final static DockingOutputT  out_t  = new DockingOutputT (+1.2, +1.35, 1.0, 0.12);
+    protected final static DockingOutputT  out_t  = new DockingOutputT (+1.7, +1.35, 1.0, 0.12);
 
 
     protected final static DockingOutputRx out_rx = new DockingOutputRx(-2.6, +1.1, 1.0, 0.12);
 
-    protected final static DockingOutputTr out_tr = new DockingOutputTr(+1.2, +1.1, 1.0, 0.12);
+    protected final static DockingOutputTr out_tr = new DockingOutputTr(+1.7, +1.1, 1.0, 0.12);
 
 
     protected final static DockingFieldIO in_xp0 = new DockingFieldIO(PhysicsOperator.TX0,

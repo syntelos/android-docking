@@ -237,6 +237,8 @@ public final class ViewAnimation
 
     private volatile boolean running = true;
 
+    private boolean recover2D = false;
+
 
     private ViewAnimation(View view){
         super("View/Animation");
@@ -311,6 +313,7 @@ public final class ViewAnimation
     }
     public void run(){
         try {
+            info("running");
 
             long touchInputFilter = 0L;
 
@@ -318,124 +321,132 @@ public final class ViewAnimation
 
             while (running){
 
-                Script sequence = this.queue;
-                this.queue = null;
+                if (recover2D){
 
-                if (null == sequence){
+                    sleep(OutputFilter);
 
-                    info("waiting");
-
-                    synchronized(this.monitor){
-
-                        this.monitor.wait();
-                    }
+                    this.paint();
                 }
                 else {
-                    InputScript in = null;
+                    Script sequence = this.queue;
+                    this.queue = null;
 
-                    while (null != sequence){
+                    if (null == sequence){
 
-                        if (null != sequence.pageTo){
+                        info("waiting");
 
-                            info("pageTo");
-                            /*
-                             * pageTo
-                             */
-                            view.pageTo(sequence.pageTo);
+                        synchronized(this.monitor){
+
+                            this.monitor.wait();
                         }
-                        else if (null != sequence.page){
-                            /*
-                             * motion and input
-                             */
-                            InputScript[] script = null;
+                    }
+                    else {
+                        InputScript in = null;
 
-                            if (null != sequence.motion){
+                        while (null != sequence){
+
+                            if (null != sequence.pageTo){
+
+                                info("pageTo");
                                 /*
-                                 * touch input filtering
+                                 * pageTo
                                  */
-                                if (touchInputFilter < SystemClock.uptimeMillis()){
-
-                                    info("motion");
-
-                                    script = sequence.page.script(sequence.motion);
-                                }
-                                else {
-                                    warn("motion");
-                                }
+                                view.pageTo(sequence.pageTo);
                             }
-                            else if (null != sequence.input){
+                            else if (null != sequence.page){
                                 /*
-                                 * touch input filtering
+                                 * motion and input
                                  */
-                                if (touchInputFilter < SystemClock.uptimeMillis()){
+                                InputScript[] script = null;
 
-                                    info("input");
+                                if (null != sequence.motion){
+                                    /*
+                                     * touch input filtering
+                                     */
+                                    if (touchInputFilter < SystemClock.uptimeMillis()){
 
-                                    script = sequence.input;
+                                        info("include motion");
+
+                                        script = sequence.page.script(sequence.motion);
+                                    }
+                                    else {
+                                        warn("exclude motion");
+                                    }
                                 }
-                                else {
-                                    warn("input");
+                                else if (null != sequence.input){
+                                    /*
+                                     * touch input filtering
+                                     */
+                                    if (touchInputFilter < SystemClock.uptimeMillis()){
+
+                                        info("include input");
+
+                                        script = sequence.input;
+                                    }
+                                    else {
+                                        warn("exclude input");
+                                    }
                                 }
-                            }
 
 
-                            if (null != script){
+                                if (null != script){
 
-                                final ViewPage page = sequence.page;
+                                    final ViewPage page = sequence.page;
 
-                                final int count = script.length;
+                                    final int count = script.length;
 
-                                info("script "+count);
+                                    info("exec script "+count);
 
-                                for (int cc = 0; cc < count; cc++){
+                                    for (int cc = 0; cc < count; cc++){
 
-                                    if (0 != cc){
-                                        switch (skip){
-                                        case SKIP_NOT:
-                                            /*
-                                             * Tail paint and sleep
-                                             */
-                                            this.paint();
+                                        if (0 != cc){
+                                            switch (skip){
+                                            case SKIP_NOT:
+                                                /*
+                                                 * Tail paint and sleep
+                                                 */
+                                                this.paint();
 
-                                            sleep(OutputFilter);
-                                            break;
-                                        case SKIP_SKIP:
-                                            skip = SKIP_OP;
-                                            break;
-                                        default:
-                                            skip = SKIP_NOT;
-                                            break;
+                                                sleep(OutputFilter);
+                                                break;
+                                            case SKIP_SKIP:
+                                                skip = SKIP_OP;
+                                                break;
+                                            default:
+                                                skip = SKIP_NOT;
+                                                break;
+                                            }
+                                        }
+
+                                        in = script[cc];
+
+                                        info("input "+in.name()+" to "+page.name());
+
+                                        page.input(in);
+
+                                        if (Input.Skip == in){
+                                            skip = SKIP_SKIP;
                                         }
                                     }
 
-                                    in = script[cc];
-
-                                    info("input "+in.name()+" to "+page.name());
-
-                                    page.input(in);
-
-                                    if (Input.Skip == in){
-                                        skip = SKIP_SKIP;
-                                    }
+                                    touchInputFilter = SystemClock.uptimeMillis()+TouchInputFilter;
                                 }
-
-                                touchInputFilter = SystemClock.uptimeMillis()+TouchInputFilter;
+                                else {
+                                    warn("ignore script <null>");
+                                }
                             }
-                            else {
-                                warn("script <null>");
+
+                            sequence = sequence.pop();
+
+                            /*
+                             * Tail paint and sleep
+                             */
+                            this.paint();
+
+                            if (null != sequence){
+
+                                sleep(OutputFilter);
                             }
-                        }
-
-                        sequence = sequence.pop();
-
-                        /*
-                         * Tail paint and sleep
-                         */
-                        this.paint();
-
-                        if (null != sequence){
-
-                            sleep(OutputFilter);
                         }
                     }
                 }
@@ -444,10 +455,13 @@ public final class ViewAnimation
         catch (InterruptedException inx){
             return;
         }
+        finally {
+            info("returning");
+        }
     }
     private void paint(){
 
-        if (this.is2D){
+        if (is2D){
 
             try {
                 Canvas g = this.holder.lockCanvas();
@@ -455,8 +469,12 @@ public final class ViewAnimation
                 ((View2D)this.view).onDraw(g);
 
                 this.holder.unlockCanvasAndPost(g);
+
+                recover2D = false;
             }
             catch (RuntimeException exc){
+
+                recover2D = true;
 
                 warn("paint",exc);
             }

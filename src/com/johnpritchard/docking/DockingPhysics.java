@@ -73,7 +73,7 @@ public final class DockingPhysics
 
     private void start(SharedPreferences state){
 
-        this.sv.open(state);
+        this.sv.open(state);///////////////////////////////////TODO
 
         this.running = this.sv.running();
 
@@ -83,7 +83,7 @@ public final class DockingPhysics
 
         this.running = false;
 
-        this.sv.close(state);
+        this.sv.close(state);//////////////////////////////////TODO
 
         synchronized(this.monitor){
 
@@ -115,16 +115,20 @@ public final class DockingPhysics
 
                 running = this.sv.update(FCOPY);
 
-                synchronized(this.monitor){
-                    this.monitor.wait(TINC);
+                if (!running){
+
+                    DockingPageGameAbstract.Format();//////////TODO
+
+                    if (sv.crash()){
+
+                        ViewAnimation.Script(Page.gamecrash);//TODO
+                    }
                 }
-            }
-
-            DockingPageGameAbstract.Format();
-
-            if (sv.crash()){
-
-                ViewAnimation.Script(Page.gamecrash);
+                else {
+                    synchronized(this.monitor){
+                        this.monitor.wait(TINC);
+                    }
+                }
             }
         }
         catch (InterruptedException inx){

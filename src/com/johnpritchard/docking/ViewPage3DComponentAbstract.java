@@ -81,7 +81,7 @@ public abstract class ViewPage3DComponentAbstract
 
                 cardinals[direction.index] = component;
 
-                info("navigation "+getName()+' '+direction+" = "+component.getName());
+                //info("navigation "+getName()+' '+direction+" = "+component.getName());
             }
         }
     }

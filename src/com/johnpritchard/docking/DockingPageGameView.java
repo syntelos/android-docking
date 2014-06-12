@@ -94,7 +94,7 @@ public final class DockingPageGameView
     public ViewPage up(View view, int w, int h){
         super.up(view,w,h);
 
-        DockingPhysics.Start(view.preferences());
+        DockingPhysics.Start(view.preferences());//////////////TODO
 
         return this;
     }
@@ -102,6 +102,6 @@ public final class DockingPageGameView
     public void down(SharedPreferences.Editor state){
         super.down(state);
 
-        DockingPhysics.Stop(state);
+        DockingPhysics.Stop(state);////////////////////////////TODO
     }
 }
