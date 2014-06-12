@@ -80,6 +80,32 @@ public abstract class Epsilon
         return Clamp((a/b),precis);
     }
 
+    protected final static long Clamp(long value){
+
+        if (0L <= value){
+            return value;
+        }
+        else {
+            return 0L;
+        }
+    }
+    protected final static long AddClamp(long a, long b){
+
+        return Clamp(a+b);
+    }
+    protected final static long SubClamp(long a, long b){
+
+        return Clamp(a-b);
+    }
+    protected final static long MulClamp(long a, long b){
+
+        return Clamp(a*b);
+    }
+    protected final static long DivClamp(long a, long b){
+
+        return Clamp(a/b);
+    }
+
     protected final static double DEG = 180.0/Math.PI;
 
     protected final static float PAD_RATIO = 0.05f;

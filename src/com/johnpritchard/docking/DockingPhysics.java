@@ -105,6 +105,8 @@ public final class DockingPhysics
 
                     while (null != prog){
 
+                        info(prog.toString());
+
                         sv.add(prog);
 
                         prog = prog.pop();

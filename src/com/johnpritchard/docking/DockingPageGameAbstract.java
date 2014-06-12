@@ -59,29 +59,24 @@ public abstract class DockingPageGameAbstract
         final float r_x = copy.range_x;
         final float v_x = copy.velocity_x;
         final float a_x = copy.acceleration_x;
+
         final float t_last = Seconds(copy.time_last);
-        final float t_source = copy.time_source.secondsf();
-        final float t_xp0 = copy.time_xp0.secondsf();
-        final float t_xm0 = copy.time_xm0.secondsf();
-        final float t_xp1 = copy.time_xp1.secondsf();
-        final float t_xm1 = copy.time_xm1.secondsf();
+        final float t_source = Seconds(copy.time_source);
+        final float t_xp0 = Seconds(copy.time_xp0);
+        final float t_xm0 = Seconds(copy.time_xm0);
+        final float t_xp1 = Seconds(copy.time_xp1);
+        final float t_xm1 = Seconds(copy.time_xm1);
 
+        out_rx.format(r_x);
         out_vx.format(v_x);
-
         out_ax.format(a_x);
 
         out_t.format(t_last);
-
-        out_rx.format(r_x);
-
         out_tr.format(t_source);
 
         in_xp0.format(t_xp0);
-
         in_xm0.format(t_xm0);
-
         in_xp1.format(t_xp1);
-
         in_xm1.format(t_xm1);
 
         Range(r_x);

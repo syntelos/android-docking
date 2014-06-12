@@ -28,8 +28,10 @@ public class PhysicsScript {
     public float seconds(){
         return operand;
     }
-    public float milliseconds(){
-        return operator.milliseconds(operand);
+    public long millis(){
+        long value = (long)operand;
+        value *= 1000L;
+        return value;
     }
     /*
      * Object

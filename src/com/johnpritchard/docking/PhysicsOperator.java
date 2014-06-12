@@ -12,8 +12,8 @@ public enum PhysicsOperator {
      *
      * Thruster operational values have an integer number of seconds.
      */
-    TX0("T0","%03d"),
-    TX1("T1","%03d");
+    TX0("T 1.0","%03d"),
+    TX1("T 0.1","%03d");
 
 
     public final String label;
