@@ -65,7 +65,8 @@ public abstract class ViewPage3D
 
 
     /**
-     * Set stale to false, and then perform GL init process.
+     * Called once per surface by {@link View3DRenderer} to perform
+     * the GL init process.
      */
     public abstract void init(GL10 gl);
     /**

@@ -32,6 +32,8 @@ public final class View3DRenderer
 
     private int width = -1, height = -1;
 
+    private boolean stale = true;
+
 
     public View3DRenderer(View3D view){
         super();
@@ -162,6 +164,11 @@ public final class View3DRenderer
 
             if (plumb){
 
+                if (stale){
+                    stale = false;
+
+                    page.init(gl);
+                }
                 page.draw(gl);
             }
             else {

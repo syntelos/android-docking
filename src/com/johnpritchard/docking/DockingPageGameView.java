@@ -27,6 +27,9 @@ public final class DockingPageGameView
     public final static DockingPageGameView Instance = new DockingPageGameView();
 
 
+    private boolean stale = true;
+
+
     private DockingPageGameView(){
         super(new ViewPage3DComponent[]{
                 in_xp0, in_xm0, in_xp1, in_xm1
@@ -42,27 +45,24 @@ public final class DockingPageGameView
     public Page value(){
         return Page.gameview;
     }
-    public void init(GL10 gl){
-        super.init(gl);
-        /*
-         * Light
-         */
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightAmbient);
-
-        glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
-        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightDif0);
-
-        glLightfv(GL_LIGHT1,GL_POSITION,lightPos1);
-        glLightfv(GL_LIGHT1,GL_DIFFUSE,lightDif1);
-
-        glEnable(GL_LIGHT0);
-        glEnable(GL_LIGHT1);
-        glEnable(GL_LIGHTING);
-    }
     public void draw(GL10 gl){
 
         if (stale){
-            init(gl);
+            stale = false;
+            /*
+             * Light
+             */
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightAmbient);
+
+            glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
+            glLightfv(GL_LIGHT0,GL_DIFFUSE,lightDif0);
+
+            glLightfv(GL_LIGHT1,GL_POSITION,lightPos1);
+            glLightfv(GL_LIGHT1,GL_DIFFUSE,lightDif1);
+
+            glEnable(GL_LIGHT0);
+            glEnable(GL_LIGHT1);
+            glEnable(GL_LIGHTING);
         }
         else {
             FloatBuffer mm = model_matrix[model_matrix_current];

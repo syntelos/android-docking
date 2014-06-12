@@ -220,8 +220,6 @@ public abstract class DockingPageGameAbstract
     @Override
     public void init(GL10 gl){
 
-        stale = false;
-
         glViewport(0,0,width,height);
 
         glEnable(GL_LINE_SMOOTH);

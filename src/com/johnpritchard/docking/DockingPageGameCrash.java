@@ -26,6 +26,8 @@ public final class DockingPageGameCrash
 
     public final static DockingPageGameCrash Instance = new DockingPageGameCrash();
 
+    private boolean stale = true;
+
 
     private DockingPageGameCrash(){
         super(new ViewPage3DComponent[]{
@@ -42,16 +44,16 @@ public final class DockingPageGameCrash
     public Page value(){
         return Page.gamecrash;
     }
-    public void init(GL10 gl){
-        super.init(gl);
-
-        glClearColor(0.0f,0.0f,0.0f,1.0f);
-
-    }
     public void draw(GL10 gl){
 
         if (stale){
-            init(gl);
+            stale = false;
+
+            glClearColor(0.0f,0.0f,0.0f,1.0f);
+
+            glDisable(GL_LIGHT0);
+            glDisable(GL_LIGHT1);
+            glDisable(GL_LIGHTING);
         }
         else {
 

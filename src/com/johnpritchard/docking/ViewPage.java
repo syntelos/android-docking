@@ -80,10 +80,6 @@ public abstract class ViewPage
     /**
      * Completed up
      */
-    protected boolean stale;
-    /**
-     * Completed up
-     */
     protected boolean plumb;
 
     protected View view;
@@ -94,7 +90,6 @@ public abstract class ViewPage
 
     protected ViewPage(){
         super();
-        this.stale = true;
     }
 
 
@@ -136,14 +131,12 @@ public abstract class ViewPage
         focus();
 
         plumb = true;
-        stale = true;
 
         return this;
     }
     public void down(){
 
         plumb = false;
-        stale = true;
     }
     public void down(SharedPreferences.Editor preferences){
 
