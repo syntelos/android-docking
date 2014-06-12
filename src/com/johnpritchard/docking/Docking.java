@@ -50,6 +50,14 @@ public final class Docking
 
         Activity3D = instance;
     }
+    protected final static void Post2D(Runnable action){
+
+        Activity2D.runOnUiThread(action);
+    }
+    protected final static void Post3D(Runnable action){
+
+        Activity3D.runOnUiThread(action);
+    }
 
 
     public Docking(){

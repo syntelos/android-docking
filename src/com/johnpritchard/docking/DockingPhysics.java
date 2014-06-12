@@ -49,8 +49,6 @@ public final class DockingPhysics
 
 
 
-    private final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
-
     private final Object monitor = new Object();
 
     private volatile PhysicsScript queue;
@@ -65,7 +63,7 @@ public final class DockingPhysics
 
     private void start(SharedPreferences state){
 
-        this.running = this.sv.running();
+        this.running = true;
 
         super.start();
     }
@@ -88,6 +86,8 @@ public final class DockingPhysics
 
             sleep(1500L);
 
+            final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
+
             while (running){
                 {
                     PhysicsScript prog = this.queue;
@@ -107,18 +107,7 @@ public final class DockingPhysics
 
                 if (!running){
 
-                    DockingDatabase.GameOver();
-
-                    DockingPageGameAbstract.View();
-
-                    if (sv.crash()){
-
-                        ViewAnimation.Script(Page.gamecrash);
-                    }
-                    else {
-
-                        ViewAnimation.Script(Page.gameview);
-                    }
+                    Docking.Post3D(new DockingPostFinishPhysics());
                 }
                 else {
                     synchronized(this.monitor){

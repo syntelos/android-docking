@@ -37,25 +37,6 @@ public final class DockingPageIntro
     @Override
     public void input(InputScript in){
 
-        switch(in.type()){
-
-        case Enter:
-
-            if (-1 < enter()){
-
-                view.script(Page.start);
-            }
-            return;
-
-        case Back:
-        case Up:
-        case Down:
-            view.script(Page.start);
-            return;
-
-        default:
-            super.input(in);
-            return;
-        }
+        view.script(Page.start);
     }
 }

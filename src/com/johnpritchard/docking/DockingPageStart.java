@@ -60,25 +60,12 @@ public final class DockingPageStart
 
             case GAME:
 
-                DockingDatabase.Game();
-
-                DockingPageGameAbstract.Play();
-
-                view.script(Page.gameplay);
+                Docking.Post2D(new DockingPostStartGame());
                 break;
 
             case HISTORY:
 
-                if (DockingDatabase.History()){
-
-                    DockingPageGameAbstract.View();
-
-                    view.script(Page.gameview);
-                }
-                else {
-
-                    view.script(Page.nohistory);
-                }
+                Docking.Post2D(new DockingPostStartHistory());
                 break;
 
             case ABOUT:

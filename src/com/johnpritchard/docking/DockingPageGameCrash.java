@@ -90,18 +90,20 @@ public final class DockingPageGameCrash
         case Up:
             break;
         case Left:
-            if (DockingDatabase.HistoryPrev()){
+            /*
+             * pull from right: ascend history order
+             */
+            Docking.Post3D(new DockingPostNextHistory());
 
-                DockingPageGameAbstract.View();
-            }
             break;
         case Down:
             break;
         case Right:
-            if (DockingDatabase.HistoryNext()){
+            /*
+             * pull from left: descend history order
+             */
+            Docking.Post3D(new DockingPostPrevHistory());
 
-                DockingPageGameAbstract.View();
-            }
             break;
         default:
             view.script(Page.start);
