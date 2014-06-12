@@ -4,6 +4,7 @@
 package com.johnpritchard.docking;
 
 import android.app.ActivityManager;
+import android.content.SharedPreferences;
 import android.content.pm.ConfigurationInfo;
 import android.hardware.Camera;
 import android.hardware.Sensor;
@@ -29,6 +30,8 @@ public class ObjectActivity
     protected final String className;
 
     protected final String baseName;
+
+    protected SharedPreferences preferences;
 
 
     public ObjectActivity(){
@@ -82,6 +85,10 @@ public class ObjectActivity
     protected void attach(Camera c)
         throws java.io.IOException
     {
+    }
+    protected SharedPreferences preferences(){
+
+        return this.preferences;
     }
     protected Display display(){
 

@@ -24,8 +24,6 @@ public class DockingActivityView
 
     View3D view;
 
-    SharedPreferences preferences;
-
 
     @Override
     public void onCreate(Bundle state)
@@ -61,9 +59,5 @@ public class DockingActivityView
         super.onResume();
 
         this.view.onResume();
-    }
-    protected SharedPreferences preferences(){
-
-        return this.preferences;
     }
 }
