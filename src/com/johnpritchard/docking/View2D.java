@@ -338,7 +338,7 @@ public final class View2D
 
                     warn("switching to 3D for page: "+page);
 
-                    Docking.StartView();
+                    Docking.StartActivity3D();
                 }
             }
         }
@@ -359,7 +359,7 @@ public final class View2D
 
                 warn("switching to 3D for page: "+page);
 
-                Docking.StartView();
+                Docking.StartActivity3D();
             }
         }
     }

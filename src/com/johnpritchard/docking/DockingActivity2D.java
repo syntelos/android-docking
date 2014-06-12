@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.InputDevice;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
 import android.view.Window;
 import android.view.WindowManager;
 import android.util.DisplayMetrics;
@@ -18,17 +17,17 @@ import android.util.Log;
 /**
  * 
  */
-public class DockingActivityView
+public class DockingActivity2D
     extends ObjectActivity
 {
 
-    View3D view;
+    View2D view;
 
 
     @Override
     public void onCreate(Bundle state)
     {
-        Docking.ViewActivate(this);
+        Docking.Activate2D(this);
 
         super.onCreate(state);
         {
@@ -38,7 +37,7 @@ public class DockingActivityView
 
         this.preferences = this.getSharedPreferences("docking.properties",MODE_PRIVATE);
 
-        this.view = new View3D(this);
+        this.view = new View2D(this);
 
         this.setContentView(this.view);
 

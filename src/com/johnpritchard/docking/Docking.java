@@ -17,38 +17,38 @@ public final class Docking
 {
     private final static String TAG = ObjectLog.TAG;
 
-    private static DockingActivityMain Main;
-    private static DockingActivityView View;
+    private static DockingActivity2D Activity2D;
+    private static DockingActivity3D Activity3D;
 
     /**
-     * Called from main to start view.
+     * Called from activity2D to start activity3D.
      */
-    public final static void StartView(){
+    public final static void StartActivity3D(){
 
-        Intent intent = new Intent(Main, DockingActivityView.class);
+        Intent intent = new Intent(Activity2D, DockingActivity3D.class);
 
-        Main.startActivity(intent);
+        Activity2D.startActivity(intent);
     }
     /**
-     * Called from view to start main.
+     * Called from activity3D to start activity2D.
      */
-    public final static void StartMain(){
+    public final static void StartActivity2D(){
 
-        View.finish();
+        Activity3D.finish();
     }
     /**
-     * Called from main
+     * Called from activity2D
      */
-    protected final static void MainActivate(DockingActivityMain instance){
+    protected final static void Activate2D(DockingActivity2D instance){
 
-        Main = instance;
+        Activity2D = instance;
     }
     /**
-     * Called from view
+     * Called from activity3D
      */
-    protected final static void ViewActivate(DockingActivityView instance){
+    protected final static void Activate3D(DockingActivity3D instance){
 
-        View = instance;
+        Activity3D = instance;
     }
 
 

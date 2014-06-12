@@ -131,7 +131,7 @@ public final class View3DRenderer
 
                     warn("switching to 2D for page: "+page);
 
-                    Docking.StartMain();
+                    Docking.StartActivity2D();
                 }
             }
         }
@@ -152,7 +152,7 @@ public final class View3DRenderer
 
                 warn("switching to 2D for page: "+page);
 
-                Docking.StartMain();
+                Docking.StartActivity2D();
             }
         }
     }
