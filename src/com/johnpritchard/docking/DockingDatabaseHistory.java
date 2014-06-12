@@ -15,7 +15,7 @@ import java.util.HashMap;
  */
 public final class DockingDatabaseHistory {
 
-    public final static String AUTHORITY = "com.johnpritchard.docking.provider.DockingDatabaseHistory";
+    public final static String AUTHORITY = "com.johnpritchard.docking.provider.History";
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/state");
 
