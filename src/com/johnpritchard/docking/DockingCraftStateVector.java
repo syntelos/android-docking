@@ -3,10 +3,13 @@
  */
 package com.johnpritchard.docking;
 
-import android.content.SharedPreferences;
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.SystemClock;
 
 import static com.johnpritchard.docking.DockingCraftModel.*;
+
+import java.util.Date;
 
 /**
  * Principle simulation components and their integration.
@@ -75,7 +78,16 @@ public final class DockingCraftStateVector
     public long time_xp1;
     public long time_xm1;
 
+    /*
+     * infrastructure
+     */
     private long copy;
+
+    private long cursor = -1;
+
+    private String label, identifier;
+
+    private Date created, completed;
 
 
     private DockingCraftStateVector(){
@@ -134,23 +146,20 @@ public final class DockingCraftStateVector
             break;
         }
     }
-    protected synchronized void open(SharedPreferences state){
+    /**
+     * Alternative to {@link #create} reads a pre-positioned cursor.
+     */
+    protected synchronized void create(){
 
-        // range_x = state.getFloat(SV_R_X,SV_R_X_INIT());
+        cursor = -1;
 
-        // velocity_x = state.getFloat(SV_V_X,SV_V_X_INIT());
+        created = new Date();
 
-        // acceleration_x = state.getFloat(SV_A_X,SV_A_X_INIT());
+        completed = null;
 
-        // time_source = state.getLong(SV_T_SOURCE,SV_T_SOURCE_INIT());
+        label = created.toString();
 
-        // time_xp0 = state.getLong(SV_T_SINK_XP0,SV_T_SINK_0_INIT());
-
-        // time_xm0 = state.getLong(SV_T_SINK_XM0,SV_T_SINK_0_INIT());
-
-        // time_xp1 = state.getLong(SV_T_SINK_XP1,SV_T_SINK_1_INIT());
-
-        // time_xm1 = state.getLong(SV_T_SINK_XM1,SV_T_SINK_1_INIT());
+        identifier = BID.Identifier();
 
         range_x = SV_R_X_INIT();
 
@@ -170,27 +179,80 @@ public final class DockingCraftStateVector
 
         copy = 0L;
     }
-    protected synchronized void close(SharedPreferences.Editor state){
+    /**
+     * Alternative to {@link #create} reads a pre-positioned cursor.
+     */
+    protected synchronized DockingCraftStateVector read(Cursor cursor){
 
-        state.remove(SV_R_X);
-        state.remove(SV_V_X);
-        state.remove(SV_A_X);
+        this.cursor = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State._ID));
 
-        state.remove(SV_T_SOURCE);
-        state.remove(SV_T_SINK_XP0);
-        state.remove(SV_T_SINK_XM0);
-        state.remove(SV_T_SINK_XP1);
-        state.remove(SV_T_SINK_XM1);
+        this.identifier = cursor.getString(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.IDENTIFIER));
+        this.label = cursor.getString(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.LABEL));
 
-        //     state.putFloat(SV_R_X,range_x);
-        //     state.putFloat(SV_V_X,velocity_x);
-        //     state.putFloat(SV_A_X,acceleration_x);
+        this.velocity_x = cursor.getFloat(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.VX));
+        this.acceleration_x = cursor.getFloat(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.AX));
+        this.range_x = cursor.getFloat(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.RX));
 
-        //     state.putLong(SV_T_SOURCE,time_source);
-        //     state.putLong(SV_T_SINK_XP0,time_xp0);
-        //     state.putLong(SV_T_SINK_XM0,time_xm0);
-        //     state.putLong(SV_T_SINK_XP1,time_xp1);
-        //     state.putLong(SV_T_SINK_XM1,time_xm1);
+        this.time_source = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_SOURCE));
+        this.time_xp0 = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_XP0));
+        this.time_xm0 = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_XM0));
+        this.time_xp1 = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_XP1));
+        this.time_xm1 = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_XM1));
+
+        final long created = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.CREATED));
+        if (0 < created){
+            this.created = new Date(created);
+        }
+        else {
+            this.created = null;
+        }
+
+        final long completed = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.COMPLETED));
+        if (0 < completed){
+            this.completed = new Date(completed);
+        }
+        else {
+            this.completed = null;
+        }
+
+        return this;
+    }
+    protected synchronized ContentValues write(){
+
+        ContentValues values = new ContentValues();
+
+        if (-1L < this.cursor){
+
+            values.put(DockingDatabaseHistory.State._ID,this.cursor);
+        }
+
+        values.put(DockingDatabaseHistory.State.IDENTIFIER,this.identifier);
+
+        values.put(DockingDatabaseHistory.State.LABEL,this.label);
+
+        values.put(DockingDatabaseHistory.State.VX,this.velocity_x);
+
+        values.put(DockingDatabaseHistory.State.AX,this.acceleration_x);
+
+        values.put(DockingDatabaseHistory.State.RX,this.range_x);
+
+        values.put(DockingDatabaseHistory.State.T_SOURCE,this.time_source);
+
+        values.put(DockingDatabaseHistory.State.T_XP0,this.time_xp0);
+
+        values.put(DockingDatabaseHistory.State.T_XM0,this.time_xm0);
+
+        values.put(DockingDatabaseHistory.State.T_XP1,this.time_xp1);
+
+        values.put(DockingDatabaseHistory.State.T_XM1,this.time_xm1);
+
+        values.put(DockingDatabaseHistory.State.CREATED,this.created.getTime());
+
+        if (null != this.completed){
+
+            values.put(DockingDatabaseHistory.State.COMPLETED,this.completed.getTime());
+        }
+        return values;
     }
     /**
      * The simulation employs real time (DT = clock - last) rather
