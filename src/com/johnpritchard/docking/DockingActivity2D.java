@@ -29,6 +29,8 @@ public class DockingActivity2D
     {
         Docking.Activate2D(this);
 
+        DockingDatabase.Init(this);
+
         super.onCreate(state);
         {
             requestWindowFeature(Window.FEATURE_NO_TITLE);

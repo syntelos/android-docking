@@ -30,6 +30,8 @@ public class DockingActivity3D
     {
         Docking.Activate3D(this);
 
+        DockingDatabase.Init(this);
+
         super.onCreate(state);
         {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
