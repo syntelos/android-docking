@@ -19,9 +19,9 @@ public final class DockingDatabaseHistory {
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/state");
 
-    public static final String CONTENT_TYPE_LIST = "vnd.android.cursor.dir/vnd.syntelos.state";
+    public static final String CONTENT_TYPE_LIST = "vnd.android.cursor.dir/vnd.johnpritchard.state";
 
-    public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.syntelos.state";
+    public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.johnpritchard.state";
 
     /**
      * Columns in table "state"
@@ -55,6 +55,8 @@ public final class DockingDatabaseHistory {
 
         public final static String COMPLETED = "completed";
 
+        public final static String SCORE = "score";
+
 
         private final static String[] InternalList = {
             _ID,
@@ -69,7 +71,8 @@ public final class DockingDatabaseHistory {
             T_XP1,
             T_XM1,
             CREATED,
-            COMPLETED
+            COMPLETED,
+            SCORE
         };
         public final static HashMap<String,String> Internal(){
             HashMap<String, String> internal = new HashMap();
@@ -81,12 +84,14 @@ public final class DockingDatabaseHistory {
         }
         private final static String[] ExportList = {
             _ID,
+            LABEL,
             VX,
             AX,
             RX,
             T_SOURCE,
             CREATED,
-            COMPLETED
+            COMPLETED,
+            SCORE
         };
         public final static HashMap<String,String> Export(){
             HashMap<String, String> export = new HashMap();
@@ -97,30 +102,26 @@ public final class DockingDatabaseHistory {
             return export;
         }
         public final static String[] Export(String[] projection){
-            if (null == projection){
+            /*
+             * Validate requested terms
+             *
+             * An invalid request produces a conventional export
+             */
+            if (null == projection || 1 > projection.length){
+
                 return ExportList.clone();
             }
             else {
-                boolean excluded = false;
 
                 for (String p : projection){
 
-                    if (IDENTIFIER.equalsIgnoreCase(p)){
-                        excluded = true;
-                        break;
-                    }
-                    else if (LABEL.equalsIgnoreCase(p)){
-                        excluded = true;
-                        break;
+                    if (!DockingDatabase.Export(p)){
+
+                        return ExportList.clone();
                     }
                 }
 
-                if (excluded){
-                    return ExportList.clone();
-                }
-                else {
-                    return projection;
-                }
+                return projection;
             }
         }
         private State(){

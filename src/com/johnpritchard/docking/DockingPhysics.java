@@ -8,7 +8,7 @@ import android.os.SystemClock;
 import android.util.Log;
 
 /**
- * Principle simulation components and their integration.
+ * Game play engine.
  */
 public final class DockingPhysics
     extends java.lang.Thread
@@ -24,10 +24,6 @@ public final class DockingPhysics
 
             Instance.start(state);
         }
-        else {
-
-            DockingCraftStateVector.Instance.open(state);
-        }
     }
     public static void Stop(SharedPreferences.Editor state){
         if (null != Instance){
@@ -37,10 +33,6 @@ public final class DockingPhysics
             finally {
                 Instance = null;
             }
-        }
-        else {
-
-            DockingCraftStateVector.Instance.close(state);
         }
     }
     public static void Script(PhysicsScript in){
@@ -73,8 +65,6 @@ public final class DockingPhysics
 
     private void start(SharedPreferences state){
 
-        this.sv.open(state);///////////////////////////////////TODO
-
         this.running = this.sv.running();
 
         super.start();
@@ -82,8 +72,6 @@ public final class DockingPhysics
     private void stop(SharedPreferences.Editor state){
 
         this.running = false;
-
-        this.sv.close(state);//////////////////////////////////TODO
 
         synchronized(this.monitor){
 
@@ -97,6 +85,8 @@ public final class DockingPhysics
     public void run(){
         try {
             info("running");
+
+            sleep(1500L);
 
             while (running){
                 {
@@ -117,11 +107,17 @@ public final class DockingPhysics
 
                 if (!running){
 
-                    DockingPageGameAbstract.Format();//////////TODO
+                    DockingDatabase.GameOver();
+
+                    DockingPageGameAbstract.View();
 
                     if (sv.crash()){
 
-                        ViewAnimation.Script(Page.gamecrash);//TODO
+                        ViewAnimation.Script(Page.gamecrash);
+                    }
+                    else {
+
+                        ViewAnimation.Script(Page.gameview);
                     }
                 }
                 else {

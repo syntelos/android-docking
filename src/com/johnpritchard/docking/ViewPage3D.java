@@ -263,7 +263,7 @@ public abstract class ViewPage3D
      * Initialize navigation
      */
     @Override
-    protected final void navigation(){
+    protected void navigation(){
         for (int cc = 0, count = components.length; cc < count; cc++){
             ViewPage3DComponent c = components[cc];
 

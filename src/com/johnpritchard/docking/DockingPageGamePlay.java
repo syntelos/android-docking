@@ -20,32 +20,30 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * 
  */
-public final class DockingPageGameView
+public final class DockingPageGamePlay
     extends DockingPageGameAbstract
 {
 
-    public final static DockingPageGameView Instance = new DockingPageGameView();
+    public final static DockingPageGamePlay Instance = new DockingPageGamePlay();
 
 
     private boolean stale = true;
 
 
-    private DockingPageGameView(){
+    private DockingPageGamePlay(){
         super(new ViewPage3DComponent[]{
-                in_xp0, in_xm0, in_xp1, in_xm1,
-                out_score,
-                out_identifier, out_created, out_completed
+                in_xp0, in_xm0, in_xp1, in_xm1
             });
     }
 
 
     @Override
     public String name(){
-        return Page.gameview.name();
+        return Page.gameplay.name();
     }
     @Override
     public Page value(){
-        return Page.gameview;
+        return Page.gameplay;
     }
     public void draw(GL10 gl){
 
@@ -93,43 +91,17 @@ public final class DockingPageGameView
         }
     }
     @Override
-    protected void focus(){
+    public ViewPage up(View view, int w, int h){
+        super.up(view,w,h);
 
-        for (ViewPage3DComponent c: this.components){
+        DockingPhysics.Start(view.preferences());
 
-            if (c instanceof DockingFieldIO){
-
-                c.setCurrent();
-            }
-        }
+        return this;
     }
     @Override
-    protected void navigation(){
-    }
-    @Override
-    public void input(InputScript in){
+    public void down(SharedPreferences.Editor state){
+        super.down(state);
 
-        Input type = in.type();
-        switch(type){
-        case Up:
-            break;
-        case Left:
-            if (DockingDatabase.HistoryPrev()){
-
-                DockingPageGameAbstract.View();
-            }
-            break;
-        case Down:
-            break;
-        case Right:
-            if (DockingDatabase.HistoryNext()){
-
-                DockingPageGameAbstract.View();
-            }
-            break;
-        default:
-            view.script(Page.start);
-            break;
-        }
+        DockingPhysics.Stop(state);
     }
 }

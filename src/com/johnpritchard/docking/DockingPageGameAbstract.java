@@ -50,26 +50,32 @@ public abstract class DockingPageGameAbstract
                                                                      PhysicsDOF.XM,
                                                                      -2.6, +0.10, 1.0, 0.12);
 
+    protected final static DockingOutputScore      out_score = new DockingOutputScore(-1.5,-0.5,1.0,0.4);
+
+    protected final static DockingOutputIdentifier out_identifier = new DockingOutputIdentifier(-2.6,-0.85,1.0,0.12);
+    protected final static DockingOutputCreated    out_created    = new DockingOutputCreated   (-2.6,-1.10,1.0,0.12);
+    protected final static DockingOutputCompleted  out_completed  = new DockingOutputCompleted (-2.6,-1.35,1.0,0.12);
+
+    public final static void View(){
+
+        final DockingCraftStateVector state = DockingCraftStateVector.Instance;
 
 
-    public final static void Format(){
+        final float t_last = Seconds(state.time_last);
+        final float t_source = Seconds(state.time_source);
+        final float t_xp0 = Seconds(state.time_xp0);
+        final float t_xm0 = Seconds(state.time_xm0);
+        final float t_xp1 = Seconds(state.time_xp1);
+        final float t_xm1 = Seconds(state.time_xm1);
 
-        final DockingCraftStateVector copy = DockingCraftStateVector.Instance;
+        out_rx.format(state.range_x);
+        out_vx.format(state.velocity_x);
+        out_ax.format(state.acceleration_x);
 
-        final float r_x = copy.range_x;
-        final float v_x = copy.velocity_x;
-        final float a_x = copy.acceleration_x;
-
-        final float t_last = Seconds(copy.time_last);
-        final float t_source = Seconds(copy.time_source);
-        final float t_xp0 = Seconds(copy.time_xp0);
-        final float t_xm0 = Seconds(copy.time_xm0);
-        final float t_xp1 = Seconds(copy.time_xp1);
-        final float t_xm1 = Seconds(copy.time_xm1);
-
-        out_rx.format(r_x);
-        out_vx.format(v_x);
-        out_ax.format(a_x);
+        out_identifier.format(state.identifier);
+        out_score.format(state.score);
+        out_created.format(state.created);
+        out_completed.format(state.completed);
 
         out_t.format(t_last);
         out_tr.format(t_source);
@@ -79,7 +85,33 @@ public abstract class DockingPageGameAbstract
         in_xp1.format(t_xp1);
         in_xm1.format(t_xm1);
 
-        Range(r_x);
+        Range(state.range_x);
+    }
+    public final static void Play(){
+
+        final DockingCraftStateVector state = DockingCraftStateVector.Instance;
+
+
+        final float t_last = Seconds(state.time_last);
+        final float t_source = Seconds(state.time_source);
+        final float t_xp0 = Seconds(state.time_xp0);
+        final float t_xm0 = Seconds(state.time_xm0);
+        final float t_xp1 = Seconds(state.time_xp1);
+        final float t_xm1 = Seconds(state.time_xm1);
+
+        out_rx.format(state.range_x);
+        out_vx.format(state.velocity_x);
+        out_ax.format(state.acceleration_x);
+
+        out_t.format(t_last);
+        out_tr.format(t_source);
+
+        in_xp0.format(t_xp0);
+        in_xm0.format(t_xm0);
+        in_xp1.format(t_xp1);
+        in_xm1.format(t_xm1);
+
+        Range(state.range_x);
     }
     public final static void Range(float r_x){
 

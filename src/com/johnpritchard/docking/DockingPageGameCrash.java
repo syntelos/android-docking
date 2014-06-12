@@ -31,7 +31,9 @@ public final class DockingPageGameCrash
 
     private DockingPageGameCrash(){
         super(new ViewPage3DComponent[]{
-                new ViewPage3DTextLabel(-1.5,-0.5,1.0,0.5,"Crash!")
+                in_xp0, in_xm0, in_xp1, in_xm1,
+                new ViewPage3DTextLabel(-1.5,-0.5,1.0,0.5,"Crash!"),
+                out_identifier, out_created, out_completed
             });
     }
 
@@ -64,6 +66,46 @@ public final class DockingPageGameCrash
             draw();
 
             glFlush();
+        }
+    }
+    @Override
+    protected void focus(){
+
+        for (ViewPage3DComponent c: this.components){
+
+            if (c instanceof DockingFieldIO){
+
+                c.setCurrent();
+            }
+        }
+    }
+    @Override
+    protected void navigation(){
+    }
+    @Override
+    public void input(InputScript in){
+
+        Input type = in.type();
+        switch(type){
+        case Up:
+            break;
+        case Left:
+            if (DockingDatabase.HistoryPrev()){
+
+                DockingPageGameAbstract.View();
+            }
+            break;
+        case Down:
+            break;
+        case Right:
+            if (DockingDatabase.HistoryNext()){
+
+                DockingPageGameAbstract.View();
+            }
+            break;
+        default:
+            view.script(Page.start);
+            break;
         }
     }
 }

@@ -9,9 +9,10 @@ package com.johnpritchard.docking;
 public enum Page {
     start     (DockingPageStart.Instance),
     intro     (DockingPageIntro.Instance),
-    gameview  (DockingPageGameView.Instance),
+    gameplay  (DockingPageGamePlay.Instance),
     gamecrash (DockingPageGameCrash.Instance),
-    history   (DockingPageHistory.Instance),
+    gameview  (DockingPageGameView.Instance),
+    nohistory (DockingPageNoHistory.Instance),
     about     (DockingPageAbout.Instance);
 
 

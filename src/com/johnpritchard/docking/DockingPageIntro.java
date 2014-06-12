@@ -21,7 +21,7 @@ public final class DockingPageIntro
 
     private DockingPageIntro(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline("Intro")
+                new ViewPage2DTextMultiline("Rendezvous in zero gravity using T10 and T01 thrusters.  Velocity in the X+ direction is slowed by thrust designated X-.  Success at distance zero requires velocity of one centimeter per second (0.010).")
             });
     }
 

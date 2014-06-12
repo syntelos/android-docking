@@ -57,12 +57,30 @@ public final class DockingPageStart
             case INTRO:
                 view.script(Page.intro);
                 break;
+
             case GAME:
-                view.script(Page.gameview);
+
+                DockingDatabase.Game();
+
+                DockingPageGameAbstract.Play();
+
+                view.script(Page.gameplay);
                 break;
+
             case HISTORY:
-                view.script(Page.history);
+
+                if (DockingDatabase.History()){
+
+                    DockingPageGameAbstract.View();
+
+                    view.script(Page.gameview);
+                }
+                else {
+
+                    view.script(Page.nohistory);
+                }
                 break;
+
             case ABOUT:
                 view.script(Page.about);
                 break;
