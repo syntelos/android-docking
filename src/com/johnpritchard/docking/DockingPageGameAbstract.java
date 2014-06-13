@@ -50,7 +50,7 @@ public abstract class DockingPageGameAbstract
                                                                         -2.6, +0.10, Z, 0.12);
 
 
-    protected final static DockingOutputScore      out_score = new DockingOutputScore (-1.5, -0.6, Z, 0.5);
+    protected final static DockingOutputScore      out_score = new DockingOutputScore (-1.5, -0.6, Z, 0.3);
 
     protected final static ViewPage3DTextLabel     out_crash = new ViewPage3DTextLabel(-1.5, -0.6, Z, 0.5,"Crash!");
 

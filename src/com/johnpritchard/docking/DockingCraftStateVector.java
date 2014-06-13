@@ -44,7 +44,7 @@ public final class DockingCraftStateVector
     }
     private final static long SV_T_SOURCE_INIT(){
 
-        return 99L*I_SECONDS;
+        return 100L*I_SECONDS;
     }
     private final static long SV_T_SINK_0_INIT(){
         return 0L;

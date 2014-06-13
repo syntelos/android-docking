@@ -54,32 +54,17 @@ public final class DockingPageGameView
 
             glClearColor(1.0f,1.0f,1.0f,1.0f);
 
-            glEnable(GL_LIGHT0);
-            glEnable(GL_LIGHT1);
-            glEnable(GL_LIGHTING);
-            glEnable(GL_COLOR_MATERIAL);
+            glDisable(GL_LIGHT0);
+            glDisable(GL_LIGHT1);
+            glDisable(GL_LIGHTING);
+            glDisable(GL_COLOR_MATERIAL);
         }
         else {
-            FloatBuffer mm = model_matrix[model_matrix_current];
 
             glClear(CLR);
-            {
-                glPushMatrix();
 
-                glMultMatrixf(mm);
+            glColor4f(0.0f,0.0f,0.0f,1.0f);
 
-                glColor4f(0.0f,0.0f,0.0f,1.0f);
-
-                /* Model
-                 */
-
-                glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
-                glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
-
-                DockingGeometryPort.Instance.draw();
-
-                glPopMatrix();
-            }
             draw();
 
             glFlush();
