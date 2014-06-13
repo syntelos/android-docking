@@ -59,51 +59,52 @@ public abstract class Epsilon
 
         return (float)(ms/1000.0);
     }
-    protected final static float Clamp(double value, double precis){
+    protected final static float ClampRP(double value, double precis){
 
         return (float)(Math.floor(value*precis)/precis);
     }
-    protected final static float AddClamp(double a, double b, double precis){
+    protected final static float AddClampRP(double a, double b, double precis){
 
-        return Clamp((a+b),precis);
+        return ClampRP((a+b),precis);
     }
-    protected final static float SubClamp(double a, double b, double precis){
+    protected final static float SubClampRP(double a, double b, double precis){
 
-        return Clamp((a-b),precis);
+        return ClampRP((a-b),precis);
     }
-    protected final static float MulClamp(double a, double b, double precis){
+    protected final static float MulClampRP(double a, double b, double precis){
 
-        return Clamp((a*b),precis);
+        return ClampRP((a*b),precis);
     }
-    protected final static float DivClamp(double a, double b, double precis){
+    protected final static float DivClampRP(double a, double b, double precis){
 
-        return Clamp((a/b),precis);
+        return ClampRP((a/b),precis);
     }
 
-    protected final static long Clamp(long value){
+    protected final static long ClampZP(long value){
 
-        if (0L <= value){
+        if (0L < value){
+
             return value;
         }
         else {
             return 0L;
         }
     }
-    protected final static long AddClamp(long a, long b){
+    protected final static long AddClampZP(long a, long b){
 
-        return Clamp(a+b);
+        return ClampZP(a+b);
     }
-    protected final static long SubClamp(long a, long b){
+    protected final static long SubClampZP(long a, long b){
 
-        return Clamp(a-b);
+        return ClampZP(a-b);
     }
-    protected final static long MulClamp(long a, long b){
+    protected final static long MulClampZP(long a, long b){
 
-        return Clamp(a*b);
+        return ClampZP(a*b);
     }
-    protected final static long DivClamp(long a, long b){
+    protected final static long DivClampZP(long a, long b){
 
-        return Clamp(a/b);
+        return ClampZP(a/b);
     }
 
     protected final static double DEG = 180.0/Math.PI;

@@ -26,6 +26,16 @@ public final class DockingCraftModel
     public final static double accel_thruster_0 = (force_thruster_0 / mass_static);
 
     public final static double accel_thruster_1 = (force_thruster_1 / mass_static);
+    /**
+     * mul by cost =
+     * div by 1.0
+     */
+    public final static double cost_thruster_0 = (accel_thruster_0 * 10.0);
+    /**
+     * mul by cost =
+     * div by 10.0
+     */
+    public final static double cost_thruster_1 = (accel_thruster_1 * 10.0);
 
 
     private DockingCraftModel(){

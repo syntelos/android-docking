@@ -135,12 +135,21 @@ public final class DockingDatabase
         try {
             SQLiteQueryBuilder rQ = QueryStateInternal();
 
-            rQ.appendWhere(DockingDatabaseHistory.State.COMPLETED + " != NULL");
+            final String[] projection = DockingDatabaseHistory.State.ProjectionInternal();
 
-            /*
-             * One record, most recently created
-             */
-            Cursor cursor = rQ.query(db,null,null,null,null,null,DockingDatabaseHistory.State.CREATED+" desc","1");
+            final String where = null;
+
+            final String[] whereargs = null;
+
+            final String groupby = null;
+
+            final String having = null;
+
+            final String orderby = DockingDatabaseHistory.State.CREATED+" desc";
+
+            final String limit = "1";
+
+            Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
             if (cursor.moveToFirst()){
                 /*
                  * Have history
@@ -182,14 +191,23 @@ public final class DockingDatabase
 
             SQLiteDatabase db = Readable();
             try {
-                SQLiteQueryBuilder rQ = QueryStateInternal();
+                SQLiteQueryBuilder rQ = QueryStateInternal(id-1);
 
-                rQ.appendWhere(DockingDatabaseHistory.State._ID + " = " + (id-1L));
+                final String[] projection = DockingDatabaseHistory.State.ProjectionInternal();
 
-                /*
-                 * Order by most recently created
-                 */
-                Cursor cursor = rQ.query(db,null,null,null,null,null,null);
+                final String where = null;
+
+                final String[] whereargs = null;
+
+                final String groupby = null;
+
+                final String having = null;
+
+                final String orderby = null;
+
+                final String limit = null;
+
+                Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
 
                 if (cursor.moveToFirst()){
 
@@ -236,12 +254,23 @@ public final class DockingDatabase
 
             SQLiteDatabase db = Readable();
             try {
-                SQLiteQueryBuilder rQ = QueryStateInternal();
+                SQLiteQueryBuilder rQ = QueryStateInternal(id+1);
 
-                rQ.appendWhere(DockingDatabaseHistory.State._ID + " = " + (id+1L));
+                final String[] projection = DockingDatabaseHistory.State.ProjectionInternal();
 
-                Cursor cursor = rQ.query(db,null,null,null,null,null,null);
+                final String where = null;
 
+                final String[] whereargs = null;
+
+                final String groupby = null;
+
+                final String having = null;
+
+                final String orderby = null;
+
+                final String limit = null;
+
+                Cursor cursor = rQ.query(db,projection,where,whereargs,groupby,having,orderby,limit);
                 if (cursor.moveToFirst()){
 
                     try {

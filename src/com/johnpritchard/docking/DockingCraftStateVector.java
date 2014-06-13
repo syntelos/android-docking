@@ -166,7 +166,7 @@ public final class DockingCraftStateVector
      */
     protected synchronized boolean update(long copy){
         /*
-         * An integration that's fun to play with.
+         * Integration procedure
          */
         final long last = this.time_last;
 
@@ -199,15 +199,15 @@ public final class DockingCraftStateVector
                     if (0L != ldt){
                         final double dt = ((double)ldt/1000.0);
 
-                        final double da0 = Z((double)dt*accel_thruster_0);
+                        final float da0 = (float)Z((double)dt*accel_thruster_0);
 
-                        acceleration_x = (float)+(da0);
+                        acceleration_x = +(da0);
 
-                        velocity_x = Clamp(((double)velocity_x + da0),1000.0);
+                        velocity_x += da0;
 
-                        time_xp0 = SubClamp(time_xp0,ldt);
+                        time_xp0 = SubClampZP(time_xp0,ldt);
 
-                        time_source = SubClamp(time_source,ldt);
+                        time_source = SubClampZP(time_source,(long)((double)ldt * cost_thruster_0));
                     }
                 }
             }
@@ -218,15 +218,15 @@ public final class DockingCraftStateVector
                 if (0L != ldt){
                     final double dt = ((double)ldt/1000.0);
 
-                    final double da0 = Z((double)dt*accel_thruster_0);
+                    final float da0 = (float)Z((double)dt*accel_thruster_0);
 
-                    acceleration_x = (float)-(da0);
+                    acceleration_x = -(da0);
 
-                    velocity_x = Clamp(((double)velocity_x - da0),1000.0);
+                    velocity_x -= da0;
 
-                    time_xm0 = SubClamp(time_xm0,ldt);
+                    time_xm0 = SubClampZP(time_xm0,ldt);
 
-                    time_source = SubClamp(time_source,ldt);
+                    time_source = SubClampZP(time_source,(long)((double)ldt * cost_thruster_0));
                 }
             }
             else {
@@ -246,15 +246,15 @@ public final class DockingCraftStateVector
                     if (0L != ldt){
                         final double dt = ((double)ldt/1000.0);
 
-                        final double da1 = Z((double)dt*accel_thruster_1);
+                        final float da1 = (float)Z((double)dt*accel_thruster_1);
 
-                        acceleration_x += (float)(da1);
+                        acceleration_x += da1;
 
-                        velocity_x = Clamp(((double)velocity_x + da1),1000.0);
+                        velocity_x += da1;
 
-                        time_xp1 = SubClamp(time_xp1,ldt);
+                        time_xp1 = SubClampZP(time_xp1,ldt);
 
-                        time_source = SubClamp(time_source,ldt);
+                        time_source = SubClampZP(time_source,(long)((double)ldt * cost_thruster_1));
                     }
                 }
             }
@@ -265,15 +265,15 @@ public final class DockingCraftStateVector
                 if (0L != ldt){
                     final double dt = ((double)ldt/1000.0);
 
-                    final double da1 = Z(dt*accel_thruster_1);
+                    final float da1 = (float)Z(dt*accel_thruster_1);
 
-                    acceleration_x -= (float)(da1);
+                    acceleration_x -= da1;
 
-                    velocity_x = Clamp(((double)velocity_x - da1),1000.0);
+                    velocity_x -= da1;
 
-                    time_xm1 = SubClamp(time_xm1,ldt);
+                    time_xm1 = SubClampZP(time_xm1,ldt);
 
-                    time_source = SubClamp(time_source,ldt);
+                    time_source = SubClampZP(time_source,(long)((double)ldt * cost_thruster_1));
                 }
             }
 
@@ -284,9 +284,9 @@ public final class DockingCraftStateVector
 
                 final double dt = ((double)t_delta)/1000.0;
 
-                final double dr = Z(dt*velocity_x);
+                final float dr = (float)Z(dt*velocity_x);
 
-                range_x = Clamp(((double)range_x - dr),1000.0);
+                range_x -= dr;
             }
 
             /*
@@ -440,7 +440,7 @@ public final class DockingCraftStateVector
             this.score = 4.0f;
         }
 
-        this.score = SubClamp(4.0, this.velocity_x, 10.0);
+        this.score = SubClampRP(4.0, this.velocity_x, 10.0);
 
         values.put(DockingDatabaseHistory.State.SCORE,this.score);
 

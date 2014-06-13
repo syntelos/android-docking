@@ -31,36 +31,32 @@ public abstract class DockingPageGameAbstract
     protected final static DockingOutputT  out_t  = new DockingOutputT (+1.7, +1.35, Z, 0.12);
 
 
-    protected final static DockingOutputRx out_rx = new DockingOutputRx(-2.6, +1.1, Z, 0.12);
+    protected final static DockingOutputRx out_rx = new DockingOutputRx(-2.6, +1.10, Z, 0.12);
 
-    protected final static DockingOutputTr out_tr = new DockingOutputTr(+1.7, +1.1, Z, 0.12);
-
-
-    protected final static DockingFieldIO in_xp0 = new DockingFieldIO(PhysicsOperator.TX0,
-                                                                     PhysicsDOF.XP,
-                                                                     -2.6,  +0.85, Z, 0.12);
-
-    protected final static DockingFieldIO in_xm0 = new DockingFieldIO(PhysicsOperator.TX0,
-                                                                     PhysicsDOF.XM,
-                                                                     -2.6, +0.60, Z, 0.12);
+    protected final static DockingOutputTr out_tr = new DockingOutputTr(+1.7, +1.10, Z, 0.12);
 
 
-    protected final static DockingFieldIO in_xp1 = new DockingFieldIO(PhysicsOperator.TX1,
-                                                                     PhysicsDOF.XP,
-                                                                     -2.6,  +0.35, Z, 0.12);
+    protected final static DockingFieldIO in_xp0 = new DockingFieldIO(PhysicsOperator.TX0, PhysicsDOF.XP,
+                                                                        -2.6, +0.85, Z, 0.12);
 
-    protected final static DockingFieldIO in_xm1 = new DockingFieldIO(PhysicsOperator.TX1,
-                                                                     PhysicsDOF.XM,
-                                                                     -2.6, +0.10, Z, 0.12);
+    protected final static DockingFieldIO in_xm0 = new DockingFieldIO(PhysicsOperator.TX0, PhysicsDOF.XM,
+                                                                        -2.6, +0.60, Z, 0.12);
 
 
-    protected final static DockingOutputScore      out_score = new DockingOutputScore (-1.5,-0.6,Z,0.5);
+    protected final static DockingFieldIO in_xp1 = new DockingFieldIO(PhysicsOperator.TX1, PhysicsDOF.XP,
+                                                                        -2.6, +0.35, Z, 0.12);
 
-    protected final static ViewPage3DTextLabel     out_crash = new ViewPage3DTextLabel(-1.5,-0.6,Z,0.5,"Crash!");
+    protected final static DockingFieldIO in_xm1 = new DockingFieldIO(PhysicsOperator.TX1, PhysicsDOF.XM,
+                                                                        -2.6, +0.10, Z, 0.12);
 
-    protected final static DockingOutputIdentifier out_identifier = new DockingOutputIdentifier(-2.6,-0.85,Z,0.12);
-    protected final static DockingOutputCreated    out_created    = new DockingOutputCreated   (-2.6,-1.10,Z,0.12);
-    protected final static DockingOutputCompleted  out_completed  = new DockingOutputCompleted (-2.6,-1.35,Z,0.12);
+
+    protected final static DockingOutputScore      out_score = new DockingOutputScore (-1.5, -0.6, Z, 0.5);
+
+    protected final static ViewPage3DTextLabel     out_crash = new ViewPage3DTextLabel(-1.5, -0.6, Z, 0.5,"Crash!");
+
+    protected final static DockingOutputIdentifier out_identifier = new DockingOutputIdentifier(-2.6, -0.85, Z, 0.12);
+    protected final static DockingOutputCreated    out_created    = new DockingOutputCreated   (-2.6, -1.10, Z, 0.12);
+    protected final static DockingOutputCompleted  out_completed  = new DockingOutputCompleted (-2.6, -1.35, Z, 0.12);
 
     /**
      * Copy
