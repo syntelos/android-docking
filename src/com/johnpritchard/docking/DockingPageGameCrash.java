@@ -32,7 +32,7 @@ public final class DockingPageGameCrash
     private DockingPageGameCrash(){
         super(new ViewPage3DComponent[]{
                 in_xp0, in_xm0, in_xp1, in_xm1,
-                new ViewPage3DTextLabel(-1.5,-0.5,1.0,0.5,"Crash!"),
+                out_crash,
                 out_identifier, out_created, out_completed
             });
     }
@@ -56,6 +56,7 @@ public final class DockingPageGameCrash
             glDisable(GL_LIGHT0);
             glDisable(GL_LIGHT1);
             glDisable(GL_LIGHTING);
+            glDisable(GL_COLOR_MATERIAL);
         }
         else {
 
@@ -70,6 +71,8 @@ public final class DockingPageGameCrash
     }
     @Override
     protected void focus(){
+
+        stale = true;
 
         for (ViewPage3DComponent c: this.components){
 

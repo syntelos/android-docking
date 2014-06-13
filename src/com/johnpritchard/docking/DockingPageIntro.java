@@ -37,6 +37,9 @@ public final class DockingPageIntro
     @Override
     public void input(InputScript in){
 
-        view.script(Page.start);
+        if (-1 < enter()){
+
+            view.script(Page.start);
+        }
     }
 }

@@ -26,13 +26,10 @@ public final class DockingPhysics
         }
     }
     public static void Stop(SharedPreferences.Editor state){
-        if (null != Instance){
-            try {
-                Instance.stop(state);
-            }
-            finally {
-                Instance = null;
-            }
+        DockingPhysics instance = Instance;
+        if (null != instance){
+
+            instance.stop(state);
         }
     }
     public static void Script(PhysicsScript in){
@@ -103,7 +100,7 @@ public final class DockingPhysics
                     }
                 }
 
-                running = this.sv.update(FCOPY);
+                running = sv.update(FCOPY);
 
                 if (!running){
 
@@ -121,6 +118,8 @@ public final class DockingPhysics
         }
         finally {
             info("returning");
+
+            Instance = null;
         }
     }
     protected void verbose(String m){

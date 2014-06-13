@@ -28,25 +28,29 @@ public abstract class BID {
         boolean change = false;
         for (int cc = 0; cc < count; cc++){
             switch (cary[cc]){
-            case '/':
+            case '_':
                 change = true;
                 cary[cc] = 'A';
                 break;
-            case '+':
+            case '/':
                 change = true;
                 cary[cc] = 'B';
                 break;
-            case '\r':
+            case '+':
                 change = true;
                 cary[cc] = 'C';
                 break;
-            case '\n':
+            case '\r':
                 change = true;
                 cary[cc] = 'D';
                 break;
-            case '=':
+            case '\n':
                 change = true;
                 cary[cc] = 'E';
+                break;
+            case '=':
+                change = true;
+                cary[cc] = 'F';
                 break;
             default:
                 break;

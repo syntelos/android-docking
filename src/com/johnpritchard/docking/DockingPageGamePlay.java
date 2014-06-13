@@ -49,42 +49,35 @@ public final class DockingPageGamePlay
 
         if (stale){
             stale = false;
-            /*
-             * Light
-             */
-            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightAmbient);
 
-            glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
-            glLightfv(GL_LIGHT0,GL_DIFFUSE,lightDif0);
-
-            glLightfv(GL_LIGHT1,GL_POSITION,lightPos1);
-            glLightfv(GL_LIGHT1,GL_DIFFUSE,lightDif1);
+            glClearColor(1.0f,1.0f,1.0f,1.0f);
 
             glEnable(GL_LIGHT0);
             glEnable(GL_LIGHT1);
             glEnable(GL_LIGHTING);
+            glEnable(GL_COLOR_MATERIAL);
         }
         else {
             FloatBuffer mm = model_matrix[model_matrix_current];
 
             glClear(CLR);
+            {
+                glPushMatrix();
 
-            glPushMatrix();
+                glMultMatrixf(mm);
 
-            glMultMatrixf(mm);
+                glColor4f(0.0f,0.0f,0.0f,1.0f);
 
-            glColor4f(0.0f,0.0f,0.0f,1.0f);
+                /* Model
+                 */
 
-            /* Model
-             */
+                glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
+                glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
 
-            glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
-            glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
+                DockingGeometryPort.Instance.draw();
 
-            DockingGeometryPort.Instance.draw();
-
-            glPopMatrix();
-
+                glPopMatrix();
+            }
             draw();
 
             glFlush();
@@ -93,6 +86,8 @@ public final class DockingPageGamePlay
     @Override
     public ViewPage up(View view, int w, int h){
         super.up(view,w,h);
+
+        stale = true;
 
         DockingPhysics.Start(view.preferences());
 

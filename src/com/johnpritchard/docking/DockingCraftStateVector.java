@@ -104,9 +104,11 @@ public final class DockingCraftStateVector
         return (null != created && null == completed);
     }
     public boolean running(){
-        return (free() && (!stall()));
+
+        return (!crash()) && (!dock()) && (!stall());
     }
     public boolean done(){
+
         return (crash() || dock() || stall());
     }
     public boolean free(){
@@ -121,7 +123,7 @@ public final class DockingCraftStateVector
     public boolean stall(){
         return (0.0f == velocity_x && 0L == time_source);
     }
-    public void add(PhysicsScript prog){
+    public synchronized void add(PhysicsScript prog){
 
         final PhysicsOperator op = prog.operator;
 
@@ -192,9 +194,10 @@ public final class DockingCraftStateVector
                     acceleration_x = 0.0f;
                 }
                 else {
-                    final long dt = Math.min(t_delta,Math.min(time_xp0,time_source));
+                    final long ldt = Math.min(t_delta,Math.min(time_xp0,time_source));
 
-                    if (0L != dt){
+                    if (0L != ldt){
+                        final double dt = ((double)ldt/1000.0);
 
                         final double da0 = Z((double)dt*accel_thruster_0);
 
@@ -202,17 +205,18 @@ public final class DockingCraftStateVector
 
                         velocity_x = Clamp(((double)velocity_x + da0),1000.0);
 
-                        time_xp0 = SubClamp(time_xp0,dt);
+                        time_xp0 = SubClamp(time_xp0,ldt);
 
-                        time_source = SubClamp(time_source,dt);
+                        time_source = SubClamp(time_source,ldt);
                     }
                 }
             }
             else if (xm0){
 
-                final long dt = Math.min(t_delta,Math.min(time_xm0,time_source));
+                final long ldt = Math.min(t_delta,Math.min(time_xm0,time_source));
 
-                if (0L != dt){
+                if (0L != ldt){
+                    final double dt = ((double)ldt/1000.0);
 
                     final double da0 = Z((double)dt*accel_thruster_0);
 
@@ -220,9 +224,9 @@ public final class DockingCraftStateVector
 
                     velocity_x = Clamp(((double)velocity_x - da0),1000.0);
 
-                    time_xm0 = SubClamp(time_xm0,dt);
+                    time_xm0 = SubClamp(time_xm0,ldt);
 
-                    time_source = SubClamp(time_source,dt);
+                    time_source = SubClamp(time_source,ldt);
                 }
             }
             else {
@@ -237,9 +241,10 @@ public final class DockingCraftStateVector
 
                 if (!xm1){
 
-                    final long dt = Math.min(t_delta,Math.min(time_xp1,time_source));
+                    final long ldt = Math.min(t_delta,Math.min(time_xp1,time_source));
 
-                    if (0L != dt){
+                    if (0L != ldt){
+                        final double dt = ((double)ldt/1000.0);
 
                         final double da1 = Z((double)dt*accel_thruster_1);
 
@@ -247,17 +252,18 @@ public final class DockingCraftStateVector
 
                         velocity_x = Clamp(((double)velocity_x + da1),1000.0);
 
-                        time_xp1 = SubClamp(time_xp1,dt);
+                        time_xp1 = SubClamp(time_xp1,ldt);
 
-                        time_source = SubClamp(time_source,dt);
+                        time_source = SubClamp(time_source,ldt);
                     }
                 }
             }
             else if (xm1){
 
-                final long dt = Math.min(t_delta,Math.min(time_xm1,time_source));
+                final long ldt = Math.min(t_delta,Math.min(time_xm1,time_source));
 
-                if (0L != dt){
+                if (0L != ldt){
+                    final double dt = ((double)ldt/1000.0);
 
                     final double da1 = Z(dt*accel_thruster_1);
 
@@ -265,9 +271,9 @@ public final class DockingCraftStateVector
 
                     velocity_x = Clamp(((double)velocity_x - da1),1000.0);
 
-                    time_xm1 = SubClamp(time_xm1,dt);
+                    time_xm1 = SubClamp(time_xm1,ldt);
 
-                    time_source = SubClamp(time_source,dt);
+                    time_source = SubClamp(time_source,ldt);
                 }
             }
 

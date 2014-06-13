@@ -57,7 +57,7 @@ public final class DockingGeometryPort
         CircleTable(sin_t1,cos_t1,(-slices));
         CircleTable(sin_t2,cos_t2,(stacks<<1));
 
-        float z = -1.0f;
+        float z = 0.0f;
 
         /* Disk A
          */

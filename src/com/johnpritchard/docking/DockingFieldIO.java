@@ -112,8 +112,6 @@ public final class DockingFieldIO
     @Override
     public void draw(){
 
-        glColor4f(0.0f,0.0f,0.0f,1.0f);
-
         if (interactive){
 
             this.selection.blink(500L);
