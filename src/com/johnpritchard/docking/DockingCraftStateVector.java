@@ -282,7 +282,9 @@ public final class DockingCraftStateVector
              */
             if (0.0f != velocity_x){
 
-                final double dr = Z((double)t_delta*velocity_x);
+                final double dt = ((double)t_delta)/1000.0;
+
+                final double dr = Z(dt*velocity_x);
 
                 range_x = Clamp(((double)range_x - dr),1000.0);
             }
@@ -309,37 +311,37 @@ public final class DockingCraftStateVector
      */
     protected synchronized void create(){
 
-        cursor = -1;
+        this.cursor = -1;
 
-        created = new Date();
+        this.created = new Date();
 
-        completed = null;
+        this.completed = null;
 
-        score = 0.0f;
+        this.score = 0.0f;
 
-        label = created.toString();
+        this.label = created.toString();
 
-        identifier = BID.Identifier();
+        this.identifier = BID.Identifier();
 
-        range_x = SV_R_X_INIT();
+        this.range_x = SV_R_X_INIT();
 
-        velocity_x = SV_V_X_INIT();
+        this.velocity_x = SV_V_X_INIT();
 
-        acceleration_x = SV_A_X_INIT();
+        this.acceleration_x = SV_A_X_INIT();
 
-        time_last = 0L;
+        this.time_last = 0L;
 
-        time_source = SV_T_SOURCE_INIT();
+        this.time_source = SV_T_SOURCE_INIT();
 
-        time_xp0 = SV_T_SINK_0_INIT();
+        this.time_xp0 = SV_T_SINK_0_INIT();
 
-        time_xm0 = SV_T_SINK_0_INIT();
+        this.time_xm0 = SV_T_SINK_0_INIT();
 
-        time_xp1 = SV_T_SINK_1_INIT();
+        this.time_xp1 = SV_T_SINK_1_INIT();
 
-        time_xm1 = SV_T_SINK_1_INIT();
+        this.time_xm1 = SV_T_SINK_1_INIT();
 
-        copy = 0L;
+        this.copy = 0L;
     }
     /**
      * Alternative to {@link #create} reads a pre-positioned cursor.
@@ -383,14 +385,12 @@ public final class DockingCraftStateVector
 
         return this;
     }
+    /**
+     * Called once (and only once) per game (record) by {@link DockingDatabase#GameOver}
+     */
     protected synchronized ContentValues write(){
 
         ContentValues values = new ContentValues();
-
-        if (-1L < this.cursor){
-
-            values.put(DockingDatabaseHistory.State._ID,this.cursor);
-        }
 
         values.put(DockingDatabaseHistory.State.IDENTIFIER,this.identifier);
 
@@ -416,38 +416,31 @@ public final class DockingCraftStateVector
 
         values.put(DockingDatabaseHistory.State.CREATED,this.created.getTime());
 
-        if (null != this.completed){
+        this.completed = new Date();
 
-            values.put(DockingDatabaseHistory.State.COMPLETED,this.completed.getTime());
-        }
-        else if (done()){
+        values.put(DockingDatabaseHistory.State.COMPLETED,this.completed.getTime());
 
-            this.completed = new Date();
+        if (crash()){
 
-            values.put(DockingDatabaseHistory.State.COMPLETED,this.completed.getTime());
+            if (5.0f < this.velocity_x){
 
-            if (crash()){
-
-                if (5.0f < this.velocity_x){
-
-                    this.score = 1.0f;
-                }
-                else {
-
-                    this.score = 2.0f;
-                }
-            }
-            else if (stall()){
-
-                this.score = 3.0f;
+                this.score = 1.0f;
             }
             else {
 
-                this.score = 4.0f;
+                this.score = 2.0f;
             }
-
-            this.score = SubClamp(4.0, this.velocity_x, 10.0);
         }
+        else if (stall()){
+
+            this.score = 3.0f;
+        }
+        else {
+
+            this.score = 4.0f;
+        }
+
+        this.score = SubClamp(4.0, this.velocity_x, 10.0);
 
         values.put(DockingDatabaseHistory.State.SCORE,this.score);
 

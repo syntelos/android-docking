@@ -89,46 +89,14 @@ public final class DockingDatabase
      * @return New game, otherwise continue an existing game
      */
     public static boolean Game(){
+        /*
+         * New game
+         */
+        DockingCraftStateVector.Instance.create();
 
-        SQLiteDatabase db = Readable();
-        try {
-            SQLiteQueryBuilder rQ = QueryStateInternal();
+        Info("game: new");
 
-            rQ.appendWhere(DockingDatabaseHistory.State.COMPLETED + " = NULL");
-
-            /*
-             * Order by most recently created
-             */
-            Cursor cursor = rQ.query(db,null,null,null,null,null,DockingDatabaseHistory.State.CREATED+" desc","1");
-            if (cursor.moveToFirst()){
-                /*
-                 * Existing game
-                 */
-                try {
-                    DockingCraftStateVector.Instance.read(cursor);
-
-                    Info("existing game");
-
-                    return false;
-                }
-                finally {
-                    cursor.close();
-                }
-            }
-            else {
-                /*
-                 * New game
-                 */
-                DockingCraftStateVector.Instance.create();
-
-                Info("new game");
-
-                return true;
-            }
-        }
-        finally {
-            db.close();
-        }
+        return true;
     }
     /**
      * Called from {@link DockingPhysics} to score and store the
@@ -142,17 +110,15 @@ public final class DockingDatabase
              */
             ContentValues state = DockingCraftStateVector.Instance.write();
 
-            if (state.containsKey(DockingDatabaseHistory.State._ID)){
+            long id = db.insert(DockingDatabase.STATE,DockingDatabaseHistory.State.LABEL,state);
 
-                String where = DockingDatabaseHistory.State._ID+" = "+state.getAsLong(DockingDatabaseHistory.State._ID);
-
-                db.update(DockingDatabase.STATE,state,where,null);
-            }
-            else {
-
-                long id = db.insert(DockingDatabase.STATE,DockingDatabaseHistory.State.LABEL,state);
+            if (-1L < id){
+                Info("gameover: insert success");
 
                 DockingCraftStateVector.Instance.cursor(id);
+            }
+            else {
+                Warn("gameover: insert failure");
             }
         }
         finally {
@@ -182,7 +148,7 @@ public final class DockingDatabase
                 try {
                     DockingCraftStateVector.Instance.read(cursor);
 
-                    Info("existing history");
+                    Info("history: existing");
 
                     return true;
                 }
@@ -196,7 +162,7 @@ public final class DockingDatabase
                  */
                 DockingCraftStateVector.Instance.create();
 
-                Info("no history");
+                Info("history: not found");
 
                 return false;
             }
@@ -206,96 +172,104 @@ public final class DockingDatabase
         }
     }
     /**
-     * Called from {@link DockingPageGameView} 
+     * Called from {@link DockingPageGameView}  to setup
+     * the {@link DockingCraftStateVector}
      */
     public static boolean HistoryPrev(){
+        final long id = DockingCraftStateVector.Instance.cursor();
 
-        SQLiteDatabase db = Readable();
-        try {
-            SQLiteQueryBuilder rQ = QueryStateInternal();
+        if (0L < id){
 
-            rQ.appendWhere(DockingDatabaseHistory.State.COMPLETED + " != NULL");
+            SQLiteDatabase db = Readable();
+            try {
+                SQLiteQueryBuilder rQ = QueryStateInternal();
 
-            final long id = DockingCraftStateVector.Instance.cursor();
+                rQ.appendWhere(DockingDatabaseHistory.State._ID + " = " + (id-1L));
 
-            if (-1 < id){
+                /*
+                 * Order by most recently created
+                 */
+                Cursor cursor = rQ.query(db,null,null,null,null,null,null);
 
-                rQ.appendWhere(" AND " + DockingDatabaseHistory.State._ID + " = "+ id );
-            }
+                if (cursor.moveToFirst()){
 
-            /*
-             * Order by most recently created
-             */
-            Cursor cursor = rQ.query(db,null,null,null,null,null,DockingDatabaseHistory.State.CREATED+" asc","2");
+                    try {
+                        DockingCraftStateVector.Instance.read(cursor);
 
-            if (cursor.moveToFirst() && cursor.moveToNext()){
+                        Info("history prev: ok");
 
-                try {
-                    DockingCraftStateVector.Instance.read(cursor);
-
-                    Info("history prev");
-
-                    return true;
+                        return true;
+                    }
+                    finally {
+                        cursor.close();
+                    }
                 }
-                finally {
-                    cursor.close();
+                else {
+                    Info("history prev: <end>");
+
+                    return false;
                 }
             }
-            else {
-                Info("history <end>");
-
-                return false;
+            finally {
+                db.close();
             }
         }
-        finally {
-            db.close();
+        else if (0L > id){
+            Info("history prev: <missing cursor>");
+
+            return false;
+        }
+        else {
+            Info("history prev: <end>");
+
+            return false;
         }
     }
     /**
-     * Called from {@link DockingPageGameView} 
+     * Called from {@link DockingPageGameView}  to setup
+     * the {@link DockingCraftStateVector}
      */
     public static boolean HistoryNext(){
+        final long id = DockingCraftStateVector.Instance.cursor();
 
-        SQLiteDatabase db = Readable();
-        try {
-            SQLiteQueryBuilder rQ = QueryStateInternal();
+        if (-1 < id){
 
-            rQ.appendWhere(DockingDatabaseHistory.State.COMPLETED + " != NULL");
+            SQLiteDatabase db = Readable();
+            try {
+                SQLiteQueryBuilder rQ = QueryStateInternal();
 
-            final long id = DockingCraftStateVector.Instance.cursor();
+                rQ.appendWhere(DockingDatabaseHistory.State._ID + " = " + (id+1L));
 
-            if (-1 < id){
+                Cursor cursor = rQ.query(db,null,null,null,null,null,null);
 
-                rQ.appendWhere(" AND " + DockingDatabaseHistory.State._ID + " = "+ id );
-            }
+                if (cursor.moveToFirst()){
 
-            /*
-             * Order by most recently created
-             */
-            Cursor cursor = rQ.query(db,null,null,null,null,null,DockingDatabaseHistory.State.CREATED+" desc","2");
+                    try {
+                        DockingCraftStateVector.Instance.read(cursor);
 
-            if (cursor.moveToFirst() && cursor.moveToNext()){
+                        Info("history next: ok");
 
-                try {
-                    DockingCraftStateVector.Instance.read(cursor);
-
-                    Info("history next");
-
-                    return true;
+                        return true;
+                    }
+                    finally {
+                        cursor.close();
+                    }
                 }
-                finally {
-                    cursor.close();
+                else {
+
+                    Info("history next: <end>");
+
+                    return false;
                 }
             }
-            else {
-
-                Info("history <end>");
-
-                return false;
+            finally {
+                db.close();
             }
         }
-        finally {
-            db.close();
+        else {
+            Info("history next: <missing cursor>");
+
+            return false;
         }
     }
 

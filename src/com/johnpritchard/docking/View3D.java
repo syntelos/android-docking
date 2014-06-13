@@ -59,6 +59,8 @@ public final class View3D
         holder.addCallback(renderer);
 
         holder.setKeepScreenOn(true);
+
+        this.setFocusable(true);// enable key events
     }
 
 
@@ -183,7 +185,7 @@ public final class View3D
         case KeyEvent.KEYCODE_CTRL_LEFT:
         case KeyEvent.KEYCODE_META_LEFT:
 
-            script(View.Script.Direction(Input.Left));
+            script(Input.Left);
             return true;
 
         case KeyEvent.KEYCODE_SOFT_RIGHT:
@@ -194,25 +196,25 @@ public final class View3D
         case KeyEvent.KEYCODE_CTRL_RIGHT:
         case KeyEvent.KEYCODE_META_RIGHT:
 
-            script(View.Script.Direction(Input.Right));
+            script(Input.Right);
             return true;
 
         case KeyEvent.KEYCODE_DPAD_UP:
         case KeyEvent.KEYCODE_PAGE_UP:
 
-            script(View.Script.Direction(Input.Up));
+            script(Input.Up);
             return true;
 
         case KeyEvent.KEYCODE_DPAD_DOWN:
         case KeyEvent.KEYCODE_PAGE_DOWN:
 
-            script(View.Script.Direction(Input.Down));
+            script(Input.Down);
             return true;
 
         case KeyEvent.KEYCODE_DPAD_CENTER:
         case KeyEvent.KEYCODE_ENTER:
 
-            script(View.Script.Enter());
+            script(Input.Enter);
             return true;
 
         default:
