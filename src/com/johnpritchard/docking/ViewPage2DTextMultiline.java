@@ -3,6 +3,8 @@
  */
 package com.johnpritchard.docking;
 
+import android.graphics.RectF;
+
 import java.util.StringTokenizer;
 
 /**
@@ -34,8 +36,26 @@ public class ViewPage2DTextMultiline
         }
         this.setText(text);
     }
+    public ViewPage2DTextMultiline(ViewPageOperatorSelection sel, String text){
+        this(sel,text,DefaultLineWidth);
+    }
+    public ViewPage2DTextMultiline(ViewPageOperatorSelection sel, String text, int lw){
+        super(sel);
+
+        if (0 < lw){
+            this.line_width = lw;
+        }
+        else {
+            this.line_width = DefaultLineWidth;
+        }
+        this.setText(text);
+    }
 
 
+    public boolean pageMeasureByGroup(){
+
+        return hasSelectionGroup();
+    }
     public ViewPage2DComponentPath setText(String text){
         if (null != text){
             reset();
@@ -74,7 +94,7 @@ public class ViewPage2DTextMultiline
 
                         line.append(tok);
 
-                        if (line.length()+tok_len > this.line_width){
+                        if (line.length() > this.line_width){
 
                             lines = Add(lines,line.toString());
 
@@ -95,6 +115,20 @@ public class ViewPage2DTextMultiline
 
             final int count = lines.length;
 
+            /*
+             */
+            final ViewPageOperatorSelection selection = this.selection;
+
+            RectF selection_update = null;
+
+            if (null != selection){
+
+                selection_update = new RectF();
+
+                selection.open(count);
+            }
+
+
             float x = 0.0f, y = TextSize;
 
             for (int cc = 0; cc < count; cc++){
@@ -103,11 +137,24 @@ public class ViewPage2DTextMultiline
 
                 this.fill.getTextPath(tl,0,tl.length(),x,y,line);
 
+                if (null != selection){
+
+                    line.computeBounds(selection_update,true);
+
+                    selection.update(cc,selection_update);
+                }
+
                 y += TextSize;
 
                 this.path.add(line);
 
                 line.reset();
+            }
+            /*
+             */
+            if (null != selection){
+
+                selection.close();
             }
         }
         return this;

@@ -49,6 +49,22 @@ public interface ViewPageComponent {
      * Derived from bounds
      */
     public float getHeight();
+
+    public boolean hasSelection();
+
+    public boolean hasSelectionGroup();
+
+    public ViewPageOperatorSelection getSelection();
+
+    public ViewPageOperatorGroup getSelectionGroup();
+    /**
+     * Component has a selection group, and a page layout measure of
+     * the component bounds should employ the selection group bounds
+     * rather than the component bounds.
+     */
+    public boolean pageMeasureByGroup();
+
+    public void setSelection(ViewPageOperatorSelection selection);
     /**
      */
     public RectF bounds();

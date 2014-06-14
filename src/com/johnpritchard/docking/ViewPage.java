@@ -105,7 +105,13 @@ public abstract class ViewPage
      * Called by {@link View} after filling the background.
      */
     public abstract void draw(Canvas g);
+    /**
+     * @return Use gestures and simple geometric navigation with this page
+     */
+    public final boolean simpleInput(){
 
+        return value().simpleInput;
+    }
     public ViewPage up(View view, int width, int height)
     {
         if (width != this.width || height != this.height){

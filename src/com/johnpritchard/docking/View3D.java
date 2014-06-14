@@ -218,7 +218,7 @@ public final class View3D
             return true;
 
         default:
-            if (event.isPrintingKey()){
+            if ((!this.renderer.pageId.simpleInput) && event.isPrintingKey()){
 
                 script((char)event.getUnicodeChar());
             }

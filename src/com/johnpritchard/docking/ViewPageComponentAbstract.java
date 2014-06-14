@@ -17,6 +17,7 @@ public abstract class ViewPageComponentAbstract
     extends Epsilon
     implements ViewPageComponent
 {
+    protected final static ViewPageOperatorSelection NSel = null;
 
     protected String name;
 
@@ -24,10 +25,17 @@ public abstract class ViewPageComponentAbstract
 
     protected final RectF bounds = new RectF();
 
+    protected ViewPageOperatorSelection selection;
+
 
     public ViewPageComponentAbstract(){
         super();
         this.name = this.baseName;
+    }
+    public ViewPageComponentAbstract(ViewPageOperatorSelection sel){
+        super();
+        this.name = this.baseName;
+        this.selection = sel;
     }
 
 
@@ -57,6 +65,30 @@ public abstract class ViewPageComponentAbstract
                 this.name = this.name+'/'+name;
             }
         }
+    }
+    public final boolean hasSelection(){
+
+        return (null != selection);
+    }
+    public final boolean hasSelectionGroup(){
+
+        return (selection instanceof ViewPageOperatorGroup);
+    }
+    public final ViewPageOperatorSelection getSelection(){
+
+        return selection;
+    }
+    public final ViewPageOperatorGroup getSelectionGroup(){
+
+        return (ViewPageOperatorGroup)selection;
+    }
+    public boolean pageMeasureByGroup(){
+
+        return false;
+    }
+    public final void setSelection(ViewPageOperatorSelection selection){
+
+        this.selection = selection;
     }
     public RectF bounds(){
         return bounds;

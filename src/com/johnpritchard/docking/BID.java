@@ -3,68 +3,59 @@
  */
 package com.johnpritchard.docking;
 
-import java.util.Random;
-
 /**
- * A fairly recognizable random string
+ * A 64 bit random (string)
  */
-public abstract class BID {
+public final class BID
+    extends java.security.SecureRandom
+{
+    /*
+     * 64 = (16 * 4)
+     */
+    private final static int RandomIdentifierOctets = 16;
 
-    private final static int RandomIdentifierOctets = 12;
+    private final static int RandomOctetBits = 4;
+
+    private final static char[] IdentifierMap = {
+        'A', 'B', 'C', 'D',
+        'E', 'F', 'G', 'H',
+        'J', 'K', 'L', 'M',
+        'N', 'P', 'Q', 'R'
+    };
+
 
     /**
-     * @return A random string having some fixed properties
+     * @return A random string
      */
     public final static String Identifier(){
-        byte[] bits = new byte[RandomIdentifierOctets];
+        char[] cary = new char[RandomIdentifierOctets];
         {
-            new Random().nextBytes(bits);
-        }
-        return RandomIdentifierPathclean(B64.encodeBytes(bits));
-    }
-    private final static String RandomIdentifierPathclean(String r){
-        char[] cary = r.toCharArray();
-        final int count = cary.length;
-        boolean change = false;
-        for (int cc = 0; cc < count; cc++){
-            switch (cary[cc]){
-            case '_':
-                change = true;
-                cary[cc] = 'A';
-                break;
-            case '/':
-                change = true;
-                cary[cc] = 'B';
-                break;
-            case '+':
-                change = true;
-                cary[cc] = 'C';
-                break;
-            case '\r':
-                change = true;
-                cary[cc] = 'D';
-                break;
-            case '\n':
-                change = true;
-                cary[cc] = 'E';
-                break;
-            case '=':
-                change = true;
-                cary[cc] = 'F';
-                break;
-            default:
-                break;
+            BID prng = new BID();
+
+            for (int cc = 0; cc < RandomIdentifierOctets; cc++){
+
+                cary[cc] = prng.next();
             }
         }
-        if (change)
-            return new String(cary,0,count);
-        else
-            return r;
+        return new String(cary,0,RandomIdentifierOctets);
+    }
+
+    private final static byte[] Seed(){
+        byte[] s = new byte[128];
+        (new java.util.Random()).nextBytes(s);
+        return s;
     }
 
 
     private BID(){
-        super();
+        super(Seed());
     }
 
+
+    protected char next(){
+
+        int x = nextInt(RandomOctetBits);
+
+        return IdentifierMap[x];
+    }
 }

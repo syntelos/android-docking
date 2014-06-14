@@ -3,6 +3,7 @@
  */
 package com.johnpritchard.docking;
 
+import android.graphics.RectF;
 import static android.opengl.GLES10.*;
 
 import fv3.math.Matrix;
@@ -27,15 +28,13 @@ public class ViewPage3DTextLabel
 
     private float[] array;
 
-    private FloatBuffer[] b_m = new FloatBuffer[2];
+    private final FloatBuffer[] b_m = new FloatBuffer[2];
 
-    private FloatBuffer[] b_gv = new FloatBuffer[2];
+    private final FloatBuffer[] b_gv = new FloatBuffer[2];
 
-    private int[] b_count = {0,0};
+    private final int[] b_count = {0,0};
 
     private int b_current = 0;
-
-    protected ViewPage3DTextSelection selection;
 
 
     public ViewPage3DTextLabel(double x, double y, double z, double h,
@@ -44,8 +43,20 @@ public class ViewPage3DTextLabel
         this(x,y,z,h);
         this.setText(text);
     }
-    public ViewPage3DTextLabel(double x, double y, double z, double h){
-        super();
+    public ViewPage3DTextLabel(ViewPageOperatorSelection sel, 
+                               double x, double y, double z, double h,
+                               String text)
+    {
+        this(sel,x,y,z,h);
+        this.setText(text);
+    }
+    public ViewPage3DTextLabel(double x, double y, double z, double h)
+    {
+        this(NSel,x,y,z,h);
+    }
+    public ViewPage3DTextLabel(ViewPageOperatorSelection sel, 
+                               double x, double y, double z, double h){
+        super(sel);
         this.x = x;
         this.y = y;
         this.z = z;
@@ -73,18 +84,21 @@ public class ViewPage3DTextLabel
     }
     public final void setText(String sstring){
 
-        final ViewPage3DTextSelection selection = this.selection;
-        if (null != selection){
-
-            selection.open();
-        }
-
         array = null;
 
         if (null != sstring){
             final char[] string = sstring.toCharArray();
             final int string_len = string.length;
             if (0 < string_len){
+
+                /*
+                 */
+                final ViewPageOperatorSelection selection = this.selection;
+                if (null != selection){
+
+                    selection.open(string_len);
+                }
+
                 /*
                  * String geometry constants
                  */
@@ -173,6 +187,8 @@ public class ViewPage3DTextLabel
 
                 pack();
 
+                /*
+                 */
                 if (null != selection){
 
                     selection.close();
@@ -231,14 +247,6 @@ public class ViewPage3DTextLabel
         else
             return null;
     }
-    public ViewPage3DTextSelection getSelection(){
-
-        return selection;
-    }
-    public void setSelection(ViewPage3DTextSelection selection){
-
-        this.selection = selection;
-    }
     protected void append(float[] vertices, int ofs, int len){
         if (null == array){
 
@@ -275,11 +283,23 @@ public class ViewPage3DTextLabel
                 /*
                  * Fit vertices to this geometry
                  */
-                final double s = (h / (maxY-minY));
+                double s, tx, ty, tz;
 
-                final double tx = ((x/s) - minX);
-                final double ty = ((y/s) - minY);
-                final double tz = (z/s);
+                if (selection instanceof ViewPageOperatorGroup){
+                    RectF selection = 
+                        ((ViewPageOperatorGroup)this.selection).group();
+
+                    minX = selection.left;
+                    minY = selection.top;
+                    maxX = selection.right;
+                    maxY = selection.bottom;
+                }
+
+                s = (h / (maxY-minY));
+
+                tx = ((x/s) - minX);
+                ty = ((y/s) - minY);
+                tz = (z/s);
 
 
                 double[] m = Matrix.IVIdentity();
@@ -312,7 +332,7 @@ public class ViewPage3DTextLabel
 
                     bounds.set((float)(minX),(float)(minY),(float)(maxX),(float)(maxY));
                 }
-                final ViewPage3DTextSelection selection = this.selection;
+                final ViewPageOperatorSelection selection = this.selection;
                 if (null != selection){
 
                     selection.update(fm);

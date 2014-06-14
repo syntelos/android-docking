@@ -7,19 +7,29 @@ package com.johnpritchard.docking;
  * 
  */
 public enum Page {
-    start     (DockingPageStart.Instance),
-    intro     (DockingPageIntro.Instance),
-    gameplay  (DockingPageGamePlay.Instance),
-    gamecrash (DockingPageGameCrash.Instance),
-    gameview  (DockingPageGameView.Instance),
-    nohistory (DockingPageNoHistory.Instance),
-    about     (DockingPageAbout.Instance);
+    start     (DockingPageStart.Instance,     false),
+    intro     (DockingPageIntro.Instance,     true),
+    intro1    (DockingPageIntro1.Instance,    true),
+    intro2    (DockingPageIntro2.Instance,    true),
+    intro3    (DockingPageIntro3.Instance,    true),
+    intro4    (DockingPageIntro4.Instance,    true),
+    intro5    (DockingPageIntro5.Instance,    true),
+    intro6    (DockingPageIntro6.Instance,    true),
+    gameplay  (DockingPageGamePlay.Instance,  false),
+    gamecrash (DockingPageGameCrash.Instance, false),
+    gameview  (DockingPageGameView.Instance,  false),
+    nohistory (DockingPageNoHistory.Instance, true),
+    about     (DockingPageAbout.Instance,     true);
 
 
     public final ViewPage page;
 
-    private Page(ViewPage page){
+    public final boolean simpleInput;
+
+
+    private Page(ViewPage page, boolean simpleInput){
         this.page = page;
+        this.simpleInput = simpleInput;
     }
 
 }

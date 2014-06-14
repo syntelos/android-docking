@@ -26,6 +26,9 @@ public abstract class ViewPage2DComponentAbstract
     public ViewPage2DComponentAbstract(){
         super();
     }
+    public ViewPage2DComponentAbstract(ViewPageOperatorSelection sel){
+        super(sel);
+    }
 
 
     public final ViewPage2DClip clip(){

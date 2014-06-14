@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.Display;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -48,10 +49,14 @@ import android.util.DisplayMetrics;
  */
 public final class View2D
     extends android.view.SurfaceView
-    implements View
+    implements View, 
+               GestureDetector.OnGestureListener, 
+               GestureDetector.OnDoubleTapListener
 {
     public final static String TAG = ObjectLog.TAG;
 
+
+    private final GestureDetector touch;
 
     private final SurfaceHolder holder;
 
@@ -71,6 +76,8 @@ public final class View2D
 
     public View2D(Activity context){
         super(context);
+
+        touch = new GestureDetector(context,this);
 
         holder = getHolder();
         holder.addCallback(this);
@@ -244,7 +251,13 @@ public final class View2D
         case KeyEvent.KEYCODE_CTRL_LEFT:
         case KeyEvent.KEYCODE_META_LEFT:
 
-            script(View.Script.Direction(Input.Left));
+            if (this.pageId.simpleInput){
+
+                script(Input.Left);
+            }
+            else {
+                script(View.Script.Direction(Input.Left));
+            }
             return true;
 
         case KeyEvent.KEYCODE_SOFT_RIGHT:
@@ -255,7 +268,13 @@ public final class View2D
         case KeyEvent.KEYCODE_CTRL_RIGHT:
         case KeyEvent.KEYCODE_META_RIGHT:
 
-            script(View.Script.Direction(Input.Right));
+            if (this.pageId.simpleInput){
+
+                script(Input.Right);
+            }
+            else {
+                script(View.Script.Direction(Input.Right));
+            }
             return true;
 
         case KeyEvent.KEYCODE_DPAD_UP:
@@ -267,17 +286,30 @@ public final class View2D
         case KeyEvent.KEYCODE_DPAD_DOWN:
         case KeyEvent.KEYCODE_PAGE_DOWN:
 
-            script(View.Script.Direction(Input.Down));
+            if (this.pageId.simpleInput){
+
+                script(Input.Down);
+            }
+            else {
+                script(View.Script.Direction(Input.Down));
+            }
             return true;
 
         case KeyEvent.KEYCODE_DPAD_CENTER:
         case KeyEvent.KEYCODE_ENTER:
 
-            script(View.Script.Enter());
+            if (this.pageId.simpleInput){
+
+                script(Input.Enter);
+            }
+            else {
+                script(View.Script.Enter());
+            }
             return true;
 
         default:
-            if (event.isPrintingKey()){
+
+            if ((!this.pageId.simpleInput) && event.isPrintingKey()){
 
                 script((char)event.getUnicodeChar());
             }
@@ -287,7 +319,112 @@ public final class View2D
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
-        script(event);
+        if (this.pageId.simpleInput){
+
+            touch.onTouchEvent(event);
+        }
+        else {
+
+            script(event);
+        }
+        return true;
+    }
+    /**
+     * @see android.view.GestureDetector$OnGestureListener
+     */
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        //info("onSingleTapUp");
+
+        return false;
+    }
+    public void onLongPress(MotionEvent e) {
+        //info("onLongPress {Enter}");
+
+        script(Input.Enter);
+    }
+    public boolean onScroll(MotionEvent e1, MotionEvent e2,
+                            float dx, float dy)
+    {
+        //info("onScroll");
+
+        /*
+         * Relative coordinate space for gestures
+         */
+        if (Math.abs(dx) > Math.abs(dy)){
+
+            if (0.0f > dx){
+
+                script(Input.Left);
+            }
+            else {
+                script(Input.Right);
+            }
+        }
+        else if (0.0f > dy){
+
+            script(Input.Up);
+        }
+        else {
+            script(Input.Down);
+        }
+        return true;
+    }
+    public boolean onFling(MotionEvent e1, MotionEvent e2,
+                           float dx, float dy)
+    {
+        //info("onFling");
+
+        /*
+         * Relative coordinate space for gestures
+         */
+        if (Math.abs(dx) > Math.abs(dy)){
+
+            if (0.0f > dx){
+
+                script(Input.Left);
+            }
+            else {
+                script(Input.Right);
+            }
+        }
+        else if (0.0f > dy){
+
+            script(Input.Up);
+        }
+        else {
+            script(Input.Down);
+        }
+        return true;
+    }
+    public void onShowPress(MotionEvent e){
+        //info("onShowPress");
+
+    }
+    public boolean onDown(MotionEvent e){
+        //info("onDown");
+
+        return false;
+    }
+    /**
+     * @see android.view.GestureDetector$OnDoubleTapListener
+     */
+    public boolean onSingleTapConfirmed(MotionEvent e){
+        //info("onSingleTapConfirmed {Enter}");
+
+        script(Input.Enter);
+
+        return true;
+    }
+    public boolean onDoubleTap(MotionEvent e){
+        //info("onDoubleTap {Enter}");
+
+        script(Input.Enter);
+
+        return true;
+    }
+    public boolean onDoubleTapEvent(MotionEvent e){
+        //info("onDoubleTapEvent");
 
         return true;
     }

@@ -114,11 +114,11 @@ public final class DockingFieldIO
 
         if (interactive){
 
-            this.selection.blink(500L);
+            ((ViewPage3DTextSelection)this.selection).blink(500L);
         }
         else if (current){
 
-            this.selection.unblink();
+            ((ViewPage3DTextSelection)this.selection).unblink();
         }
 
         super.draw();

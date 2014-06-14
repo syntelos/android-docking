@@ -37,9 +37,12 @@ public final class DockingPageNoHistory
     @Override
     public void input(InputScript in){
 
-        if (-1 < enter()){
-
+        switch(in.type()){
+        case Left:
+        case Right:
+        case Enter:
             view.script(Page.start);
+            break;
         }
     }
 }

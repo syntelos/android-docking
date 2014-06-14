@@ -39,24 +39,11 @@ public final class DockingPageAbout
     public void input(InputScript in){
 
         switch(in.type()){
-
+        case Left:
+        case Right:
         case Enter:
-
-            if (-1 < enter()){
-
-                view.script(Page.start);
-            }
-            return;
-
-        case Back:
-        case Up:
-        case Down:
             view.script(Page.start);
-            return;
-
-        default:
-            super.input(in);
-            return;
+            break;
         }
     }
 }

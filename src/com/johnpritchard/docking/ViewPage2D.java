@@ -63,12 +63,26 @@ public abstract class ViewPage2D
     protected RectF measure(int offset, int count){
         final ViewPage2DComponent[] components = this.components;
 
-        RectF g = new RectF();
+        final RectF g = new RectF();
+
+        RectF selection_group = null;
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
             ViewPage2DComponent c = components[cc];
 
-            g.union(c.bounds());
+            if (c.pageMeasureByGroup()){
+
+                RectF sel = c.getSelectionGroup().group();
+
+                if (sel != selection_group){
+                    selection_group = sel;
+
+                    g.union(sel);
+                }
+            }
+            else {
+                g.union(c.bounds());
+            }
         }
         return g;
     }
@@ -508,13 +522,13 @@ public abstract class ViewPage2D
                  * Relative coordinate space
                  */
                 int px = event.getActionIndex();
-                float x = event.getX(px);
-                float y = event.getY(px);
-                if (0.0f != x || 0.0f != y){
+                final float dx = event.getX(px);
+                final float dy = event.getY(px);
+                if (0.0f != dx || 0.0f != dy){
 
-                    if (Math.abs(x) > Math.abs(y)){
+                    if (Math.abs(dx) > Math.abs(dy)){
 
-                        if (0.0f < x){
+                        if (0.0f < dx){
 
                             return new InputScript[]{Input.Left};
                         }
@@ -522,12 +536,12 @@ public abstract class ViewPage2D
                             return new InputScript[]{Input.Right};
                         }
                     }
-                    else if (0.0f < y){
+                    else if (0.0f > dy){
 
-                        return new InputScript[]{Input.Down}; // like a dpad?
+                        return new InputScript[]{Input.Up};
                     }
                     else {
-                        return new InputScript[]{Input.Up};
+                        return new InputScript[]{Input.Down};
                     }
                 }
             }

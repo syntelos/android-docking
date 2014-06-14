@@ -22,8 +22,14 @@ public class ViewPage2DTextLabel
     public ViewPage2DTextLabel(){
         super();
     }
+    public ViewPage2DTextLabel(ViewPageOperatorSelection sel){
+        super(sel);
+    }
     public ViewPage2DTextLabel(String label){
         super(label);
+    }
+    public ViewPage2DTextLabel(ViewPageOperatorSelection sel, String label){
+        super(sel,label);
     }
 
 

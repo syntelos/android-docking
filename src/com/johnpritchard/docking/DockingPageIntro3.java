@@ -15,13 +15,13 @@ public final class DockingPageIntro3
 
     public final static DockingPageIntro3 Instance = new DockingPageIntro3();
 
-
+    protected final static ViewPage2DTextGroup Group = DockingPageIntro.Group;
 
 
 
     private DockingPageIntro3(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline("Rendezvous in zero gravity using T10 and T01 thrusters.  Velocity in the X+ direction is slowed by thrust designated X-.  Success at distance zero requires velocity of one centimeter per second (0.010).")
+                new ViewPage2DTextMultiline(Group,"Use up, down and enter interactions to select, modify, and execute a thruster burn.")
             });
     }
 
@@ -36,10 +36,16 @@ public final class DockingPageIntro3
     }
     @Override
     public void input(InputScript in){
+        final Input type = in.type();
 
-        if (-1 < enter()){
-
-            view.script(Page.start);
+        switch(type){
+        case Left:
+            view.script(Page.intro2);
+            break;
+        case Right:
+        case Enter:
+            view.script(Page.intro4);
+            break;
         }
     }
 }

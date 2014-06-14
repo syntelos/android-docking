@@ -50,6 +50,9 @@ public abstract class ViewPage3DComponentAbstract
     public ViewPage3DComponentAbstract(){
         super();
     }
+    public ViewPage3DComponentAbstract(ViewPageOperatorSelection sel){
+        super(sel);
+    }
 
 
     public final void clearCardinals(){

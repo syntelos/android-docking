@@ -37,7 +37,10 @@ public class ViewPage2DComponentPath
 
 
     public ViewPage2DComponentPath(){
-        super();
+        this(NSel);
+    }
+    public ViewPage2DComponentPath(ViewPageOperatorSelection sel){
+        super(sel);
         fill.setColor(Color.BLACK);
         fill.setTextSize(TextSize);
         fill.setTypeface(Typeface.SANS_SERIF);
@@ -48,6 +51,10 @@ public class ViewPage2DComponentPath
     }
     public ViewPage2DComponentPath(String text){
         this();
+        setText(text);
+    }
+    public ViewPage2DComponentPath(ViewPageOperatorSelection sel, String text){
+        this(sel);
         setText(text);
     }
     public ViewPage2DComponentPath(Operand[] path){
@@ -84,8 +91,28 @@ public class ViewPage2DComponentPath
     }
     public ViewPage2DComponentPath setText(String text){
         reset();
-        this.fill.getTextPath(text,0,text.length(),0.0f,TextSize,this.path);
+
+        final int text_len = text.length();
+        /*
+         */
+        final ViewPageOperatorSelection selection = this.selection;
+        if (null != selection){
+
+            selection.open(1);
+        }
+
+        this.fill.getTextPath(text,0,text_len,0.0f,TextSize,this.path);
+
         this.appendName(text);
+
+        /*
+         */
+        if (null != selection){
+
+            selection.update(0,this.bounds());
+
+            selection.close();
+        }
         return this;
     }
     public void group(final RectF dim, final float pad){
@@ -114,8 +141,6 @@ public class ViewPage2DComponentPath
                 this.group.computeBounds(this.bounds,true);
             }
             this.clip.set(this.bounds);
-
-            //info("bounds left: "+bounds.left+", right: "+bounds.right+", top: "+bounds.top+", bottom: "+bounds.bottom);
         }
         return this.bounds;
     }
