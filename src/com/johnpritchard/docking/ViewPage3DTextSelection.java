@@ -47,6 +47,9 @@ public class ViewPage3DTextSelection
     private FloatBuffer[] b_gv = new FloatBuffer[2];
 
 
+    public ViewPage3DTextSelection(double z){
+        this(0,z);
+    }
     public ViewPage3DTextSelection(int begin, double z){
         this(begin,Integer.MAX_VALUE,z);
     }

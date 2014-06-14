@@ -172,4 +172,25 @@ public abstract class Epsilon
             return new String(cary,0,4);
         }
     }
+    protected final static String Format5(double value){
+        final String string = String.format("%3.0f",value);
+        final char[] sary = string.toCharArray();
+        final int strlen = sary.length;
+        if (5 <= strlen)
+            return string;
+        else {
+            char[] cary = new char[5];
+            {
+                for (int cc = 0, sp = (5-strlen); cc < 5; cc++){
+                    if (cc < sp){
+                        cary[cc] = ' ';
+                    }
+                    else {
+                        cary[cc] = sary[cc-sp];
+                    }
+                }
+            }
+            return new String(cary,0,5);
+        }
+    }
 }

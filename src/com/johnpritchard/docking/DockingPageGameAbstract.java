@@ -24,39 +24,47 @@ public abstract class DockingPageGameAbstract
 {
     protected final static double Z = 0.11; // Near Plane (see "Perspective", below)
 
-    protected final static DockingOutputVx out_vx = new DockingOutputVx(-2.6, +1.35, Z, 0.12);
+    protected final static DockingOutputVx out_vx = new DockingOutputVx   (-3.0, +1.50, Z, 0.12);
 
-    protected final static DockingOutputAx out_ax = new DockingOutputAx(-0.3, +1.35, Z, 0.12);
+    protected final static DockingOutputAx out_ax = new DockingOutputAx   (-0.7, +1.50, Z, 0.12);
 
-    protected final static DockingOutputT  out_t  = new DockingOutputT (+1.7, +1.35, Z, 0.12);
+    protected final static DockingOutputT  out_t  = new DockingOutputT    (+1.7, +1.50, Z, 0.12);
 
 
-    protected final static DockingOutputRx out_rx = new DockingOutputRx(-2.6, +1.10, Z, 0.12);
+    protected final static DockingOutputRx out_rx = new DockingOutputRx   (-3.0, +1.25, Z, 0.12);
 
-    protected final static DockingOutputTr out_tr = new DockingOutputTr(+1.7, +1.10, Z, 0.12);
+    protected final static DockingOutputTr out_tr = new DockingOutputTr   (+1.7, +1.25, Z, 0.12);
+
+    protected final static DockingOutputL out_lv = new DockingOutputL     (+1.7, +1.00, Z, 0.12);
+
+    protected final static DockingOutputM out_m = new DockingOutputM      (+1.7, +0.75, Z, 0.12);
+
+    protected final static DockingOutputT10 out_t10 = new DockingOutputT10(+1.7, +0.50, Z, 0.12);
+
+    protected final static DockingOutputT01 out_t01 = new DockingOutputT01(+1.7, +0.25, Z, 0.12);
 
 
     protected final static DockingFieldIO in_xp0 = new DockingFieldIO(PhysicsOperator.TX0, PhysicsDOF.XP,
-                                                                        -2.6, +0.85, Z, 0.12);
+                                                                        -3.0, +1.00, Z, 0.12);
 
     protected final static DockingFieldIO in_xm0 = new DockingFieldIO(PhysicsOperator.TX0, PhysicsDOF.XM,
-                                                                        -2.6, +0.60, Z, 0.12);
+                                                                        -3.0, +0.75, Z, 0.12);
 
 
     protected final static DockingFieldIO in_xp1 = new DockingFieldIO(PhysicsOperator.TX1, PhysicsDOF.XP,
-                                                                        -2.6, +0.35, Z, 0.12);
+                                                                        -3.0, +0.50, Z, 0.12);
 
     protected final static DockingFieldIO in_xm1 = new DockingFieldIO(PhysicsOperator.TX1, PhysicsDOF.XM,
-                                                                        -2.6, +0.10, Z, 0.12);
+                                                                        -3.0, +0.25, Z, 0.12);
 
 
     protected final static DockingOutputScore      out_score = new DockingOutputScore (-1.5, -0.6, Z, 0.3);
 
     protected final static ViewPage3DTextLabel     out_crash = new ViewPage3DTextLabel(-1.5, -0.6, Z, 0.5,"Crash!");
 
-    protected final static DockingOutputIdentifier out_identifier = new DockingOutputIdentifier(-2.6, -0.85, Z, 0.12);
-    protected final static DockingOutputCreated    out_created    = new DockingOutputCreated   (-2.6, -1.10, Z, 0.12);
-    protected final static DockingOutputCompleted  out_completed  = new DockingOutputCompleted (-2.6, -1.35, Z, 0.12);
+    protected final static DockingOutputIdentifier out_identifier = new DockingOutputIdentifier(-3.0, -1.25, Z, 0.12);
+    protected final static DockingOutputCreated    out_created    = new DockingOutputCreated   (-3.0, -1.50, Z, 0.12);
+    protected final static DockingOutputCompleted  out_completed  = new DockingOutputCompleted (-3.0, -1.75, Z, 0.12);
 
     /**
      * Copy
@@ -73,31 +81,38 @@ public abstract class DockingPageGameAbstract
             final float ax = state.acceleration_x;
             final float vx = state.velocity_x;
 
-            final float t_last = state.time_last;
-            final float t_source = state.time_source;
-            final float t_xp0 = state.time_xp0;
-            final float t_xm0 = state.time_xm0;
-            final float t_xp1 = state.time_xp1;
-            final float t_xm1 = state.time_xm1;
+            final long t_last = state.time_last;
+            final long t_start = state.time_start;
+            final long t_source = state.time_source;
+            final long t_xp0 = state.time_xp0;
+            final long t_xm0 = state.time_xm0;
+            final long t_xp1 = state.time_xp1;
+            final long t_xm1 = state.time_xm1;
 
             final String id = state.identifier;
             final float score = state.score;
             final Date created = state.created;
             final Date completed = state.completed;
+            final DockingGameLevel level = state.level;
             /*
              * Write
              */
-            out_rx.format(state.range_x);
-            out_vx.format(state.velocity_x);
-            out_ax.format(state.acceleration_x);
+            out_rx.format(rx);
+            out_vx.format(vx);
+            out_ax.format(ax);
 
             out_identifier.format(id);
             out_score.format(score);
             out_created.format(created);
             out_completed.format(completed);
 
-            out_t.format(Seconds(t_last));
+            out_t.format(Seconds(t_last-t_start));
             out_tr.format(Seconds(t_source));
+
+            out_lv.format(level);
+            out_m.format(level);
+            out_t10.format(level);
+            out_t01.format(level);
 
             in_xp0.format(Seconds(t_xp0));
             in_xm0.format(Seconds(t_xm0));
@@ -123,6 +138,7 @@ public abstract class DockingPageGameAbstract
             final float vx = state.velocity_x;
 
             final long t_last = state.time_last;
+            final long t_start = state.time_start;
             final long t_source = state.time_source;
             final long t_xp0 = state.time_xp0;
             final long t_xm0 = state.time_xm0;
@@ -135,7 +151,7 @@ public abstract class DockingPageGameAbstract
             out_vx.format(vx);
             out_ax.format(ax);
 
-            out_t.format(Seconds(t_last));
+            out_t.format(Seconds(t_last-t_start));
             out_tr.format(Seconds(t_source));
 
             in_xp0.format(Seconds(t_xp0));

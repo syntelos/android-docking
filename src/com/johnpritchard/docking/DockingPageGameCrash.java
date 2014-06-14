@@ -32,6 +32,7 @@ public final class DockingPageGameCrash
     private DockingPageGameCrash(){
         super(new ViewPage3DComponent[]{
                 in_xp0, in_xm0, in_xp1, in_xm1,
+                out_lv, out_m, out_t10, out_t01,
                 out_crash,
                 out_identifier, out_created, out_completed
             });
@@ -78,6 +79,7 @@ public final class DockingPageGameCrash
 
             if (c instanceof DockingFieldIO){
 
+                c.clearCurrent();
                 c.setCurrent();
             }
         }

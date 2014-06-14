@@ -35,6 +35,8 @@ public final class DockingDatabaseHistory {
 
         protected final static String LABEL = "label";
 
+        protected final static String LEVEL = "level";
+
         public final static String VX = "vx";
 
         public final static String AX = "ax";
@@ -62,6 +64,7 @@ public final class DockingDatabaseHistory {
             _ID,
             IDENTIFIER,
             LABEL,
+            LEVEL,
             VX,
             AX,
             RX,
@@ -89,6 +92,7 @@ public final class DockingDatabaseHistory {
         private final static String[] ExportList = {
             _ID,
             LABEL,
+            LEVEL,
             VX,
             AX,
             RX,

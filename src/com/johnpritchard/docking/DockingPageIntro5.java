@@ -43,8 +43,10 @@ public final class DockingPageIntro5
             view.script(Page.intro4);
             break;
         case Right:
-        case Enter:
             view.script(Page.intro6);
+            break;
+        case Enter:
+            view.script(Page.start);
             break;
         }
     }

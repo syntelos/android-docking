@@ -60,7 +60,7 @@ public class ViewPage3DInputField
         return this.interactive;
     }
     @Override
-    public void clearCurrent(){
+    public final void clearCurrent(){
         super.clearCurrent();
 
         this.interactive = false;

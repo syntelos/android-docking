@@ -21,7 +21,7 @@ public final class DockingPageIntro6
 
     private DockingPageIntro6(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Vehicle mass is a constant 1000 kg, T10 is 100 N and T01 is 10 N.")
+                new ViewPage2DTextMultiline(Group,"Vehicle mass is a constant (KG) which is listed with thrust force (N) on the right hand side of the information display.")
             });
     }
 

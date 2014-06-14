@@ -7,8 +7,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.SystemClock;
 
-import static com.johnpritchard.docking.DockingCraftModel.*;
-
 import java.util.Date;
 
 /**
@@ -18,44 +16,11 @@ public final class DockingCraftStateVector
     extends Epsilon
 {
 
-    private final static String SV_R_X = "sv.r_x";
-    private final static String SV_V_X = "sv.v_x";
-    private final static String SV_A_X = "sv.a_x";
-    private final static String SV_T_SOURCE = "sv.t";
-    private final static String SV_T_SINK_XP0 = "sv.t_xp0";
-    private final static String SV_T_SINK_XM0 = "sv.t_xm0";
-    private final static String SV_T_SINK_XP1 = "sv.t_xp1";
-    private final static String SV_T_SINK_XM1 = "sv.t_xm1";
-
-    public final static long I_SECONDS = 1000L;
-
-    public final static float I_KILOMETERS = 1000.0f;
-
-
-    private final static float SV_R_X_INIT(){
-
-        return 1.0f*I_KILOMETERS;
-    }
-    private final static float SV_V_X_INIT(){
-        return 10.0f;
-    }
-    private final static float SV_A_X_INIT(){
-        return 0.0f;
-    }
-    private final static long SV_T_SOURCE_INIT(){
-
-        return 100L*I_SECONDS;
-    }
-    private final static long SV_T_SINK_0_INIT(){
-        return 0L;
-    }
-    private final static long SV_T_SINK_1_INIT(){
-        return 0L;
-    }
-
     public final static DockingCraftStateVector Instance =
         new DockingCraftStateVector();
 
+
+    public DockingGameLevel level;
     /**
      * m
      */
@@ -71,6 +36,7 @@ public final class DockingCraftStateVector
     /**
      * millis
      */
+    public long time_start;
     public long time_last;
     public long time_source;
     public long time_xp0;
@@ -121,7 +87,7 @@ public final class DockingCraftStateVector
         return (0.001f >= range_x && 0.010f >= velocity_x);
     }
     public boolean stall(){
-        return (0.0f == velocity_x && 0L == time_source);
+        return (0.0f >= velocity_x && 0L == time_source);
     }
     public synchronized void add(PhysicsScript prog){
 
@@ -199,7 +165,7 @@ public final class DockingCraftStateVector
                     if (0L != ldt){
                         final double dt = ((double)ldt/1000.0);
 
-                        final float da0 = (float)Z((double)dt*accel_thruster_0);
+                        final float da0 = (float)Z((double)dt * DockingGameLevel.Current.accel_thruster_0);
 
                         acceleration_x = +(da0);
 
@@ -207,7 +173,7 @@ public final class DockingCraftStateVector
 
                         time_xp0 = SubClampZP(time_xp0,ldt);
 
-                        time_source = SubClampZP(time_source,(long)((double)ldt * cost_thruster_0));
+                        time_source = SubClampZP(time_source,(long)((double)ldt * DockingGameLevel.Current.cost_thruster_0));
                     }
                 }
             }
@@ -218,7 +184,7 @@ public final class DockingCraftStateVector
                 if (0L != ldt){
                     final double dt = ((double)ldt/1000.0);
 
-                    final float da0 = (float)Z((double)dt*accel_thruster_0);
+                    final float da0 = (float)Z((double)dt * DockingGameLevel.Current.accel_thruster_0);
 
                     acceleration_x = -(da0);
 
@@ -226,7 +192,7 @@ public final class DockingCraftStateVector
 
                     time_xm0 = SubClampZP(time_xm0,ldt);
 
-                    time_source = SubClampZP(time_source,(long)((double)ldt * cost_thruster_0));
+                    time_source = SubClampZP(time_source,(long)((double)ldt * DockingGameLevel.Current.cost_thruster_0));
                 }
             }
             else {
@@ -246,7 +212,7 @@ public final class DockingCraftStateVector
                     if (0L != ldt){
                         final double dt = ((double)ldt/1000.0);
 
-                        final float da1 = (float)Z((double)dt*accel_thruster_1);
+                        final float da1 = (float)Z((double)dt * DockingGameLevel.Current.accel_thruster_1);
 
                         acceleration_x += da1;
 
@@ -254,7 +220,7 @@ public final class DockingCraftStateVector
 
                         time_xp1 = SubClampZP(time_xp1,ldt);
 
-                        time_source = SubClampZP(time_source,(long)((double)ldt * cost_thruster_1));
+                        time_source = SubClampZP(time_source,(long)((double)ldt * DockingGameLevel.Current.cost_thruster_1));
                     }
                 }
             }
@@ -265,7 +231,7 @@ public final class DockingCraftStateVector
                 if (0L != ldt){
                     final double dt = ((double)ldt/1000.0);
 
-                    final float da1 = (float)Z(dt*accel_thruster_1);
+                    final float da1 = (float)Z(dt * DockingGameLevel.Current.accel_thruster_1);
 
                     acceleration_x -= da1;
 
@@ -273,7 +239,7 @@ public final class DockingCraftStateVector
 
                     time_xm1 = SubClampZP(time_xm1,ldt);
 
-                    time_source = SubClampZP(time_source,(long)((double)ldt * cost_thruster_1));
+                    time_source = SubClampZP(time_source,(long)((double)ldt * DockingGameLevel.Current.cost_thruster_1));
                 }
             }
 
@@ -299,8 +265,11 @@ public final class DockingCraftStateVector
                 DockingPageGameAbstract.Play();
             }
             else {
-                DockingPageGameAbstract.Range(this.range_x);
+                DockingPageGameAbstract.Range(range_x);
             }
+        }
+        else {
+            this.time_start = time;
         }
         this.time_last = time;
 
@@ -313,6 +282,8 @@ public final class DockingCraftStateVector
 
         this.cursor = -1;
 
+        this.level = DockingGameLevel.Current;
+
         this.created = new Date();
 
         this.completed = null;
@@ -323,23 +294,25 @@ public final class DockingCraftStateVector
 
         this.identifier = BID.Identifier();
 
-        this.range_x = SV_R_X_INIT();
+        this.range_x = DockingGameLevel.Current.range_x;
 
-        this.velocity_x = SV_V_X_INIT();
+        this.velocity_x = DockingGameLevel.Current.velocity_x;
 
-        this.acceleration_x = SV_A_X_INIT();
+        this.acceleration_x = DockingGameLevel.Current.acceleration_x;
 
-        this.time_last = 0L;
+        this.time_last = 0;
 
-        this.time_source = SV_T_SOURCE_INIT();
+        this.time_start = 0;
 
-        this.time_xp0 = SV_T_SINK_0_INIT();
+        this.time_source = DockingGameLevel.Current.time_source;
 
-        this.time_xm0 = SV_T_SINK_0_INIT();
+        this.time_xp0 = 0;
 
-        this.time_xp1 = SV_T_SINK_1_INIT();
+        this.time_xm0 = 0;
 
-        this.time_xm1 = SV_T_SINK_1_INIT();
+        this.time_xp1 = 0;
+
+        this.time_xm1 = 0;
 
         this.copy = 0L;
     }
@@ -352,6 +325,8 @@ public final class DockingCraftStateVector
 
         this.identifier = cursor.getString(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.IDENTIFIER));
         this.label = cursor.getString(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.LABEL));
+
+        this.level = DockingGameLevel.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.LEVEL)));
 
         this.velocity_x = cursor.getFloat(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.VX));
         this.acceleration_x = cursor.getFloat(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.AX));
@@ -395,6 +370,8 @@ public final class DockingCraftStateVector
         values.put(DockingDatabaseHistory.State.IDENTIFIER,this.identifier);
 
         values.put(DockingDatabaseHistory.State.LABEL,this.label);
+
+        values.put(DockingDatabaseHistory.State.LEVEL,this.level.name());
 
         values.put(DockingDatabaseHistory.State.VX,this.velocity_x);
 
@@ -440,8 +417,6 @@ public final class DockingCraftStateVector
             this.score = 4.0f;
         }
 
-        this.score = SubClampRP(4.0, this.velocity_x, 10.0);
-
         values.put(DockingDatabaseHistory.State.SCORE,this.score);
 
         return values;
@@ -453,5 +428,7 @@ public final class DockingCraftStateVector
     protected synchronized void cursor(long c){
 
         this.cursor = c;
+
+        DockingGameLevel.Review(this.score);
     }
 }

@@ -41,11 +41,13 @@ public final class DockingPageIntro
 
         switch(type){
         case Left:
-            view.script(Page.start);
+            view.script(Page.intro6);
             break;
         case Right:
-        case Enter:
             view.script(Page.intro1);
+            break;
+        case Enter:
+            view.script(Page.start);
             break;
         }
     }

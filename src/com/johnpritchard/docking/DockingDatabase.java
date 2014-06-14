@@ -330,6 +330,7 @@ public final class DockingDatabase
                    + DockingDatabaseHistory.State._ID + " INTEGER PRIMARY KEY ASC AUTOINCREMENT, "
                    + DockingDatabaseHistory.State.IDENTIFIER + " TEXT UNIQUE NOT NULL, "
                    + DockingDatabaseHistory.State.LABEL + " TEXT, "
+                   + DockingDatabaseHistory.State.LEVEL + " TEXT NOT NULL, "
                    + DockingDatabaseHistory.State.VX + " REAL, "
                    + DockingDatabaseHistory.State.AX + " REAL, "
                    + DockingDatabaseHistory.State.RX + " REAL, "

@@ -21,7 +21,7 @@ public class DockingPostStartGame
         try {
             DockingDatabase.Game();
 
-            DockingPageGameAbstract.Play();
+            DockingPageGameAbstract.View();
 
             ViewAnimation.Script(Page.gameplay);
         }

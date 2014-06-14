@@ -54,11 +54,15 @@ public class DockingActivity3D
 
         this.view.onPause(preferences);
 
+        DockingGameLevel.OnPause(preferences);
+
         preferences.commit();
     }
     @Override
     protected void onResume(){
         super.onResume();
+
+        DockingGameLevel.OnResume(this.preferences);
 
         this.view.onResume();
     }
