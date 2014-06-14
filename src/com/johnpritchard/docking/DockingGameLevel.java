@@ -8,8 +8,11 @@ import android.content.SharedPreferences;
  * 
  */
 public enum DockingGameLevel {
-    L1( 1000.0, 100.0, 10.0,  500.0,  5.0, 0.0,  50),
-    L2( 1000.0, 100.0, 10.0, 1000.0, 10.0, 0.0, 100);
+    L1(  1000.0, 100.0, 10.0,  500.0,  5.0, 0.0,  50),
+    L2(  1000.0, 100.0, 10.0, 1000.0, 10.0, 0.0, 100),
+    L3(  1000.0, 100.0, 10.0, 2000.0, 20.0, 0.0, 200),
+    L4(  1000.0, 100.0, 10.0, 4000.0, 40.0, 0.0, 400),
+    L5(  1000.0, 100.0, 10.0, 8000.0, 80.0, 0.0, 800);
 
 
     public volatile static DockingGameLevel Current = L1;
@@ -83,12 +86,18 @@ public enum DockingGameLevel {
     }
 
 
-    public DockingGameLevel prev(){
-
-        return L1;
-    }
     public DockingGameLevel next(){
-
-        return L2;
+        switch(this){
+        case L1:
+            return L2;
+        case L2:
+            return L3;
+        case L3:
+            return L4;
+        case L4:
+            return L5;
+        default:
+            return L1;
+        }
     }
 }
