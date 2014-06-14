@@ -322,7 +322,7 @@ public final class View3D
     public boolean onDoubleTap(MotionEvent e){
         //info("onDoubleTap {Enter}");
 
-        Docking.Post3D(new DockingPostScreenShot());
+        Docking.Post3D(new DockingPostScreenShot(this));
 
         return true;
     }
