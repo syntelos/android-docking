@@ -81,8 +81,7 @@ public abstract class DockingPageGameAbstract
             final float ax = state.acceleration_x;
             final float vx = state.velocity_x;
 
-            final long t_last = state.time_last;
-            final long t_start = state.time_start;
+            final long t_clock = state.time_clock;
             final long t_source = state.time_source;
             final long t_xp0 = state.time_xp0;
             final long t_xm0 = state.time_xm0;
@@ -106,7 +105,7 @@ public abstract class DockingPageGameAbstract
             out_created.format(created);
             out_completed.format(completed);
 
-            out_t.format(Seconds(t_last-t_start));
+            out_t.format(Seconds(t_clock));
             out_tr.format(Seconds(t_source));
 
             out_lv.format(level);
@@ -137,8 +136,7 @@ public abstract class DockingPageGameAbstract
             final float ax = state.acceleration_x;
             final float vx = state.velocity_x;
 
-            final long t_last = state.time_last;
-            final long t_start = state.time_start;
+            final long t_clock = state.time_clock;
             final long t_source = state.time_source;
             final long t_xp0 = state.time_xp0;
             final long t_xm0 = state.time_xm0;
@@ -151,7 +149,7 @@ public abstract class DockingPageGameAbstract
             out_vx.format(vx);
             out_ax.format(ax);
 
-            out_t.format(Seconds(t_last-t_start));
+            out_t.format(Seconds(t_clock));
             out_tr.format(Seconds(t_source));
 
             in_xp0.format(Seconds(t_xp0));

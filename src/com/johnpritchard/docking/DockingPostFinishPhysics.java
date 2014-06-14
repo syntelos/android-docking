@@ -22,13 +22,13 @@ public class DockingPostFinishPhysics
 
             DockingPageGameAbstract.View();
 
-            if (DockingCraftStateVector.Instance.crash()){
-
-                ViewAnimation.Script(Page.gamecrash);
+            if (DockingCraftStateVector.Instance.dock() ||
+                DockingCraftStateVector.Instance.stall())
+            {
+                ViewAnimation.Script(Page.gameview);
             }
             else {
-
-                ViewAnimation.Script(Page.gameview);
+                ViewAnimation.Script(Page.gamecrash);
             }
         }
         catch (Exception exc){

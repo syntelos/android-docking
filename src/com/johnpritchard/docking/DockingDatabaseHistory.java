@@ -45,6 +45,8 @@ public final class DockingDatabaseHistory {
 
         public final static String T_SOURCE = "t_source";
 
+        public final static String T_CLOCK = "t_clock";
+
         public final static String T_XP0 = "t_xp0";
 
         public final static String T_XM0 = "t_xm0";
@@ -69,6 +71,7 @@ public final class DockingDatabaseHistory {
             AX,
             RX,
             T_SOURCE,
+            T_CLOCK,
             T_XP0,
             T_XM0,
             T_XP1,
@@ -97,6 +100,7 @@ public final class DockingDatabaseHistory {
             AX,
             RX,
             T_SOURCE,
+            T_CLOCK,
             CREATED,
             COMPLETED,
             SCORE

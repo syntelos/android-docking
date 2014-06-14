@@ -38,6 +38,7 @@ public final class DockingCraftStateVector
      */
     public long time_start;
     public long time_last;
+    public long time_clock;
     public long time_source;
     public long time_xp0;
     public long time_xm0;
@@ -81,13 +82,13 @@ public final class DockingCraftStateVector
         return (0.001f < range_x);
     }
     public boolean crash(){
-        return (0.001f >= range_x && 0.010f < velocity_x);
+        return (0.011f > range_x && 0.010f < velocity_x);
     }
     public boolean dock(){
-        return (0.001f >= range_x && 0.010f >= velocity_x);
+        return (0.011f > range_x && 0.011f > velocity_x);
     }
     public boolean stall(){
-        return (0.0f >= velocity_x && 0L == time_source);
+        return (0.001f > velocity_x && 0L >= time_source);
     }
     public synchronized void add(PhysicsScript prog){
 
@@ -272,6 +273,7 @@ public final class DockingCraftStateVector
             this.time_start = time;
         }
         this.time_last = time;
+        this.time_clock = (time-this.time_start);
 
         return running();
     }
@@ -304,6 +306,8 @@ public final class DockingCraftStateVector
 
         this.time_start = 0;
 
+        this.time_clock = 0;
+
         this.time_source = DockingGameLevel.Current.time_source;
 
         this.time_xp0 = 0;
@@ -335,6 +339,7 @@ public final class DockingCraftStateVector
         this.time_last = 0L;
 
         this.time_source = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_SOURCE));
+        this.time_clock = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_CLOCK));
         this.time_xp0 = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_XP0));
         this.time_xm0 = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_XM0));
         this.time_xp1 = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State.T_XP1));
@@ -373,15 +378,37 @@ public final class DockingCraftStateVector
 
         values.put(DockingDatabaseHistory.State.LEVEL,this.level.name());
 
+        /*
+         * Clamp Velocity
+         */
+        this.velocity_x = ClampRP(this.velocity_x,1000.0);
+
         values.put(DockingDatabaseHistory.State.VX,this.velocity_x);
+
+        /*
+         * Clamp Acceleration
+         */
+        this.acceleration_x = ClampRP(this.acceleration_x,1000.0);
 
         values.put(DockingDatabaseHistory.State.AX,this.acceleration_x);
 
+        /*
+         * Clamp Range
+         */
+        this.range_x = ClampRP(this.range_x,1000.0);
+
         values.put(DockingDatabaseHistory.State.RX,this.range_x);
 
+        /*
+         * Game time
+         */
         this.time_last = 0L;
 
+        this.time_start = 0L;
+
         values.put(DockingDatabaseHistory.State.T_SOURCE,this.time_source);
+
+        values.put(DockingDatabaseHistory.State.T_CLOCK,this.time_clock);
 
         values.put(DockingDatabaseHistory.State.T_XP0,this.time_xp0);
 
@@ -391,30 +418,37 @@ public final class DockingCraftStateVector
 
         values.put(DockingDatabaseHistory.State.T_XM1,this.time_xm1);
 
+        /*
+         * Date-time
+         */
         values.put(DockingDatabaseHistory.State.CREATED,this.created.getTime());
 
         this.completed = new Date();
 
         values.put(DockingDatabaseHistory.State.COMPLETED,this.completed.getTime());
 
-        if (crash()){
+        /*
+         * Score
+         */
+        if (dock()){
 
-            if (5.0f < this.velocity_x){
-
-                this.score = 1.0f;
-            }
-            else {
-
-                this.score = 2.0f;
-            }
+            this.score = 4.0f;
         }
         else if (stall()){
 
-            this.score = 3.0f;
+            this.score = 1.0f;
+        }
+        else if (3.0f < this.velocity_x){
+
+            this.score = 1.0f;
+        }
+        else if (1.0f < this.velocity_x){
+
+            this.score = 2.0f;
         }
         else {
 
-            this.score = 4.0f;
+            this.score = 3.0f;
         }
 
         values.put(DockingDatabaseHistory.State.SCORE,this.score);

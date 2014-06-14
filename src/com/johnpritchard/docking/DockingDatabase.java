@@ -335,6 +335,7 @@ public final class DockingDatabase
                    + DockingDatabaseHistory.State.AX + " REAL, "
                    + DockingDatabaseHistory.State.RX + " REAL, "
                    + DockingDatabaseHistory.State.T_SOURCE + " INTEGER, "
+                   + DockingDatabaseHistory.State.T_CLOCK + " INTEGER, "
                    + DockingDatabaseHistory.State.T_XP0 + " INTEGER, "
                    + DockingDatabaseHistory.State.T_XM0 + " INTEGER, "
                    + DockingDatabaseHistory.State.T_XP1 + " INTEGER, "
