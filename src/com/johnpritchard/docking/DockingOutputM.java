@@ -20,6 +20,6 @@ public class DockingOutputM
 
 
     protected final void format(DockingGameLevel level){
-        format(FMT,Format5(level.mass_static));
+        format(FMT,Format6(level.mass_static));
     }
 }

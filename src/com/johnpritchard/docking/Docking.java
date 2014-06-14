@@ -6,7 +6,11 @@ package com.johnpritchard.docking;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.List;
 
 /**
@@ -16,6 +20,9 @@ public final class Docking
     extends android.app.Application
 {
     private final static String TAG = ObjectLog.TAG;
+
+    protected final static int FileModePublic = (Context.MODE_WORLD_READABLE|Context.MODE_WORLD_WRITEABLE);
+
 
     private static DockingActivity2D Activity2D;
     private static DockingActivity3D Activity3D;
@@ -57,6 +64,34 @@ public final class Docking
     protected final static void Post3D(Runnable action){
 
         Activity3D.runOnUiThread(action);
+    }
+    protected final static void Toast2D(String msg){
+
+        Toast toast = Toast.makeText(Activity2D, msg, Toast.LENGTH_SHORT);
+
+        toast.show();
+    }
+    protected final static void Toast3D(String msg){
+
+        Toast toast = Toast.makeText(Activity3D, msg, Toast.LENGTH_SHORT);
+
+        toast.show();
+    }
+    protected final static File ExternalDirectory2D(String type){
+        return Activity2D.getExternalFilesDir(type);
+    }
+    protected final static File ExternalDirectory3D(String type){
+        return Activity3D.getExternalFilesDir(type);
+    }
+    protected final static FileOutputStream InternalFile2D(String filename)
+        throws FileNotFoundException
+    {
+        return Activity2D.openFileOutput(filename,FileModePublic);
+    }
+    protected final static FileOutputStream InternalFile3D(String filename)
+        throws FileNotFoundException
+    {
+        return Activity3D.openFileOutput(filename,FileModePublic);
     }
 
 

@@ -77,9 +77,9 @@ public abstract class DockingPageGameAbstract
             /*
              * Read
              */
-            final float rx = state.range_x;
-            final float ax = state.acceleration_x;
-            final float vx = state.velocity_x;
+            final float rx = (float)state.range_x;
+            final float ax = (float)state.acceleration_x;
+            final float vx = (float)state.velocity_x;
 
             final long t_clock = state.time_clock;
             final long t_source = state.time_source;
@@ -118,7 +118,7 @@ public abstract class DockingPageGameAbstract
             in_xp1.format(Seconds(t_xp1));
             in_xm1.format(Seconds(t_xm1));
 
-            Range(state.range_x);
+            Range(rx);
         }
     }
     /**
@@ -132,9 +132,9 @@ public abstract class DockingPageGameAbstract
             /*
              * Read
              */
-            final float rx = state.range_x;
-            final float ax = state.acceleration_x;
-            final float vx = state.velocity_x;
+            final float rx = (float)state.range_x;
+            final float ax = (float)state.acceleration_x;
+            final float vx = (float)state.velocity_x;
 
             final long t_clock = state.time_clock;
             final long t_source = state.time_source;
@@ -157,7 +157,7 @@ public abstract class DockingPageGameAbstract
             in_xp1.format(Seconds(t_xp1));
             in_xm1.format(Seconds(t_xm1));
 
-            Range(state.range_x);
+            Range(rx);
         }
     }
     /**

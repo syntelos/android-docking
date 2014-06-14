@@ -39,7 +39,7 @@ public final class View3D
 
     private final SurfaceHolder holder;
 
-    private final View3DRenderer renderer;
+    protected final View3DRenderer renderer;
 
     private SharedPreferences preferences;
 
@@ -214,7 +214,14 @@ public final class View3D
         case KeyEvent.KEYCODE_DPAD_CENTER:
         case KeyEvent.KEYCODE_ENTER:
 
-            script(Input.Enter);
+            if (event.hasNoModifiers()){
+
+                script(Input.Enter);
+            }
+            else {
+
+                Docking.Post3D(new DockingPostScreenShot(this));
+            }
             return true;
 
         default:

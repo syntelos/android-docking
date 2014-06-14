@@ -192,7 +192,7 @@ public abstract class Epsilon
         }
     }
     protected final static String Format5(double value){
-        final String string = String.format("%3.0f",value);
+        final String string = String.format("%5.0f",value);
         final char[] sary = string.toCharArray();
         final int strlen = sary.length;
         if (5 <= strlen)
@@ -210,6 +210,27 @@ public abstract class Epsilon
                 }
             }
             return new String(cary,0,5);
+        }
+    }
+    protected final static String Format6(double value){
+        final String string = String.format("%6.0f",value);
+        final char[] sary = string.toCharArray();
+        final int strlen = sary.length;
+        if (6 <= strlen)
+            return string;
+        else {
+            char[] cary = new char[6];
+            {
+                for (int cc = 0, sp = (6-strlen); cc < 6; cc++){
+                    if (cc < sp){
+                        cary[cc] = ' ';
+                    }
+                    else {
+                        cary[cc] = sary[cc-sp];
+                    }
+                }
+            }
+            return new String(cary,0,6);
         }
     }
     protected final static String Format8(double value){

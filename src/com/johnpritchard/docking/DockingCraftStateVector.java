@@ -24,15 +24,15 @@ public final class DockingCraftStateVector
     /**
      * m
      */
-    public float range_x;
+    public double range_x;
     /**
      * m/s
      */
-    public float velocity_x;
+    public double velocity_x;
     /**
      * m/s/s
      */
-    public float acceleration_x;
+    public double acceleration_x;
     /**
      * millis
      */
@@ -166,7 +166,7 @@ public final class DockingCraftStateVector
                     if (0L != ldt){
                         final double dt = ((double)ldt/1000.0);
 
-                        final float da0 = (float)Z((double)dt * DockingGameLevel.Current.accel_thruster_0);
+                        final double da0 = Z(dt * DockingGameLevel.Current.accel_thruster_0);
 
                         acceleration_x = +(da0);
 
@@ -185,7 +185,7 @@ public final class DockingCraftStateVector
                 if (0L != ldt){
                     final double dt = ((double)ldt/1000.0);
 
-                    final float da0 = (float)Z((double)dt * DockingGameLevel.Current.accel_thruster_0);
+                    final double da0 = Z(dt * DockingGameLevel.Current.accel_thruster_0);
 
                     acceleration_x = -(da0);
 
@@ -213,7 +213,7 @@ public final class DockingCraftStateVector
                     if (0L != ldt){
                         final double dt = ((double)ldt/1000.0);
 
-                        final float da1 = (float)Z((double)dt * DockingGameLevel.Current.accel_thruster_1);
+                        final double da1 = Z(dt * DockingGameLevel.Current.accel_thruster_1);
 
                         acceleration_x += da1;
 
@@ -232,7 +232,7 @@ public final class DockingCraftStateVector
                 if (0L != ldt){
                     final double dt = ((double)ldt/1000.0);
 
-                    final float da1 = (float)Z(dt * DockingGameLevel.Current.accel_thruster_1);
+                    final double da1 = Z(dt * DockingGameLevel.Current.accel_thruster_1);
 
                     acceleration_x -= da1;
 
@@ -251,7 +251,7 @@ public final class DockingCraftStateVector
 
                 final double dt = ((double)t_delta)/1000.0;
 
-                final float dr = (float)Z(dt*velocity_x);
+                final double dr = Z(dt*velocity_x);
 
                 range_x -= dr;
             }
@@ -266,7 +266,7 @@ public final class DockingCraftStateVector
                 DockingPageGameAbstract.Play();
             }
             else {
-                DockingPageGameAbstract.Range(range_x);
+                DockingPageGameAbstract.Range((float)range_x);
             }
         }
         else {
@@ -381,23 +381,23 @@ public final class DockingCraftStateVector
         /*
          * Clamp Velocity
          */
-        this.velocity_x = ClampRP(this.velocity_x,1000.0);
+        final float velocity_x = ClampRP(this.velocity_x,1000.0);
 
-        values.put(DockingDatabaseHistory.State.VX,this.velocity_x);
+        values.put(DockingDatabaseHistory.State.VX,velocity_x);
 
         /*
          * Clamp Acceleration
          */
-        this.acceleration_x = ClampRP(this.acceleration_x,1000.0);
+        final float acceleration_x = ClampRP(this.acceleration_x,1000.0);
 
-        values.put(DockingDatabaseHistory.State.AX,this.acceleration_x);
+        values.put(DockingDatabaseHistory.State.AX,acceleration_x);
 
         /*
          * Clamp Range
          */
-        this.range_x = ClampRP(this.range_x,1000.0);
+        final float range_x = ClampRP(this.range_x,1000.0);
 
-        values.put(DockingDatabaseHistory.State.RX,this.range_x);
+        values.put(DockingDatabaseHistory.State.RX,range_x);
 
         /*
          * Game time

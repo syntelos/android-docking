@@ -5,6 +5,9 @@ package com.johnpritchard.docking;
 
 import android.content.SharedPreferences;
 import android.view.SurfaceHolder;
+import android.opengl.GLES10;
+
+import java.nio.ByteBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -17,7 +20,8 @@ import javax.microedition.khronos.opengles.GL10;
 public final class View3DRenderer
     extends ObjectLog
     implements android.opengl.GLSurfaceView.Renderer,
-               android.view.SurfaceHolder.Callback
+               android.view.SurfaceHolder.Callback,
+               View3DScreenShot
 {
 
     private View3D view;
@@ -30,9 +34,15 @@ public final class View3DRenderer
 
     private boolean plumb = false;
 
-    private int width = -1, height = -1;
+    protected int width = -1, height = -1;
 
     private boolean stale = true;
+
+    private volatile boolean screenshot = false;
+    private volatile int screenshotFormat = 0;
+    private volatile int screenshotType = 0;
+    private volatile ByteBuffer screenshotBuffer = null;
+    private final Object screenshotMonitor = new Object();
 
 
     public View3DRenderer(View3D view){
@@ -80,6 +90,7 @@ public final class View3DRenderer
     public synchronized void surfaceCreated(SurfaceHolder holder){
 
         this.plumb = false;
+        this.screenshot = false;
     }
     public synchronized void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
 
@@ -87,6 +98,7 @@ public final class View3DRenderer
         this.height = h;
 
         this.plumb = true;
+        this.screenshot = false;
 
         if (null != this.page){
 
@@ -97,6 +109,7 @@ public final class View3DRenderer
         info("surfaceDestroyed");
 
         this.plumb = false;
+        this.screenshot = false;
     }
     /**
      * Called from {@link ViewAnimator}
@@ -104,17 +117,43 @@ public final class View3DRenderer
      */
     public synchronized void pageTo(Page page){
 
-        info("pageTo "+page);
-
-        if (null == page){
+        if (screenshot){
 
             return;
         }
-        else if (null != this.page){
+        else {
+            info("pageTo "+page);
 
-            if (page.page != this.page){
+            if (null == page){
 
-                this.page.down();
+                return;
+            }
+            else if (null != this.page){
+
+                if (page.page != this.page){
+
+                    this.page.down();
+                    try {
+                        this.pageId = page;
+
+                        this.page = (ViewPage3D)page.page;
+
+                        if (this.plumb){
+
+                            this.page.up(view,width,height);
+                        }
+                    }
+                    catch (ClassCastException exc){
+
+                        this.page = null;
+
+                        warn("switching to 2D for page: "+page);
+
+                        Docking.StartActivity2D();
+                    }
+                }
+            }
+            else {
                 try {
                     this.pageId = page;
 
@@ -135,32 +174,43 @@ public final class View3DRenderer
                 }
             }
         }
-        else {
-            try {
-                this.pageId = page;
+    }
+    /**
+     * @see View3DScreenShot
+     */
+    public boolean screenshot(int format, int type, ByteBuffer buffer)
+        throws InterruptedException
+    {
 
-                this.page = (ViewPage3D)page.page;
+        this.screenshotFormat = format;
+        this.screenshotType = type;
+        this.screenshotBuffer = buffer;
+        this.screenshot = true;
 
-                if (this.plumb){
+        synchronized(screenshotMonitor){
 
-                    this.page.up(view,width,height);
-                }
-            }
-            catch (ClassCastException exc){
-
-                this.page = null;
-
-                warn("switching to 2D for page: "+page);
-
-                Docking.StartActivity2D();
-            }
+            screenshotMonitor.wait(1000L);
         }
+
+        return (!screenshot);
     }
     /**
      * Renderer
      */
     public void onDrawFrame(GL10 gl){
-        if (null != page){
+        if (screenshot){
+            try {
+                GLES10.glReadPixels(0,0,width,height,screenshotFormat,screenshotType,screenshotBuffer);
+            }
+            finally {
+                this.screenshot = false;
+            }
+            synchronized(screenshotMonitor){
+
+                screenshotMonitor.notifyAll();
+            }
+        }
+        else if (null != page){
 
             if (plumb){
 
@@ -184,19 +234,19 @@ public final class View3DRenderer
      */
     public void onSurfaceChanged(GL10 gl, int width, int height){
 
-        this.width = width;
-        this.height = height;
+        // this.width = width;
+        // this.height = height;
 
-        if (null != page){
+        // if (null != page){
 
-            page.down();
+        //     page.down();
 
-            plumb = false;
+        //     plumb = false;
 
-            page.up(view,width,height);
+        //     page.up(view,width,height);
 
-            plumb = true;
-        }
+        //     plumb = true;
+        // }
     }
     /**
      * Renderer
