@@ -50,6 +50,16 @@ public class DockingPostScreenShot
 
 
     protected Bitmap screenshot(){
+    // public static native void glReadPixels(
+    //     int x,
+    //     int y,
+    //     int width,
+    //     int height,
+    //     int format,
+    //     int type,
+    //     java.nio.Buffer pixels
+    // );
+
         Class surface = Surface.class;
         try {
             Method screenshot = surface.getMethod("screenshot",SS_PARAMS);

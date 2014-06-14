@@ -213,7 +213,7 @@ public abstract class Epsilon
         }
     }
     protected final static String Format8(double value){
-        final String string = String.format("%3.0f",value);
+        final String string = String.format("%3.4f",value);
         final char[] sary = string.toCharArray();
         final int strlen = sary.length;
         if (8 <= strlen)
