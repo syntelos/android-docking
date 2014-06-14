@@ -21,7 +21,7 @@ public final class DockingPageIntro2
 
     private DockingPageIntro2(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Success at distance zero requires velocity of no more than one centimeter per second (0.010).")
+                new ViewPage2DTextMultiline(Group,"Use thrusters designated X- to reduce velocity.")
             });
     }
 

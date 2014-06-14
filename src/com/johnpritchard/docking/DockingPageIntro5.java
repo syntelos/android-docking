@@ -21,7 +21,7 @@ public final class DockingPageIntro5
 
     private DockingPageIntro5(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Velocity is meters per second, and thrust control is time seconds.")
+                new ViewPage2DTextMultiline(Group,"Thruster control is represented in time seconds.")
             });
     }
 

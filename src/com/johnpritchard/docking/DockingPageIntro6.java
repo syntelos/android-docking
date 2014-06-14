@@ -21,7 +21,7 @@ public final class DockingPageIntro6
 
     private DockingPageIntro6(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Vehicle mass is a constant (KG) which is listed with thrust force (N) on the right hand side of the information display.")
+                new ViewPage2DTextMultiline(Group,"Final docking velocity should be no more than one centimeter per second: 0.010 m/s.")
             });
     }
 

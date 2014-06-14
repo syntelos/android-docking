@@ -21,7 +21,7 @@ public final class DockingPageIntro4
 
     private DockingPageIntro4(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Physical units are 'kms': kilograms, meters, and seconds.")
+                new ViewPage2DTextMultiline(Group,"Distance to docking is meters.")
             });
     }
 

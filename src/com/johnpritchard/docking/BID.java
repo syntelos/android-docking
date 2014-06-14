@@ -4,25 +4,31 @@
 package com.johnpritchard.docking;
 
 /**
- * A 64 bit random (string)
+ * An 80 bit random (string)
  */
 public final class BID
     extends java.security.SecureRandom
 {
     /*
-     * 64 = (16 * 4)
+     * 80 = (16 * 5)
      */
     private final static int RandomIdentifierOctets = 16;
 
-    private final static int RandomOctetBits = 4;
+    private final static int RandomOctetBits = 5;
 
     private final static char[] IdentifierMap = {
         'A', 'B', 'C', 'D',
         'E', 'F', 'G', 'H',
         'J', 'K', 'L', 'M',
-        'N', 'P', 'Q', 'R'
+        'N', 'P', 'Q', 'R',
+
+        'S', 'T', 'U', 'V',
+        'W', 'X', 'Y', 'Z',
+        '2', '3', '4', '5',
+        '6', '7', '8', '9'
     };
 
+    private final static BID prng = new BID();
 
     /**
      * @return A random string
@@ -30,8 +36,6 @@ public final class BID
     public final static String Identifier(){
         char[] cary = new char[RandomIdentifierOctets];
         {
-            BID prng = new BID();
-
             for (int cc = 0; cc < RandomIdentifierOctets; cc++){
 
                 cary[cc] = prng.next();

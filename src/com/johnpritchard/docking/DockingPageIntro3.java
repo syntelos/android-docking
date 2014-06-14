@@ -21,7 +21,7 @@ public final class DockingPageIntro3
 
     private DockingPageIntro3(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Use up, down, left, right and enter actions to select, modify, and execute a thruster burn.")
+                new ViewPage2DTextMultiline(Group,"Velocity is meters per second.")
             });
     }
 

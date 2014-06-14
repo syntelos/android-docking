@@ -21,7 +21,7 @@ public final class DockingPageIntro
 
     private DockingPageIntro(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Rendezvous in zero gravity using T10 and T01 thrusters.")
+                new ViewPage2DTextMultiline(Group,"Rendezvous in zero gravity using thrusters T10 and T01.")
             });
     }
 

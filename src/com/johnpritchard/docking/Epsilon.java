@@ -133,23 +133,42 @@ public abstract class Epsilon
         }
     }
     protected final static String FormatT(float value){
-        final String string = String.format("%3.1f",value);
-        final char[] sary = string.toCharArray();
-        final int strlen = sary.length;
-        {
-            char[] cary = new char[5];
-            {
-                for (int cc = 0, sp = (5-strlen); cc < 5; cc++){
-                    if (cc < sp){
-                        cary[cc] = '0';
-                    }
-                    else {
-                        cary[cc] = sary[cc-sp];
+        String string = String.format("%3.1f",value);
+        char[] sary = string.toCharArray();
+        int strlen = sary.length;
+        if (5 <= strlen){
+            if (5 == strlen){
+
+                return string;
+            }
+            else {
+                int idx = string.lastIndexOf('.');
+                if (0 < idx){
+                    string = string.substring(0,idx);
+                    sary = string.toCharArray();
+                    strlen = sary.length;
+                    if (5 <= strlen){
+                        return string;
                     }
                 }
+                else {
+                    return string;
+                }
             }
-            return new String(cary,0,5);
         }
+        //
+        char[] cary = new char[5];
+        {
+            for (int cc = 0, sp = (5-strlen); cc < 5; cc++){
+                if (cc < sp){
+                    cary[cc] = '0';
+                }
+                else {
+                    cary[cc] = sary[cc-sp];
+                }
+            }
+        }
+        return new String(cary,0,5);
     }
     protected final static String Format4(double value){
         final String string = String.format("%3.0f",value);
@@ -191,6 +210,27 @@ public abstract class Epsilon
                 }
             }
             return new String(cary,0,5);
+        }
+    }
+    protected final static String Format8(double value){
+        final String string = String.format("%3.0f",value);
+        final char[] sary = string.toCharArray();
+        final int strlen = sary.length;
+        if (8 <= strlen)
+            return string;
+        else {
+            char[] cary = new char[8];
+            {
+                for (int cc = 0, sp = (8-strlen); cc < 8; cc++){
+                    if (cc < sp){
+                        cary[cc] = ' ';
+                    }
+                    else {
+                        cary[cc] = sary[cc-sp];
+                    }
+                }
+            }
+            return new String(cary,0,8);
         }
     }
 }

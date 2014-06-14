@@ -20,6 +20,7 @@ public class DockingOutputRx
 
 
     protected final void format(float Rx){
-        format(FMT,Format7(Rx));
+
+        format(FMT,Format8(Rx));
     }
 }

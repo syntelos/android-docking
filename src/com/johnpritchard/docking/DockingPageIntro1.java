@@ -21,7 +21,7 @@ public final class DockingPageIntro1
 
     private DockingPageIntro1(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Velocity in the X+ direction is slowed by thrust designated X-.")
+                new ViewPage2DTextMultiline(Group,"Use up, down, left, right and enter actions to select, modify, and execute thruster control.")
             });
     }
 
