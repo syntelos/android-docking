@@ -274,17 +274,33 @@ public abstract class DockingPageGameAbstract
 
         final FloatBuffer mm = model_matrix[next];
         {
-            float[] m = fv3.math.Matrix.Identity();
+            float[] r = fv3.math.Matrix.RotateY(r_y);
 
-            m = fv3.math.Matrix.RotateY(m,r_y);
+            float[] t = fv3.math.Matrix.Translate(0f,0f,-t_x);
 
-            fv3.math.Matrix.Translate(m,0f,0f,-t_x);
+            float[] m = fv3.math.Matrix.Mul(r,t); // (rotate that [there])
 
             mm.put(m);
             mm.position(0);
         }
         model_matrix_current = next;
 
+    }
+    protected final static void model(){
+        FloatBuffer mm = model_matrix[model_matrix_current];
+
+        glPushMatrix();
+
+        glMultMatrixf(mm);
+
+        glColor4f(MOD_COL_R,MOD_COL_G,MOD_COL_B,MOD_COL_A);
+
+        glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
+        glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
+
+        DockingGeometryPort.Instance.draw();
+
+        glPopMatrix();
     }
 
     protected final static float MOD_COL_R = 0.8f;
@@ -537,22 +553,6 @@ public abstract class DockingPageGameAbstract
          */
         glClearColor(1.0f,1.0f,1.0f,1.0f);
 
-    }
-    protected final static void model(){
-        FloatBuffer mm = model_matrix[model_matrix_current];
-
-        glPushMatrix();
-
-        glMultMatrixf(mm);
-
-        glColor4f(MOD_COL_R,MOD_COL_G,MOD_COL_B,MOD_COL_A);
-
-        glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
-        glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
-
-        DockingGeometryPort.Instance.draw();
-
-        glPopMatrix();
     }
 
     @Override

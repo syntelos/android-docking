@@ -81,15 +81,15 @@ public abstract class View3DGeometryCircle
     }
     protected final static float[] Copy(float[] tgt, int ofs, int count, float[] v){
 
-        int c = ofs;
+        int t = ofs;
 
         final int z = (ofs+count);
 
-        while (c < z){
+        while (t < z){
 
-            System.arraycopy(v,0,tgt,c,3);
+            System.arraycopy(v,0,tgt,t,3);
 
-            c += 3;
+            t += 3;
         }
 
         return tgt;

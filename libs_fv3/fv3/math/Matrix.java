@@ -835,19 +835,31 @@ public class Matrix
             }
         }
     }
-    public final static void Translate(double[] m, double x, double y, double z){
+    public final static double[] Translate(double[] m, double x, double y, double z){
 
         for (int i = 0; i < 3; i++) {
 
             m[I(i,3)] += m[I(i,0)] * x + m[I(i,1)] * y + m[I(i,2)] * z;
         }
+        return m;
     }
-    public final static void Translate(float[] m, float x, float y, float z){
+    public final static float[] Translate(float[] m, float x, float y, float z){
 
         for (int i = 0; i < 3; i++) {
 
             m[I(i,3)] += m[I(i,0)] * x + m[I(i,1)] * y + m[I(i,2)] * z;
         }
+        return m;
+    }
+    public final static float[] Translate(float x, float y, float z){
+
+        float[] m = Identity();
+
+        for (int i = 0; i < 3; i++) {
+
+            m[I(i,3)] += m[I(i,0)] * x + m[I(i,1)] * y + m[I(i,2)] * z;
+        }
+        return m;
     }
     public final static void Transform(double[] m, float[] v){
 
@@ -875,7 +887,7 @@ public class Matrix
         }
     }
 
-    public final static float[] RotateX(float[] m, float rax){
+    public final static float[] RotateX(float rax){
         float[] R = Identity.clone();
 
         float c = (float)Math.cos(rax);
@@ -887,9 +899,9 @@ public class Matrix
         R[M12] = s;
         R[M22] = c;
 
-        return Mul(m,R);
+        return R;
     }
-    public final static float[] RotateY(float[] m, float ray){
+    public final static float[] RotateY(float ray){
         float[] R = Identity.clone();
 
         float c = (float)Math.cos(ray);
@@ -901,9 +913,9 @@ public class Matrix
         R[M02] = s;
         R[M22] = c;
 
-        return Mul(m,R);
+        return R;
     }
-    public final static float[] RotateZ(float[] m, float raz){
+    public final static float[] RotateZ(float raz){
         float[] R = Identity.clone();
 
         float c = (float)Math.cos(raz);
@@ -915,9 +927,9 @@ public class Matrix
         R[M01] = s;
         R[M11] = c;
 
-        return Mul(m,R);
+        return R;
     }
-    public final static float[] Rotate(float[] m, float rax, float ray, float raz){
+    public final static float[] Rotate(float rax, float ray, float raz){
         float[] R = Identity.clone();
 
         float cx = (float)Math.cos(rax);
@@ -941,7 +953,7 @@ public class Matrix
         R[M21] =  (cx * sy * sz) + (sx * cz);
         R[M22] =  cx * cy;
 
-        return Mul(m,R);
+        return R;
     }
 
     private final static double Sign(double x){

@@ -73,6 +73,9 @@ public final class DockingPageGameModel
         }
     }
     @Override
+    protected void draw(){
+    }
+    @Override
     protected void focus(){
     }
     @Override
