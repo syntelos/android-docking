@@ -76,9 +76,23 @@ public abstract class DockingFieldIO
         format();
     }
     protected void input_value(Input in){
-        if (Input.Up == in){
 
-            if (999 > editable){
+        if (0 == editable){
+
+            if (Input.Up == in){
+
+                editable = 1;
+            }
+            else {
+
+                editable = (int)(DockingCraftStateVector.Instance.time_source/1000L);
+            }
+        }
+        else if (Input.Up == in){
+
+            final int limit = (int)(DockingCraftStateVector.Instance.time_source/1000L);
+
+            if (limit > editable){
 
                 editable += 1;
             }
