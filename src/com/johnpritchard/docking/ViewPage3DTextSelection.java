@@ -176,44 +176,49 @@ public class ViewPage3DTextSelection
 
         final int next = (0 == this.b_current)?(1):(0);
 
-        this.pad(next);
-
         final RectF outline = this.outline[next];
+
+        final float pad = (Math.max((outline.right-outline.left),(outline.bottom-outline.top)) * 0.10f);
+
+        final float x0 = (outline.left-pad);
+        final float y0 = (outline.top-pad);
+        final float x1 = (outline.right+pad);
+        final float y1 = (outline.bottom+pad);
 
         FloatBuffer gv = this.b_gv[next];
 
         float[] lines = new float[N_FLOATS];
         {
-            lines[ 0] = outline.left;
-            lines[ 1] = outline.top;
+            lines[ 0] = x0;
+            lines[ 1] = y0;
             lines[ 2] = z;
 
-            lines[ 3] = outline.left;
-            lines[ 4] = outline.bottom;
+            lines[ 3] = x0;
+            lines[ 4] = y1;
             lines[ 5] = z;
 
-            lines[ 6] = outline.left;
-            lines[ 7] = outline.bottom;
+            lines[ 6] = x0;
+            lines[ 7] = y1;
             lines[ 8] = z;
 
-            lines[ 9] = outline.right;
-            lines[10] = outline.bottom;
+            lines[ 9] = x1;
+            lines[10] = y1;
             lines[11] = z;
 
-            lines[12] = outline.right;
-            lines[13] = outline.bottom;
+            lines[12] = x1;
+            lines[13] = y1;
             lines[14] = z;
 
-            lines[15] = outline.right;
-            lines[16] = outline.top;
+            lines[15] = x1;
+            lines[16] = y0;
             lines[17] = z;
 
-            lines[18] = outline.right;
-            lines[19] = outline.top;
+            lines[18] = x1;
+            lines[19] = y0;
             lines[20] = z;
 
-            lines[21] = outline.left;
-            lines[22] = outline.top;
+            lines[21] = x0;
+            lines[22] = y0;
             lines[23] = z;
         }
 
@@ -257,18 +262,6 @@ public class ViewPage3DTextSelection
             glDrawArrays(GL_LINES,0,N_VERTICES);
 
             glPopMatrix();
-        }
-    }
-    protected void pad(int which){
-
-        final RectF outline = this.outline[which];
-
-        final float pad = (Math.max((outline.right-outline.left),(outline.bottom-outline.top)) * 0.10f);
-        {
-            outline.left   -= pad;
-            outline.top    -= pad;
-            outline.right  += pad;
-            outline.bottom += pad;
         }
     }
 }

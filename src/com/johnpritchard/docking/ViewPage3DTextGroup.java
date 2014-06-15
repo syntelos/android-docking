@@ -6,8 +6,7 @@ package com.johnpritchard.docking;
 import android.graphics.RectF;
 
 /**
- * An instance of this class is able to maintain a dynamic bounding
- * box for a fixed substring of the 3D text label.
+ * 
  * 
  * @see ViewPage3DTextLabel
  */
@@ -25,23 +24,30 @@ public class ViewPage3DTextGroup
     }
     public ViewPage3DTextGroup(int begin, int end, double z){
         super(begin,end,z);
-
-        groupOpen();
     }
 
 
-    public void groupOpen(){
-
-        final int next = (0 == this.b_current)?(1):(0);
-
-        this.outline[next].set(Float.MAX_VALUE,Float.MAX_VALUE,Float.MIN_VALUE,Float.MIN_VALUE);
-    }
-    public void groupClose(){
-    }
     public RectF group(){
 
         return this.outline[this.b_current];
     }
     public void open(int count){
+
+        final int prev = this.b_current;
+
+        final int next = (0 == prev)?(1):(0);
+
+        final RectF outlinePrev = this.outline[prev];
+
+        final RectF outlineNext = this.outline[next];
+
+        if (outlinePrev.isEmpty()){
+
+            outlineNext.set(Float.MAX_VALUE,Float.MAX_VALUE,Float.MIN_VALUE,Float.MIN_VALUE);
+        }
+        else {
+
+            outlineNext.set(outlinePrev.left,outlinePrev.top,outlinePrev.right,outlinePrev.bottom);
+        }
     }
 }

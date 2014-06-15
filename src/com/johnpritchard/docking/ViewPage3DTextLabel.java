@@ -285,15 +285,15 @@ public class ViewPage3DTextLabel
                  */
                 double s, tx, ty, tz;
 
-                if (selection instanceof ViewPageOperatorGroup){
-                    RectF selection = 
-                        ((ViewPageOperatorGroup)this.selection).group();
+                // if (selection instanceof ViewPageOperatorGroup){
+                //     RectF selection = 
+                //         ((ViewPageOperatorGroup)this.selection).group();
 
-                    minX = selection.left;
-                    minY = selection.top;
-                    maxX = selection.right;
-                    maxY = selection.bottom;
-                }
+                //     minX = selection.left;
+                //     minY = selection.top;
+                //     maxX = selection.right;
+                //     maxY = selection.bottom;
+                // }
 
                 s = (h / (maxY-minY));
 

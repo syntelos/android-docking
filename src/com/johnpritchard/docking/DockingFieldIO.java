@@ -37,7 +37,7 @@ public final class DockingFieldIO
 
         this.appendName(id);
 
-        this.selection = new ViewPage3DTextSelection((op.llen+dof.llen+2),z); //Group
+        this.selection = new ViewPage3DTextGroup((op.llen+dof.llen+2),z); //Group//Selection
 
         format();
     }
