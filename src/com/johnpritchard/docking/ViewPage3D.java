@@ -310,11 +310,11 @@ public abstract class ViewPage3D
             final int first = first();
             final int focus = preferences.getInt(name()+".focus",first);
 
-            if (-1 < focus && focus < count){
+            if (-1 < focus && focus < count && navigationInclude(-1,components[focus])){
 
                 current(components[focus]);
             }
-            else if (-1 < first && first < count){
+            else if (-1 < first && first < count && navigationInclude(-1,components[first])){
 
                 current(components[first]);
             }
@@ -382,10 +382,27 @@ public abstract class ViewPage3D
             final int count = this.components.length;
             if (0 < count){
                 if (Input.Down == in){
-                    return this.components[0];
+                    for (int cc = 0; cc < count; cc++){
+
+                        ViewPage3DComponent c = components[cc];
+
+                        if (navigationInclude(cc,c)){
+
+                            return c;
+                        }
+                    }
+                    return null;
                 }
                 else {
-                    return this.components[count-1];
+                    for (int cc = count-1; -1 < cc; cc--){
+                        ViewPage3DComponent c = components[cc];
+
+                        if (navigationInclude(cc,c)){
+
+                            return c;
+                        }
+                    }
+                    return null;
                 }
             }
             else {

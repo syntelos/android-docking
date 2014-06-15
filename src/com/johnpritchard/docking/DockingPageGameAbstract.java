@@ -352,8 +352,11 @@ public abstract class DockingPageGameAbstract
         glClearColor(1.0f,1.0f,1.0f,1.0f);
 
     }
-
-
+    @Override
+    protected boolean navigationInclude(int index, ViewPage3DComponent c){
+        return (c instanceof DockingFieldIO);
+    }
+    @Override
     protected void draw(){
 
         out_vx.draw();
