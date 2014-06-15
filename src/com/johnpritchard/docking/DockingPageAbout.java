@@ -4,6 +4,7 @@
 package com.johnpritchard.docking;
 
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.RectF;
 
 /**
@@ -34,7 +35,18 @@ public class DockingPageAbout
 
     protected final static ViewPage2DTextMultiline text6 = new ViewPage2DTextMultiline("Final docking velocity should be no more than one centimeter per second: 0.010 m/s.");
 
+    protected final static ViewPage2DTextLabel text0pg = new ViewPage2DTextLabel("1/7");
+    protected final static ViewPage2DTextLabel text1pg = new ViewPage2DTextLabel("2/7");
+    protected final static ViewPage2DTextLabel text2pg = new ViewPage2DTextLabel("3/7");
+    protected final static ViewPage2DTextLabel text3pg = new ViewPage2DTextLabel("4/7");
+    protected final static ViewPage2DTextLabel text4pg = new ViewPage2DTextLabel("5/7");
+    protected final static ViewPage2DTextLabel text5pg = new ViewPage2DTextLabel("6/7");
+    protected final static ViewPage2DTextLabel text6pg = new ViewPage2DTextLabel("7/7");
+
     static {
+        /*
+         * Group 2D text to uniform presentation
+         */
         RectF g = new RectF();
         {
             g.union(textA.bounds());
@@ -58,6 +70,26 @@ public class DockingPageAbout
             text4.group(g,p);
             text5.group(g,p);
             text6.group(g,p);
+        }
+        /*
+         * Align intro page numbers
+         */
+        Matrix pg = new Matrix();
+        {
+            RectF r = text0pg.bounds();
+            float rw = (r.right-r.left);
+            float rh = (r.bottom-r.top);
+
+            pg.setTranslate((g.right-rw),(g.bottom-rh));
+        }
+        {
+            text0pg.transform(pg);
+            text1pg.transform(pg);
+            text2pg.transform(pg);
+            text3pg.transform(pg);
+            text4pg.transform(pg);
+            text5pg.transform(pg);
+            text6pg.transform(pg);
         }
     }
 

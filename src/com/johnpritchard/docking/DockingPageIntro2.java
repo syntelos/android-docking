@@ -19,7 +19,7 @@ public final class DockingPageIntro2
 
     private DockingPageIntro2(){
         super(new ViewPage2DComponent[]{
-                text2
+                text2, text2pg
             });
     }
 

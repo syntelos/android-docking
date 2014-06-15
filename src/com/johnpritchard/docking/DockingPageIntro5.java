@@ -18,7 +18,7 @@ public final class DockingPageIntro5
 
     private DockingPageIntro5(){
         super(new ViewPage2DComponent[]{
-                text5
+                text5, text5pg
             });
     }
 
