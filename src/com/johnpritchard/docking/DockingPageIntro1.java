@@ -10,29 +10,27 @@ import android.graphics.RectF;
  * 
  */
 public final class DockingPageIntro1
-    extends ViewPage2D
+    extends DockingPageIntro
 {
 
     public final static DockingPageIntro1 Instance = new DockingPageIntro1();
-
-    protected final static ViewPage2DTextGroup Group = DockingPageIntro.Group;
 
 
 
     private DockingPageIntro1(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Use up, down, left, right and enter actions to select, modify, and execute thruster control.")
+                text1
             });
     }
 
 
     @Override
     public String name(){
-        return Page.intro.name();
+        return Page.intro1.name();
     }
     @Override
     public Page value(){
-        return Page.intro;
+        return Page.intro1;
     }
     @Override
     public void input(InputScript in){

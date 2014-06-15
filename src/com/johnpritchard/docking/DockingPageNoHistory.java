@@ -10,18 +10,16 @@ import android.graphics.RectF;
  * 
  */
 public final class DockingPageNoHistory
-    extends ViewPage2D
+    extends DockingPageAbout
 {
+
 
     public final static DockingPageNoHistory Instance = new DockingPageNoHistory();
 
 
-
-
-
     private DockingPageNoHistory(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextLabel("Record not found")
+                textH
             });
     }
 

@@ -52,10 +52,10 @@ public class ViewPage2DTextMultiline
     }
 
 
-    public boolean pageMeasureByGroup(){
+    // public boolean pageMeasureByGroup(){
 
-        return hasSelectionGroup();
-    }
+    //     return hasSelectionGroup();
+    // }
     public ViewPage2DComponentPath setText(String text){
         if (null != text){
             reset();
@@ -125,7 +125,7 @@ public class ViewPage2DTextMultiline
 
                 selection_update = new RectF();
 
-                selection.open(count);
+                selection.open(1);
             }
 
 
@@ -137,13 +137,6 @@ public class ViewPage2DTextMultiline
 
                 this.fill.getTextPath(tl,0,tl.length(),x,y,line);
 
-                if (null != selection){
-
-                    line.computeBounds(selection_update,true);
-
-                    selection.update(cc,selection_update);
-                }
-
                 y += TextSize;
 
                 this.path.add(line);
@@ -153,6 +146,8 @@ public class ViewPage2DTextMultiline
             /*
              */
             if (null != selection){
+
+                selection.update(0,this.bounds());
 
                 selection.close();
             }

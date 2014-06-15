@@ -10,29 +10,27 @@ import android.graphics.RectF;
  * 
  */
 public final class DockingPageIntro3
-    extends ViewPage2D
+    extends DockingPageIntro
 {
 
     public final static DockingPageIntro3 Instance = new DockingPageIntro3();
-
-    protected final static ViewPage2DTextGroup Group = DockingPageIntro.Group;
 
 
 
     private DockingPageIntro3(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Velocity is meters per second.")
+                text3
             });
     }
 
 
     @Override
     public String name(){
-        return Page.intro.name();
+        return Page.intro3.name();
     }
     @Override
     public Page value(){
-        return Page.intro;
+        return Page.intro3;
     }
     @Override
     public void input(InputScript in){

@@ -10,29 +10,26 @@ import android.graphics.RectF;
  * 
  */
 public final class DockingPageIntro5
-    extends ViewPage2D
+    extends DockingPageIntro
 {
 
     public final static DockingPageIntro5 Instance = new DockingPageIntro5();
 
-    protected final static ViewPage2DTextGroup Group = DockingPageIntro.Group;
-
-
 
     private DockingPageIntro5(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Thruster control is represented in time seconds.")
+                text5
             });
     }
 
 
     @Override
     public String name(){
-        return Page.intro.name();
+        return Page.intro5.name();
     }
     @Override
     public Page value(){
-        return Page.intro;
+        return Page.intro5;
     }
     @Override
     public void input(InputScript in){

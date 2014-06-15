@@ -10,29 +10,27 @@ import android.graphics.RectF;
  * 
  */
 public final class DockingPageIntro2
-    extends ViewPage2D
+    extends DockingPageIntro
 {
 
     public final static DockingPageIntro2 Instance = new DockingPageIntro2();
-
-    protected final static ViewPage2DTextGroup Group = DockingPageIntro.Group;
 
 
 
     private DockingPageIntro2(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Use thrusters designated X- to reduce velocity.")
+                text2
             });
     }
 
 
     @Override
     public String name(){
-        return Page.intro.name();
+        return Page.intro2.name();
     }
     @Override
     public Page value(){
-        return Page.intro;
+        return Page.intro2;
     }
     @Override
     public void input(InputScript in){

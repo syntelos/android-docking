@@ -10,29 +10,26 @@ import android.graphics.RectF;
  * 
  */
 public final class DockingPageIntro6
-    extends ViewPage2D
+    extends DockingPageIntro
 {
 
     public final static DockingPageIntro6 Instance = new DockingPageIntro6();
 
-    protected final static ViewPage2DTextGroup Group = DockingPageIntro.Group;
-
-
 
     private DockingPageIntro6(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Final docking velocity should be no more than one centimeter per second: 0.010 m/s.")
+                text6
             });
     }
 
 
     @Override
     public String name(){
-        return Page.intro.name();
+        return Page.intro6.name();
     }
     @Override
     public Page value(){
-        return Page.intro;
+        return Page.intro6;
     }
     @Override
     public void input(InputScript in){

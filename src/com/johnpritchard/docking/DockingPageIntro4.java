@@ -10,29 +10,27 @@ import android.graphics.RectF;
  * 
  */
 public final class DockingPageIntro4
-    extends ViewPage2D
+    extends DockingPageIntro
 {
 
     public final static DockingPageIntro4 Instance = new DockingPageIntro4();
-
-    protected final static ViewPage2DTextGroup Group = DockingPageIntro.Group;
 
 
 
     private DockingPageIntro4(){
         super(new ViewPage2DComponent[]{
-                new ViewPage2DTextMultiline(Group,"Distance to docking is meters.")
+                text4
             });
     }
 
 
     @Override
     public String name(){
-        return Page.intro.name();
+        return Page.intro4.name();
     }
     @Override
     public Page value(){
-        return Page.intro;
+        return Page.intro4;
     }
     @Override
     public void input(InputScript in){

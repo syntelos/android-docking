@@ -82,10 +82,10 @@ public abstract class ViewPageComponentAbstract
 
         return (ViewPageOperatorGroup)selection;
     }
-    public boolean pageMeasureByGroup(){
+    // public boolean pageMeasureByGroup(){
 
-        return false;
-    }
+    //     return false;
+    // }
     public final void setSelection(ViewPageOperatorSelection selection){
 
         this.selection = selection;

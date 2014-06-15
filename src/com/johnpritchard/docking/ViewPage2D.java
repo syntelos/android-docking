@@ -70,19 +70,19 @@ public abstract class ViewPage2D
         for (int cc = offset, end = (offset+count); cc < end; cc++){
             ViewPage2DComponent c = components[cc];
 
-            if (c.pageMeasureByGroup()){
+            // if (c.pageMeasureByGroup()){
 
-                RectF sel = c.getSelectionGroup().group();
+            //     RectF sel = c.getSelectionGroup().group();
 
-                if (sel != selection_group){
-                    selection_group = sel;
+            //     if (sel != selection_group){
+            //         selection_group = sel;
 
-                    g.union(sel);
-                }
-            }
-            else {
+            //         g.union(sel);
+            //     }
+            // }
+            // else {
                 g.union(c.bounds());
-            }
+            // }
         }
         return g;
     }
@@ -148,10 +148,10 @@ public abstract class ViewPage2D
             throw new IllegalStateException();
         }
     }
-    protected float pad(RectF a, RectF b){
+    protected static float pad(RectF a, RectF b){
         return Math.max(pad(a),pad(b));
     }
-    protected float pad(RectF group){
+    protected static float pad(RectF group){
         return (Math.max((group.right-group.left),(group.bottom-group.top)) * PAD_RATIO);
     }
     /**
