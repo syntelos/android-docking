@@ -15,24 +15,30 @@ public final class DockingPhysics
 {
     private final static String TAG = ObjectLog.TAG;
 
+    private final static Object StaticMonitor = ViewAnimation.class;
+
     protected volatile static DockingPhysics Instance;
 
     public static void Start(SharedPreferences state){
-        if (null == Instance){
+        synchronized(StaticMonitor){
+            if (null == Instance){
 
-            Instance = new DockingPhysics();
+                Instance = new DockingPhysics();
 
-            Instance.start(state);
+                Instance.start(state);
+            }
         }
     }
     public static void Stop(SharedPreferences.Editor state){
-        DockingPhysics instance = Instance;
-        if (null != instance){
-            try {
-                instance.stop(state);
-            }
-            finally {
-                Instance = null;
+        synchronized(StaticMonitor){
+            DockingPhysics instance = Instance;
+            if (null != instance){
+                try {
+                    instance.stop(state);
+                }
+                finally {
+                    Instance = null;
+                }
             }
         }
     }
