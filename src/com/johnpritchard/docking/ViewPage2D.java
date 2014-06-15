@@ -47,7 +47,7 @@ public abstract class ViewPage2D
     protected ViewPage2D(ViewPage2DComponent[] components){
         super();
         this.components = components;
-        info("init");
+        //info("init");
         init();
     }
 
@@ -651,7 +651,7 @@ public abstract class ViewPage2D
             if (null != interactive && 
                 (Input.Enter == in || interactive.interactive()))
             {
-                info("interactive "+event);
+                //info("interactive "+event);
 
                 interactive.input(event);
             }
@@ -661,7 +661,7 @@ public abstract class ViewPage2D
 
                 if (null != current){
 
-                    info("navigation "+event);
+                    //info("navigation "+event);
 
                     current(current.getCardinal(in));
                 }
@@ -670,7 +670,7 @@ public abstract class ViewPage2D
 
                     if (null != current){
 
-                        info("navigation "+event);
+                        //info("navigation "+event);
 
                         current(current);
                     }

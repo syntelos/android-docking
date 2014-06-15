@@ -28,8 +28,12 @@ public final class DockingPhysics
     public static void Stop(SharedPreferences.Editor state){
         DockingPhysics instance = Instance;
         if (null != instance){
-
-            instance.stop(state);
+            try {
+                instance.stop(state);
+            }
+            finally {
+                Instance = null;
+            }
         }
     }
     public static void Script(PhysicsScript in){
@@ -79,7 +83,7 @@ public final class DockingPhysics
     }
     public void run(){
         try {
-            info("running");
+            //info("running");
 
             sleep(1500L);
 
@@ -92,7 +96,7 @@ public final class DockingPhysics
 
                     while (null != prog){
 
-                        info(prog.toString());
+                        //info(prog.toString());
 
                         sv.add(prog);
 
@@ -117,9 +121,9 @@ public final class DockingPhysics
             return;
         }
         finally {
-            info("returning");
+            //info("returning");
 
-            Instance = null;
+            //Instance = null;
         }
     }
     protected void verbose(String m){

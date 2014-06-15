@@ -106,7 +106,7 @@ public final class View3DRenderer
         }
     }
     public synchronized void surfaceDestroyed(SurfaceHolder holder){
-        info("surfaceDestroyed");
+        //info("surfaceDestroyed");
 
         this.plumb = false;
         this.screenshot = false;
@@ -122,7 +122,7 @@ public final class View3DRenderer
             return;
         }
         else {
-            info("pageTo "+page);
+            //info("pageTo "+page);
 
             if (null == page){
 
@@ -147,7 +147,7 @@ public final class View3DRenderer
 
                         this.page = null;
 
-                        warn("switching to 2D for page: "+page);
+                        //warn("switching to 2D for page: "+page);
 
                         Docking.StartActivity2D();
                     }
@@ -168,7 +168,7 @@ public final class View3DRenderer
 
                     this.page = null;
 
-                    warn("switching to 2D for page: "+page);
+                    //warn("switching to 2D for page: "+page);
 
                     Docking.StartActivity2D();
                 }

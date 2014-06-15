@@ -78,21 +78,21 @@ public final class View3D
      * Occurs before surface created
      */
     public void onCreate(SharedPreferences state){
-        info("onCreate");
+        //info("onCreate");
 
         this.preferences = state;
 
         this.renderer.onCreate(state);
     }
     public void onResume(){
-        info("onResume");
+        //info("onResume");
 
         ViewAnimation.Start(this);
 
         this.renderer.onResume();
     }
     public void onPause(SharedPreferences.Editor state){
-        info("onPause");
+        //info("onPause");
 
         this.renderer.onPause(state);
 

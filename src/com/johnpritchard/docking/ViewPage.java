@@ -123,16 +123,16 @@ public abstract class ViewPage
             this.landscape = (width > height);
             this.pad = ((float)Math.max(width,height)) * PAD_RATIO;
 
-            info("layout");
+            //info("layout");
 
             layout();
 
-            info("navigation");
+            //info("navigation");
 
             navigation();
 
         }
-        info("focus");
+        //info("focus");
 
         focus();
 

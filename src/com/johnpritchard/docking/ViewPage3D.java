@@ -59,7 +59,7 @@ public abstract class ViewPage3D
         else {
             this.components = components;
         }
-        info("init");
+        //info("init");
         init();
     }
 
@@ -223,7 +223,7 @@ public abstract class ViewPage3D
             if (null != interactive && 
                 (Input.Enter == in || interactive.interactive()))
             {
-                info("interactive "+event);
+                //info("interactive "+event);
 
                 interactive.input(event);
             }
@@ -233,7 +233,7 @@ public abstract class ViewPage3D
 
                 if (null != current){
 
-                    info("navigation "+event);
+                    //info("navigation "+event);
 
                     current(current.getCardinal(in));
                 }
@@ -242,7 +242,7 @@ public abstract class ViewPage3D
 
                     if (null != current){
 
-                        info("navigation "+event);
+                        //info("navigation "+event);
 
                         current(current);
                     }
@@ -287,7 +287,7 @@ public abstract class ViewPage3D
                                 c.setCardinal(dir,b);
                             }
                             else {
-                                warn("navigation "+c.getName()+' '+c.bounds()+" <"+dir+"> ~ "+b.getName()+' '+b.bounds());
+                                //warn("navigation "+c.getName()+' '+c.bounds()+" <"+dir+"> ~ "+b.getName()+' '+b.bounds());
                             }
                         }
                     }
@@ -424,7 +424,7 @@ public abstract class ViewPage3D
 
             next.setCurrent();
 
-            info("navigation current = "+next.getName());
+            //info("navigation current = "+next.getName());
 
             if (next instanceof ViewPageComponentInteractive){
 
@@ -435,7 +435,7 @@ public abstract class ViewPage3D
             }
         }
         else {
-            warn("navigation current = <null>");
+            //warn("navigation current = <null>");
             if (null != prev){
                 prev.clearCurrent();
             }

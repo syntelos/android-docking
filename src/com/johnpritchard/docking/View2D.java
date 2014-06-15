@@ -100,20 +100,20 @@ public final class View2D
      * Occurs before surface created
      */
     public void onCreate(SharedPreferences state){
-        info("onCreate");
+        //info("onCreate");
 
         this.preferences = state;
 
     }
     public void onResume(){
-        info("onResume");
+        //info("onResume");
 
         ViewAnimation.Start(this);
 
         pageTo(Page.valueOf(preferences.getString("page","start")));
     }
     public void onPause(SharedPreferences.Editor state){
-        info("onPause");
+        //info("onPause");
 
         if (null != this.pageId){
 
@@ -130,12 +130,12 @@ public final class View2D
         ViewAnimation.Stop();
     }
     public void surfaceCreated(SurfaceHolder holder){
-        info("surfaceCreated");
+        //info("surfaceCreated");
 
         this.plumb = false;
     }
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
-        info("surfaceChanged");
+        //info("surfaceChanged");
 
         this.width = w;
         this.height = h;
@@ -149,7 +149,7 @@ public final class View2D
         this.repaint();
     }
     public void surfaceDestroyed(SurfaceHolder holder){
-        info("surfaceDestroyed");
+        //info("surfaceDestroyed");
 
         this.plumb = false;
     }
@@ -448,7 +448,7 @@ public final class View2D
      */
     public void pageTo(Page page){
 
-        info("pageTo "+page);
+        //info("pageTo "+page);
 
         if (null == page){
 
@@ -473,7 +473,7 @@ public final class View2D
 
                     this.page = null;
 
-                    warn("switching to 3D for page: "+page);
+                    //warn("switching to 3D for page: "+page);
 
                     Docking.StartActivity3D();
                 }
@@ -494,7 +494,7 @@ public final class View2D
 
                 this.page = null;
 
-                warn("switching to 3D for page: "+page);
+                //warn("switching to 3D for page: "+page);
 
                 Docking.StartActivity3D();
             }
