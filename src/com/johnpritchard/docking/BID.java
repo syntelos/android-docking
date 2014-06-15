@@ -58,7 +58,7 @@ public final class BID
 
     protected char next(){
 
-        int x = nextInt(RandomOctetBits);
+        int x = next(RandomOctetBits);
 
         return IdentifierMap[x];
     }

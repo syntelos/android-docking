@@ -92,7 +92,8 @@ public abstract class DockingPageGameAbstract
             final float score = state.score;
             final Date created = state.created;
             final Date completed = state.completed;
-            final DockingGameLevel level = state.level;
+
+            final DockingGameLevel level = state.level; //
             /*
              * Write
              */
@@ -108,15 +109,15 @@ public abstract class DockingPageGameAbstract
             out_t.format(Seconds(t_clock));
             out_tr.format(Seconds(t_source));
 
-            out_lv.format(level);
-            out_m.format(level);
-            out_t10.format(level);
-            out_t01.format(level);
-
             in_xp0.format(Seconds(t_xp0));
             in_xm0.format(Seconds(t_xm0));
             in_xp1.format(Seconds(t_xp1));
             in_xm1.format(Seconds(t_xm1));
+
+            out_lv.format(level);                       //
+            out_m.format(level);                        //
+            out_t10.format(level);                      //
+            out_t01.format(level);                      //
 
             Range(rx);
         }

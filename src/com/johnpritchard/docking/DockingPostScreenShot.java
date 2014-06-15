@@ -113,8 +113,34 @@ public class DockingPostScreenShot
             throw new IllegalArgumentException();
         }
     }
+    /*
+     * image flip about the horizontal (because ogl fb origin is lower-left)
+     */
+    protected Bitmap flip(Bitmap image){
 
+        final int count = width*height;
+        
+        final int[] pix = new int[count];
+        {
+            image.getPixels(pix,0,width,0,0,width,height);
+        }
+        {
+            final int[] swap = new int[width];
+            final int term = (count>>1);
+            int head = 0, tail = (count-width);
 
+            for (; term < tail; head += width, tail -= width)
+            {
+                System.arraycopy(pix,head,swap,0,width);  // copy head to swap
+                System.arraycopy(pix,tail,pix,head,width);// copy tail to head
+                System.arraycopy(swap,0,pix,tail,width);  // copy swap to tail
+            }
+        }
+        {
+            image.setPixels(pix,0,width,0,0,width,height);
+        }
+        return image;
+    }
     protected Bitmap screenshot()
         throws InterruptedException
     {
@@ -134,7 +160,7 @@ public class DockingPostScreenShot
 
             image.copyPixelsFromBuffer(buffer);
 
-            return image;
+            return flip(image);
         }
         else {
 
@@ -166,7 +192,6 @@ public class DockingPostScreenShot
                 final Bitmap raw = screenshot();
 
                 try {
-
                     raw.compress(Bitmap.CompressFormat.PNG,100,fout);
 
                     fout.flush();
@@ -175,28 +200,21 @@ public class DockingPostScreenShot
                     fout.close();
                 }
                 /*
-                 * Report internal storage as "filename" and external
-                 * storage as "fully qualified path"
+                 * Report
                  */
-                if (external){
-
-                    Docking.Toast3D("Screenshot to "+this.externalFile.getPath());
-                }
-                else {
-                    Docking.Toast3D("Screenshot to "+this.filename);
-                }
+                Docking.Toast3D("Screenshot "+this.filename);
             }
             catch (FileNotFoundException exc){
 
-                Docking.Toast3D("Screenshot failed for missing storage media");
+                Docking.Toast3D("Screenshot storage error");
 
                 error("post",exc);
             }
-            catch (Exception exc){
+            catch (Throwable t){
 
-                Docking.Toast3D("Screenshot failed for internal error");
+                Docking.Toast3D("Screenshot internal error");
 
-                error("post",exc);
+                error("post",t);
             }
         }
         else {
