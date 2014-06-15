@@ -91,7 +91,7 @@ public final class DockingGeometryPort
                 final float z_1 = +0.000f;
                 final float r0 = +0.940f;
 
-                final int count = (9*Res);
+                final int count = (18*Res);
                 final float[] rim_v = new float[count];
                 {
                     for (int a = 0, cc = 0; a < Res; a++){
@@ -113,11 +113,23 @@ public final class DockingGeometryPort
                         rim_v[cc++] = x1;
                         rim_v[cc++] = y1;
                         rim_v[cc++] = z_1;
+
+                        rim_v[cc++] = x0;
+                        rim_v[cc++] = y0;
+                        rim_v[cc++] = z_0;
+
+                        rim_v[cc++] = x1;
+                        rim_v[cc++] = y1;
+                        rim_v[cc++] = z_0;
+
+                        rim_v[cc++] = x1;
+                        rim_v[cc++] = y1;
+                        rim_v[cc++] = z_1;
                     }
                 }
                 final float[] rim_n = new float[count];
                 {
-                    for (int a = 0, cv = 0, cn = 0; a < Res; a++){
+                    for (int cv = 0, cn = 0; cv < count; ){
 
                         final float x0 = rim_v[cv++];
                         final float y0 = rim_v[cv++];
@@ -131,20 +143,17 @@ public final class DockingGeometryPort
                         final float y2 = rim_v[cv++];
                         final float z2 = rim_v[cv++];
 
-                        float[] n0 = Vector.Cross(x0,y0,z0,x1,y1,z1);
-                        float[] n1 = Vector.Cross(x1,y1,z1,x2,y2,z2);
+                        rim_n[cn++] = -x0;
+                        rim_n[cn++] = -y0;
+                        rim_n[cn++] = 0.0f;
 
-                        rim_n[cn++] = n0[X];
-                        rim_n[cn++] = n0[Y];
-                        rim_n[cn++] = n0[Z];
+                        rim_n[cn++] = -x1;
+                        rim_n[cn++] = -y1;
+                        rim_n[cn++] = 0.0f;
 
-                        rim_n[cn++] = n0[Z];
-                        rim_n[cn++] = n0[Y];
-                        rim_n[cn++] = n0[Z];
-
-                        rim_n[cn++] = n1[Z];
-                        rim_n[cn++] = n1[Z];
-                        rim_n[cn++] = n1[Z];
+                        rim_n[cn++] = -x2;
+                        rim_n[cn++] = -y2;
+                        rim_n[cn++] = 0.0f;
                     }
                 }
 
