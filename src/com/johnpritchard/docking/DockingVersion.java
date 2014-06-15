@@ -12,6 +12,10 @@ public final class DockingVersion {
 
     public final static String Name = "1";
 
+    public final static String Type = "beta";
+
+    public final static String Desc = Name+' '+Type;
+
     private DockingVersion(){
         super();
     }

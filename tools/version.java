@@ -10,6 +10,8 @@ import org.w3c.dom.*;
  */
 public class version {
 
+    public final static String RELEASE_CLASS = "beta";
+
     private final static String AMF_NS = "http://schemas.android.com/apk/res/android";
 
     private final static File SRCD()
@@ -85,6 +87,10 @@ public class version {
                 out.printf ("    public final static int Code = %d;%n",version_code);
                 out.println();
                 out.printf ("    public final static String Name = \"%s\";%n",version_name);
+                out.println();
+                out.printf ("    public final static String Type = \"%s\";%n",RELEASE_CLASS);
+                out.println();
+                out.println("    public final static String Desc = Name+' '+Type;");
                 out.println();
                 out.println("    private DockingVersion(){");
                 out.println("        super();");

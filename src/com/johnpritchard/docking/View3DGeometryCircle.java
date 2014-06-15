@@ -29,43 +29,37 @@
  */
 package com.johnpritchard.docking;
 
+import android.util.Log;
+
 /**
  * Largely derived from Freeglut geometry by Pawel W. Olszta.
  */
 public abstract class View3DGeometryCircle
     extends View3DGeometry
 {
+    protected final static double PI_M2 = (Math.PI * 2.0);
+
 
     protected final static int CircleTableSize(int n){
         return (n+1);
     }
-    protected final static void CircleTable(double[] sint, double[] cost, final int n){
+    protected final static void CircleTable(double[] sin_t, double[] cos_t, final int n){
 
-        /* Table size, the sign of n flips the circle direction
-         */
         final int size = Math.abs(n);
 
-        /* Determine the angle between samples
-         */
-        final double angle = 2.0*Math.PI/((double)( ( n == 0 ) ? 1 : n ));
+        final double angle = PI_M2/(double)n;
 
-        /*
-         * Compute cos and sin around the circle
-         */
-        sint[0] = 0.0;
-        cost[0] = 1.0;
+        cos_t[0] = 1.0;
+        sin_t[0] = 0.0;
 
         for (int cc = 1; cc < size; cc++){
 
-            sint[cc] = Math.sin(angle*cc);
-
-            cost[cc] = Math.cos(angle*cc);
+            cos_t[cc] = Math.cos(angle*cc);
+            sin_t[cc] = Math.sin(angle*cc);
         }
-        /*
-         * Last sample is duplicate of the first
-         */
-        sint[size] = sint[0];
-        cost[size] = cost[0];
+
+        sin_t[size] = sin_t[0];
+        cos_t[size] = cos_t[0];
     }
 
 
@@ -73,4 +67,31 @@ public abstract class View3DGeometryCircle
         super();
     }
 
+
+    protected final static float[] Add(float[] a, float[] b){
+
+        int alen = a.length;
+        int blen = b.length;
+        int len = (alen+blen);
+        float[] copier = new float[len];
+        System.arraycopy(a,0,copier,0,alen);
+        System.arraycopy(b,0,copier,alen,blen);
+        return copier;
+
+    }
+    protected final static float[] Copy(float[] tgt, int ofs, int count, float[] v){
+
+        int c = ofs;
+
+        final int z = (ofs+count);
+
+        while (c < z){
+
+            System.arraycopy(v,0,tgt,c,3);
+
+            c += 3;
+        }
+
+        return tgt;
+    }
 }

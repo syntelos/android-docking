@@ -112,6 +112,8 @@ public final class View2D
         ViewAnimation.Start(this);
 
         pageTo(Page.valueOf(preferences.getString("page","start")));
+
+        DockingGeometryPort.Init();
     }
     public void onPause(SharedPreferences.Editor state){
         //info("onPause");
