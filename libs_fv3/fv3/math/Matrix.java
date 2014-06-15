@@ -874,6 +874,76 @@ public class Matrix
             v[Z] = (float)(m[M20] * vX + m[M21] * vY + m[M22] * vZ + m[M23]);
         }
     }
+
+    public final static float[] RotateX(float[] m, float rax){
+        float[] R = Identity.clone();
+
+        float c = (float)Math.cos(rax);
+        float s = (float)Math.sin(rax);
+
+        R[M11] = c;
+        R[M21] = -s;
+
+        R[M12] = s;
+        R[M22] = c;
+
+        return Mul(m,R);
+    }
+    public final static float[] RotateY(float[] m, float ray){
+        float[] R = Identity.clone();
+
+        float c = (float)Math.cos(ray);
+        float s = (float)Math.sin(ray);
+
+        R[M00] = c;
+        R[M20] = -s;
+
+        R[M02] = s;
+        R[M22] = c;
+
+        return Mul(m,R);
+    }
+    public final static float[] RotateZ(float[] m, float raz){
+        float[] R = Identity.clone();
+
+        float c = (float)Math.cos(raz);
+        float s = (float)Math.sin(raz);
+
+        R[M00] = c;
+        R[M10] = -s;
+
+        R[M01] = s;
+        R[M11] = c;
+
+        return Mul(m,R);
+    }
+    public final static float[] Rotate(float[] m, float rax, float ray, float raz){
+        float[] R = Identity.clone();
+
+        float cx = (float)Math.cos(rax);
+        float sx = (float)Math.sin(rax);
+
+        float cy = (float)Math.cos(ray);
+        float sy = (float)Math.sin(ray);
+
+        float cz = (float)Math.cos(raz);
+        float sz = (float)Math.sin(raz);
+
+        R[M00] =  cy * cz;
+        R[M01] = -cy * sz;
+        R[M02] =  sy;
+
+        R[M10] =  (sx * sy * cz)+(cx * sz);
+        R[M11] = -(sx * sy * sz) + (cx * cz);
+        R[M12] = -sx * cy;
+
+        R[M20] = -(cx * sy * cz) + (sx * sz);
+        R[M21] =  (cx * sy * sz) + (sx * cz);
+        R[M22] =  cx * cy;
+
+        return Mul(m,R);
+    }
+
     private final static double Sign(double x){
         if (x >= 0.0)
             return +1.0;

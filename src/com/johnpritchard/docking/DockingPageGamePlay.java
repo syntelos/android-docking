@@ -58,26 +58,10 @@ public final class DockingPageGamePlay
             glEnable(GL_COLOR_MATERIAL);
         }
         else {
-            FloatBuffer mm = model_matrix[model_matrix_current];
 
             glClear(CLR);
-            {
-                glPushMatrix();
 
-                glMultMatrixf(mm);
-
-                glColor4f(0.7f,0.7f,0.7f,1.0f);
-
-                /* Model
-                 */
-
-                glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
-                glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
-
-                DockingGeometryPort.Instance.draw();
-
-                glPopMatrix();
-            }
+            model();
 
             glColor4f(0.0f,0.0f,0.0f,1.0f);
 

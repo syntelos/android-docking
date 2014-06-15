@@ -29,6 +29,8 @@ public final class DockingPageGameModel
 
     private boolean stale = true;
 
+    private double rotation_y;
+
 
     private DockingPageGameModel(){
         super();
@@ -56,28 +58,14 @@ public final class DockingPageGameModel
             glEnable(GL_COLOR_MATERIAL);
         }
         else {
-            FloatBuffer mm = model_matrix[model_matrix_current];
 
             glClear(CLR);
-            {
-                glPushMatrix();
 
-                glMultMatrixf(mm);
-
-                glColor4f(0.7f,0.7f,0.7f,1.0f);
-
-                /* Model
-                 */
-
-                glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
-                glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
-
-                DockingGeometryPort.Instance.draw();
-
-                glPopMatrix();
-            }
+            model();
 
             glColor4f(0.0f,0.0f,0.0f,1.0f);
+
+            out_ry.draw();
 
             out_rx.draw();
 
@@ -95,24 +83,28 @@ public final class DockingPageGameModel
 
         Input type = in.type();
         switch(type){
-            /*
-             * TODO: translate model matrix +/- Z
-             */
         case Up:
+
+            ModelRangeInc(rotation_y);
             break;
-        case Left:
-            break;
-            /*
-             * TODO: rotate model matrix +/- R(X/Y)
-             */
+
         case Down:
+
+            ModelRangeDec(rotation_y);
             break;
+
+        case Left:
+
+            rotation_y = ModelRotYM(rotation_y);
+            break;
+
         case Right:
+
+            rotation_y = ModelRotYP(rotation_y);
             break;
-            /*
-             * Exit
-             */
+
         default:
+
             view.script(Page.start);
             break;
         }

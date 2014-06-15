@@ -96,6 +96,8 @@ public final class View3D
     public void onPause(SharedPreferences.Editor state){
         //info("onPause");
 
+        this.holder.setKeepScreenOn(false);
+
         this.renderer.onPause(state);
 
         ViewAnimation.Stop();

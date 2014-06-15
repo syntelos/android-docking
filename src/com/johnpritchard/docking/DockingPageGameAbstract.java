@@ -7,6 +7,7 @@ import android.opengl.GLES10;
 import static android.opengl.GLES10.*;
 import android.opengl.GLU;
 import android.opengl.Matrix;
+import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -25,6 +26,8 @@ public abstract class DockingPageGameAbstract
     protected final static double Z = 0.11; // Near Plane (see "Perspective", below)
 
     protected final static DockingOutputVx out_vx = new DockingOutputVx   (-3.0, +1.50, Z, 0.12);
+
+    protected final static DockingOutputR out_ry = new DockingOutputR     (-3.0, +1.50, Z, 0.12); //model R(Y)
 
     protected final static DockingOutputAx out_ax = new DockingOutputAx   (-0.7, +1.50, Z, 0.12);
 
@@ -196,7 +199,99 @@ public abstract class DockingPageGameAbstract
         model_matrix_current = next;
     }
 
+    private final static double MOD_LIN = 1.0;
+    private final static double MOD_ROT = (Math.PI / 6.0);
+
+    protected final static void ModelRangeInc(double ry){
+        final DockingCraftStateVector state = DockingCraftStateVector.Instance;
+
+        float rx;
+
+        synchronized(state){
+
+            state.range_x = Z(state.range_x + MOD_LIN);
+
+            rx = (float)state.range_x;
+        }
+        out_rx.format(rx);
+
+        ModelMatrixTR(rx,(float)ry);
+    }
+    protected final static void ModelRangeDec(double ry){
+        final DockingCraftStateVector state = DockingCraftStateVector.Instance;
+
+        float rx;
+
+        synchronized(state){
+
+            state.range_x = Z(state.range_x - MOD_LIN);
+
+            rx = (float)state.range_x;
+        }
+        out_rx.format(rx);
+
+        ModelMatrixTR(rx,(float)ry);
+    }
+    protected final static double ModelRotYM(double ry){
+
+        ry = Z(ry - MOD_ROT);
+
+        float rx;
+
+        final DockingCraftStateVector state = DockingCraftStateVector.Instance;
+
+        synchronized(state){
+
+            rx = (float)state.range_x;
+        }
+        out_ry.format((float)ry);
+
+        ModelMatrixTR(rx,(float)ry);
+
+        return ry;
+    }
+    protected final static double ModelRotYP(double ry){
+
+        ry = Z(ry + MOD_ROT);
+
+        float rx;
+
+        final DockingCraftStateVector state = DockingCraftStateVector.Instance;
+
+        synchronized(state){
+
+            rx = (float)state.range_x;
+        }
+        out_ry.format((float)ry);
+
+        ModelMatrixTR(rx,(float)ry);
+
+        return ry;
+    }
+    private final static void ModelMatrixTR(float t_x, float r_y){
+
+        final int next = (0 == model_matrix_current)?(1):(0);
+
+        final FloatBuffer mm = model_matrix[next];
+        {
+            float[] m = fv3.math.Matrix.Identity();
+
+            m = fv3.math.Matrix.RotateY(m,r_y);
+
+            fv3.math.Matrix.Translate(m,0f,0f,-t_x);
+
+            mm.put(m);
+            mm.position(0);
+        }
+        model_matrix_current = next;
+
+    }
 
+    protected final static float MOD_COL_R = 0.8f;
+    protected final static float MOD_COL_G = 0.8f;
+    protected final static float MOD_COL_B = 0.8f;
+    protected final static float MOD_COL_A = 1.0f;
+
     protected final static float[] CAMERA = fv3.math.Matrix.Identity();
     static {
         Matrix.setLookAtM(CAMERA, 0,
@@ -442,6 +537,22 @@ public abstract class DockingPageGameAbstract
          */
         glClearColor(1.0f,1.0f,1.0f,1.0f);
 
+    }
+    protected final static void model(){
+        FloatBuffer mm = model_matrix[model_matrix_current];
+
+        glPushMatrix();
+
+        glMultMatrixf(mm);
+
+        glColor4f(MOD_COL_R,MOD_COL_G,MOD_COL_B,MOD_COL_A);
+
+        glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
+        glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
+
+        DockingGeometryPort.Instance.draw();
+
+        glPopMatrix();
     }
 
     @Override
