@@ -98,6 +98,16 @@ public final class DockingDatabase
 
         return true;
     }
+    public static boolean Model(){
+        /*
+         * Show model
+         */
+        DockingCraftStateVector.Instance.model();
+
+        //Info("game: new");
+
+        return true;
+    }
     /**
      * Called from {@link DockingPhysics} to score and store the
      * {@link DockingCraftStateVector}.

@@ -32,10 +32,7 @@ public final class DockingPageGameView
 
     private DockingPageGameView(){
         super(new ViewPage3DComponent[]{
-                in_xp0, in_xm0, in_xp1, in_xm1,
-                out_lv, out_m, out_t10, out_t01,
-                out_score,
-                out_identifier, out_created, out_completed
+                in_xp0, in_xm0, in_xp1, in_xm1
             });
     }
 
@@ -70,6 +67,34 @@ public final class DockingPageGameView
 
             glFlush();
         }
+    }
+    @Override
+    protected void draw(){
+
+        out_vx.draw();
+
+        out_ax.draw();
+
+        out_t.draw();
+
+        out_rx.draw();
+
+        out_tr.draw();
+
+        out_lv.draw();
+
+        out_m.draw();
+
+        out_t10.draw();
+
+        out_t01.draw();
+
+        out_score.draw();
+        out_identifier.draw();
+        out_created.draw();
+        out_completed.draw();
+
+        super.draw();
     }
     @Override
     protected void focus(){

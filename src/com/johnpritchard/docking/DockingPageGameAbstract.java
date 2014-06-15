@@ -160,6 +160,26 @@ public abstract class DockingPageGameAbstract
     /**
      * Copy
      */
+    public final static void Range(){
+
+        final DockingCraftStateVector state = DockingCraftStateVector.Instance;
+
+        synchronized(state){
+            /*
+             * Read
+             */
+            final float rx = (float)state.range_x;
+            /*
+             * Write
+             */
+            out_rx.format(rx);
+
+            Range(rx);
+        }
+    }
+    /**
+     * Copy
+     */
     public final static void Range(float r_x){
 
         final int next = (0 == model_matrix_current)?(1):(0);
@@ -176,7 +196,7 @@ public abstract class DockingPageGameAbstract
         model_matrix_current = next;
     }
 
-
+
     protected final static float[] CAMERA = fv3.math.Matrix.Identity();
     static {
         Matrix.setLookAtM(CAMERA, 0,
@@ -184,21 +204,32 @@ public abstract class DockingPageGameAbstract
                           0.0f,  0.0f,  0.0f,
                           0.0f,  1.0f,  0.0f);
     }
-    protected final static float[] LIGHT_AMB = {
+    protected final static float[] L_GLOB_AMB = {
         0.3f, 0.3f, 0.3f, 1.0f
     };
-    protected final static float[] LIGHT_POS0 = {
+    protected final static float[] LIGHT0_POS = {
         1.0f, 1.0f, 0.0f, 0.0f
     };
-    protected final static float[] LIGHT_DIF0 = {
-        0.8f, 0.8f, 0.8f, 1.0f
+    protected final static float[] LIGHT1_POS = {
+        1.0f, -1.0f, 0.0f, 0.0f
     };
-    protected final static float[] LIGHT_POS1 = {
-        5.0f, -5.0f, 0.0f, 0.0f
+    protected final static float[] LIGHT_AMB = {
+        0.2f, 0.2f, 0.2f, 1.0f
     };
-    protected final static float[] LIGHT_DIF1 = {
-        0.4f, 0.4f, 0.4f, 1.0f
+    protected final static float[] LIGHT_DIF = {
+        1.0f, 1.0f, 1.0f, 1.0f
     };
+    protected final static float[] LIGHT_SPE = {
+        1.0f, 1.0f, 1.0f, 1.0f
+    };
+    protected final static float[] LIGHT_DIR = {
+        0.0f, 0.0f, -1000.0f
+    };
+    protected final static float LIGHT_C_ATT     = 1.5f;
+    protected final static float LIGHT_B_ATT     = 0.5f;
+    protected final static float LIGHT_A_ATT     = 0.2f;
+    protected final static float LIGHT_SPOT_ADEG = 45f;
+    protected final static float LIGHT_SPOT_EXP  = 2.0f;
 
     protected final static float[] MAT_SHIN = {
         5.0f
@@ -209,7 +240,11 @@ public abstract class DockingPageGameAbstract
 
     protected final static FloatBuffer camera;
 
-    protected final static FloatBuffer lightAmbient, lightPos0, lightDif0, lightPos1, lightDif1;
+    protected final static FloatBuffer lightGlobal;
+
+    protected final static FloatBuffer light0_pos, light0_amb, light0_dif, light0_spe, light0_dir;
+
+    protected final static FloatBuffer light1_pos, light1_amb, light1_dif, light1_spe, light1_dir;
 
     protected final static FloatBuffer matShin, matSpec;
 
@@ -226,40 +261,84 @@ public abstract class DockingPageGameAbstract
             camera.position(0);
         }
         {
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(L_GLOB_AMB.length * bpf);
+            ib_light.order(nativeOrder);
+            lightGlobal = ib_light.asFloatBuffer();
+            lightGlobal.put(L_GLOB_AMB);
+            lightGlobal.position(0);
+        }
+        {
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_POS.length * bpf);
+            ib_light.order(nativeOrder);
+            light0_pos = ib_light.asFloatBuffer();
+            light0_pos.put(LIGHT0_POS);
+            light0_pos.position(0);
+        }
+        {
             final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_AMB.length * bpf);
             ib_light.order(nativeOrder);
-            lightAmbient = ib_light.asFloatBuffer();
-            lightAmbient.put(LIGHT_AMB);
-            lightAmbient.position(0);
+            light0_amb = ib_light.asFloatBuffer();
+            light0_amb.put(LIGHT_AMB);
+            light0_amb.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_POS0.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIF.length * bpf);
             ib_light.order(nativeOrder);
-            lightPos0 = ib_light.asFloatBuffer();
-            lightPos0.put(LIGHT_POS0);
-            lightPos0.position(0);
+            light0_dif = ib_light.asFloatBuffer();
+            light0_dif.put(LIGHT_DIF);
+            light0_dif.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIF0.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_SPE.length * bpf);
             ib_light.order(nativeOrder);
-            lightDif0 = ib_light.asFloatBuffer();
-            lightDif0.put(LIGHT_DIF0);
-            lightDif0.position(0);
+            light0_spe = ib_light.asFloatBuffer();
+            light0_spe.put(LIGHT_SPE);
+            light0_spe.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_POS1.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIR.length * bpf);
             ib_light.order(nativeOrder);
-            lightPos1 = ib_light.asFloatBuffer();
-            lightPos1.put(LIGHT_POS1);
-            lightPos1.position(0);
+            light0_dir = ib_light.asFloatBuffer();
+            light0_dir.put(LIGHT_DIR);
+            light0_dir.position(0);
+        }
+
+        {
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_POS.length * bpf);
+            ib_light.order(nativeOrder);
+            light1_pos = ib_light.asFloatBuffer();
+            light1_pos.put(LIGHT1_POS);
+            light1_pos.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIF1.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_AMB.length * bpf);
             ib_light.order(nativeOrder);
-            lightDif1 = ib_light.asFloatBuffer();
-            lightDif1.put(LIGHT_DIF1);
-            lightDif1.position(0);
+            light1_amb = ib_light.asFloatBuffer();
+            light1_amb.put(LIGHT_AMB);
+            light1_amb.position(0);
         }
+        {
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIF.length * bpf);
+            ib_light.order(nativeOrder);
+            light1_dif = ib_light.asFloatBuffer();
+            light1_dif.put(LIGHT_DIF);
+            light1_dif.position(0);
+        }
+        {
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_SPE.length * bpf);
+            ib_light.order(nativeOrder);
+            light1_spe = ib_light.asFloatBuffer();
+            light1_spe.put(LIGHT_SPE);
+            light1_spe.position(0);
+        }
+        {
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIR.length * bpf);
+            ib_light.order(nativeOrder);
+            light1_dir = ib_light.asFloatBuffer();
+            light1_dir.put(LIGHT_DIR);
+            light1_dir.position(0);
+        }
+
         {
             final ByteBuffer ib_mat = ByteBuffer.allocateDirect(MAT_SHIN.length * bpf);
             ib_mat.order(nativeOrder);
@@ -312,6 +391,33 @@ public abstract class DockingPageGameAbstract
         glDisable(GL_CULL_FACE);
 
         /*
+         * Lighting
+         */
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightGlobal);
+
+        glLightfv( GL_LIGHT0, GL_AMBIENT,               light0_amb);
+        glLightfv( GL_LIGHT0, GL_DIFFUSE,               light0_dif);
+        glLightfv( GL_LIGHT0, GL_SPECULAR,              light0_spe);
+        glLightfv( GL_LIGHT0, GL_POSITION,              light0_pos);
+        glLightf ( GL_LIGHT0, GL_CONSTANT_ATTENUATION,  LIGHT_C_ATT);
+        glLightf ( GL_LIGHT0, GL_LINEAR_ATTENUATION,    LIGHT_B_ATT);
+        glLightf ( GL_LIGHT0, GL_QUADRATIC_ATTENUATION, LIGHT_A_ATT);
+        glLightf ( GL_LIGHT0, GL_SPOT_CUTOFF,           LIGHT_SPOT_ADEG);
+        glLightfv( GL_LIGHT0, GL_SPOT_DIRECTION,        light0_dir);
+        glLightf ( GL_LIGHT0, GL_SPOT_EXPONENT,         LIGHT_SPOT_EXP);
+
+        glLightfv( GL_LIGHT1, GL_AMBIENT,               light1_amb);
+        glLightfv( GL_LIGHT1, GL_DIFFUSE,               light1_dif);
+        glLightfv( GL_LIGHT1, GL_SPECULAR,              light1_spe);
+        glLightfv( GL_LIGHT1, GL_POSITION,              light1_pos);
+        glLightf ( GL_LIGHT1, GL_CONSTANT_ATTENUATION,  LIGHT_C_ATT);
+        glLightf ( GL_LIGHT1, GL_LINEAR_ATTENUATION,    LIGHT_B_ATT);
+        glLightf ( GL_LIGHT1, GL_QUADRATIC_ATTENUATION, LIGHT_A_ATT);
+        glLightf ( GL_LIGHT1, GL_SPOT_CUTOFF,           LIGHT_SPOT_ADEG);
+        glLightfv( GL_LIGHT1, GL_SPOT_DIRECTION,        light1_dir);
+        glLightf ( GL_LIGHT1, GL_SPOT_EXPONENT,         LIGHT_SPOT_EXP);
+
+        /*
          * Perspective
          */
         glMatrixMode(GL_PROJECTION);
@@ -323,17 +429,6 @@ public abstract class DockingPageGameAbstract
         final float far = 1000.0f;
 
         gluPerspective(fovy,aspect,near,far);
-
-        /*
-         * Lighting
-         */
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightAmbient);
-
-        glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
-        glLightfv(GL_LIGHT0,GL_DIFFUSE,lightDif0);
-
-        glLightfv(GL_LIGHT1,GL_POSITION,lightPos1);
-        glLightfv(GL_LIGHT1,GL_DIFFUSE,lightDif1);
 
         /*
          * View
@@ -348,24 +443,9 @@ public abstract class DockingPageGameAbstract
         glClearColor(1.0f,1.0f,1.0f,1.0f);
 
     }
+
     @Override
     protected boolean navigationInclude(int index, ViewPage3DComponent c){
         return (c instanceof DockingFieldIO);
     }
-    @Override
-    protected void draw(){
-
-        out_vx.draw();
-
-        out_ax.draw();
-
-        out_t.draw();
-
-        out_rx.draw();
-
-        out_tr.draw();
-
-        super.draw();
-    }
-
 }

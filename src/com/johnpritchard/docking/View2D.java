@@ -422,8 +422,10 @@ public final class View2D
     public boolean onDoubleTap(MotionEvent e){
         //info("onDoubleTap {Enter}");
 
-        script(Input.Enter);
+        if (Page.about == this.pageId){
 
+            Docking.Post2D(new DockingPostStartModel());
+        }
         return true;
     }
     public boolean onDoubleTapEvent(MotionEvent e){

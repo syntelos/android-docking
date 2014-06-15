@@ -20,30 +20,28 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * 
  */
-public final class DockingPageGamePlay
+public final class DockingPageGameModel
     extends DockingPageGameAbstract
 {
 
-    public final static DockingPageGamePlay Instance = new DockingPageGamePlay();
+    public final static DockingPageGameModel Instance = new DockingPageGameModel();
 
 
     private boolean stale = true;
 
 
-    private DockingPageGamePlay(){
-        super(new ViewPage3DComponent[]{
-                in_xp0, in_xm0, in_xp1, in_xm1
-            });
+    private DockingPageGameModel(){
+        super();
     }
 
 
     @Override
     public String name(){
-        return Page.gameplay.name();
+        return Page.gamemodel.name();
     }
     @Override
     public Page value(){
-        return Page.gameplay;
+        return Page.gamemodel;
     }
     public void draw(GL10 gl){
 
@@ -81,61 +79,42 @@ public final class DockingPageGamePlay
 
             glColor4f(0.0f,0.0f,0.0f,1.0f);
 
-            draw();
+            out_rx.draw();
 
             glFlush();
         }
     }
     @Override
-    protected void draw(){
-
-        out_vx.draw();
-
-        out_ax.draw();
-
-        out_t.draw();
-
-        out_rx.draw();
-
-        out_tr.draw();
-
-        out_lv.draw();
-
-        out_m.draw();
-
-        out_t10.draw();
-
-        out_t01.draw();
-
-        super.draw();
-    }
-    @Override
-    public ViewPage up(View view, int w, int h){
-        super.up(view,w,h);
-
-        stale = true;
-
-        DockingPhysics.Start();
-
-        return this;
-    }
-    @Override
-    public void down(){
-        super.down();
-
-        DockingPhysics.Stop();
-    }
-    @Override
     protected void focus(){
+    }
+    @Override
+    protected void navigation(){
+    }
+    @Override
+    public void input(InputScript in){
 
-        // stale = true;
-
-        for (ViewPage3DComponent c: this.components){
-
-            if (c instanceof DockingFieldIO){
-
-                c.clearCurrent();
-            }
+        Input type = in.type();
+        switch(type){
+            /*
+             * TODO: translate model matrix +/- Z
+             */
+        case Up:
+            break;
+        case Left:
+            break;
+            /*
+             * TODO: rotate model matrix +/- R(X/Y)
+             */
+        case Down:
+            break;
+        case Right:
+            break;
+            /*
+             * Exit
+             */
+        default:
+            view.script(Page.start);
+            break;
         }
     }
 }

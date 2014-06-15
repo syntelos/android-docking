@@ -15,9 +15,10 @@ public enum Page {
     intro4    (DockingPageIntro4.Instance,    true),
     intro5    (DockingPageIntro5.Instance,    true),
     intro6    (DockingPageIntro6.Instance,    true),
-    gameplay  (DockingPageGamePlay.Instance,  false),
-    gamecrash (DockingPageGameCrash.Instance, false),
-    gameview  (DockingPageGameView.Instance,  false),
+    gameplay  (DockingPageGamePlay.Instance,  true),
+    gamecrash (DockingPageGameCrash.Instance, true),
+    gameview  (DockingPageGameView.Instance,  true),
+    gamemodel (DockingPageGameModel.Instance, true),
     nohistory (DockingPageNoHistory.Instance, true),
     about     (DockingPageAbout.Instance,     true);
 

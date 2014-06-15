@@ -66,7 +66,11 @@ public final class DockingCraftStateVector
 
     public synchronized boolean inGame(){
 
-        return (0L > cursor);
+        return (-1L == cursor);
+    }
+    public synchronized boolean inModel(){
+
+        return (DockingGameLevel.M == level);
     }
     public synchronized boolean inHistory(){
 
@@ -290,7 +294,7 @@ public final class DockingCraftStateVector
      */
     protected synchronized void create(){
 
-        this.cursor = -1;
+        this.cursor = -1L;
 
         this.level = DockingGameLevel.Current;
 
@@ -304,11 +308,11 @@ public final class DockingCraftStateVector
 
         this.identifier = BID.Identifier();
 
-        this.range_x = DockingGameLevel.Current.range_x;
+        this.range_x = this.level.range_x;
 
-        this.velocity_x = DockingGameLevel.Current.velocity_x;
+        this.velocity_x = this.level.velocity_x;
 
-        this.acceleration_x = DockingGameLevel.Current.acceleration_x;
+        this.acceleration_x = this.level.acceleration_x;
 
         this.time_last = 0;
 
@@ -316,7 +320,47 @@ public final class DockingCraftStateVector
 
         this.time_clock = 0;
 
-        this.time_source = DockingGameLevel.Current.time_source;
+        this.time_source = this.level.time_source;
+
+        this.time_xp0 = 0;
+
+        this.time_xm0 = 0;
+
+        this.time_xp1 = 0;
+
+        this.time_xm1 = 0;
+
+        this.copy = 0L;
+    }
+    protected synchronized void model(){
+
+        this.cursor = -1L;
+
+        this.level = DockingGameLevel.M;
+
+        this.created = new Date();
+
+        this.completed = new Date();
+
+        this.score = 0.0f;
+
+        this.label = "model";
+
+        this.identifier = "model";
+
+        this.range_x = this.level.range_x;
+
+        this.velocity_x = this.level.velocity_x;
+
+        this.acceleration_x = this.level.acceleration_x;
+
+        this.time_last = 0;
+
+        this.time_start = 0;
+
+        this.time_clock = 0;
+
+        this.time_source = this.level.time_source;
 
         this.time_xp0 = 0;
 
