@@ -44,18 +44,14 @@ public abstract class DockingPageGameAbstract
     protected final static DockingOutputT01 out_t01 = new DockingOutputT01(+1.7, +0.25, Z, 0.12);
 
 
-    protected final static DockingFieldIO in_xp0 = new DockingFieldIO(PhysicsOperator.TX0, PhysicsDOF.XP,
-                                                                        -3.0, +1.00, Z, 0.12);
+    protected final static DockingIOXP0 in_xp0 = new DockingIOXP0         (-3.0, +1.00, Z, 0.12);
 
-    protected final static DockingFieldIO in_xm0 = new DockingFieldIO(PhysicsOperator.TX0, PhysicsDOF.XM,
-                                                                        -3.0, +0.75, Z, 0.12);
+    protected final static DockingIOXM0 in_xm0 = new DockingIOXM0         (-3.0, +0.75, Z, 0.12);
 
 
-    protected final static DockingFieldIO in_xp1 = new DockingFieldIO(PhysicsOperator.TX1, PhysicsDOF.XP,
-                                                                        -3.0, +0.50, Z, 0.12);
+    protected final static DockingIOXP1 in_xp1 = new DockingIOXP1         (-3.0, +0.50, Z, 0.12);
 
-    protected final static DockingFieldIO in_xm1 = new DockingFieldIO(PhysicsOperator.TX1, PhysicsDOF.XM,
-                                                                        -3.0, +0.25, Z, 0.12);
+    protected final static DockingIOXM1 in_xm1 = new DockingIOXM1         (-3.0, +0.25, Z, 0.12);
 
 
     protected final static DockingOutputScore      out_score = new DockingOutputScore (-1.5, -0.6, Z, 0.3);

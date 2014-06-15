@@ -3,7 +3,6 @@
  */
 package com.johnpritchard.docking;
 
-import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -19,22 +18,22 @@ public final class DockingPhysics
 
     protected volatile static DockingPhysics Instance;
 
-    public static void Start(SharedPreferences state){
+    public static void Start(){
         synchronized(StaticMonitor){
             if (null == Instance){
 
                 Instance = new DockingPhysics();
 
-                Instance.start(state);
+                Instance._start();
             }
         }
     }
-    public static void Stop(SharedPreferences.Editor state){
+    public static void Stop(){
         synchronized(StaticMonitor){
             DockingPhysics instance = Instance;
             if (null != instance){
                 try {
-                    instance.stop(state);
+                    instance._stop();
                 }
                 finally {
                     Instance = null;
@@ -68,15 +67,17 @@ public final class DockingPhysics
     }
 
 
-    private void start(SharedPreferences state){
+    private void _start(){
 
         this.running = true;
 
         super.start();
     }
-    private void stop(SharedPreferences.Editor state){
+    private void _stop(){
 
         this.running = false;
+
+        this.queue = null;
 
         synchronized(this.monitor){
 
@@ -102,19 +103,17 @@ public final class DockingPhysics
 
                     while (null != prog){
 
-                        //info(prog.toString());
-
                         sv.add(prog);
 
                         prog = prog.pop();
                     }
                 }
 
-                running = sv.update(FCOPY);
-
-                if (!running){
+                if (!sv.update(FCOPY)){
 
                     Docking.Post3D(new DockingPostFinishPhysics());
+
+                    return;
                 }
                 else {
                     synchronized(this.monitor){

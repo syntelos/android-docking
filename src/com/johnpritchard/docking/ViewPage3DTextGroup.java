@@ -31,6 +31,7 @@ public class ViewPage3DTextGroup
 
         return this.outline[this.b_current];
     }
+    @Override
     public void open(int count){
 
         final int prev = this.b_current;

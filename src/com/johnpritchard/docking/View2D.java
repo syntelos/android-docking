@@ -104,6 +104,7 @@ public final class View2D
 
         this.preferences = state;
 
+        DockingPhysics.Stop();
     }
     public void onResume(){
         //info("onResume");

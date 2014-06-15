@@ -82,6 +82,8 @@ public final class View3D
 
         this.preferences = state;
 
+        DockingPhysics.Stop();
+
         this.renderer.onCreate(state);
     }
     public void onResume(){

@@ -18,17 +18,20 @@ public class DockingPostFinishPhysics
 
     public void run(){
         try {
-            DockingDatabase.GameOver();
+            if (DockingCraftStateVector.Instance.inGame()){
 
-            DockingPageGameAbstract.View();
+                DockingDatabase.GameOver();
 
-            if (DockingCraftStateVector.Instance.dock() ||
-                DockingCraftStateVector.Instance.stall())
-            {
-                ViewAnimation.Script(Page.gameview);
-            }
-            else {
-                ViewAnimation.Script(Page.gamecrash);
+                DockingPageGameAbstract.View();
+
+                if (DockingCraftStateVector.Instance.dock() ||
+                    DockingCraftStateVector.Instance.stall())
+                    {
+                        ViewAnimation.Script(Page.gameview);
+                    }
+                else {
+                    ViewAnimation.Script(Page.gamecrash);
+                }
             }
         }
         catch (Exception exc){

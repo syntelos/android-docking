@@ -64,6 +64,14 @@ public final class DockingCraftStateVector
     }
 
 
+    public synchronized boolean inGame(){
+
+        return (0L > cursor);
+    }
+    public synchronized boolean inHistory(){
+
+        return (-1L < cursor);
+    }
     public boolean complete(){
         return (null != completed);
     }

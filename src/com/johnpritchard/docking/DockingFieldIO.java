@@ -8,9 +8,14 @@ import static android.opengl.GLES10.*;
 /**
  * 
  */
-public final class DockingFieldIO
+public abstract class DockingFieldIO
     extends ViewPage3DInputField
 {
+    /**
+     * Format string character offset to I/O value
+     */
+    protected final static int SEL_O = 7;
+
 
     public final PhysicsOperator op;
 
@@ -36,10 +41,6 @@ public final class DockingFieldIO
         this.fmt = id+' '+op.format;
 
         this.appendName(id);
-
-        this.selection = new ViewPage3DTextGroup((op.llen+dof.llen+2),z); //Group//Selection
-
-        format();
     }
 
 

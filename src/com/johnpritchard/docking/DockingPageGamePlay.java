@@ -90,14 +90,27 @@ public final class DockingPageGamePlay
 
         stale = true;
 
-        DockingPhysics.Start(view.preferences());
+        DockingPhysics.Start();
 
         return this;
     }
     @Override
-    public void down(SharedPreferences.Editor state){
-        super.down(state);
+    public void down(){
+        super.down();
 
-        DockingPhysics.Stop(state);
+        DockingPhysics.Stop();
+    }
+    @Override
+    protected void focus(){
+
+        // stale = true;
+
+        for (ViewPage3DComponent c: this.components){
+
+            if (c instanceof DockingFieldIO){
+
+                c.clearCurrent();
+            }
+        }
     }
 }

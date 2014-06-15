@@ -172,11 +172,14 @@ public class ViewPage3DTextSelection
             b_m.position(0);
         }
     }
+    protected RectF close(RectF outline){
+        return outline;
+    }
     public void close(){
 
         final int next = (0 == this.b_current)?(1):(0);
 
-        final RectF outline = this.outline[next];
+        final RectF outline = close(this.outline[next]);
 
         final float pad = (Math.max((outline.right-outline.left),(outline.bottom-outline.top)) * 0.10f);
 

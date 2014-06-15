@@ -94,7 +94,7 @@ public final class DockingDatabase
          */
         DockingCraftStateVector.Instance.create();
 
-        Info("game: new");
+        //Info("game: new");
 
         return true;
     }
@@ -113,7 +113,7 @@ public final class DockingDatabase
             long id = db.insert(DockingDatabase.STATE,DockingDatabaseHistory.State.LABEL,state);
 
             if (-1L < id){
-                Info("gameover: insert success");
+                //Info("gameover: insert success");
 
                 DockingCraftStateVector.Instance.cursor(id);
             }
@@ -157,7 +157,7 @@ public final class DockingDatabase
                 try {
                     DockingCraftStateVector.Instance.read(cursor);
 
-                    Info("history: existing");
+                    //Info("history: existing");
 
                     return true;
                 }
@@ -171,7 +171,7 @@ public final class DockingDatabase
                  */
                 DockingCraftStateVector.Instance.create();
 
-                Info("history: not found");
+                //Info("history: not found");
 
                 return false;
             }
@@ -214,7 +214,7 @@ public final class DockingDatabase
                     try {
                         DockingCraftStateVector.Instance.read(cursor);
 
-                        Info("history prev: ok");
+                        //Info("history prev: ok");
 
                         return true;
                     }
@@ -223,7 +223,7 @@ public final class DockingDatabase
                     }
                 }
                 else {
-                    Info("history prev: <end>");
+                    //Info("history prev: <end>");
 
                     return false;
                 }
@@ -233,12 +233,12 @@ public final class DockingDatabase
             }
         }
         else if (0L > id){
-            Info("history prev: <missing cursor>");
+            //Info("history prev: <missing cursor>");
 
             return false;
         }
         else {
-            Info("history prev: <end>");
+            //Info("history prev: <end>");
 
             return false;
         }
@@ -276,7 +276,7 @@ public final class DockingDatabase
                     try {
                         DockingCraftStateVector.Instance.read(cursor);
 
-                        Info("history next: ok");
+                        //Info("history next: ok");
 
                         return true;
                     }
@@ -286,7 +286,7 @@ public final class DockingDatabase
                 }
                 else {
 
-                    Info("history next: <end>");
+                    //Info("history next: <end>");
 
                     return false;
                 }
@@ -296,7 +296,7 @@ public final class DockingDatabase
             }
         }
         else {
-            Info("history next: <missing cursor>");
+            //Info("history next: <missing cursor>");
 
             return false;
         }
