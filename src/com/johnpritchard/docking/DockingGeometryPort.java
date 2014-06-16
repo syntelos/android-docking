@@ -19,7 +19,6 @@ public final class DockingGeometryPort
 {
 
     private final static int Res1 = 32;
-    private final static int Res2 = 48;
     private final static int Res3 = 96;
 
     private final static double R = 100.0;
@@ -65,14 +64,6 @@ public final class DockingGeometryPort
             final double[] cos_t1 = new double[table1];
             {
                 CircleTable(sin_t1,cos_t1,-(Res1));
-            }
-
-            final int table2 = CircleTableSize(Res2);
-
-            final double[] sin_t2 = new double[table2];
-            final double[] cos_t2 = new double[table2];
-            {
-                CircleTable(sin_t2,cos_t2,-(Res2));
             }
 
             final int table3 = CircleTableSize(Res3);
@@ -263,17 +254,17 @@ public final class DockingGeometryPort
             {
                 while (r_o <= 1.6){
 
-                    final int count = (18*Res2);
+                    final int count = (18*Res1);
                     final float[] v = new float[count];
                     final float[] n = new float[count];
                     {
-                        for (int a = 0, cv = 0, cn = 0; a < Res2; a++){
+                        for (int a = 0, cv = 0, cn = 0; a < Res1; a++){
 
-                            final double x_0 = cos_t2[a];
-                            final double y_0 = sin_t2[a];
+                            final double x_0 = cos_t1[a];
+                            final double y_0 = sin_t1[a];
 
-                            final double x_1 = cos_t2[a+1];
-                            final double y_1 = sin_t2[a+1];
+                            final double x_1 = cos_t1[a+1];
+                            final double y_1 = sin_t1[a+1];
 
 
                             final float x_id_0 = (float)(x_0*r_i);
