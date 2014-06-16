@@ -77,6 +77,8 @@ public final class DockingPageGameModel
     }
     @Override
     protected void focus(){
+
+        stale = true;
     }
     @Override
     protected void navigation(){
@@ -107,8 +109,6 @@ public final class DockingPageGameModel
             break;
 
         default:
-
-            view.script(Page.start);
             break;
         }
     }

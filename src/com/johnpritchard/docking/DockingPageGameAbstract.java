@@ -502,6 +502,31 @@ public abstract class DockingPageGameAbstract
         glDisable(GL_CULL_FACE);
 
         /*
+         * Perspective
+         */
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+
+        final float fovy = 45.0f;
+        final float aspect = ( (float)width / (float)height);
+        final float near = 0.1f;
+        final float far = 1000.0f;
+
+        gluPerspective(fovy,aspect,near,far);
+
+        /*
+         * View
+         */
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
+        glMultMatrixf(camera);
+
+        /*
+         */
+        glClearColor(1.0f,1.0f,1.0f,1.0f);
+
+        /*
          * Lighting
          */
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightGlobal);
@@ -528,31 +553,29 @@ public abstract class DockingPageGameAbstract
         glLightfv( GL_LIGHT1, GL_SPOT_DIRECTION,        light1_dir);
         glLightf ( GL_LIGHT1, GL_SPOT_EXPONENT,         LIGHT_SPOT_EXP);
 
-        /*
-         * Perspective
-         */
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
+    }
+    @Override
+    protected void draw(){
 
-        final float fovy = 45.0f;
-        final float aspect = ( (float)width / (float)height);
-        final float near = 0.1f;
-        final float far = 1000.0f;
+        out_vx.draw();
 
-        gluPerspective(fovy,aspect,near,far);
+        out_ax.draw();
 
-        /*
-         * View
-         */
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        out_t.draw();
 
-        glMultMatrixf(camera);
+        out_rx.draw();
 
-        /*
-         */
-        glClearColor(1.0f,1.0f,1.0f,1.0f);
+        out_tr.draw();
 
+        out_lv.draw();
+
+        out_m.draw();
+
+        out_t10.draw();
+
+        out_t01.draw();
+
+        super.draw();
     }
 
     @Override

@@ -218,7 +218,7 @@ public final class View3D
         case KeyEvent.KEYCODE_DPAD_CENTER:
         case KeyEvent.KEYCODE_ENTER:
 
-            if (event.hasNoModifiers()){
+            if (event.hasNoModifiers()){ // TODO (API > 10 && API <= 15)
 
                 script(Input.Enter);
             }

@@ -71,33 +71,8 @@ public final class DockingPageGamePlay
         }
     }
     @Override
-    protected void draw(){
-
-        out_vx.draw();
-
-        out_ax.draw();
-
-        out_t.draw();
-
-        out_rx.draw();
-
-        out_tr.draw();
-
-        out_lv.draw();
-
-        out_m.draw();
-
-        out_t10.draw();
-
-        out_t01.draw();
-
-        super.draw();
-    }
-    @Override
     public ViewPage up(View view, int w, int h){
         super.up(view,w,h);
-
-        stale = true;
 
         DockingPhysics.Start();
 
@@ -112,7 +87,7 @@ public final class DockingPageGamePlay
     @Override
     protected void focus(){
 
-        // stale = true;
+        stale = true;
 
         for (ViewPage3DComponent c: this.components){
 

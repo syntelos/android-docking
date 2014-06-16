@@ -70,24 +70,6 @@ public final class DockingPageGameCrash
     @Override
     protected void draw(){
 
-        out_vx.draw();
-
-        out_ax.draw();
-
-        out_t.draw();
-
-        out_rx.draw();
-
-        out_tr.draw();
-
-        out_lv.draw();
-
-        out_m.draw();
-
-        out_t10.draw();
-
-        out_t01.draw();
-
         out_crash.draw();
         out_identifier.draw();
         out_created.draw();

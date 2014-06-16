@@ -18,9 +18,9 @@ public final class DockingGeometryPort
     extends View3DGeometryCircle
 {
 
-    private final static int Res = 32;
+    private final static int Res = 96;
 
-    private final static float[] N_Z1 = {0f,0f,1f};
+    private final static float[] N_Z_P = {0f,0f,1f};
 
     private final static int X = 0;
     private final static int Y = 1;
@@ -80,7 +80,7 @@ public final class DockingGeometryPort
                 }
 
                 ts_count = (count/3);
-                ts_n = Copy(new float[count],0,count,N_Z1);
+                ts_n = Copy(new float[count],0,count,N_Z_P);
                 ts_v = hatch_v;
             }
             {
@@ -166,8 +166,8 @@ public final class DockingGeometryPort
                  * Z+ port face
                  */
                 final float z = +0.000f;
-                final double r0 = +0.940;
-                final double r1 = +1.000;
+                final double r_i = +0.940;
+                final double r_o = +1.000;
 
                 final int count = (18*Res);
                 final float[] face_v = new float[count];
@@ -181,17 +181,17 @@ public final class DockingGeometryPort
                         final double y_1 = sin_t1[a+1];
 
 
-                        final float x_id_0 = (float)(x_0*r0);
-                        final float y_id_0 = (float)(y_0*r0);
+                        final float x_id_0 = (float)(x_0*r_i);
+                        final float y_id_0 = (float)(y_0*r_i);
 
-                        final float x_id_1 = (float)(x_1*r0);
-                        final float y_id_1 = (float)(y_1*r0);
+                        final float x_id_1 = (float)(x_1*r_i);
+                        final float y_id_1 = (float)(y_1*r_i);
 
-                        final float x_od_0 = (float)(x_0*r1);
-                        final float y_od_0 = (float)(y_0*r1);
+                        final float x_od_0 = (float)(x_0*r_o);
+                        final float y_od_0 = (float)(y_0*r_o);
 
-                        final float x_od_1 = (float)(x_1*r1);
-                        final float y_od_1 = (float)(y_1*r1);
+                        final float x_od_1 = (float)(x_1*r_o);
+                        final float y_od_1 = (float)(y_1*r_o);
 
 
                         face_v[cc++] = x_id_0;
@@ -219,13 +219,116 @@ public final class DockingGeometryPort
                         face_v[cc++] = z;
                     }
                 }
-                final float[] face_n = Copy(new float[count],0,count,N_Z1);
+                final float[] face_n = Copy(new float[count],0,count,N_Z_P);
 
                 ts_count += (count/3);
                 ts_n = Add(ts_n,face_n);
                 ts_v = Add(ts_v,face_v);
             }
 
+            {
+                /*
+                 * Z- port face skirt
+                 */
+                final float z_i = +0.000f;
+                final float z_o = -0.040f;
+                final double r_i = +1.000;
+                final double r_o = +1.040;
+
+                final int count = (18*Res);
+                final float[] skirt_v = new float[count];
+                {
+                    for (int a = 0, cc = 0; a < Res; a++){
+
+                        final double x_0 = cos_t1[a];
+                        final double y_0 = sin_t1[a];
+
+                        final double x_1 = cos_t1[a+1];
+                        final double y_1 = sin_t1[a+1];
+
+
+                        final float x_id_0 = (float)(x_0*r_i);
+                        final float y_id_0 = (float)(y_0*r_i);
+
+                        final float x_id_1 = (float)(x_1*r_i);
+                        final float y_id_1 = (float)(y_1*r_i);
+
+                        final float x_od_0 = (float)(x_0*r_o);
+                        final float y_od_0 = (float)(y_0*r_o);
+
+                        final float x_od_1 = (float)(x_1*r_o);
+                        final float y_od_1 = (float)(y_1*r_o);
+
+
+                        skirt_v[cc++] = x_id_0;
+                        skirt_v[cc++] = y_id_0;
+                        skirt_v[cc++] = z_i;
+
+                        skirt_v[cc++] = x_od_0;
+                        skirt_v[cc++] = y_od_0;
+                        skirt_v[cc++] = z_o;
+
+                        skirt_v[cc++] = x_od_1;
+                        skirt_v[cc++] = y_od_1;
+                        skirt_v[cc++] = z_o;
+
+                        skirt_v[cc++] = x_id_0;
+                        skirt_v[cc++] = y_id_0;
+                        skirt_v[cc++] = z_i;
+
+                        skirt_v[cc++] = x_id_1;
+                        skirt_v[cc++] = y_id_1;
+                        skirt_v[cc++] = z_i;
+
+                        skirt_v[cc++] = x_od_1;
+                        skirt_v[cc++] = y_od_1;
+                        skirt_v[cc++] = z_o;
+                    }
+                }
+
+                final float[] skirt_n = new float[count];
+                {
+                    final float z_n = (float)(1.0/3.0);
+
+                    for (int a = 0, cn = 0; a < Res; a++){
+
+                        final float x_0 = (float)((cos_t1[a]*2.0)/3.0);
+                        final float y_0 = (float)((sin_t1[a]*2.0)/3.0);
+
+                        final float x_1 = (float)((cos_t1[a+1]*2.0)/3.0);
+                        final float y_1 = (float)((sin_t1[a+1]*2.0)/3.0);
+
+
+                        skirt_n[cn++] = x_0;
+                        skirt_n[cn++] = y_0;
+                        skirt_n[cn++] = z_n;
+
+                        skirt_n[cn++] = x_0;
+                        skirt_n[cn++] = y_0;
+                        skirt_n[cn++] = z_n;
+
+                        skirt_n[cn++] = x_1;
+                        skirt_n[cn++] = y_1;
+                        skirt_n[cn++] = z_n;
+
+                        skirt_n[cn++] = x_0;
+                        skirt_n[cn++] = y_0;
+                        skirt_n[cn++] = z_n;
+
+                        skirt_n[cn++] = x_1;
+                        skirt_n[cn++] = y_1;
+                        skirt_n[cn++] = z_n;
+
+                        skirt_n[cn++] = x_1;
+                        skirt_n[cn++] = y_1;
+                        skirt_n[cn++] = z_n;
+                    }
+                }
+
+                ts_count += (count/3);
+                ts_n = Add(ts_n,skirt_n);
+                ts_v = Add(ts_v,skirt_v);
+            }
 
         }
         {
