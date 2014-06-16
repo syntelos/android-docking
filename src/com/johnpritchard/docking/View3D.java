@@ -333,13 +333,8 @@ public final class View3D
     public boolean onDoubleTap(MotionEvent e){
         //info("onDoubleTap {Enter}");
 
-        if (Page.gamemodel == renderer.pageId){
+        Docking.Post3D(new DockingPostScreenShot(this));
 
-            ((DockingPageGameModel)renderer.page).toggleMode();
-        }
-        else {
-            Docking.Post3D(new DockingPostScreenShot(this));
-        }
         return true;
     }
     public boolean onDoubleTapEvent(MotionEvent e){

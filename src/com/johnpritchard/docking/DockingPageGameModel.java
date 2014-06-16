@@ -146,11 +146,13 @@ public final class DockingPageGameModel
             rotation_y = ModelRotYP(rotation_y);
             break;
 
+        case Enter:
+
+            //lines = (!lines);
+            break;
+
         default:
             break;
         }
-    }
-    protected synchronized void toggleMode(){
-        lines = (!lines);
     }
 }
