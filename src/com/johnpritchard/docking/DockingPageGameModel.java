@@ -26,6 +26,8 @@ public final class DockingPageGameModel
 
     public final static DockingPageGameModel Instance = new DockingPageGameModel();
 
+    private final static double RY_INIT = -(2*MOD_ROT);
+
 
     private boolean stale = true;
 
@@ -79,7 +81,6 @@ public final class DockingPageGameModel
 
                 glMultMatrixf(mm);
 
-                glEnable(GL_LIGHT0);
                 glEnable(GL_LIGHT1);
                 glEnable(GL_LIGHTING);
                 glEnable(GL_COLOR_MATERIAL);
@@ -93,7 +94,6 @@ public final class DockingPageGameModel
 
                 glPopMatrix();
 
-                glDisable(GL_LIGHT0);
                 glDisable(GL_LIGHT1);
                 glDisable(GL_LIGHTING);
                 glDisable(GL_COLOR_MATERIAL);
@@ -117,6 +117,8 @@ public final class DockingPageGameModel
     protected void focus(){
 
         stale = true;
+
+        rotation_y = ModelRotY(RY_INIT);
     }
     @Override
     protected void navigation(){

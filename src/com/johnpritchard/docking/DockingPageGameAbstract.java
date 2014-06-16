@@ -200,7 +200,7 @@ public abstract class DockingPageGameAbstract
     }
 
     private final static double MOD_LIN = 1.0;
-    private final static double MOD_ROT = (Math.PI / 6.0);
+    protected final static double MOD_ROT = (Math.PI / 6.0);
 
     protected final static void ModelRangeInc(double ry){
         final DockingCraftStateVector state = DockingCraftStateVector.Instance;
@@ -268,6 +268,22 @@ public abstract class DockingPageGameAbstract
 
         return ry;
     }
+    protected final static double ModelRotY(double ry){
+
+        float rx;
+
+        final DockingCraftStateVector state = DockingCraftStateVector.Instance;
+
+        synchronized(state){
+
+            rx = (float)state.range_x;
+        }
+        out_ry.format((float)ry);
+
+        ModelMatrixTR(rx,(float)ry);
+
+        return ry;
+    }
     private final static void ModelMatrixTR(float t_x, float r_y){
 
         final int next = (0 == model_matrix_current)?(1):(0);
@@ -299,25 +315,6 @@ public abstract class DockingPageGameAbstract
                           0.0f,  0.0f,  0.0f,
                           0.0f,  1.0f,  0.0f);
     }
-    // protected final static float[] L_GLOB_AMB = {
-    //     0.0f, 0.0f, 0.3f, 1.0f
-    // };
-
-    protected final static float[] LIGHT0_POS = {
-        0.0f, 10.0f, -2.0f, 0.0f
-    };
-    protected final static float[] LIGHT0_AMB = {
-        0.1f, 0.1f, 0.1f, 1.0f
-    };
-    protected final static float[] LIGHT0_DIF = {
-        0.2f, 0.2f, 0.2f, 1.0f
-    };
-    protected final static float[] LIGHT0_SPE = {
-        1.0f, 1.0f, 0.97f, 1.0f
-    };
-    protected final static float[] LIGHT0_DIR = {
-        0.0f, 0.0f, -1000.0f
-    };
 
     protected final static float[] LIGHT1_POS = {
         100.0f, -100.0f, -10.0f, 0.0f
@@ -349,10 +346,6 @@ public abstract class DockingPageGameAbstract
 
     protected final static FloatBuffer camera;
 
-    // protected final static FloatBuffer lightGlobal;
-
-    protected final static FloatBuffer light0_pos, light0_amb, light0_dif, light0_spe, light0_dir;
-
     protected final static FloatBuffer light1_pos, light1_amb, light1_dif, light1_spe, light1_dir;
 
     protected final static FloatBuffer matShin, matSpec;
@@ -369,49 +362,6 @@ public abstract class DockingPageGameAbstract
             camera.put(CAMERA);
             camera.position(0);
         }
-        // {
-        //     final ByteBuffer ib_light = ByteBuffer.allocateDirect(L_GLOB_AMB.length * bpf);
-        //     ib_light.order(nativeOrder);
-        //     lightGlobal = ib_light.asFloatBuffer();
-        //     lightGlobal.put(L_GLOB_AMB);
-        //     lightGlobal.position(0);
-        // }
-        {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_POS.length * bpf);
-            ib_light.order(nativeOrder);
-            light0_pos = ib_light.asFloatBuffer();
-            light0_pos.put(LIGHT0_POS);
-            light0_pos.position(0);
-        }
-        {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_AMB.length * bpf);
-            ib_light.order(nativeOrder);
-            light0_amb = ib_light.asFloatBuffer();
-            light0_amb.put(LIGHT0_AMB);
-            light0_amb.position(0);
-        }
-        {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_DIF.length * bpf);
-            ib_light.order(nativeOrder);
-            light0_dif = ib_light.asFloatBuffer();
-            light0_dif.put(LIGHT0_DIF);
-            light0_dif.position(0);
-        }
-        {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_SPE.length * bpf);
-            ib_light.order(nativeOrder);
-            light0_spe = ib_light.asFloatBuffer();
-            light0_spe.put(LIGHT0_SPE);
-            light0_spe.position(0);
-        }
-        {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_DIR.length * bpf);
-            ib_light.order(nativeOrder);
-            light0_dir = ib_light.asFloatBuffer();
-            light0_dir.put(LIGHT0_DIR);
-            light0_dir.position(0);
-        }
-
         {
             final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_POS.length * bpf);
             ib_light.order(nativeOrder);
@@ -527,19 +477,6 @@ public abstract class DockingPageGameAbstract
         /*
          * Lighting
          */
-        // glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightGlobal);
-
-        glLightfv( GL_LIGHT0, GL_AMBIENT,               light0_amb);
-        glLightfv( GL_LIGHT0, GL_DIFFUSE,               light0_dif);
-        glLightfv( GL_LIGHT0, GL_SPECULAR,              light0_spe);
-        glLightfv( GL_LIGHT0, GL_POSITION,              light0_pos);
-        glLightf ( GL_LIGHT0, GL_CONSTANT_ATTENUATION,  LIGHT_C_ATT);
-        glLightf ( GL_LIGHT0, GL_LINEAR_ATTENUATION,    LIGHT_B_ATT);
-        glLightf ( GL_LIGHT0, GL_QUADRATIC_ATTENUATION, LIGHT_A_ATT);
-        glLightf ( GL_LIGHT0, GL_SPOT_CUTOFF,           LIGHT_SPOT_ADEG);
-        glLightfv( GL_LIGHT0, GL_SPOT_DIRECTION,        light0_dir);
-        glLightf ( GL_LIGHT0, GL_SPOT_EXPONENT,         LIGHT_SPOT_EXP);
-
         glLightfv( GL_LIGHT1, GL_AMBIENT,               light1_amb);
         glLightfv( GL_LIGHT1, GL_DIFFUSE,               light1_dif);
         glLightfv( GL_LIGHT1, GL_SPECULAR,              light1_spe);

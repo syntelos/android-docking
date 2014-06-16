@@ -30,6 +30,7 @@ public final class DockingPageGamePlay
     private boolean stale = true;
 
 
+
     private DockingPageGamePlay(){
         super(new ViewPage3DComponent[]{
                 in_xp0, in_xm0, in_xp1, in_xm1
@@ -56,13 +57,17 @@ public final class DockingPageGamePlay
 
             glClear(CLR);
             {
+                glColor4f(1.0f,1.0f,1.0f,1.0f);
+
+                DockingGeometryStarfield.Instance.draw();
+            }
+            {
                 FloatBuffer mm = model_matrix[model_matrix_current];
 
                 glPushMatrix();
 
                 glMultMatrixf(mm);
 
-                glEnable(GL_LIGHT0);
                 glEnable(GL_LIGHT1);
                 glEnable(GL_LIGHTING);
                 glEnable(GL_COLOR_MATERIAL);
@@ -76,7 +81,6 @@ public final class DockingPageGamePlay
 
                 glPopMatrix();
 
-                glDisable(GL_LIGHT0);
                 glDisable(GL_LIGHT1);
                 glDisable(GL_LIGHTING);
                 glDisable(GL_COLOR_MATERIAL);

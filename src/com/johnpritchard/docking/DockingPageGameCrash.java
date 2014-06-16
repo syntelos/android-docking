@@ -61,11 +61,22 @@ public final class DockingPageGameCrash
 
                 glMultMatrixf(mm);
 
+                glEnable(GL_LIGHT1);
+                glEnable(GL_LIGHTING);
+                glEnable(GL_COLOR_MATERIAL);
+
                 glColor4f(MOD_COL_R,MOD_COL_G,MOD_COL_B,MOD_COL_A);
 
-                DockingGeometryPort.Instance.lines();
+                glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
+                glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
+
+                DockingGeometryPort.Instance.triangles();
 
                 glPopMatrix();
+
+                glDisable(GL_LIGHT1);
+                glDisable(GL_LIGHTING);
+                glDisable(GL_COLOR_MATERIAL);
             }
             {
                 glColor4f(1.0f,1.0f,1.0f,1.0f);

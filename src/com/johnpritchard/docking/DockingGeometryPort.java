@@ -559,6 +559,9 @@ public final class DockingGeometryPort
         glVertexPointer(3,GL_FLOAT,stride,this.b_triangles);
 
         glDrawArrays(GL_TRIANGLES,0,this.count_triangles);
+
+        glDisableClientState(GL_VERTEX_ARRAY);
+        glDisableClientState(GL_NORMAL_ARRAY);
     }
     public void lines(){
 
@@ -567,5 +570,7 @@ public final class DockingGeometryPort
         glVertexPointer(3,GL_FLOAT,stride,this.b_lines);
 
         glDrawArrays(GL_LINES,0,this.count_lines);
+
+        glDisableClientState(GL_VERTEX_ARRAY);
     }
 }

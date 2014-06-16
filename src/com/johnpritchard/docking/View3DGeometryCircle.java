@@ -67,31 +67,4 @@ public abstract class View3DGeometryCircle
         super();
     }
 
-
-    protected final static float[] Add(float[] a, float[] b){
-
-        int alen = a.length;
-        int blen = b.length;
-        int len = (alen+blen);
-        float[] copier = new float[len];
-        System.arraycopy(a,0,copier,0,alen);
-        System.arraycopy(b,0,copier,alen,blen);
-        return copier;
-
-    }
-    protected final static float[] Copy(float[] tgt, int ofs, int count, float[] v){
-
-        int t = ofs;
-
-        final int z = (ofs+count);
-
-        while (t < z){
-
-            System.arraycopy(v,0,tgt,t,3);
-
-            t += 3;
-        }
-
-        return tgt;
-    }
 }

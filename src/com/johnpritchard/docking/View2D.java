@@ -114,6 +114,8 @@ public final class View2D
         pageTo(Page.valueOf(preferences.getString("page","start")));
 
         DockingGeometryPort.Init();
+
+        DockingGeometryStarfield.Init();
     }
     public void onPause(SharedPreferences.Editor state){
         //info("onPause");
