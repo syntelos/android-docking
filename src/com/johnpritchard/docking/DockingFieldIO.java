@@ -85,14 +85,12 @@ public abstract class DockingFieldIO
             }
             else {
 
-                editable = (int)(DockingCraftStateVector.Instance.time_source/1000L);
+                editable = op.limit(DockingCraftStateVector.Instance.time_source);
             }
         }
         else if (Input.Up == in){
 
-            final int limit = (int)(DockingCraftStateVector.Instance.time_source/1000L);
-
-            if (limit > editable){
+            if (op.limit(DockingCraftStateVector.Instance.time_source) > editable){
 
                 editable += 1;
             }

@@ -286,26 +286,10 @@ public abstract class DockingPageGameAbstract
         model_matrix_current = next;
 
     }
-    protected final static void model(){
-        FloatBuffer mm = model_matrix[model_matrix_current];
-
-        glPushMatrix();
-
-        glMultMatrixf(mm);
-
-        glColor4f(MOD_COL_R,MOD_COL_G,MOD_COL_B,MOD_COL_A);
-
-        glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
-        glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
-
-        DockingGeometryPort.Instance.draw();
-
-        glPopMatrix();
-    }
 
-    protected final static float MOD_COL_R = 0.8f;
-    protected final static float MOD_COL_G = 0.8f;
-    protected final static float MOD_COL_B = 0.8f;
+    protected final static float MOD_COL_R = 0.9f;
+    protected final static float MOD_COL_G = 0.9f;
+    protected final static float MOD_COL_B = 0.9f;
     protected final static float MOD_COL_A = 1.0f;
 
     protected final static float[] CAMERA = fv3.math.Matrix.Identity();
@@ -315,25 +299,39 @@ public abstract class DockingPageGameAbstract
                           0.0f,  0.0f,  0.0f,
                           0.0f,  1.0f,  0.0f);
     }
-    protected final static float[] L_GLOB_AMB = {
-        0.3f, 0.3f, 0.3f, 1.0f
-    };
+    // protected final static float[] L_GLOB_AMB = {
+    //     0.0f, 0.0f, 0.3f, 1.0f
+    // };
+
     protected final static float[] LIGHT0_POS = {
-        1.0f, 1.0f, 0.0f, 0.0f
+        0.0f, 10.0f, -2.0f, 0.0f
     };
-    protected final static float[] LIGHT1_POS = {
-        1.0f, -1.0f, 0.0f, 0.0f
+    protected final static float[] LIGHT0_AMB = {
+        0.1f, 0.1f, 0.1f, 1.0f
     };
-    protected final static float[] LIGHT_AMB = {
+    protected final static float[] LIGHT0_DIF = {
         0.2f, 0.2f, 0.2f, 1.0f
     };
-    protected final static float[] LIGHT_DIF = {
-        1.0f, 1.0f, 1.0f, 1.0f
+    protected final static float[] LIGHT0_SPE = {
+        1.0f, 1.0f, 0.97f, 1.0f
     };
-    protected final static float[] LIGHT_SPE = {
-        1.0f, 1.0f, 1.0f, 1.0f
+    protected final static float[] LIGHT0_DIR = {
+        0.0f, 0.0f, -1000.0f
     };
-    protected final static float[] LIGHT_DIR = {
+
+    protected final static float[] LIGHT1_POS = {
+        100.0f, -100.0f, -10.0f, 0.0f
+    };
+    protected final static float[] LIGHT1_AMB = {
+        0.1f, 0.1f, 0.11f, 1.0f
+    };
+    protected final static float[] LIGHT1_DIF = {
+        0.9f, 0.9f, 0.8f, 1.0f
+    };
+    protected final static float[] LIGHT1_SPE = {
+        0.9f, 0.9f, 0.8f, 1.0f
+    };
+    protected final static float[] LIGHT1_DIR = {
         0.0f, 0.0f, -1000.0f
     };
     protected final static float LIGHT_C_ATT     = 1.5f;
@@ -351,7 +349,7 @@ public abstract class DockingPageGameAbstract
 
     protected final static FloatBuffer camera;
 
-    protected final static FloatBuffer lightGlobal;
+    // protected final static FloatBuffer lightGlobal;
 
     protected final static FloatBuffer light0_pos, light0_amb, light0_dif, light0_spe, light0_dir;
 
@@ -371,13 +369,13 @@ public abstract class DockingPageGameAbstract
             camera.put(CAMERA);
             camera.position(0);
         }
-        {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(L_GLOB_AMB.length * bpf);
-            ib_light.order(nativeOrder);
-            lightGlobal = ib_light.asFloatBuffer();
-            lightGlobal.put(L_GLOB_AMB);
-            lightGlobal.position(0);
-        }
+        // {
+        //     final ByteBuffer ib_light = ByteBuffer.allocateDirect(L_GLOB_AMB.length * bpf);
+        //     ib_light.order(nativeOrder);
+        //     lightGlobal = ib_light.asFloatBuffer();
+        //     lightGlobal.put(L_GLOB_AMB);
+        //     lightGlobal.position(0);
+        // }
         {
             final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_POS.length * bpf);
             ib_light.order(nativeOrder);
@@ -386,31 +384,31 @@ public abstract class DockingPageGameAbstract
             light0_pos.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_AMB.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_AMB.length * bpf);
             ib_light.order(nativeOrder);
             light0_amb = ib_light.asFloatBuffer();
-            light0_amb.put(LIGHT_AMB);
+            light0_amb.put(LIGHT0_AMB);
             light0_amb.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIF.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_DIF.length * bpf);
             ib_light.order(nativeOrder);
             light0_dif = ib_light.asFloatBuffer();
-            light0_dif.put(LIGHT_DIF);
+            light0_dif.put(LIGHT0_DIF);
             light0_dif.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_SPE.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_SPE.length * bpf);
             ib_light.order(nativeOrder);
             light0_spe = ib_light.asFloatBuffer();
-            light0_spe.put(LIGHT_SPE);
+            light0_spe.put(LIGHT0_SPE);
             light0_spe.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIR.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_DIR.length * bpf);
             ib_light.order(nativeOrder);
             light0_dir = ib_light.asFloatBuffer();
-            light0_dir.put(LIGHT_DIR);
+            light0_dir.put(LIGHT0_DIR);
             light0_dir.position(0);
         }
 
@@ -422,31 +420,31 @@ public abstract class DockingPageGameAbstract
             light1_pos.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_AMB.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_AMB.length * bpf);
             ib_light.order(nativeOrder);
             light1_amb = ib_light.asFloatBuffer();
-            light1_amb.put(LIGHT_AMB);
+            light1_amb.put(LIGHT1_AMB);
             light1_amb.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIF.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_DIF.length * bpf);
             ib_light.order(nativeOrder);
             light1_dif = ib_light.asFloatBuffer();
-            light1_dif.put(LIGHT_DIF);
+            light1_dif.put(LIGHT1_DIF);
             light1_dif.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_SPE.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_SPE.length * bpf);
             ib_light.order(nativeOrder);
             light1_spe = ib_light.asFloatBuffer();
-            light1_spe.put(LIGHT_SPE);
+            light1_spe.put(LIGHT1_SPE);
             light1_spe.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT_DIR.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_DIR.length * bpf);
             ib_light.order(nativeOrder);
             light1_dir = ib_light.asFloatBuffer();
-            light1_dir.put(LIGHT_DIR);
+            light1_dir.put(LIGHT1_DIR);
             light1_dir.position(0);
         }
 
@@ -491,13 +489,13 @@ public abstract class DockingPageGameAbstract
 
         glViewport(0,0,width,height);
 
-        glEnable(GL_LINE_SMOOTH);
-        glEnable(GL_POINT_SMOOTH);
-        glShadeModel(GL_SMOOTH);    
+
+        glShadeModel(GL_SMOOTH);
         glDisable(GL_DITHER);
 
         glLineWidth(1.0f);
         glPointSize(1.0f);
+
         glFrontFace(GL_CCW);
         glDisable(GL_CULL_FACE);
 
@@ -529,7 +527,7 @@ public abstract class DockingPageGameAbstract
         /*
          * Lighting
          */
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightGlobal);
+        // glLightModelfv(GL_LIGHT_MODEL_AMBIENT,lightGlobal);
 
         glLightfv( GL_LIGHT0, GL_AMBIENT,               light0_amb);
         glLightfv( GL_LIGHT0, GL_DIFFUSE,               light0_dif);

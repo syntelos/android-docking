@@ -692,6 +692,9 @@ public class Vector
             Z(A[0] * B[1] - A[1] * B[0])
         };
     }
+    public final static float[] Normalize(float[] r){
+        return Normalize(r[X],r[Y],r[Z]);
+    }
     public final static float[] Normalize(float aX, float aY, float aZ)
     {
         float[] c = { aX, aY, aZ};
@@ -743,5 +746,44 @@ public class Vector
         return new float[]{
             v[0], v[1], v[2]
         };
+    }
+    /**
+     * @return Face normal for triangle vertices in CCW order
+     */
+    public final static float[] Sub(float x0, float y0, float z0,
+                                    float x1, float y1, float z1)
+    {
+        return new float[]{
+            (x0-x1),
+            (y0-y1),
+            (z0-z1)
+        };
+    }
+    public final static float[] Sub(float[] a, float[] b)
+    {
+        return new float[]{
+            (a[X]-b[X]),
+            (a[Y]-b[Y]),
+            (a[Z]-b[Z])
+        };
+    }
+    /**
+     * @return Face normal for triangle vertices in CCW order
+     */
+    public final static float[] Normal(float x0, float y0, float z0,
+                                       float x1, float y1, float z1,
+                                       float x2, float y2, float z2)
+    {
+        return Normal(new float[]{x0,y0,z0},new float[]{x1,y1,z1},new float[]{x2,y2,z2});
+    }
+    /**
+     * @return Face normal for triangle vertices in CCW order
+     */
+    public final static float[] Normal(float[] a, float[] b, float[] c)
+    {
+        float[] p = Sub(c,a);
+        float[] q = Sub(b,a);
+
+        return Normalize(Cross(q,p));
     }
 }

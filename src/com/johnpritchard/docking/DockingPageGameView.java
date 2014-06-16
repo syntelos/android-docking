@@ -51,11 +51,6 @@ public final class DockingPageGameView
             stale = false;
 
             glClearColor(1.0f,1.0f,1.0f,1.0f);
-
-            glDisable(GL_LIGHT0);
-            glDisable(GL_LIGHT1);
-            glDisable(GL_LIGHTING);
-            glDisable(GL_COLOR_MATERIAL);
         }
         else {
 

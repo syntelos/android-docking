@@ -3,6 +3,7 @@
 export progn=$0
 export wd=$(cd $(dirname $0); pwd)
 export bin=${wd}/bin
+export lib=${wd}/libs
 export test=${wd}/test
 
 function android_jar {
@@ -64,7 +65,7 @@ Synopsis
 Description
 
     Compile 'test/<name>.java'.  The compilation class path includes
-    the application 'bin/classes' and the android runtime.
+    the application 'bin/classes' as well as 'android', 'fv3' and 'path'.
 
 Synopsis
 
@@ -75,8 +76,8 @@ Description
     Run the binary produced from 'test/<name>.java', accepting
     optional arguments which are passed through to the main function.
 
-    The runtime class path includes the application 'bin/classes' and
-    the android runtime.
+    The runtime class path includes the application 'bin/classes' as 
+    well as 'android', 'fv3', and 'path' runtime.
 
 EOF
     exit 1
@@ -91,13 +92,21 @@ function run {
 }
 
 export bin_classes=${bin}/classes
-
+export fv3_jarf=${lib}/fv3.jar
 export android_jarf
+
+
 
 if ! android_jarf=$(android_jar) || [ -z "${android_jarf}" ]
 then
     cat<<EOF>&2
 Missing 'android.jar'
+EOF
+    exit 1
+elif [ ! -f "${fv3_jarf}" ]
+then
+    cat<<EOF>&2
+Missing '${fv3_jarf}'
 EOF
     exit 1
 elif [ ! -d "${test}" ]
@@ -113,7 +122,7 @@ Missing '${bin_classes}'
 EOF
     exit 1
 else
-    export classpath=${bin_classes}:${android_jarf}
+    export classpath=${bin_classes}:${fv3_jarf}:${android_jarf}
 
     if [ -n "${1}" ]
     then

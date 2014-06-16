@@ -56,4 +56,13 @@ public enum PhysicsOperator {
             return 999;
         }
     }
+    public int limit(long t_source){
+
+        switch(this){
+        case TX1:
+            return (int)(t_source/100L);
+        default:
+            return (int)(t_source/1000L);
+        }
+    }
 }

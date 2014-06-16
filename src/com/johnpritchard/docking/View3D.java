@@ -333,14 +333,17 @@ public final class View3D
     public boolean onDoubleTap(MotionEvent e){
         //info("onDoubleTap {Enter}");
 
-        Docking.Post3D(new DockingPostScreenShot(this));
+        if (Page.gamemodel == renderer.pageId){
 
+            ((DockingPageGameModel)renderer.page).toggleMode();
+        }
+        else {
+            Docking.Post3D(new DockingPostScreenShot(this));
+        }
         return true;
     }
     public boolean onDoubleTapEvent(MotionEvent e){
-        //info("onDoubleTapEvent");
-
-        return true;
+        return false;
     }
     @Override
     public boolean onTrackballEvent(MotionEvent event){

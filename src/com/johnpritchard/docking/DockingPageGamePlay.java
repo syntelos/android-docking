@@ -50,23 +50,42 @@ public final class DockingPageGamePlay
         if (stale){
             stale = false;
 
-            glClearColor(1.0f,1.0f,1.0f,1.0f);
-
-            glEnable(GL_LIGHT0);
-            glEnable(GL_LIGHT1);
-            glEnable(GL_LIGHTING);
-            glEnable(GL_COLOR_MATERIAL);
+            glClearColor(0.0f,0.0f,0.0f,1.0f);
         }
         else {
 
             glClear(CLR);
+            {
+                FloatBuffer mm = model_matrix[model_matrix_current];
 
-            model();
+                glPushMatrix();
 
-            glColor4f(0.0f,0.0f,0.0f,1.0f);
+                glMultMatrixf(mm);
 
-            draw();
+                glEnable(GL_LIGHT0);
+                glEnable(GL_LIGHT1);
+                glEnable(GL_LIGHTING);
+                glEnable(GL_COLOR_MATERIAL);
 
+                glColor4f(MOD_COL_R,MOD_COL_G,MOD_COL_B,MOD_COL_A);
+
+                glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
+                glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
+
+                DockingGeometryPort.Instance.triangles();
+
+                glPopMatrix();
+
+                glDisable(GL_LIGHT0);
+                glDisable(GL_LIGHT1);
+                glDisable(GL_LIGHTING);
+                glDisable(GL_COLOR_MATERIAL);
+            }
+            {
+                glColor4f(1.0f,1.0f,1.0f,1.0f);
+
+                draw();
+            }
             glFlush();
         }
     }

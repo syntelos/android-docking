@@ -26,6 +26,31 @@ public abstract class View3DGeometry {
         super();
     }
 
-    public abstract void draw();
+
+    /**
+     * Convert a list of triangles (N/3) into a list of lines (2N-2)
+     * -- for N vertices.
+     */
+    protected final static float[] Lines(float[] triangles){
+        final int tfc = triangles.length;
+        final int tvc = (tfc/3);
+        final int lvc = (tvc<<1)-2;
+        final int lfc = (lvc*3);
+        final int lft = (lfc-3);
+
+        final float[] lines = new float[lfc];
+
+        for (int ct = 0, cl = 0; ct < tfc; ct += 3, cl += 3){
+            System.arraycopy(triangles,ct,lines,cl,3);
+            if (0 != ct){
+                cl += 3;
+                if (cl < lft){
+                    System.arraycopy(triangles,ct,lines,cl,3);
+                }
+            }
+        }
+
+        return lines;
+    }
 
 }

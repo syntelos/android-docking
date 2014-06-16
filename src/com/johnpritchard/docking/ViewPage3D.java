@@ -31,7 +31,7 @@ public abstract class ViewPage3D
 
     protected final static java.nio.ByteOrder nativeOrder = java.nio.ByteOrder.nativeOrder();
 
-    protected final static int CLR = (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+    protected final static int CLR = (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
     /**
