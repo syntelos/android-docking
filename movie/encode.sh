@@ -9,4 +9,4 @@ rm -f $tgt
 
 set -x
 
-avconv -i %d.png -c:v libx264 -preset veryslow -r 1 -s 960x540 -qp 0 ${tgt}
+avconv -i %d.png -c:v libx264 -preset veryslow -r 0.5 -s 960x540 -qp 0 ${tgt}
