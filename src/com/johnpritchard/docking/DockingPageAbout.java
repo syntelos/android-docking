@@ -120,8 +120,17 @@ public class DockingPageAbout
     public void input(InputScript in){
 
         switch(in.type()){
+
+        case Up:
+            /*
+             * ad astra
+             */
+            Docking.Post2D(new DockingPostStartModel());
+            break;
+
         case Left:
         case Right:
+        case Down:
         case Enter:
             view.script(Page.start);
             break;

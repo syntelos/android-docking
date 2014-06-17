@@ -26,8 +26,12 @@ public final class DockingPageGamePlay
 
     public final static DockingPageGamePlay Instance = new DockingPageGamePlay();
 
+    private final static int TITLE = 90;
+
 
     private boolean stale = true;
+
+    private volatile boolean title = true;
 
 
 
@@ -49,9 +53,22 @@ public final class DockingPageGamePlay
     public void draw(GL10 gl){
 
         if (stale){
+
             stale = false;
 
             glClearColor(0.0f,0.0f,0.0f,1.0f);
+        }
+        else if (title){
+
+            glClear(CLR);
+            {
+                glColor4f(1.0f,1.0f,1.0f,1.0f);
+
+                DockingGeometryStarfield.Instance.draw();
+
+                out_movie.draw();
+            }
+            glFlush();
         }
         else {
 
@@ -119,5 +136,9 @@ public final class DockingPageGamePlay
                 c.clearCurrent();
             }
         }
+    }
+    protected synchronized void title(){
+
+        title = false;
     }
 }

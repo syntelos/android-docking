@@ -103,8 +103,20 @@ public final class View2D
         //info("onCreate");
 
         this.preferences = state;
+        /*
+         * Prevent continuations across app state boundaries while
+         * onPause(N) can follow onCreate(N+1) [in actual time]
+         * 
+         * onCreate(N)
+         * // ? onPause(N)
+         * onCreate(N+1)
+         * // ? onPause(N)
+         */
+        ViewAnimation.Stop();
 
         DockingPhysics.Stop();
+
+        //DockingMovie.Stop();
     }
     public void onResume(){
         //info("onResume");
@@ -165,7 +177,7 @@ public final class View2D
      * effect as on devices where the back button operates directly on
      * the activity stack (without passing through the View key event
      * process).
-     */
+
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
 
@@ -192,13 +204,14 @@ public final class View2D
         }
         return false;
     }
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
 
         switch(keyCode){
 
         case KeyEvent.KEYCODE_BACK:
-            return (Page.start != this.pageId);
+            return false;
 
         case KeyEvent.KEYCODE_SOFT_LEFT:
         case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -240,13 +253,7 @@ public final class View2D
         switch(keyCode){
 
         case KeyEvent.KEYCODE_BACK:
-            if (Page.start != this.pageId){
-                script(Input.Back);
-                return true;
-            }
-            else {
-                return false;
-            }
+            return false;
 
         case KeyEvent.KEYCODE_SOFT_LEFT:
         case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -317,8 +324,12 @@ public final class View2D
             if ((!this.pageId.simpleInput) && event.isPrintingKey()){
 
                 script((char)event.getUnicodeChar());
+
+                return true;
             }
-            return false;
+            else {
+                return false;
+            }
         }
     }
     @Override
@@ -366,7 +377,7 @@ public final class View2D
                 script(Input.Right);
             }
         }
-        else if (0.0f > dy){
+        else if (0.0f < dy){
 
             script(Input.Up);
         }
@@ -393,7 +404,7 @@ public final class View2D
                 script(Input.Right);
             }
         }
-        else if (0.0f > dy){
+        else if (0.0f < dy){
 
             script(Input.Up);
         }

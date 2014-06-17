@@ -14,7 +14,7 @@ public final class DockingPhysics
 {
     private final static String TAG = ObjectLog.TAG;
 
-    private final static Object StaticMonitor = ViewAnimation.class;
+    private final static Object StaticMonitor = DockingPhysics.class;
 
     protected volatile static DockingPhysics Instance;
 
@@ -94,6 +94,10 @@ public final class DockingPhysics
 
             sleep(1500L);
 
+            DockingPageGamePlay.Instance.title();
+
+            sleep(1500L);
+
             final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
 
             while (running){
@@ -124,11 +128,6 @@ public final class DockingPhysics
         }
         catch (InterruptedException inx){
             return;
-        }
-        finally {
-            //info("returning");
-
-            //Instance = null;
         }
     }
     protected void verbose(String m){

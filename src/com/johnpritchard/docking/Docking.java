@@ -65,6 +65,10 @@ public final class Docking
 
         Activity3D.runOnUiThread(action);
     }
+    protected final static void ScreenShot3D(){
+
+        Post3D(new DockingPostScreenShot(Activity3D.view));
+    }
     protected final static void Toast2D(String msg){
 
         Toast toast = Toast.makeText(Activity2D, msg, Toast.LENGTH_SHORT);

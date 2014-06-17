@@ -61,6 +61,8 @@ public abstract class DockingPageGameAbstract
 
     protected final static ViewPage3DTextLabel     out_crash = new ViewPage3DTextLabel(-1.5, -0.6, Z, 0.5,"Crash!");
 
+    protected final static ViewPage3DTextLabel     out_movie = new ViewPage3DTextLabel(-1.6, -0.1, Z, 0.5,"Docking");
+
     protected final static DockingOutputIdentifier out_identifier = new DockingOutputIdentifier(-3.0, -1.25, Z, 0.12);
     protected final static DockingOutputCreated    out_created    = new DockingOutputCreated   (-3.0, -1.50, Z, 0.12);
     protected final static DockingOutputCompleted  out_completed  = new DockingOutputCompleted (-3.0, -1.75, Z, 0.12);

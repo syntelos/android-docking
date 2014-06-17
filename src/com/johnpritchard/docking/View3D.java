@@ -81,8 +81,20 @@ public final class View3D
         //info("onCreate");
 
         this.preferences = state;
+        /*
+         * Prevent continuations across app state boundaries while
+         * onPause(N) can follow onCreate(N+1) [in actual time]
+         * 
+         * onCreate(N)
+         * // ? onPause(N)
+         * onCreate(N+1)
+         * // ? onPause(N)
+         */
+        ViewAnimation.Stop();
 
         DockingPhysics.Stop();
+
+        //DockingMovie.Stop();
 
         this.renderer.onCreate(state);
     }
@@ -101,6 +113,8 @@ public final class View3D
         this.renderer.onPause(state);
 
         ViewAnimation.Stop();
+
+        //DockingMovie.Stop();
     }
     /**
      * Works on Sony-TV, but not MB860
@@ -109,7 +123,7 @@ public final class View3D
      * effect as on devices where the back button operates directly on
      * the activity stack (without passing through the View key event
      * process).
-     */
+
     @Override
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
 
@@ -130,13 +144,14 @@ public final class View3D
         }
         return false;
     }
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
 
         switch(keyCode){
 
         case KeyEvent.KEYCODE_BACK:
-            return true;
+            return false;
 
         case KeyEvent.KEYCODE_SOFT_LEFT:
         case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -178,8 +193,7 @@ public final class View3D
         switch(keyCode){
 
         case KeyEvent.KEYCODE_BACK:
-            script(Input.Back);
-            return true;
+            return false;
 
         case KeyEvent.KEYCODE_SOFT_LEFT:
         case KeyEvent.KEYCODE_DPAD_LEFT:
@@ -218,22 +232,19 @@ public final class View3D
         case KeyEvent.KEYCODE_DPAD_CENTER:
         case KeyEvent.KEYCODE_ENTER:
 
-            if (event.hasNoModifiers()){ // TODO (API > 10 && API <= 15)
-
-                script(Input.Enter);
-            }
-            else {
-
-                Docking.Post3D(new DockingPostScreenShot(this));
-            }
+            script(Input.Enter);
             return true;
 
         default:
             if ((!this.renderer.pageId.simpleInput) && event.isPrintingKey()){
 
                 script((char)event.getUnicodeChar());
+
+                return true;
             }
-            return false;
+            else {
+                return false;
+            }
         }
     }
     @Override
@@ -333,7 +344,7 @@ public final class View3D
     public boolean onDoubleTap(MotionEvent e){
         //info("onDoubleTap {Enter}");
 
-        Docking.Post3D(new DockingPostScreenShot(this));
+        Docking.ScreenShot3D();
 
         return true;
     }
