@@ -1,6 +1,12 @@
 #!/bin/bash
+#
+# Source frames named {0...N}.png
+#
 
-rm -f movie.mp4
-input=$(cat index.txt | sed 's/^/ -i /')
+tgt=movie.h264
 
-avconv ${input} -c mpeg4 -r 1 -s 960x540 movie.mp4
+rm -f $tgt
+
+set -x
+
+avconv -i %d.png -c:v libx264 -preset veryslow -r 1 -s 960x540 -qp 0 ${tgt}
