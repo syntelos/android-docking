@@ -27,19 +27,27 @@ public final class DockingPageGameHardware
 
     public final static DockingPageGameHardware Instance = new DockingPageGameHardware();
 
-    private final static double X0 = -3.30;
-    private final static double X1 = +0.00;
+    private final static double COL2_X0 = -3.30;
+    private final static double COL2_X1 = +0.00;
+
+    private final static double COL3_X0 = -3.30;
+    private final static double COL3_X1 = -1.70;
+    private final static double COL3_X2 = +0.00;
+
     private final static double Y0 = +1.50;
-    private final static double Y1 = +1.60;
+    private final static double Y1 = +1.61;
+
     private final static double DY = -0.25;
-    private final static int EXTENSIONS0 = 13;
+
+    private final static int COL2 = 13;
+    private final static int COL3 = (COL2<<1);
 
     private boolean stale = true;
 
     private String vendor, version, extensions;
 
     private final DockingOutputHardwareVendor out_hw_vendor = 
-        new DockingOutputHardwareVendor    (X0, +1.75, Z, 0.12);
+        new DockingOutputHardwareVendor    (COL2_X0, +1.75, Z, 0.12);
 
     private DockingOutputHardwareExtensions[] out_hw_extensions;
 
@@ -138,37 +146,88 @@ public final class DockingPageGameHardware
     }
     protected void extensions(String source){
 
-        DockingOutputHardwareExtensions[] list = null;
-        int count = 0;
+        String[] extensions = null;
+        {
+            int start = 0, end = 0;
+            do {
+                end = source.indexOf(' ',start);
+                if (start < end){
 
-        double y0 = Y0, y1 = Y1;
+                    String item = source.substring(start,end);
 
-        int start = 0, end = 0;
-        for (; ; count++){
-            end = source.indexOf(' ',start);
-            if (start < end){
-                DockingOutputHardwareExtensions item;
+                    extensions = Add(extensions,item);
 
-                if (EXTENSIONS0 < count){
-
-                    item = new DockingOutputHardwareExtensions(X1, y1, Z, 0.12);
-                    y1 += DY;
+                    start = (end+1);
                 }
                 else {
-                    item = new DockingOutputHardwareExtensions(X0, y0, Z, 0.12);
-                    y0 += DY;
+                    break;
                 }
+            }
+            while (true);
+        }
 
-                item.format(source.substring(start,end));
-                list = DockingOutputHardwareExtensions.Add(list,item);
-                start = (end+1);
+        if (null != extensions){
+
+            final int count = extensions.length;
+
+            DockingOutputHardwareExtensions[] list = new DockingOutputHardwareExtensions[count];
+
+            if (COL3 < count){
+
+                double y0 = Y0, y1 = Y1, y2 = Y0;
+
+                for (int cc = 0; cc < count; cc++){
+
+                    DockingOutputHardwareExtensions item;
+
+                    if (COL3 < cc){
+
+                        item = new DockingOutputHardwareExtensions(COL3_X2, y2, Z, 0.12);
+                        y2 += DY;
+                    }
+                    else if (COL2 < cc){
+
+                        item = new DockingOutputHardwareExtensions(COL3_X1, y1, Z, 0.12);
+                        y1 += DY;
+                    }
+                    else {
+                        item = new DockingOutputHardwareExtensions(COL3_X0, y0, Z, 0.12);
+                        y0 += DY;
+                    }
+
+                    item.format(extensions[cc]);
+
+                    list[cc] = item;
+                }
             }
             else {
-                break;
+                double y0 = Y0, y1 = Y1;
+
+                for (int cc = 0; cc < count; cc++){
+
+                    DockingOutputHardwareExtensions item;
+
+                    if (COL2 < cc){
+
+                        item = new DockingOutputHardwareExtensions(COL2_X1, y1, Z, 0.12);
+                        y1 += DY;
+                    }
+                    else {
+                        item = new DockingOutputHardwareExtensions(COL2_X0, y0, Z, 0.12);
+                        y0 += DY;
+                    }
+
+                    item.format(extensions[cc]);
+
+                    list[cc] = item;
+                }
             }
+            this.out_hw_extensions = list;
+            this.out_hw_extensions_count = count;
         }
-        this.out_hw_extensions = list;
-        this.out_hw_extensions_count = count;
+        else {
+            this.out_hw_extensions_count = 0;
+        }
     }
 
 }

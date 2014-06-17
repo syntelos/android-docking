@@ -102,15 +102,21 @@ public final class DockingPhysics
         final DockingPageGamePlay pg = DockingPageGamePlay.Instance;
         if (sv.inGame()){
             try {
-                //info("running");
-
                 if (pg.isTitle()){
+
+                    //info("entering with title");
 
                     sleep(1500L);
 
                     pg.clearTitle();
                 }
+                else {
+                    //info("entering without title");
+                }
+
                 sleep(1500L);
+
+                //info("running");
 
                 while (running){
                     {
@@ -137,11 +143,13 @@ public final class DockingPhysics
                         }
                     }
                     else {
+                        //info("exiting game");
                         return;
                     }
                 }
             }
             catch (InterruptedException inx){
+                warn("game",inx);
                 return;
             }
             finally {
@@ -149,6 +157,8 @@ public final class DockingPhysics
             }
         }
         else {
+            //info("exiting not in game");
+
             Exit(this);
         }
     }

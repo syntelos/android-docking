@@ -61,7 +61,7 @@ public abstract class DockingPageGameAbstract
 
     protected final static ViewPage3DTextLabel     out_crash = new ViewPage3DTextLabel(-1.5, -0.6, Z, 0.5,"Crash!");
 
-    protected final static ViewPage3DTextLabel     out_movie = new ViewPage3DTextLabel(-1.6, -0.1, Z, 0.5,"Docking");
+    protected final static ViewPage3DTextLabel     out_movie = new ViewPage3DTextLabel(-1.5, -0.1, Z, 0.5,"Docking");
 
     protected final static DockingOutputIdentifier out_identifier = new DockingOutputIdentifier(-3.0, -1.25, Z, 0.12);
     protected final static DockingOutputCreated    out_created    = new DockingOutputCreated   (-3.0, -1.50, Z, 0.12);
@@ -317,27 +317,31 @@ public abstract class DockingPageGameAbstract
                           0.0f,  0.0f,  0.0f,
                           0.0f,  1.0f,  0.0f);
     }
-
-    protected final static float[] LIGHT1_POS = {
-        100.0f, -100.0f, -10.0f, 0.0f
+    /*
+     * Sun, directional, w = 0
+     * 
+     * MODELVIEW 
+     */
+    protected final static float[] LIGHT0_POS = {
+        200.0f, 200.0f, -100.0f, 0.0f
     };
-    protected final static float[] LIGHT1_AMB = {
+    protected final static float[] LIGHT0_AMB = {
         0.1f, 0.1f, 0.11f, 1.0f
     };
-    protected final static float[] LIGHT1_DIF = {
+    protected final static float[] LIGHT0_DIF = {
         0.9f, 0.9f, 0.8f, 1.0f
     };
-    protected final static float[] LIGHT1_SPE = {
+    protected final static float[] LIGHT0_SPE = {
         0.9f, 0.9f, 0.8f, 1.0f
     };
-    protected final static float[] LIGHT1_DIR = {
-        0.0f, 0.0f, -1000.0f
-    };
-    protected final static float LIGHT_C_ATT     = 1.5f;
-    protected final static float LIGHT_B_ATT     = 0.5f;
-    protected final static float LIGHT_A_ATT     = 0.2f;
-    protected final static float LIGHT_SPOT_ADEG = 45f;
-    protected final static float LIGHT_SPOT_EXP  = 2.0f;
+    // protected final static float[] LIGHT0_DIR = {
+    //     0.0f, 0.0f, -100.0f
+    // };
+    // protected final static float LIGHT_C_ATT     = 1.5f;
+    // protected final static float LIGHT_B_ATT     = 0.5f;
+    // protected final static float LIGHT_A_ATT     = 0.2f;
+    // protected final static float LIGHT_SPOT_ADEG = 45f;
+    // protected final static float LIGHT_SPOT_EXP  = 2.0f;
 
     protected final static float[] MAT_SHIN = {
         5.0f
@@ -348,7 +352,8 @@ public abstract class DockingPageGameAbstract
 
     protected final static FloatBuffer camera;
 
-    protected final static FloatBuffer light1_pos, light1_amb, light1_dif, light1_spe, light1_dir;
+    protected final static FloatBuffer light0_pos, light0_dif, light0_spe;
+    protected final static FloatBuffer light0_amb;
 
     protected final static FloatBuffer matShin, matSpec;
 
@@ -365,39 +370,32 @@ public abstract class DockingPageGameAbstract
             camera.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_POS.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_POS.length * bpf);
             ib_light.order(nativeOrder);
-            light1_pos = ib_light.asFloatBuffer();
-            light1_pos.put(LIGHT1_POS);
-            light1_pos.position(0);
+            light0_pos = ib_light.asFloatBuffer();
+            light0_pos.put(LIGHT0_POS);
+            light0_pos.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_AMB.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_AMB.length * bpf);
             ib_light.order(nativeOrder);
-            light1_amb = ib_light.asFloatBuffer();
-            light1_amb.put(LIGHT1_AMB);
-            light1_amb.position(0);
+            light0_amb = ib_light.asFloatBuffer();
+            light0_amb.put(LIGHT0_AMB);
+            light0_amb.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_DIF.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_DIF.length * bpf);
             ib_light.order(nativeOrder);
-            light1_dif = ib_light.asFloatBuffer();
-            light1_dif.put(LIGHT1_DIF);
-            light1_dif.position(0);
+            light0_dif = ib_light.asFloatBuffer();
+            light0_dif.put(LIGHT0_DIF);
+            light0_dif.position(0);
         }
         {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_SPE.length * bpf);
+            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT0_SPE.length * bpf);
             ib_light.order(nativeOrder);
-            light1_spe = ib_light.asFloatBuffer();
-            light1_spe.put(LIGHT1_SPE);
-            light1_spe.position(0);
-        }
-        {
-            final ByteBuffer ib_light = ByteBuffer.allocateDirect(LIGHT1_DIR.length * bpf);
-            ib_light.order(nativeOrder);
-            light1_dir = ib_light.asFloatBuffer();
-            light1_dir.put(LIGHT1_DIR);
-            light1_dir.position(0);
+            light0_spe = ib_light.asFloatBuffer();
+            light0_spe.put(LIGHT0_SPE);
+            light0_spe.position(0);
         }
 
         {
@@ -441,7 +439,6 @@ public abstract class DockingPageGameAbstract
 
         glViewport(0,0,width,height);
 
-
         glShadeModel(GL_SMOOTH);
         glDisable(GL_DITHER);
 
@@ -450,6 +447,16 @@ public abstract class DockingPageGameAbstract
 
         glFrontFace(GL_CCW);
         glDisable(GL_CULL_FACE);
+        glEnable(GL_DEPTH_TEST);
+
+        glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,matShin);
+        glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,matSpec);
+
+        glLightfv( GL_LIGHT0, GL_POSITION,              light0_pos);
+        glLightfv( GL_LIGHT0, GL_DIFFUSE,               light0_dif);
+        glLightfv( GL_LIGHT0, GL_SPECULAR,              light0_spe);
+        glLightfv( GL_LIGHT0, GL_AMBIENT,               light0_amb);
+        //glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light0_amb);
 
         /*
          * Perspective
@@ -475,20 +482,6 @@ public abstract class DockingPageGameAbstract
         /*
          */
         glClearColor(1.0f,1.0f,1.0f,1.0f);
-
-        /*
-         * Lighting
-         */
-        glLightfv( GL_LIGHT1, GL_AMBIENT,               light1_amb);
-        glLightfv( GL_LIGHT1, GL_DIFFUSE,               light1_dif);
-        glLightfv( GL_LIGHT1, GL_SPECULAR,              light1_spe);
-        glLightfv( GL_LIGHT1, GL_POSITION,              light1_pos);
-        glLightf ( GL_LIGHT1, GL_CONSTANT_ATTENUATION,  LIGHT_C_ATT);
-        glLightf ( GL_LIGHT1, GL_LINEAR_ATTENUATION,    LIGHT_B_ATT);
-        glLightf ( GL_LIGHT1, GL_QUADRATIC_ATTENUATION, LIGHT_A_ATT);
-        glLightf ( GL_LIGHT1, GL_SPOT_CUTOFF,           LIGHT_SPOT_ADEG);
-        glLightfv( GL_LIGHT1, GL_SPOT_DIRECTION,        light1_dir);
-        glLightf ( GL_LIGHT1, GL_SPOT_EXPONENT,         LIGHT_SPOT_EXP);
 
     }
     @Override
@@ -518,5 +511,42 @@ public abstract class DockingPageGameAbstract
     @Override
     protected boolean navigationInclude(int index, ViewPage3DComponent c){
         return (c instanceof DockingFieldIO);
+    }
+    protected final void logGLE(String comment){
+
+        while (true){
+
+            int ec = glGetError();
+
+            switch(ec){
+
+            case GL_NO_ERROR:
+                return;
+            case GL_INVALID_ENUM:
+                error(comment+" GL_INVALID_ENUM");
+                break;
+            case GL_INVALID_OPERATION:
+                error(comment+" GL_INVALID_OPERATION");
+                break;
+            case GL_INVALID_VALUE:
+                error(comment+" GL_INVALID_VALUE");
+                break;
+            case GL_STACK_OVERFLOW:
+                error(comment+" GL_STACK_OVERFLOW");
+                break;
+            case GL_STACK_UNDERFLOW:
+                error(comment+" GL_STACK_UNDERFLOW");
+                break;
+            case GL_OUT_OF_MEMORY:
+                error(comment+" GL_OUT_OF_MEMORY");
+                break;
+            // case GL_TABLE_TOO_LARGE:
+            //     error(comment+" GL_TABLE_TOO_LARGE");
+            //     break;
+            default:
+                error(comment+" <Error "+ec+'>');
+                break;
+            }
+        }
     }
 }

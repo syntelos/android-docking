@@ -296,7 +296,9 @@ public final class DockingCraftStateVector
     /**
      * Alternative to {@link #create} reads a pre-positioned cursor.
      */
-    protected synchronized void create(){
+    protected synchronized void game(){
+
+        this.meta = DockingGameLevel.G;
 
         this.cursor = -1L;
 
@@ -338,6 +340,8 @@ public final class DockingCraftStateVector
     }
     protected synchronized void model(){
 
+        this.meta = DockingGameLevel.M;
+
         this.cursor = -1L;
 
         this.level = DockingGameLevel.M;
@@ -377,6 +381,8 @@ public final class DockingCraftStateVector
         this.copy = 0L;
     }
     protected synchronized void hardware(){
+
+        this.meta = DockingGameLevel.H;
 
         this.cursor = -1L;
 
@@ -420,6 +426,8 @@ public final class DockingCraftStateVector
      * Alternative to {@link #create} reads a pre-positioned cursor.
      */
     protected synchronized DockingCraftStateVector read(Cursor cursor){
+
+        this.meta = DockingGameLevel.H;
 
         this.cursor = cursor.getLong(cursor.getColumnIndexOrThrow(DockingDatabaseHistory.State._ID));
 

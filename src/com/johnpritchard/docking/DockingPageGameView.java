@@ -113,7 +113,7 @@ public final class DockingPageGameView
             Docking.Post3D(new DockingPostPrevHistory());
 
             break;
-        default:
+        case Enter:
             view.script(Page.start);
             break;
         }

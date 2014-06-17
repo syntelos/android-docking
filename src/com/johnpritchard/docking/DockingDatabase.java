@@ -92,7 +92,7 @@ public final class DockingDatabase
         /*
          * New game
          */
-        DockingCraftStateVector.Instance.create();
+        DockingCraftStateVector.Instance.game();
 
         //Info("game: new");
 
@@ -189,7 +189,7 @@ public final class DockingDatabase
                 /*
                  * No history
                  */
-                DockingCraftStateVector.Instance.create();
+                // DockingCraftStateVector.Instance.game();
 
                 //Info("history: not found");
 

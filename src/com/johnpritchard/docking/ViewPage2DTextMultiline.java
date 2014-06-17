@@ -154,24 +154,4 @@ public class ViewPage2DTextMultiline
         }
         return this;
     }
-
-
-    public final static String[] Add(String[] list, String item){
-
-        if (null == item){
-
-            return list;
-        }
-        else if (null == list){
-
-            return new String[]{item};
-        }
-        else {
-            int len = list.length;
-            String[] copier = new String[len+1];
-            System.arraycopy(list,0,copier,0,len);
-            copier[len] = item;
-            return copier;
-        }
-    }
 }

@@ -79,34 +79,32 @@ public final class DockingPageGamePlay
                 DockingGeometryStarfield.Instance.draw();
             }
             {
-                FloatBuffer mm = model_matrix[model_matrix_current];
+                glEnable(GL_LIGHT0);
+                glEnable(GL_LIGHTING);
 
                 glPushMatrix();
 
-                glMultMatrixf(mm);
-
-                glEnable(GL_LIGHT1);
-                glEnable(GL_LIGHTING);
-                glEnable(GL_COLOR_MATERIAL);
+                glMultMatrixf(model_matrix[model_matrix_current]);
 
                 glColor4f(MOD_COL_R,MOD_COL_G,MOD_COL_B,MOD_COL_A);
 
-                glMaterialfv(GL_FRONT,GL_SHININESS,matShin);
-                glMaterialfv(GL_FRONT,GL_SPECULAR,matSpec);
+                glEnable(GL_COLOR_MATERIAL);
 
                 DockingGeometryPort.Instance.triangles();
 
+                glDisable(GL_COLOR_MATERIAL);
+
                 glPopMatrix();
 
-                glDisable(GL_LIGHT1);
+                glDisable(GL_LIGHT0);
                 glDisable(GL_LIGHTING);
-                glDisable(GL_COLOR_MATERIAL);
             }
             {
                 glColor4f(1.0f,1.0f,1.0f,1.0f);
 
                 draw();
             }
+
             glFlush();
         }
     }
@@ -137,11 +135,11 @@ public final class DockingPageGamePlay
             }
         }
     }
-    protected synchronized boolean isTitle(){
+    protected boolean isTitle(){
 
         return title;
     }
-    protected synchronized void clearTitle(){
+    protected void clearTitle(){
 
         title = false;
     }
