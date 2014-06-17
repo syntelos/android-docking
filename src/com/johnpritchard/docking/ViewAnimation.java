@@ -80,6 +80,15 @@ public final class ViewAnimation
             }
         }
     }
+    private static void Exit(ViewAnimation from){
+        synchronized(StaticMonitor){
+            ViewAnimation instance = Instance;
+            if (null != instance && from == instance){
+
+                Instance = null;
+            }
+        }
+    }
     /**
      * Used by {@link View}
      */
@@ -458,7 +467,7 @@ public final class ViewAnimation
         finally {
             //info("returning"); 
 
-            //Instance = null;
+            Exit(this);
         }
     }
     private void paint(){

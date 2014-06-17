@@ -41,6 +41,15 @@ public final class DockingPhysics
             }
         }
     }
+    private static void Exit(DockingPhysics from){
+        synchronized(StaticMonitor){
+            DockingPhysics instance = Instance;
+            if (null != instance && from == instance){
+
+                Instance = null;
+            }
+        }
+    }
     public static void Script(PhysicsScript in){
         DockingPhysics instance = Instance;
         if (null != instance){
@@ -89,45 +98,58 @@ public final class DockingPhysics
         this.queue = in.push(this.queue);
     }
     public void run(){
-        try {
-            //info("running");
+        final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
+        final DockingPageGamePlay pg = DockingPageGamePlay.Instance;
+        if (sv.inGame()){
+            try {
+                //info("running");
 
-            sleep(1500L);
+                if (pg.isTitle()){
 
-            DockingPageGamePlay.Instance.title();
+                    sleep(1500L);
 
-            sleep(1500L);
+                    pg.clearTitle();
+                }
+                sleep(1500L);
 
-            final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
+                while (running){
+                    {
+                        PhysicsScript prog = this.queue;
+                        this.queue = null;
 
-            while (running){
-                {
-                    PhysicsScript prog = this.queue;
-                    this.queue = null;
+                        while (null != prog){
 
-                    while (null != prog){
+                            sv.add(prog);
 
-                        sv.add(prog);
-
-                        prog = prog.pop();
+                            prog = prog.pop();
+                        }
                     }
-                }
 
-                if (!sv.update(FCOPY)){
+                    if (!sv.update(FCOPY)){
 
-                    Docking.Post3D(new DockingPostFinishPhysics());
+                        Docking.Post3D(new DockingPostFinishPhysics());
 
-                    return;
-                }
-                else {
-                    synchronized(this.monitor){
-                        this.monitor.wait(TINC);
+                        return;
+                    }
+                    else if (sv.inGame()){
+                        synchronized(this.monitor){
+                            this.monitor.wait(TINC);
+                        }
+                    }
+                    else {
+                        return;
                     }
                 }
             }
+            catch (InterruptedException inx){
+                return;
+            }
+            finally {
+                Exit(this);
+            }
         }
-        catch (InterruptedException inx){
-            return;
+        else {
+            Exit(this);
         }
     }
     protected void verbose(String m){

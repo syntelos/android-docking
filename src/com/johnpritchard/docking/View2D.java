@@ -115,8 +115,6 @@ public final class View2D
         ViewAnimation.Stop();
 
         DockingPhysics.Stop();
-
-        //DockingMovie.Stop();
     }
     public void onResume(){
         //info("onResume");

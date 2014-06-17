@@ -20,7 +20,7 @@ public final class DockingCraftStateVector
         new DockingCraftStateVector();
 
 
-    public DockingGameLevel level;
+    public DockingGameLevel meta, level;
     /**
      * m
      */
@@ -66,19 +66,19 @@ public final class DockingCraftStateVector
 
     public synchronized boolean inGame(){
 
-        return (-1L == cursor);
+        return (DockingGameLevel.G == this.meta && 0 != this.level.number);
     }
     public synchronized boolean inModel(){
 
-        return (DockingGameLevel.M == level);
+        return (DockingGameLevel.M == this.meta && DockingGameLevel.M == this.level);
     }
     public synchronized boolean inHardware(){
 
-        return (DockingGameLevel.M == level);
+        return (DockingGameLevel.H == this.meta && DockingGameLevel.H == this.level);
     }
     public synchronized boolean inHistory(){
 
-        return (-1L < cursor);
+        return (DockingGameLevel.H == this.meta && 0 != this.level.number);
     }
     public boolean complete(){
         return (null != completed);

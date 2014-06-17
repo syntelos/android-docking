@@ -9,18 +9,19 @@ import android.content.SharedPreferences;
  */
 public enum DockingGameLevel {
     /*
-     * State vectors for screen shot
+     * State vectors for application (SV meta)
      */
-    H (     0.0,   0.0,  0.0,    1.0,  0.0, 0.0,   0),
-    M (     0.0,   0.0,  0.0,   10.0,  0.0, 0.0,   0),
+    G (  0,    0.0,   0.0,  0.0,    0.0,  0.0, 0.0,   0),
+    H (  0,    0.0,   0.0,  0.0,    1.0,  0.0, 0.0,   0),
+    M (  0,    0.0,   0.0,  0.0,   10.0,  0.0, 0.0,   0),
     /*
      * State vectors for game play
      */
-    L1(  1000.0, 100.0, 10.0,  500.0,  5.0, 0.0,  50),
-    L2(  1000.0, 100.0, 10.0, 1000.0, 10.0, 0.0, 100),
-    L3(  1000.0, 100.0, 10.0, 2000.0, 20.0, 0.0, 200),
-    L4(  1000.0, 100.0, 10.0, 4000.0, 40.0, 0.0, 400),
-    L5(  1000.0, 100.0, 10.0, 8000.0, 80.0, 0.0, 800);
+    L1(  1, 1000.0, 100.0, 10.0,  500.0,  5.0, 0.0,  50),
+    L2(  2, 1000.0, 100.0, 10.0, 1000.0, 10.0, 0.0, 100),
+    L3(  3, 1000.0, 100.0, 10.0, 2000.0, 20.0, 0.0, 200),
+    L4(  4, 1000.0, 100.0, 10.0, 4000.0, 40.0, 0.0, 400),
+    L5(  5, 1000.0, 100.0, 10.0, 8000.0, 80.0, 0.0, 800);
 
 
     public volatile static DockingGameLevel Current = L1;
@@ -42,6 +43,10 @@ public enum DockingGameLevel {
     }
 
 
+    /**
+     * Game level number is not zero.  Non-game number is zero.
+     */
+    public final int number;
     /**
      * kg
      */
@@ -78,8 +83,8 @@ public enum DockingGameLevel {
     public final long time_source;
 
 
-    private DockingGameLevel(double m, double f0, double f1, double r, double v, double a, long t){
-
+    private DockingGameLevel(int number, double m, double f0, double f1, double r, double v, double a, long t){
+        this.number = number;
         this.mass_static = m;
         this.force_thruster_0 = f0;
         this.force_thruster_1 = f1;

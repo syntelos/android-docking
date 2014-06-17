@@ -94,8 +94,6 @@ public final class View3D
 
         DockingPhysics.Stop();
 
-        //DockingMovie.Stop();
-
         this.renderer.onCreate(state);
     }
     public void onResume(){
@@ -113,8 +111,6 @@ public final class View3D
         this.renderer.onPause(state);
 
         ViewAnimation.Stop();
-
-        //DockingMovie.Stop();
     }
     /**
      * Works on Sony-TV, but not MB860

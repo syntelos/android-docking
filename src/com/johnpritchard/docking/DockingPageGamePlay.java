@@ -62,7 +62,7 @@ public final class DockingPageGamePlay
 
             glClear(CLR);
             {
-                glColor4f(1.0f,1.0f,1.0f,1.0f);
+                glColor4f(0.9f,0.9f,1.0f,1.0f);
 
                 DockingGeometryStarfield.Instance.draw();
 
@@ -74,7 +74,7 @@ public final class DockingPageGamePlay
 
             glClear(CLR);
             {
-                glColor4f(1.0f,1.0f,1.0f,1.0f);
+                glColor4f(0.9f,0.9f,1.0f,1.0f);
 
                 DockingGeometryStarfield.Instance.draw();
             }
@@ -137,7 +137,11 @@ public final class DockingPageGamePlay
             }
         }
     }
-    protected synchronized void title(){
+    protected synchronized boolean isTitle(){
+
+        return title;
+    }
+    protected synchronized void clearTitle(){
 
         title = false;
     }
