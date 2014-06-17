@@ -72,6 +72,10 @@ public final class DockingCraftStateVector
 
         return (DockingGameLevel.M == level);
     }
+    public synchronized boolean inHardware(){
+
+        return (DockingGameLevel.M == level);
+    }
     public synchronized boolean inHistory(){
 
         return (-1L < cursor);
@@ -347,6 +351,46 @@ public final class DockingCraftStateVector
         this.label = "model";
 
         this.identifier = "model";
+
+        this.range_x = this.level.range_x;
+
+        this.velocity_x = this.level.velocity_x;
+
+        this.acceleration_x = this.level.acceleration_x;
+
+        this.time_last = 0;
+
+        this.time_start = 0;
+
+        this.time_clock = 0;
+
+        this.time_source = this.level.time_source;
+
+        this.time_xp0 = 0;
+
+        this.time_xm0 = 0;
+
+        this.time_xp1 = 0;
+
+        this.time_xm1 = 0;
+
+        this.copy = 0L;
+    }
+    protected synchronized void hardware(){
+
+        this.cursor = -1L;
+
+        this.level = DockingGameLevel.H;
+
+        this.created = new Date();
+
+        this.completed = new Date();
+
+        this.score = 0.0f;
+
+        this.label = "hardware";
+
+        this.identifier = "hardware";
 
         this.range_x = this.level.range_x;
 

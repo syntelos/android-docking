@@ -108,6 +108,16 @@ public final class DockingDatabase
 
         return true;
     }
+    public static boolean Hardware(){
+        /*
+         * Show hardware
+         */
+        DockingCraftStateVector.Instance.hardware();
+
+        //Info("game: new");
+
+        return true;
+    }
     /**
      * Called from {@link DockingPhysics} to score and store the
      * {@link DockingCraftStateVector}.

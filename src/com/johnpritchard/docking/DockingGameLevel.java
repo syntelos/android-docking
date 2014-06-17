@@ -8,7 +8,14 @@ import android.content.SharedPreferences;
  * 
  */
 public enum DockingGameLevel {
+    /*
+     * State vectors for screen shot
+     */
+    H (     0.0,   0.0,  0.0,    1.0,  0.0, 0.0,   0),
     M (     0.0,   0.0,  0.0,   10.0,  0.0, 0.0,   0),
+    /*
+     * State vectors for game play
+     */
     L1(  1000.0, 100.0, 10.0,  500.0,  5.0, 0.0,  50),
     L2(  1000.0, 100.0, 10.0, 1000.0, 10.0, 0.0, 100),
     L3(  1000.0, 100.0, 10.0, 2000.0, 20.0, 0.0, 200),

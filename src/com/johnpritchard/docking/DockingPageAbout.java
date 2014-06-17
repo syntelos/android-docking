@@ -128,9 +128,13 @@ public class DockingPageAbout
             Docking.Post2D(new DockingPostStartModel());
             break;
 
+        case Down:
+
+            Docking.Post2D(new DockingPostViewHardware());
+            break;
+
         case Left:
         case Right:
-        case Down:
         case Enter:
             view.script(Page.start);
             break;
