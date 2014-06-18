@@ -64,7 +64,7 @@ public final class View3DRenderer
     }
     public void onResume(){
 
-        pageTo(Page.valueOf(preferences.getString("page","gameview")));
+        pageTo(Page.valueOf(preferences.getString("page","gamehistory")));
     }
     public synchronized void onPause(SharedPreferences.Editor state){
 

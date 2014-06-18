@@ -59,6 +59,12 @@ public abstract class DockingPageGameAbstract
 
     protected final static DockingOutputScore      out_score = new DockingOutputScore (-1.5, -0.6, Z, 0.3);
 
+    protected final static ViewPage3DTextLabel     out_dock  = new ViewPage3DTextLabel(-1.4, -0.6, Z, 0.5,"Dock!");
+
+    protected final static ViewPage3DTextLabel     out_stall = new ViewPage3DTextLabel(-1.4, -0.6, Z, 0.5,"Stall!");
+
+    protected final static ViewPage3DTextLabel     out_lost  = new ViewPage3DTextLabel(-1.4, -0.6, Z, 0.5,"Lost!");
+
     protected final static ViewPage3DTextLabel     out_crash = new ViewPage3DTextLabel(-1.5, -0.6, Z, 0.5,"Crash!");
 
     protected final static ViewPage3DTextLabel     out_movie = new ViewPage3DTextLabel(-1.5, -0.1, Z, 0.5,"Docking");
@@ -310,6 +316,11 @@ public abstract class DockingPageGameAbstract
     protected final static float MOD_COL_B = 0.9f;
     protected final static float MOD_COL_A = 1.0f;
 
+    protected final static float STF_COL_R = 0.8f;
+    protected final static float STF_COL_G = 0.8f;
+    protected final static float STF_COL_B = 1.0f;
+    protected final static float STF_COL_A = 1.0f;
+
     protected final static float[] CAMERA = fv3.math.Matrix.Identity();
     static {
         Matrix.setLookAtM(CAMERA, 0,
@@ -443,11 +454,14 @@ public abstract class DockingPageGameAbstract
         glDisable(GL_DITHER);
 
         glLineWidth(1.0f);
+        glEnable(GL_LINE_SMOOTH);
+
         glPointSize(1.0f);
+        glEnable(GL_POINT_SMOOTH);
 
         glFrontFace(GL_CCW);
         glDisable(GL_CULL_FACE);
-        glEnable(GL_DEPTH_TEST);
+        //glEnable(GL_DEPTH_TEST);
 
         glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,matShin);
         glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,matSpec);
@@ -458,6 +472,7 @@ public abstract class DockingPageGameAbstract
         glLightfv( GL_LIGHT0, GL_AMBIENT,               light0_amb);
         //glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light0_amb);
 
+        DockingGeometryStarfield.Instance.init();
         /*
          * Perspective
          */

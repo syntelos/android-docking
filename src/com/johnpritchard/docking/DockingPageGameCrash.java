@@ -21,12 +21,10 @@ import javax.microedition.khronos.opengles.GL10;
  * 
  */
 public final class DockingPageGameCrash
-    extends DockingPageGameAbstract
+    extends DockingPageGameView
 {
 
     public final static DockingPageGameCrash Instance = new DockingPageGameCrash();
-
-    private boolean stale = true;
 
 
     private DockingPageGameCrash(){
@@ -54,6 +52,11 @@ public final class DockingPageGameCrash
         else {
 
             glClear(CLR);
+            // {
+            //     glColor4f(STF_COL_R,STF_COL_G,STF_COL_B,STF_COL_A);
+
+            //     DockingGeometryStarfield.Instance.draw();
+            // }
             {
                 glEnable(GL_LIGHT0);
                 glEnable(GL_LIGHTING);
@@ -92,50 +95,5 @@ public final class DockingPageGameCrash
         out_completed.draw();
 
         super.draw();
-    }
-    @Override
-    protected void focus(){
-
-        stale = true;
-
-        for (ViewPage3DComponent c: this.components){
-
-            if (c instanceof DockingFieldIO){
-
-                c.clearCurrent();
-                c.setCurrent();
-            }
-        }
-    }
-    @Override
-    protected void navigation(){
-    }
-    @Override
-    public void input(InputScript in){
-
-        Input type = in.type();
-        switch(type){
-        case Up:
-            break;
-        case Left:
-            /*
-             * pull from right: ascend history order
-             */
-            Docking.Post3D(new DockingPostNextHistory());
-
-            break;
-        case Down:
-            break;
-        case Right:
-            /*
-             * pull from left: descend history order
-             */
-            Docking.Post3D(new DockingPostPrevHistory());
-
-            break;
-        case Enter:
-            view.script(Page.start);
-            break;
-        }
     }
 }

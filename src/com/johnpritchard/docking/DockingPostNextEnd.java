@@ -4,17 +4,18 @@
 package com.johnpritchard.docking;
 
 /**
+ * Called from {@link DockingPostGameView} input navigation.
  * 
- * @see DockingPostNextEnd
+ * @see DockingPostFinishPhysics
  * @see DockingPostPrevEnd
  */
-public class DockingPostFinishPhysics
+public class DockingPostNextEnd
     extends ObjectLog
     implements Runnable
 {
 
 
-    public DockingPostFinishPhysics(){
+    public DockingPostNextEnd(){
         super();
     }
 
@@ -22,9 +23,7 @@ public class DockingPostFinishPhysics
         try {
             final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
 
-            if (sv.inGame()){
-
-                DockingDatabase.GameOver();
+            if (DockingDatabase.HistoryNext()){
 
                 DockingPageGameAbstract.View();
 

@@ -20,22 +20,14 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * 
  */
-public final class DockingPageGamePlay
-    extends DockingPageGameAbstract
+public final class DockingPageGameDock
+    extends DockingPageGameView
 {
 
-    public final static DockingPageGamePlay Instance = new DockingPageGamePlay();
-
-    private final static int TITLE = 90;
+    public final static DockingPageGameDock Instance = new DockingPageGameDock();
 
 
-    private boolean stale = true;
-
-    private volatile boolean title = true;
-
-
-
-    private DockingPageGamePlay(){
+    private DockingPageGameDock(){
         super(new ViewPage3DComponent[]{
                 in_xp0, in_xm0, in_xp1, in_xm1
             });
@@ -44,42 +36,27 @@ public final class DockingPageGamePlay
 
     @Override
     public String name(){
-        return Page.gameplay.name();
+        return Page.gamedock.name();
     }
     @Override
     public Page value(){
-        return Page.gameplay;
+        return Page.gamedock;
     }
     public void draw(GL10 gl){
 
         if (stale){
-
             stale = false;
 
             glClearColor(0.0f,0.0f,0.0f,1.0f);
         }
-        else if (title){
-
-            glClear(CLR);
-            {
-                glColor4f(STF_COL_R,STF_COL_G,STF_COL_B,STF_COL_A);
-
-                DockingGeometryStarfield.Instance.draw();
-
-                glColor4f(1.0f,1.0f,1.0f,1.0f);
-
-                out_movie.draw();
-            }
-            glFlush();
-        }
         else {
 
             glClear(CLR);
-            {
-                glColor4f(STF_COL_R,STF_COL_G,STF_COL_B,STF_COL_A);
+            // {
+            //     glColor4f(STF_COL_R,STF_COL_G,STF_COL_B,STF_COL_A);
 
-                DockingGeometryStarfield.Instance.draw();
-            }
+            //     DockingGeometryStarfield.Instance.draw();
+            // }
             {
                 glEnable(GL_LIGHT0);
                 glEnable(GL_LIGHTING);
@@ -106,43 +83,17 @@ public final class DockingPageGamePlay
 
                 draw();
             }
-
             glFlush();
         }
     }
     @Override
-    public ViewPage up(View view, int w, int h){
-        super.up(view,w,h);
+    protected void draw(){
 
-        DockingPhysics.Start();
+        out_dock.draw();
+        out_identifier.draw();
+        out_created.draw();
+        out_completed.draw();
 
-        return this;
-    }
-    @Override
-    public void down(){
-        super.down();
-
-        DockingPhysics.Stop();
-    }
-    @Override
-    protected void focus(){
-
-        stale = true;
-
-        for (ViewPage3DComponent c: this.components){
-
-            if (c instanceof DockingFieldIO){
-
-                c.clearCurrent();
-            }
-        }
-    }
-    protected boolean isTitle(){
-
-        return title;
-    }
-    protected void clearTitle(){
-
-        title = false;
+        super.draw();
     }
 }

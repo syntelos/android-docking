@@ -42,9 +42,8 @@ public final class DockingPageGameHardware
     private final static int COL2 = 13;
     private final static int COL3 = (COL2<<1);
 
-    private boolean stale = true;
 
-    private String vendor, version, extensions;
+    private boolean stale = true;
 
     private final DockingOutputHardwareVendor out_hw_vendor = 
         new DockingOutputHardwareVendor    (COL2_X0, +1.75, Z, 0.12);
@@ -76,13 +75,13 @@ public final class DockingPageGameHardware
 
             if (0 == out_hw_extensions_count){
 
-                vendor = glGetString(GL_VENDOR);
-                version = glGetString(GL_VERSION);
-                extensions = glGetString(GL_EXTENSIONS);
+                View3DVersion.Init();
 
-                out_hw_vendor.format(vendor, version, Build.MODEL, Build.DISPLAY);
+                out_hw_vendor.format(View3DVersion.GetVendorString(),
+                                     View3DVersion.GetLongString(),
+                                     Build.MODEL, Build.DISPLAY);
 
-                extensions(extensions);
+                extensions(View3DVersion.GetExtensions());
             }
         }
         else {
@@ -144,27 +143,7 @@ public final class DockingPageGameHardware
             break;
         }
     }
-    protected void extensions(String source){
-
-        String[] extensions = null;
-        {
-            int start = 0, end = 0;
-            do {
-                end = source.indexOf(' ',start);
-                if (start < end){
-
-                    String item = source.substring(start,end);
-
-                    extensions = Add(extensions,item);
-
-                    start = (end+1);
-                }
-                else {
-                    break;
-                }
-            }
-            while (true);
-        }
+    protected void extensions(String[] extensions){
 
         if (null != extensions){
 

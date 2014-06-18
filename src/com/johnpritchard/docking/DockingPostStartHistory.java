@@ -22,7 +22,7 @@ public class DockingPostStartHistory
 
                 DockingPageGameAbstract.View();
 
-                ViewAnimation.Script(Page.gameview);
+                ViewAnimation.Script(Page.gamehistory);
             }
             else {
 

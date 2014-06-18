@@ -19,60 +19,24 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * 
+ * @see DockingPageGameCrash
+ * @see DockingPageGameDock
+ * @see DockingPageGameLost
+ * @see DockingPageGameStall
+ * @see DockingPageGameHistory
  */
-public final class DockingPageGameView
+public abstract class DockingPageGameView
     extends DockingPageGameAbstract
 {
 
-    public final static DockingPageGameView Instance = new DockingPageGameView();
+    protected boolean stale = true;
 
 
-    private boolean stale = true;
-
-
-    private DockingPageGameView(){
-        super(new ViewPage3DComponent[]{
-                in_xp0, in_xm0, in_xp1, in_xm1
-            });
+    protected DockingPageGameView(ViewPage3DComponent[] c){
+        super(c);
     }
 
 
-    @Override
-    public String name(){
-        return Page.gameview.name();
-    }
-    @Override
-    public Page value(){
-        return Page.gameview;
-    }
-    public void draw(GL10 gl){
-
-        if (stale){
-            stale = false;
-
-            glClearColor(1.0f,1.0f,1.0f,1.0f);
-        }
-        else {
-
-            glClear(CLR);
-
-            glColor4f(0.0f,0.0f,0.0f,1.0f);
-
-            draw();
-
-            glFlush();
-        }
-    }
-    @Override
-    protected void draw(){
-
-        out_score.draw();
-        out_identifier.draw();
-        out_created.draw();
-        out_completed.draw();
-
-        super.draw();
-    }
     @Override
     protected void focus(){
 
@@ -90,6 +54,11 @@ public final class DockingPageGameView
     @Override
     protected void navigation(){
     }
+    /**
+     * Input processor shared by {@link DockingPageGameCrash}, {@link
+     * DockingPageGameDock}, {@link DockingPageGameLost}, and {@link
+     * DockingPageGameStall} but not {@link DockingPageGameHistory}
+     */
     @Override
     public void input(InputScript in){
 
@@ -99,18 +68,16 @@ public final class DockingPageGameView
             break;
         case Left:
             /*
-             * pull from right: ascend history order
              */
-            Docking.Post3D(new DockingPostNextHistory());
+            Docking.Post3D(new DockingPostPrevEnd());
 
             break;
         case Down:
             break;
         case Right:
             /*
-             * pull from left: descend history order
              */
-            Docking.Post3D(new DockingPostPrevHistory());
+            Docking.Post3D(new DockingPostNextEnd());
 
             break;
         case Enter:

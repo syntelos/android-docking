@@ -3,19 +3,23 @@
  */
 package com.johnpritchard.docking;
 
-import static android.opengl.GLES10.*;
+import static android.opengl.GLES11.*;
+
+import fv3.math.Matrix;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 /**
- * 
+ * Star field
  */
 public class DockingGeometryStarfield
     extends View3DGeometry
 {
-
+    /**
+     * Star field from Paul Bourke.
+     */
     private final static float[] XYZ = {
         3.19767f, 48.6191f, 87.3267f,
         2.0531f, 85.851f, 51.2385f,
@@ -537,6 +541,10 @@ public class DockingGeometryStarfield
         -1.92753f, 97.6794f, 21.3312f,
 
     };
+    private final static float[] MODEL = Matrix.Identity();
+    static {
+        Matrix.Scale(MODEL,10f);
+    }
 
     public final static DockingGeometryStarfield Instance = new DockingGeometryStarfield();
 
@@ -547,6 +555,8 @@ public class DockingGeometryStarfield
     private final int count;
 
     private final FloatBuffer points;
+
+    private final FloatBuffer model;
 
 
     private DockingGeometryStarfield(){
@@ -562,10 +572,25 @@ public class DockingGeometryStarfield
             this.points.put(XYZ);
             this.points.position(0);
         }
+        {
+            final ByteBuffer ib = ByteBuffer.allocateDirect(16 * bpf);
+            ib.order(nativeOrder);
+            this.model = ib.asFloatBuffer();
+            this.model.put(MODEL);
+            this.model.position(0);
+        }
     }
 
 
+    public void init(){
+
+        glPointSize(2.0f);
+    }
     public void draw(){
+
+        glPushMatrix();
+
+        glMultMatrixf(model);
 
         glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -574,5 +599,7 @@ public class DockingGeometryStarfield
         glDrawArrays(GL_POINTS,0,this.count);
 
         glDisableClientState(GL_VERTEX_ARRAY);
+
+        glPopMatrix();
     }
 }

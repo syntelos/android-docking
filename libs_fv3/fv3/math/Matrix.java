@@ -835,6 +835,16 @@ public class Matrix
             }
         }
     }
+    public final static void Scale(float[] m, float s){
+        if (1.0 != s){
+
+            for (int i = 0; i < 4; i++) {
+                m[I(i,0)] *= s;
+                m[I(i,1)] *= s;
+                m[I(i,2)] *= s;
+            }
+        }
+    }
     public final static double[] Translate(double[] m, double x, double y, double z){
 
         for (int i = 0; i < 3; i++) {
