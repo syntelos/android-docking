@@ -1,0 +1,829 @@
+android.annotation.SuppressLint
+android.annotation.TargetApi
+com.johnpritchard.docking.BID:
+    private static final int RandomIdentifierOctets
+    private static final int RandomOctetBits
+com.johnpritchard.docking.BuildConfig
+com.johnpritchard.docking.Docking:
+    private static final java.lang.String TAG
+    protected static final int FileModePublic
+    74:77:protected static final void Toast2D(java.lang.String)
+    85:85:protected static final java.io.File ExternalDirectory2D(java.lang.String)
+    93:93:protected static final java.io.FileOutputStream InternalFile2D(java.lang.String)
+    98:98:protected static final java.io.FileOutputStream InternalFile3D(java.lang.String)
+    108:109:protected void verbose(java.lang.String)
+    111:112:protected void verbose(java.lang.String,java.lang.Throwable)
+    114:115:protected void debug(java.lang.String)
+    117:118:protected void debug(java.lang.String,java.lang.Throwable)
+    120:121:protected void info(java.lang.String)
+    123:124:protected void info(java.lang.String,java.lang.Throwable)
+    126:127:protected void warn(java.lang.String)
+    129:130:protected void warn(java.lang.String,java.lang.Throwable)
+    132:133:protected void error(java.lang.String)
+    135:136:protected void error(java.lang.String,java.lang.Throwable)
+    138:139:protected void wtf(java.lang.String)
+    141:142:protected void wtf(java.lang.String,java.lang.Throwable)
+    144:145:protected static void Verbose(java.lang.String)
+    147:148:protected static void Verbose(java.lang.String,java.lang.Throwable)
+    150:151:protected static void Debug(java.lang.String)
+    153:154:protected static void Debug(java.lang.String,java.lang.Throwable)
+    156:157:protected static void Info(java.lang.String)
+    159:160:protected static void Info(java.lang.String,java.lang.Throwable)
+    162:163:protected static void Warn(java.lang.String)
+    165:166:protected static void Warn(java.lang.String,java.lang.Throwable)
+    168:169:protected static void Error(java.lang.String)
+    171:172:protected static void Error(java.lang.String,java.lang.Throwable)
+    174:175:protected static void WTF(java.lang.String)
+    177:178:protected static void WTF(java.lang.String,java.lang.Throwable)
+com.johnpritchard.docking.DockingCraft
+com.johnpritchard.docking.DockingCraftStateVector:
+    73:73:public synchronized boolean inModel()
+    77:77:public synchronized boolean inHardware()
+    81:81:public synchronized boolean inHistory()
+    84:84:public boolean complete()
+    87:87:public boolean incomplete()
+    95:95:public boolean done()
+com.johnpritchard.docking.DockingCraftUser
+com.johnpritchard.docking.DockingDatabase:
+    protected static final java.lang.String NAME
+    protected static final int VERSION
+    protected static final java.lang.String STATE
+    protected static final java.lang.String TAG
+    76:76:public static android.database.sqlite.SQLiteQueryBuilder QueryStateInternal(java.lang.String)
+    335:335:protected static final boolean Internal(java.lang.String)
+    378:379:protected static void Verbose(java.lang.String)
+    381:382:protected static void Verbose(java.lang.String,java.lang.Throwable)
+    384:385:protected static void Debug(java.lang.String)
+    387:388:protected static void Debug(java.lang.String,java.lang.Throwable)
+    390:391:protected static void Info(java.lang.String)
+    393:394:protected static void Info(java.lang.String,java.lang.Throwable)
+    399:400:protected static void Warn(java.lang.String,java.lang.Throwable)
+    402:403:protected static void Error(java.lang.String)
+    405:406:protected static void Error(java.lang.String,java.lang.Throwable)
+    408:409:protected static void WTF(java.lang.String)
+    411:412:protected static void WTF(java.lang.String,java.lang.Throwable)
+com.johnpritchard.docking.DockingDatabaseHistory:
+    public static final java.lang.String AUTHORITY
+    public static final java.lang.String CONTENT_TYPE_LIST
+    public static final java.lang.String CONTENT_TYPE_ITEM
+    150:151:private DockingDatabaseHistory()
+com.johnpritchard.docking.DockingDatabaseHistory$State:
+    protected static final java.lang.String IDENTIFIER
+    protected static final java.lang.String LABEL
+    protected static final java.lang.String LEVEL
+    public static final java.lang.String VX
+    public static final java.lang.String AX
+    public static final java.lang.String RX
+    public static final java.lang.String T_SOURCE
+    public static final java.lang.String T_CLOCK
+    public static final java.lang.String T_XP0
+    public static final java.lang.String T_XM0
+    public static final java.lang.String T_XP1
+    public static final java.lang.String T_XM1
+    public static final java.lang.String CREATED
+    public static final java.lang.String COMPLETED
+    public static final java.lang.String SCORE
+    110:110:protected static final java.lang.String[] ProjectionExport()
+    144:145:private DockingDatabaseHistory$State()
+com.johnpritchard.docking.DockingDatabaseHistoryProvider:
+    private static final int QUERY_LIST
+    private static final int QUERY_ID
+com.johnpritchard.docking.DockingFieldIO:
+    protected static final int SEL_O
+com.johnpritchard.docking.DockingFieldIOGroup:
+    protected static final int SEL_O
+    protected static final double SEL_Z
+    protected static final float RIGHT
+com.johnpritchard.docking.DockingGeometryPort:
+    private static final int Res1
+    private static final int Res2
+    private static final int Res3
+    private static final double R
+    private static final double R_SQ
+    private static final int X
+    private static final int Y
+    private static final int Z
+com.johnpritchard.docking.DockingMovie
+com.johnpritchard.docking.DockingOutputAx:
+    private static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputHardwareExtensions:
+    32:42:protected static final com.johnpritchard.docking.DockingOutputHardwareExtensions[] Add(com.johnpritchard.docking.DockingOutputHardwareExtensions[],com.johnpritchard.docking.DockingOutputHardwareExtensions)
+com.johnpritchard.docking.DockingOutputM:
+    protected static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputR:
+    private static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputRx:
+    private static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputScore:
+    private static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputT:
+    private static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputT01:
+    protected static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputT10:
+    protected static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputTr:
+    private static final java.lang.String FMT
+com.johnpritchard.docking.DockingOutputVx:
+    private static final java.lang.String FMT
+com.johnpritchard.docking.DockingPageAbout:
+    public static final java.lang.String AboutString
+    117:117:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageGameAbstract:
+    protected static final double Z
+    private static final double MOD_LIN
+    protected static final double MOD_ROT
+    protected static final float MOD_COL_R
+    protected static final float MOD_COL_G
+    protected static final float MOD_COL_B
+    protected static final float MOD_COL_A
+    protected static final float STF_COL_R
+    protected static final float STF_COL_G
+    protected static final float STF_COL_B
+    protected static final float STF_COL_A
+    534:565:protected final void logGLE(java.lang.String)
+com.johnpritchard.docking.DockingPageGameCrash:
+    43:43:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageGameDock:
+    43:43:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageGameHardware:
+    private static final double COL2_X0
+    private static final double COL2_X1
+    private static final double COL3_X0
+    private static final double COL3_X1
+    private static final double COL3_X2
+    private static final double Y0
+    private static final double Y1
+    private static final double DY
+    private static final int COL2
+    private static final int COL3
+    67:67:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageGameHistory:
+    43:43:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageGameLost:
+    43:43:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageGameModel:
+    private static final double RY_INIT
+    50:50:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageGamePlay:
+    private static final int TITLE
+    51:51:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageGameStall:
+    43:43:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageIntro:
+    36:36:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageIntro1:
+    33:33:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageIntro2:
+    33:33:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageIntro3:
+    33:33:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageIntro4:
+    33:33:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageIntro5:
+    32:32:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageIntro6:
+    32:32:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageNoHistory:
+    33:33:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPageStart:
+    private static final int INTRO
+    private static final int GAME
+    private static final int HISTORY
+    private static final int ABOUT
+    49:49:public com.johnpritchard.docking.Page value()
+com.johnpritchard.docking.DockingPhysics:
+    private static final java.lang.String TAG
+    private static final long TINC
+    private static final long FCOPY
+    166:167:protected void verbose(java.lang.String)
+    169:170:protected void verbose(java.lang.String,java.lang.Throwable)
+    172:173:protected void debug(java.lang.String)
+    175:176:protected void debug(java.lang.String,java.lang.Throwable)
+    178:179:protected void info(java.lang.String)
+    181:182:protected void info(java.lang.String,java.lang.Throwable)
+    184:185:protected void warn(java.lang.String)
+    190:191:protected void error(java.lang.String)
+    193:194:protected void error(java.lang.String,java.lang.Throwable)
+    196:197:protected void wtf(java.lang.String)
+    199:200:protected void wtf(java.lang.String,java.lang.Throwable)
+    202:203:protected static void Verbose(java.lang.String)
+    205:206:protected static void Verbose(java.lang.String,java.lang.Throwable)
+    208:209:protected static void Debug(java.lang.String)
+    211:212:protected static void Debug(java.lang.String,java.lang.Throwable)
+    214:215:protected static void Info(java.lang.String)
+    217:218:protected static void Info(java.lang.String,java.lang.Throwable)
+    220:221:protected static void Warn(java.lang.String)
+    223:224:protected static void Warn(java.lang.String,java.lang.Throwable)
+    226:227:protected static void Error(java.lang.String)
+    229:230:protected static void Error(java.lang.String,java.lang.Throwable)
+    232:233:protected static void WTF(java.lang.String)
+    235:236:protected static void WTF(java.lang.String,java.lang.Throwable)
+com.johnpritchard.docking.DockingPostScreenShot:
+    protected static final int RGB_565_BYTES_CHANNELS
+    protected static final int RGB_565_BYTES_FORMAT
+    protected static final int RGB_565_BYTES
+    protected static final boolean UseInternal
+com.johnpritchard.docking.DockingVersion
+com.johnpritchard.docking.Epsilon:
+    protected static final float EPSILON_F
+    protected static final double EPSILON_D
+    protected static final double DEG
+    protected static final float PAD_RATIO
+    68:68:protected static final float AddClampRP(double,double,double)
+    72:72:protected static final float SubClampRP(double,double,double)
+    76:76:protected static final float MulClampRP(double,double,double)
+    80:80:protected static final float DivClampRP(double,double,double)
+    95:95:protected static final long AddClampZP(long,long)
+    103:103:protected static final long MulClampZP(long,long)
+    107:107:protected static final long DivClampZP(long,long)
+    195:212:protected static final java.lang.String Format5(double)
+com.johnpritchard.docking.Input:
+    public static final int NonGeometricCount
+    72:72:public boolean isEnum()
+    103:149:public static final com.johnpritchard.docking.InputScript[] Add(com.johnpritchard.docking.InputScript[],com.johnpritchard.docking.InputScript[],int)
+    154:163:public static final int IndexOf(com.johnpritchard.docking.InputScript[],com.johnpritchard.docking.InputScript)
+    167:176:public static final int LastIndexOf(com.johnpritchard.docking.InputScript[],com.johnpritchard.docking.InputScript)
+com.johnpritchard.docking.InputScript:
+    public abstract boolean isEnum()
+    public abstract int ordinal()
+    public abstract java.lang.String name()
+    public abstract java.lang.String toString()
+com.johnpritchard.docking.InputScript$Key:
+    41:41:public boolean isEnum()
+    44:44:public int ordinal()
+    47:47:public java.lang.String name()
+com.johnpritchard.docking.ObjectActivity:
+    protected static final java.lang.String TAG
+    88:88:protected void attach(android.hardware.Camera)
+    91:91:protected android.content.SharedPreferences preferences()
+    95:97:protected android.view.Display display()
+    101:107:protected android.util.DisplayMetrics displayMetrics()
+    111:111:protected android.hardware.SensorManager sensorManager()
+    115:115:protected android.hardware.Sensor sensor(int)
+    119:119:protected boolean sensorRegister(android.hardware.SensorEventListener,android.hardware.Sensor,int)
+    123:124:protected void sensorUnregister(android.hardware.SensorEventListener)
+    126:127:protected void verbose(java.lang.String)
+    129:130:protected void verbose(java.lang.String,java.lang.Throwable)
+    132:133:protected void debug(java.lang.String)
+    135:136:protected void debug(java.lang.String,java.lang.Throwable)
+    138:139:protected void info(java.lang.String)
+    141:142:protected void info(java.lang.String,java.lang.Throwable)
+    144:145:protected void warn(java.lang.String)
+    147:148:protected void warn(java.lang.String,java.lang.Throwable)
+    150:151:protected void error(java.lang.String)
+    153:154:protected void error(java.lang.String,java.lang.Throwable)
+    156:157:protected void wtf(java.lang.String)
+    159:160:protected void wtf(java.lang.String,java.lang.Throwable)
+com.johnpritchard.docking.ObjectLog:
+    public static final java.lang.String TAG
+    50:50:public com.johnpritchard.docking.ObjectActivity getContext()
+    61:62:protected void attach(android.hardware.Camera)
+    65:65:protected android.view.Display display()
+    69:69:protected android.util.DisplayMetrics displayMetrics()
+    73:73:protected android.hardware.SensorManager sensorManager()
+    77:77:protected android.hardware.Sensor sensor(int)
+    81:81:protected boolean sensorRegister(android.hardware.SensorEventListener,android.hardware.Sensor,int)
+    85:86:protected void sensorUnregister(android.hardware.SensorEventListener)
+    88:89:protected void verbose(java.lang.String)
+    91:92:protected void verbose(java.lang.String,java.lang.Throwable)
+    94:95:protected void debug(java.lang.String)
+    97:98:protected void debug(java.lang.String,java.lang.Throwable)
+    100:101:protected void info(java.lang.String)
+    103:104:protected void info(java.lang.String,java.lang.Throwable)
+    106:107:protected void warn(java.lang.String)
+    109:110:protected void warn(java.lang.String,java.lang.Throwable)
+    118:119:protected void wtf(java.lang.String)
+    121:122:protected void wtf(java.lang.String,java.lang.Throwable)
+com.johnpritchard.docking.PhysicsOperator:
+    41:41:public float seconds(long)
+    44:56:public long milliseconds(float)
+com.johnpritchard.docking.PhysicsScript:
+    29:29:public float seconds()
+com.johnpritchard.docking.R
+com.johnpritchard.docking.R$attr
+com.johnpritchard.docking.R$drawable
+com.johnpritchard.docking.R$layout
+com.johnpritchard.docking.R$string
+com.johnpritchard.docking.View:
+    public abstract void onCreate(android.content.SharedPreferences)
+    public abstract void onResume()
+    public abstract void onPause(android.content.SharedPreferences$Editor)
+    public abstract void script(com.johnpritchard.docking.InputScript)
+    public abstract void script(com.johnpritchard.docking.InputScript[])
+com.johnpritchard.docking.View$Script:
+    53:54:private View$Script()
+com.johnpritchard.docking.View2D:
+    public static final java.lang.String TAG
+    574:575:protected void verbose(java.lang.String)
+    577:578:protected void verbose(java.lang.String,java.lang.Throwable)
+    580:581:protected void debug(java.lang.String)
+    583:584:protected void debug(java.lang.String,java.lang.Throwable)
+    586:587:protected void info(java.lang.String)
+    589:590:protected void info(java.lang.String,java.lang.Throwable)
+    592:593:protected void warn(java.lang.String)
+    595:596:protected void warn(java.lang.String,java.lang.Throwable)
+    598:599:protected void error(java.lang.String)
+    601:602:protected void error(java.lang.String,java.lang.Throwable)
+    604:605:protected void wtf(java.lang.String)
+    607:608:protected void wtf(java.lang.String,java.lang.Throwable)
+com.johnpritchard.docking.View3D:
+    protected static final java.lang.String TAG
+    395:396:public void script(com.johnpritchard.docking.InputScript[])
+    407:407:protected android.view.Display display()
+    411:411:protected android.util.DisplayMetrics displayMetrics()
+    415:416:protected void verbose(java.lang.String)
+    418:419:protected void verbose(java.lang.String,java.lang.Throwable)
+    421:422:protected void debug(java.lang.String)
+    424:425:protected void debug(java.lang.String,java.lang.Throwable)
+    427:428:protected void info(java.lang.String)
+    430:431:protected void info(java.lang.String,java.lang.Throwable)
+    433:434:protected void warn(java.lang.String)
+    436:437:protected void warn(java.lang.String,java.lang.Throwable)
+    439:440:protected void error(java.lang.String)
+    442:443:protected void error(java.lang.String,java.lang.Throwable)
+    445:446:protected void wtf(java.lang.String)
+    448:449:protected void wtf(java.lang.String,java.lang.Throwable)
+com.johnpritchard.docking.View3DFontFutural:
+    public static final float Em
+    public static final float Ascent
+    public static final float Descent
+    public static final float Leading
+    9:9:public View3DFontFutural()
+com.johnpritchard.docking.View3DGeometry:
+    protected static final int bpf
+    protected static final int stride
+    45:56:protected static final float[] Copy(float[],int,int,float[])
+com.johnpritchard.docking.View3DGeometryAttitude
+com.johnpritchard.docking.View3DGeometryCircle:
+    protected static final double PI_M2
+com.johnpritchard.docking.View3DGeometrySphere
+com.johnpritchard.docking.View3DRenderer:
+    56:56:public android.content.SharedPreferences preferences()
+com.johnpritchard.docking.View3DScreenShot
+com.johnpritchard.docking.View3DVersion:
+    97:97:public static final java.lang.String GetExtensionsString()
+    113:113:public static final java.lang.String GetNameString()
+    116:116:public static final java.lang.String GetNumberString()
+    119:119:public static final int GetMajor()
+    122:122:public static final int GetMinor()
+    125:125:public static final boolean EQ(int,int)
+    128:128:public static final boolean GE(int,int)
+    131:140:public static final boolean GT(int,int)
+    144:144:public static final boolean LE(int,int)
+    147:156:public static final boolean LT(int,int)
+    162:163:private View3DVersion()
+com.johnpritchard.docking.ViewAnimation:
+    public static final java.lang.String TAG
+    protected static final long TouchInputFilter
+    protected static final long OutputFilter
+    private static final int SKIP_NOT
+    private static final int SKIP_SKIP
+    private static final int SKIP_OP
+    495:496:protected void verbose(java.lang.String)
+    498:499:protected void verbose(java.lang.String,java.lang.Throwable)
+    501:502:protected void debug(java.lang.String)
+    504:505:protected void debug(java.lang.String,java.lang.Throwable)
+    507:508:protected void info(java.lang.String)
+    510:511:protected void info(java.lang.String,java.lang.Throwable)
+    513:514:protected void warn(java.lang.String)
+    516:517:protected void warn(java.lang.String,java.lang.Throwable)
+    519:520:protected void error(java.lang.String)
+    522:523:protected void error(java.lang.String,java.lang.Throwable)
+    525:526:protected void wtf(java.lang.String)
+    528:529:protected void wtf(java.lang.String,java.lang.Throwable)
+    531:532:protected static void Verbose(java.lang.String)
+    534:535:protected static void Verbose(java.lang.String,java.lang.Throwable)
+    537:538:protected static void Debug(java.lang.String)
+    540:541:protected static void Debug(java.lang.String,java.lang.Throwable)
+    543:544:protected static void Info(java.lang.String)
+    546:547:protected static void Info(java.lang.String,java.lang.Throwable)
+    549:550:protected static void Warn(java.lang.String)
+    552:553:protected static void Warn(java.lang.String,java.lang.Throwable)
+    555:556:protected static void Error(java.lang.String)
+    558:559:protected static void Error(java.lang.String,java.lang.Throwable)
+    561:562:protected static void WTF(java.lang.String)
+    564:565:protected static void WTF(java.lang.String,java.lang.Throwable)
+com.johnpritchard.docking.ViewPage:
+    public abstract com.johnpritchard.docking.Page value()
+    public abstract void draw(android.graphics.Canvas)
+    113:113:public final boolean simpleInput()
+com.johnpritchard.docking.ViewPage2D:
+    90:90:protected android.graphics.RectF scale(float)
+    93:104:protected android.graphics.RectF scale(int,int,float)
+    107:108:protected void scale(android.graphics.RectF)
+    111:125:protected void scale(int,int,android.graphics.RectF)
+    152:152:protected static float pad(android.graphics.RectF,android.graphics.RectF)
+    206:207:protected void center(android.graphics.RectF)
+    209:230:protected void center(int,int,android.graphics.RectF)
+    233:233:protected android.graphics.RectF group(int,int,android.graphics.RectF)
+    263:275:protected void vertical()
+    312:336:protected android.graphics.RectF row(int,int,float,float,float,float)
+    340:362:protected void row(int,int,float,float,float,float,float)
+    796:801:protected android.graphics.Path$FillType getFillType()
+    804:810:protected void setFillType(android.graphics.Path$FillType)
+    812:818:protected void rotateFillType()
+    820:826:protected void logFillType()
+com.johnpritchard.docking.ViewPage2DButtonGroup:
+    24:25:public ViewPage2DButtonGroup(path.Operand[])
+    27:28:public ViewPage2DButtonGroup(path.Operand[],path.Operand[])
+    30:31:public ViewPage2DButtonGroup(path.Operand[],path.Operand[],path.Operand[])
+com.johnpritchard.docking.ViewPage2DButtonPlain:
+    23:24:public ViewPage2DButtonPlain(path.Operand[])
+    26:27:public ViewPage2DButtonPlain(path.Operand[],path.Operand[])
+    29:30:public ViewPage2DButtonPlain(path.Operand[],path.Operand[],path.Operand[])
+com.johnpritchard.docking.ViewPage2DComponent:
+    public abstract com.johnpritchard.docking.ViewPage2DClip clip()
+com.johnpritchard.docking.ViewPage2DComponentAbstract:
+    27:28:public ViewPage2DComponentAbstract()
+    36:36:public final com.johnpritchard.docking.ViewPage2DClip clip()
+    39:44:public com.johnpritchard.docking.ViewPage2DComponentAbstract clip(path.Operand[])
+com.johnpritchard.docking.ViewPage2DComponentPath:
+    protected static final float TextSize
+    57:59:public ViewPage2DComponentPath(com.johnpritchard.docking.ViewPageOperatorSelection,java.lang.String)
+    61:63:public ViewPage2DComponentPath(path.Operand[])
+    65:68:public ViewPage2DComponentPath(path.Operand[],path.Operand[])
+    70:74:public ViewPage2DComponentPath(path.Operand[],path.Operand[],path.Operand[])
+    90:91:public final varargs void format(java.lang.String,java.lang.Object[])
+    148:148:public boolean isEmpty()
+    151:152:public com.johnpritchard.docking.ViewPage2DComponentPath incCapacity(int)
+    155:155:public boolean isInverseFillType()
+    158:159:public void toggleInverseFillType()
+    171:171:public android.graphics.Path$FillType getFillType()
+    174:175:public void setFillType(android.graphics.Path$FillType)
+    178:180:public com.johnpritchard.docking.ViewPage2DComponentPath rotateFillType()
+    183:211:public com.johnpritchard.docking.ViewPage2DComponentPath logFillType()
+    240:240:public java.lang.Iterable toPathIterable()
+    244:244:public java.util.Iterator toPathIterator()
+    248:249:public path.Path setWinding(path.Winding)
+    253:253:public path.Winding getWinding()
+    257:257:public boolean isWindingNonZero()
+    261:261:public boolean isWindingEvenOdd()
+    265:265:public path.Path setWindingNonZero()
+    269:269:public path.Path setWindingEvenOdd()
+    273:273:public float[] getVerticesPath(int,path.Op,float[])
+    277:278:public void add(path.Op,float[])
+    281:282:public void moveTo(float[])
+    285:286:public void moveTo(float,float)
+    289:290:public void lineTo(float[])
+    293:294:public void lineTo(float,float)
+    297:298:public void quadTo(float[])
+    302:303:public void quadTo(float,float,float,float)
+    306:307:public void cubicTo(float[])
+    312:314:public void cubicTo(float,float,float,float,float,float)
+    317:318:public void close()
+    321:321:public path.Path apply(java.lang.String)
+    325:327:public path.Path apply(path.Parser)
+    330:335:public com.johnpritchard.docking.ViewPage2DComponentPath path(path.Operand[])
+    338:343:public com.johnpritchard.docking.ViewPage2DComponentPath group(path.Operand[])
+    353:355:public void set(path.Path)
+    358:360:public void add(path.Path)
+com.johnpritchard.docking.ViewPage2DComponentPath$1
+com.johnpritchard.docking.ViewPage2DDisplay
+com.johnpritchard.docking.ViewPage2DPath:
+    35:35:public float margin()
+    50:50:public boolean rounding()
+    77:77:public com.johnpritchard.docking.ViewPage2DPath rect(android.graphics.RectF)
+    95:95:public com.johnpritchard.docking.ViewPage2DPath rrect(android.graphics.RectF)
+    120:120:public com.johnpritchard.docking.ViewPage2DPath circle(android.graphics.RectF)
+    124:134:public com.johnpritchard.docking.ViewPage2DPath circle(android.graphics.RectF,float)
+    140:143:public com.johnpritchard.docking.ViewPage2DPath circle(float,float,float)
+    146:147:public com.johnpritchard.docking.ViewPage2DPath incCapacity(int)
+    176:190:public com.johnpritchard.docking.ViewPage2DPath rotateFillType()
+    193:193:public java.lang.Iterable toPathIterable()
+    196:196:public java.util.Iterator toPathIterator()
+    199:209:public path.Path setWinding(path.Winding)
+    212:221:public path.Winding getWinding()
+    225:225:public boolean isWindingNonZero()
+    228:228:public boolean isWindingEvenOdd()
+    231:231:public path.Path setWindingNonZero()
+    234:234:public path.Path setWindingEvenOdd()
+    237:237:public float[] getVerticesPath(int,path.Op,float[])
+    240:257:public void add(path.Op,float[])
+    260:261:public void moveTo(float[])
+    264:265:public void lineTo(float[])
+    267:277:public void quadTo(float[])
+    279:289:public void cubicTo(float[])
+    292:292:public path.Path apply(java.lang.String)
+    296:298:public path.Path apply(path.Parser)
+    301:309:public com.johnpritchard.docking.ViewPage2DPath apply(path.Operand[])
+    312:315:public void set(com.johnpritchard.docking.ViewPage2DPath)
+    317:319:public void set(path.Path)
+    326:345:public void add(path.Path)
+com.johnpritchard.docking.ViewPage2DTextGroup
+com.johnpritchard.docking.ViewPage2DTextLabel:
+    26:27:public ViewPage2DTextLabel(com.johnpritchard.docking.ViewPageOperatorSelection)
+    32:33:public ViewPage2DTextLabel(com.johnpritchard.docking.ViewPageOperatorSelection,java.lang.String)
+com.johnpritchard.docking.ViewPage2DTextMultiline:
+    public static final int DefaultLineWidth
+    40:41:public ViewPage2DTextMultiline(com.johnpritchard.docking.ViewPageOperatorSelection,java.lang.String)
+    43:52:public ViewPage2DTextMultiline(com.johnpritchard.docking.ViewPageOperatorSelection,java.lang.String,int)
+com.johnpritchard.docking.ViewPage2DTextSelection
+com.johnpritchard.docking.ViewPage3D:
+    protected static final int bpf
+    protected static final int CLR
+    80:80:public final void draw(android.graphics.Canvas)
+    195:197:protected final boolean interactive()
+    351:351:protected int enter()
+    493:497:protected static final void MatrixCopy(float[],java.nio.FloatBuffer)
+    500:507:protected static final void MatrixTranspose(float[],java.nio.FloatBuffer)
+com.johnpritchard.docking.ViewPage3DComponentAbstract:
+    protected static final int bpf
+    protected static final int bpf3
+    protected static final int stride
+com.johnpritchard.docking.ViewPage3DTextGroup:
+    20:21:public ViewPage3DTextGroup(double)
+    32:32:public android.graphics.RectF group()
+com.johnpritchard.docking.ViewPage3DTextLabel:
+    50:52:public ViewPage3DTextLabel(com.johnpritchard.docking.ViewPageOperatorSelection,double,double,double,double,java.lang.String)
+    230:230:public float ascent()
+    234:234:public float descent()
+com.johnpritchard.docking.ViewPage3DTextSelection:
+    protected static final int N_LINES
+    protected static final int N_VERTICES
+    protected static final int N_FLOATS
+    51:52:public ViewPage3DTextSelection(double)
+    54:55:public ViewPage3DTextSelection(int,double)
+    125:143:public void update(int,double,double,double,double)
+com.johnpritchard.docking.ViewPageComponent:
+    public abstract java.lang.String getName()
+    public abstract void setName(java.lang.String)
+    public abstract float getWidth()
+    public abstract float getHeight()
+    public abstract boolean hasSelection()
+    public abstract boolean hasSelectionGroup()
+    public abstract com.johnpritchard.docking.ViewPageOperatorSelection getSelection()
+    public abstract com.johnpritchard.docking.ViewPageOperatorGroup getSelectionGroup()
+    public abstract void setSelection(com.johnpritchard.docking.ViewPageOperatorSelection)
+    public abstract void scale(float)
+    public abstract float distance(com.johnpritchard.docking.ViewPageComponent)
+    public abstract boolean isCurrent()
+com.johnpritchard.docking.ViewPageComponentAbstract:
+    48:48:public final java.lang.String getName()
+    52:58:public final void setName(java.lang.String)
+    71:71:public final boolean hasSelection()
+    75:75:public final boolean hasSelectionGroup()
+    79:79:public final com.johnpritchard.docking.ViewPageOperatorSelection getSelection()
+    83:83:public final com.johnpritchard.docking.ViewPageOperatorGroup getSelectionGroup()
+    91:92:public final void setSelection(com.johnpritchard.docking.ViewPageOperatorSelection)
+    121:123:public final float getWidth()
+    126:128:public final float getHeight()
+    143:151:public final void scale(float)
+    180:180:public final boolean isCurrent()
+com.johnpritchard.docking.ViewPageOperatorGroup:
+    public abstract android.graphics.RectF group()
+com.johnpritchard.docking.ViewPageOperatorSelection:
+    public abstract void update(int,double,double,double,double)
+fv3.Bounds
+fv3.Bounds$CircumSphere
+fv3.Component
+fv3.Model
+fv3.Model$Element
+fv3.Model$Element$Iterator
+fv3.Region
+fv3.math.Abstract:
+    53:53:public static final float E(float,float)
+    60:60:public static final float E(float,float,float)
+    66:66:public static final float EPSILON(float)
+    72:72:public static final double EPSILON(double,double)
+    75:75:public static final boolean IZ(float)
+    84:87:public static final double Z(double)
+    109:123:public static final double Z1(double)
+    126:134:public static final float Zf(float)
+    138:144:public static final boolean EEQ(float,float)
+    158:164:public static final boolean NEQ(double,double)
+    168:170:public static final boolean EEQ(float,float,float)
+    174:181:public static final boolean ELE(float,float)
+    185:192:public static final boolean ELE(float,float,float)
+    196:203:public static final boolean ELT(float,float,float)
+    207:214:public static final boolean ELT(float,float)
+    218:225:public static final boolean EGE(float,float,float)
+    229:236:public static final boolean EGE(float,float)
+    240:247:public static final boolean EGT(float,float,float)
+    251:258:public static final boolean EGT(float,float)
+    261:264:public static final float DE(float,float)
+    275:281:public static final int Sign(float)
+    284:287:public static final float[] Add(float[],float[])
+    290:300:public static final float[] Cat(float[],float[])
+    304:330:public static final int IndexOf(float[],float[])
+    342:353:public static final float[] Sort(float[],int)
+    361:361:public static final float Degrees(float)
+fv3.math.AbstractFloat:
+    public abstract float[] array()
+    38:51:public final void copy(float[])
+fv3.math.AxisAngle
+fv3.math.AxisAngle$Axis
+fv3.math.AxisAngle$Axis$Degrees
+fv3.math.Color
+fv3.math.Fv3
+fv3.math.Matrix:
+    89:91:public Matrix()
+    93:98:public Matrix(float[])
+    100:102:public Matrix(fv3.math.Matrix)
+    106:107:public final fv3.math.Matrix identity()
+    110:110:public final float[] array()
+    113:113:public final fv3.math.Matrix copyFrom(fv3.math.Matrix)
+    116:121:public final fv3.math.Matrix copyFrom(float[])
+    124:125:public final fv3.math.Matrix copyTo(fv3.math.Matrix)
+    128:133:public final float[] copyTo(float[])
+    136:136:public final fv3.math.Matrix mul(fv3.math.Matrix)
+    139:152:public final fv3.math.Matrix mul(float[])
+    155:160:public final fv3.math.Matrix translate(float,float,float)
+    163:163:public final fv3.math.Matrix translateX(float)
+    166:166:public final fv3.math.Matrix translateY(float)
+    169:169:public final fv3.math.Matrix translateZ(float)
+    172:173:public final fv3.math.Matrix translate(fv3.math.Vector)
+    176:176:public final fv3.math.Vector getTranslation()
+    179:187:public final fv3.math.Matrix translate(int,float)
+    191:200:public final fv3.math.Matrix scale(float)
+    204:211:public final fv3.math.Matrix scale(float,float,float)
+    214:214:public final fv3.math.Vector getScale()
+    217:249:public final fv3.math.Matrix rotate(fv3.math.AxisAngle)
+    252:263:public final fv3.math.Matrix rotateX(float)
+    266:277:public final fv3.math.Matrix rotateY(float)
+    280:291:public final fv3.math.Matrix rotateZ(float)
+    294:317:public final fv3.math.Matrix rotate(float,float,float)
+    320:328:public final fv3.math.Matrix rotate(int,float)
+    332:340:public final fv3.math.Vector transform(fv3.math.Vector)
+    344:368:public final float[] transform(float[])
+    372:382:public final float[] transform(float[],int)
+    385:385:public final float m00()
+    388:388:public final float getM00()
+    391:392:public final fv3.math.Matrix m00(float)
+    395:396:public final fv3.math.Matrix setM00(float)
+    399:399:public final float m01()
+    402:402:public final float getM01()
+    405:406:public final fv3.math.Matrix m01(float)
+    409:410:public final fv3.math.Matrix setM01(float)
+    413:413:public final float m02()
+    416:416:public final float getM02()
+    419:420:public final fv3.math.Matrix m02(float)
+    423:424:public final fv3.math.Matrix setM02(float)
+    427:427:public final float m03()
+    430:430:public final float getM03()
+    433:434:public final fv3.math.Matrix m03(float)
+    437:438:public final fv3.math.Matrix setM03(float)
+    441:441:public final float m10()
+    444:444:public final float getM10()
+    447:448:public final fv3.math.Matrix m10(float)
+    451:452:public final fv3.math.Matrix setM10(float)
+    455:455:public final float m11()
+    458:458:public final float getM11()
+    461:462:public final fv3.math.Matrix m11(float)
+    465:466:public final fv3.math.Matrix setM11(float)
+    469:469:public final float m12()
+    472:472:public final float getM12()
+    475:476:public final fv3.math.Matrix m12(float)
+    479:480:public final fv3.math.Matrix setM12(float)
+    483:483:public final float m13()
+    486:486:public final float getM13()
+    489:490:public final fv3.math.Matrix m13(float)
+    493:494:public final fv3.math.Matrix setM13(float)
+    497:497:public final float m20()
+    500:500:public final float getM20()
+    503:504:public final fv3.math.Matrix m20(float)
+    507:508:public final fv3.math.Matrix setM20(float)
+    511:511:public final float m21()
+    514:514:public final float getM21()
+    517:518:public final fv3.math.Matrix m21(float)
+    521:522:public final fv3.math.Matrix setM21(float)
+    525:525:public final float m22()
+    528:528:public final float getM22()
+    531:532:public final fv3.math.Matrix m22(float)
+    535:536:public final fv3.math.Matrix setM22(float)
+    539:539:public final float m23()
+    542:542:public final float getM23()
+    545:546:public final fv3.math.Matrix m23(float)
+    549:550:public final fv3.math.Matrix setM23(float)
+    553:553:public final float m30()
+    556:556:public final float getM30()
+    559:560:public final fv3.math.Matrix m30(float)
+    563:564:public final fv3.math.Matrix setM30(float)
+    567:567:public final float m31()
+    570:570:public final float getM31()
+    573:574:public final fv3.math.Matrix m31(float)
+    577:578:public final fv3.math.Matrix setM31(float)
+    581:581:public final float m32()
+    584:584:public final float getM32()
+    587:588:public final fv3.math.Matrix m32(float)
+    591:592:public final fv3.math.Matrix setM32(float)
+    595:595:public final float m33()
+    598:598:public final float getM33()
+    601:602:public final fv3.math.Matrix m33(float)
+    605:606:public final fv3.math.Matrix setM33(float)
+    655:656:public static final void Identity(float[])
+    667:668:public static final void IVIdentity(double[])
+    676:701:public static final void Rotate(float,float,float,float,float[])
+    705:730:public static final void Rotate(double,double,double,double,double[])
+    733:756:public static final void Rotate(float,float,float,float[])
+    759:782:public static final void Rotate(double,double,double,double[])
+    800:813:public static final double[] Mul(double[],double[])
+    824:827:public static final void Copy(double[],float[])
+    901:912:public static final float[] RotateX(float)
+    929:940:public static final float[] RotateZ(float)
+    943:966:public static final float[] Rotate(float,float,float)
+    970:973:private static final double Sign(double)
+    981:1041:public static final double[] Quaternion(double[])
+fv3.math.Notation
+fv3.math.QuickSort
+fv3.math.Vector:
+    214:219:public Vector(float[])
+    221:223:public Vector(fv3.math.Vector)
+    237:241:public final fv3.math.Vector set(float,float,float)
+    244:245:public final fv3.math.Vector zero()
+    248:248:public final fv3.math.Vector copyFrom(fv3.math.Vector)
+    251:256:public final fv3.math.Vector copyFrom(float[])
+    259:260:public final fv3.math.Vector copyTo(fv3.math.Vector)
+    263:268:public final float[] copyTo(float[])
+    271:276:public final float[] copyTo(float[],int)
+    279:284:public final fv3.math.Vector add(fv3.math.Vector)
+    287:292:public final fv3.math.Vector add(float[])
+    295:299:public final fv3.math.Vector add(float,float,float)
+    302:307:public final fv3.math.Vector sub(fv3.math.Vector)
+    310:316:public final fv3.math.Vector mul(float)
+    319:325:public final fv3.math.Vector div(float)
+    328:331:public final float dot(fv3.math.Vector)
+    334:334:public final float length()
+    337:344:public final fv3.math.Vector cross(fv3.math.Vector)
+    347:372:public final fv3.math.Vector normalize()
+    380:380:public final float angle(fv3.math.Vector)
+    388:392:public final fv3.math.Vector normal(fv3.math.Vector,fv3.math.Vector)
+    400:400:public final fv3.math.Vector centroid(fv3.math.Vector,fv3.math.Vector)
+    403:411:public final fv3.math.Vector transform(fv3.math.Matrix)
+    414:423:public fv3.math.Vector min(fv3.math.Vector)
+    426:435:public fv3.math.Vector max(fv3.math.Vector)
+    439:446:public fv3.math.Vector mid(fv3.math.Vector)
+    449:455:public float distance(fv3.math.Vector)
+    458:458:public fv3.math.Vector$Magnitude1 magnitude1()
+    461:461:public fv3.math.Vector$Direction1 direction1()
+    464:464:public fv3.math.Vector$Direction2 direction2()
+    471:471:public boolean colinear(fv3.math.Vector)
+    476:476:public final float[] array()
+    480:480:public final float x()
+    483:483:public final float getX()
+    486:487:public final fv3.math.Vector x(float)
+    490:491:public final fv3.math.Vector setX(float)
+    495:495:public final float y()
+    498:498:public final float getY()
+    501:502:public final fv3.math.Vector y(float)
+    505:506:public final fv3.math.Vector setY(float)
+    510:510:public final float z()
+    513:513:public final float getZ()
+    516:517:public final fv3.math.Vector z(float)
+    520:521:public final fv3.math.Vector setZ(float)
+    611:613:public static final float Diameter(fv3.Bounds)
+    619:621:public static final float Diameter(float,float,float,float,float,float)
+    631:631:public static final double Dot(double,double,double,double,double,double)
+    636:636:public static final double Dot(double,double,double,double,double,double,double,double)
+    641:641:public static final float Length(float,float,float,float,float,float)
+    650:650:public static final double Length(double,double,double,double,double,double)
+    655:655:public static final double Length(double,double,double,double,double,double,double,double)
+    659:659:public static final double Length(double,double,double)
+    663:663:public static final double Length(double,double,double,double)
+    667:667:public static final float Length(float[])
+    675:675:public static final float Angle(float,float,float,float,float,float)
+    681:681:public static final float[] Cross(float,float,float,float,float,float)
+    746:746:public static final float[] Copy(float[])
+    756:756:public static final float[] Sub(float,float,float,float,float,float)
+fv3.math.Vector$1
+fv3.math.Vector$Direction1
+fv3.math.Vector$Direction2
+fv3.math.Vector$Magnitude1
+fv3.model.Bounds
+fv3.model.Component
+fv3.model.Model
+fv3.model.Object
+fv3.model.Vertex
+lxl.ArrayList
+lxl.ArrayList$Inverse
+lxl.ArrayList$Iterator
+lxl.Collection
+lxl.Component
+lxl.List
+lxl.Sequence
+lxl.Sequence$Search
+lxl.Sequence$Search$1
+lxl.Sequence$Search$2
+lxl.Sequence$Sort
+lxl.Sequence$Sort$1
+lxl.Sequence$Tree
+lxl.Stack
+path.Formatter
+path.Geometry
+path.Geometry$Cubic
+path.Geometry$Quadratic
+path.Iterator
+path.Op:
+    38:58:public java.lang.String format(float[])
+    64:73:public static final path.Op[] Add(path.Op[],path.Op)
+path.Operand
+path.Operand$1
+path.Parser
+path.Parser$1
+path.Path
+path.Token
+path.Token$1
+path.Winding:
+    76:82:public static final path.Winding For(int)
+    100:100:public static final path.Winding For(java.lang.String)
+path.Winding$Missing

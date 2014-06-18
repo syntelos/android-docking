@@ -1,0 +1,1084 @@
+com.johnpritchard.docking.BID -> com.johnpritchard.docking.a:
+    char[] IdentifierMap -> a
+    com.johnpritchard.docking.BID prng -> b
+    java.lang.String Identifier() -> a
+    byte[] Seed() -> c
+    char next() -> b
+com.johnpritchard.docking.Docking -> com.johnpritchard.docking.Docking:
+    com.johnpritchard.docking.DockingActivity2D Activity2D -> a
+    com.johnpritchard.docking.DockingActivity3D Activity3D -> b
+    void StartActivity3D() -> a
+    void StartActivity2D() -> b
+    void Activate2D(com.johnpritchard.docking.DockingActivity2D) -> a
+    void Activate3D(com.johnpritchard.docking.DockingActivity3D) -> a
+    void Post2D(java.lang.Runnable) -> a
+    void Post3D(java.lang.Runnable) -> b
+    void ScreenShot3D() -> c
+    void Toast3D(java.lang.String) -> a
+    java.io.File ExternalDirectory3D(java.lang.String) -> b
+com.johnpritchard.docking.DockingActivity2D -> com.johnpritchard.docking.DockingActivity2D:
+    com.johnpritchard.docking.View2D view -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+com.johnpritchard.docking.DockingActivity3D -> com.johnpritchard.docking.DockingActivity3D:
+    com.johnpritchard.docking.View3D view -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+com.johnpritchard.docking.DockingCraftStateVector -> com.johnpritchard.docking.b:
+    com.johnpritchard.docking.DockingCraftStateVector Instance -> a
+    com.johnpritchard.docking.DockingGameLevel meta -> b
+    com.johnpritchard.docking.DockingGameLevel level -> c
+    double range_x -> d
+    double velocity_x -> e
+    double acceleration_x -> f
+    long time_start -> g
+    long time_last -> h
+    long time_clock -> i
+    long time_source -> j
+    long time_xp0 -> k
+    long time_xm0 -> l
+    long time_xp1 -> m
+    long time_xm1 -> n
+    long copy -> t
+    long cursor -> u
+    java.lang.String label -> o
+    java.lang.String identifier -> p
+    java.util.Date created -> q
+    java.util.Date completed -> r
+    float score -> s
+    boolean inGame() -> a
+    boolean running() -> b
+    boolean free() -> c
+    boolean crash() -> d
+    boolean dock() -> e
+    boolean stall() -> f
+    void add(com.johnpritchard.docking.PhysicsScript) -> a
+    boolean update(long) -> a
+    void game() -> g
+    void model() -> h
+    void hardware() -> i
+    com.johnpritchard.docking.DockingCraftStateVector read(android.database.Cursor) -> a
+    android.content.ContentValues write() -> j
+    long cursor() -> k
+    void cursor(long) -> b
+com.johnpritchard.docking.DockingCraftStateVector$1 -> com.johnpritchard.docking.c:
+    int[] $SwitchMap$com$johnpritchard$docking$PhysicsDOF -> a
+    int[] $SwitchMap$com$johnpritchard$docking$PhysicsOperator -> b
+com.johnpritchard.docking.DockingDatabase -> com.johnpritchard.docking.d:
+    com.johnpritchard.docking.DockingDatabase Instance -> a
+    java.util.HashMap STATE_MAP_INTERNAL -> b
+    java.util.HashMap STATE_MAP_EXPORT -> c
+    void Init(android.content.Context) -> a
+    android.database.sqlite.SQLiteDatabase Readable() -> a
+    android.database.sqlite.SQLiteDatabase Writable() -> b
+    android.database.sqlite.SQLiteQueryBuilder QueryStateExport() -> c
+    android.database.sqlite.SQLiteQueryBuilder QueryStateExport(java.lang.String) -> a
+    android.database.sqlite.SQLiteQueryBuilder QueryStateExport(long) -> a
+    android.database.sqlite.SQLiteQueryBuilder QueryStateInternal() -> d
+    android.database.sqlite.SQLiteQueryBuilder QueryStateInternal(long) -> b
+    boolean Game() -> e
+    boolean Model() -> f
+    boolean Hardware() -> g
+    void GameOver() -> h
+    boolean History() -> i
+    boolean HistoryPrev() -> j
+    boolean HistoryNext() -> k
+    boolean Export(java.lang.String) -> b
+    void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
+    void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
+    void Warn(java.lang.String) -> c
+com.johnpritchard.docking.DockingDatabaseHistory -> com.johnpritchard.docking.e:
+    android.net.Uri CONTENT_URI -> a
+com.johnpritchard.docking.DockingDatabaseHistory$State -> com.johnpritchard.docking.f:
+    java.lang.String[] InternalList -> a
+    java.lang.String[] ExportList -> b
+    java.lang.String[] ProjectionInternal() -> a
+    java.util.HashMap Internal() -> b
+    java.util.HashMap Export() -> c
+    java.lang.String[] Export(java.lang.String[]) -> a
+com.johnpritchard.docking.DockingDatabaseHistoryProvider -> com.johnpritchard.docking.DockingDatabaseHistoryProvider:
+    android.content.UriMatcher QueryMatcher -> a
+    boolean onCreate() -> onCreate
+    android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String) -> query
+    java.lang.String getType(android.net.Uri) -> getType
+    android.net.Uri insert(android.net.Uri,android.content.ContentValues) -> insert
+    int delete(android.net.Uri,java.lang.String,java.lang.String[]) -> delete
+    int update(android.net.Uri,android.content.ContentValues,java.lang.String,java.lang.String[]) -> update
+com.johnpritchard.docking.DockingFieldIO -> com.johnpritchard.docking.g:
+    com.johnpritchard.docking.PhysicsOperator op -> a
+    com.johnpritchard.docking.PhysicsDOF dof -> b
+    java.lang.String fmt -> q
+    int editable -> c
+    boolean sent -> d
+    void format() -> a
+    void format(float) -> a
+    void input_edit(com.johnpritchard.docking.Input) -> a
+    void input_edit(com.johnpritchard.docking.InputScript$Key) -> a
+    void input_value(com.johnpritchard.docking.Input) -> b
+    void input_io(com.johnpritchard.docking.Input) -> c
+    void draw() -> a_
+com.johnpritchard.docking.DockingFieldIOGroup -> com.johnpritchard.docking.h:
+    com.johnpritchard.docking.DockingFieldIOGroup SEL_XP0 -> a
+    com.johnpritchard.docking.DockingFieldIOGroup SEL_XM0 -> b
+    com.johnpritchard.docking.DockingFieldIOGroup SEL_XP1 -> c
+    com.johnpritchard.docking.DockingFieldIOGroup SEL_XM1 -> d
+    android.graphics.RectF close(android.graphics.RectF) -> a
+com.johnpritchard.docking.DockingGameLevel -> com.johnpritchard.docking.i:
+    com.johnpritchard.docking.DockingGameLevel G -> a
+    com.johnpritchard.docking.DockingGameLevel H -> b
+    com.johnpritchard.docking.DockingGameLevel M -> c
+    com.johnpritchard.docking.DockingGameLevel L1 -> d
+    com.johnpritchard.docking.DockingGameLevel L2 -> e
+    com.johnpritchard.docking.DockingGameLevel L3 -> f
+    com.johnpritchard.docking.DockingGameLevel L4 -> g
+    com.johnpritchard.docking.DockingGameLevel L5 -> h
+    com.johnpritchard.docking.DockingGameLevel Current -> i
+    int number -> j
+    double mass_static -> k
+    double force_thruster_0 -> l
+    double force_thruster_1 -> m
+    double accel_thruster_0 -> n
+    double accel_thruster_1 -> o
+    double cost_thruster_0 -> p
+    double cost_thruster_1 -> q
+    float range_x -> r
+    float velocity_x -> s
+    float acceleration_x -> t
+    long time_source -> u
+    com.johnpritchard.docking.DockingGameLevel[] $VALUES -> v
+    com.johnpritchard.docking.DockingGameLevel[] values() -> values
+    com.johnpritchard.docking.DockingGameLevel valueOf(java.lang.String) -> valueOf
+    void OnResume(android.content.SharedPreferences) -> a
+    void OnPause(android.content.SharedPreferences$Editor) -> a
+    void Review(double) -> a
+    com.johnpritchard.docking.DockingGameLevel next() -> a
+com.johnpritchard.docking.DockingGameLevel$1 -> com.johnpritchard.docking.j:
+    int[] $SwitchMap$com$johnpritchard$docking$DockingGameLevel -> a
+com.johnpritchard.docking.DockingGeometryPort -> com.johnpritchard.docking.k:
+    double S -> c
+    float[] N_Z_P -> d
+    float[] N_Z_N -> e
+    com.johnpritchard.docking.DockingGeometryPort Instance -> a
+    int count_lines -> f
+    int count_triangles -> g
+    java.nio.FloatBuffer b_lines -> h
+    java.nio.FloatBuffer b_triangles -> i
+    java.nio.FloatBuffer b_normals -> j
+    float RZ(double,double) -> b
+    void Init() -> a
+    void triangles() -> b
+    void lines() -> c
+com.johnpritchard.docking.DockingGeometryStarfield -> com.johnpritchard.docking.l:
+    float[] XYZ -> c
+    float[] MODEL -> d
+    com.johnpritchard.docking.DockingGeometryStarfield Instance -> a
+    int count -> e
+    java.nio.FloatBuffer points -> f
+    java.nio.FloatBuffer model -> g
+    void Init() -> a
+    void init() -> b
+    void draw() -> c
+com.johnpritchard.docking.DockingIOXM0 -> com.johnpritchard.docking.m:
+com.johnpritchard.docking.DockingIOXM1 -> com.johnpritchard.docking.n:
+com.johnpritchard.docking.DockingIOXP0 -> com.johnpritchard.docking.o:
+com.johnpritchard.docking.DockingIOXP1 -> com.johnpritchard.docking.p:
+com.johnpritchard.docking.DockingOutputAx -> com.johnpritchard.docking.q:
+    void format(float) -> a
+com.johnpritchard.docking.DockingOutputCompleted -> com.johnpritchard.docking.r:
+    void format(java.util.Date) -> a
+com.johnpritchard.docking.DockingOutputCreated -> com.johnpritchard.docking.s:
+    void format(java.util.Date) -> a
+com.johnpritchard.docking.DockingOutputHardwareExtensions -> com.johnpritchard.docking.t:
+    void format(java.lang.String) -> a
+com.johnpritchard.docking.DockingOutputHardwareVendor -> com.johnpritchard.docking.u:
+    void format(java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
+com.johnpritchard.docking.DockingOutputIdentifier -> com.johnpritchard.docking.v:
+    void format(java.lang.String) -> a
+com.johnpritchard.docking.DockingOutputL -> com.johnpritchard.docking.w:
+    void format(com.johnpritchard.docking.DockingGameLevel) -> a
+com.johnpritchard.docking.DockingOutputM -> com.johnpritchard.docking.x:
+    void format(com.johnpritchard.docking.DockingGameLevel) -> a
+com.johnpritchard.docking.DockingOutputR -> com.johnpritchard.docking.y:
+    void format(float) -> a
+com.johnpritchard.docking.DockingOutputRx -> com.johnpritchard.docking.z:
+    void format(float) -> a
+com.johnpritchard.docking.DockingOutputScore -> com.johnpritchard.docking.aa:
+    void format(float) -> a
+com.johnpritchard.docking.DockingOutputT -> com.johnpritchard.docking.ab:
+    void format(float) -> a
+com.johnpritchard.docking.DockingOutputT01 -> com.johnpritchard.docking.ac:
+    void format(com.johnpritchard.docking.DockingGameLevel) -> a
+com.johnpritchard.docking.DockingOutputT10 -> com.johnpritchard.docking.ad:
+    void format(com.johnpritchard.docking.DockingGameLevel) -> a
+com.johnpritchard.docking.DockingOutputTr -> com.johnpritchard.docking.ae:
+    void format(float) -> a
+com.johnpritchard.docking.DockingOutputVx -> com.johnpritchard.docking.af:
+    void format(float) -> a
+com.johnpritchard.docking.DockingPageAbout -> com.johnpritchard.docking.ag:
+    com.johnpritchard.docking.ViewPage2DTextMultiline textA -> a
+    com.johnpritchard.docking.ViewPage2DTextLabel textH -> b
+    com.johnpritchard.docking.ViewPage2DTextMultiline text0 -> c
+    com.johnpritchard.docking.ViewPage2DTextMultiline text1 -> d
+    com.johnpritchard.docking.ViewPage2DTextMultiline text2 -> e
+    com.johnpritchard.docking.ViewPage2DTextMultiline text3 -> f
+    com.johnpritchard.docking.ViewPage2DTextMultiline text4 -> g
+    com.johnpritchard.docking.ViewPage2DTextMultiline text5 -> h
+    com.johnpritchard.docking.ViewPage2DTextMultiline text6 -> i
+    com.johnpritchard.docking.ViewPage2DTextLabel text0pg -> j
+    com.johnpritchard.docking.ViewPage2DTextLabel text1pg -> k
+    com.johnpritchard.docking.ViewPage2DTextLabel text2pg -> l
+    com.johnpritchard.docking.ViewPage2DTextLabel text3pg -> m
+    com.johnpritchard.docking.ViewPage2DTextLabel text4pg -> n
+    com.johnpritchard.docking.ViewPage2DTextLabel text5pg -> o
+    com.johnpritchard.docking.ViewPage2DTextLabel text6pg -> p
+    com.johnpritchard.docking.DockingPageAbout Instance -> q
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageAbout$1 -> com.johnpritchard.docking.ah:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageGameAbstract -> com.johnpritchard.docking.ai:
+    com.johnpritchard.docking.DockingOutputVx out_vx -> a
+    com.johnpritchard.docking.DockingOutputR out_ry -> b
+    com.johnpritchard.docking.DockingOutputAx out_ax -> c
+    com.johnpritchard.docking.DockingOutputT out_t -> d
+    com.johnpritchard.docking.DockingOutputRx out_rx -> e
+    com.johnpritchard.docking.DockingOutputTr out_tr -> f
+    com.johnpritchard.docking.DockingOutputL out_lv -> g
+    com.johnpritchard.docking.DockingOutputM out_m -> h
+    com.johnpritchard.docking.DockingOutputT10 out_t10 -> i
+    com.johnpritchard.docking.DockingOutputT01 out_t01 -> j
+    com.johnpritchard.docking.DockingIOXP0 in_xp0 -> k
+    com.johnpritchard.docking.DockingIOXM0 in_xm0 -> l
+    com.johnpritchard.docking.DockingIOXP1 in_xp1 -> m
+    com.johnpritchard.docking.DockingIOXM1 in_xm1 -> n
+    com.johnpritchard.docking.DockingOutputScore out_score -> o
+    com.johnpritchard.docking.ViewPage3DTextLabel out_dock -> p
+    com.johnpritchard.docking.ViewPage3DTextLabel out_stall -> q
+    com.johnpritchard.docking.ViewPage3DTextLabel out_lost -> r
+    com.johnpritchard.docking.ViewPage3DTextLabel out_crash -> s
+    com.johnpritchard.docking.ViewPage3DTextLabel out_movie -> t
+    com.johnpritchard.docking.DockingOutputIdentifier out_identifier -> u
+    com.johnpritchard.docking.DockingOutputCreated out_created -> v
+    com.johnpritchard.docking.DockingOutputCompleted out_completed -> w
+    float[] CAMERA -> x
+    float[] LIGHT0_POS -> y
+    float[] LIGHT0_AMB -> z
+    float[] LIGHT0_DIF -> A
+    float[] LIGHT0_SPE -> B
+    float[] MAT_SHIN -> C
+    float[] MAT_SPEC -> D
+    java.nio.FloatBuffer camera -> E
+    java.nio.FloatBuffer light0_pos -> F
+    java.nio.FloatBuffer light0_dif -> G
+    java.nio.FloatBuffer light0_spe -> H
+    java.nio.FloatBuffer light0_amb -> I
+    java.nio.FloatBuffer matShin -> J
+    java.nio.FloatBuffer matSpec -> K
+    java.nio.FloatBuffer[] model_matrix -> L
+    int model_matrix_current -> M
+    void View() -> b
+    void Play() -> c
+    void Range() -> d
+    void Range(float) -> a
+    void ModelRangeInc(double) -> a
+    void ModelRangeDec(double) -> b
+    double ModelRotYM(double) -> c
+    double ModelRotYP(double) -> d
+    double ModelRotY(double) -> e
+    void ModelMatrixTR(float,float) -> b
+    void init(javax.microedition.khronos.opengles.GL10) -> a
+    void draw() -> e
+    boolean navigationInclude(int,com.johnpritchard.docking.ViewPage3DComponent) -> a
+com.johnpritchard.docking.DockingPageGameCrash -> com.johnpritchard.docking.aj:
+    com.johnpritchard.docking.DockingPageGameCrash Instance -> N
+    java.lang.String name() -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    void draw() -> e
+com.johnpritchard.docking.DockingPageGameDock -> com.johnpritchard.docking.ak:
+    com.johnpritchard.docking.DockingPageGameDock Instance -> N
+    java.lang.String name() -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    void draw() -> e
+com.johnpritchard.docking.DockingPageGameHardware -> com.johnpritchard.docking.al:
+    com.johnpritchard.docking.DockingPageGameHardware Instance -> N
+    boolean stale -> O
+    com.johnpritchard.docking.DockingOutputHardwareVendor out_hw_vendor -> ad
+    com.johnpritchard.docking.DockingOutputHardwareExtensions[] out_hw_extensions -> ae
+    int out_hw_extensions_count -> af
+    java.lang.String name() -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    void draw() -> e
+    void focus() -> f
+    void navigation() -> g
+    void input(com.johnpritchard.docking.InputScript) -> a
+    void extensions(java.lang.String[]) -> a
+com.johnpritchard.docking.DockingPageGameHardware$1 -> com.johnpritchard.docking.am:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageGameHistory -> com.johnpritchard.docking.an:
+    com.johnpritchard.docking.DockingPageGameHistory Instance -> N
+    java.lang.String name() -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    void draw() -> e
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageGameHistory$1 -> com.johnpritchard.docking.ao:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageGameLost -> com.johnpritchard.docking.ap:
+    com.johnpritchard.docking.DockingPageGameLost Instance -> N
+    java.lang.String name() -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    void draw() -> e
+com.johnpritchard.docking.DockingPageGameModel -> com.johnpritchard.docking.aq:
+    com.johnpritchard.docking.DockingPageGameModel Instance -> N
+    boolean stale -> O
+    boolean lines -> ad
+    double rotation_y -> ae
+    java.lang.String name() -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    void draw() -> e
+    void focus() -> f
+    void navigation() -> g
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageGameModel$1 -> com.johnpritchard.docking.ar:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageGamePlay -> com.johnpritchard.docking.as:
+    com.johnpritchard.docking.DockingPageGamePlay Instance -> N
+    boolean stale -> O
+    boolean title -> ad
+    java.lang.String name() -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    com.johnpritchard.docking.ViewPage up(com.johnpritchard.docking.View,int,int) -> a
+    void down() -> h
+    void focus() -> f
+    boolean isTitle() -> i
+    void clearTitle() -> j
+com.johnpritchard.docking.DockingPageGameStall -> com.johnpritchard.docking.at:
+    com.johnpritchard.docking.DockingPageGameStall Instance -> N
+    java.lang.String name() -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    void draw() -> e
+com.johnpritchard.docking.DockingPageGameView -> com.johnpritchard.docking.au:
+    boolean stale -> O
+    void focus() -> f
+    void navigation() -> g
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageGameView$1 -> com.johnpritchard.docking.av:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageIntro -> com.johnpritchard.docking.aw:
+    com.johnpritchard.docking.DockingPageIntro Instance -> r
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageIntro$1 -> com.johnpritchard.docking.ax:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageIntro1 -> com.johnpritchard.docking.ay:
+    com.johnpritchard.docking.DockingPageIntro1 Instance -> s
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageIntro1$1 -> com.johnpritchard.docking.az:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageIntro2 -> com.johnpritchard.docking.ba:
+    com.johnpritchard.docking.DockingPageIntro2 Instance -> s
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageIntro2$1 -> com.johnpritchard.docking.bb:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageIntro3 -> com.johnpritchard.docking.bc:
+    com.johnpritchard.docking.DockingPageIntro3 Instance -> s
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageIntro3$1 -> com.johnpritchard.docking.bd:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageIntro4 -> com.johnpritchard.docking.be:
+    com.johnpritchard.docking.DockingPageIntro4 Instance -> s
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageIntro4$1 -> com.johnpritchard.docking.bf:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageIntro5 -> com.johnpritchard.docking.bg:
+    com.johnpritchard.docking.DockingPageIntro5 Instance -> s
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageIntro5$1 -> com.johnpritchard.docking.bh:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageIntro6 -> com.johnpritchard.docking.bi:
+    com.johnpritchard.docking.DockingPageIntro6 Instance -> s
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageIntro6$1 -> com.johnpritchard.docking.bj:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageNoHistory -> com.johnpritchard.docking.bk:
+    com.johnpritchard.docking.DockingPageNoHistory Instance -> r
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPageNoHistory$1 -> com.johnpritchard.docking.bl:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.DockingPageStart -> com.johnpritchard.docking.bm:
+    com.johnpritchard.docking.DockingPageStart Instance -> a
+    void init() -> c_
+    int first() -> c
+    java.lang.String name() -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+com.johnpritchard.docking.DockingPhysics -> com.johnpritchard.docking.bn:
+    java.lang.Object StaticMonitor -> b
+    com.johnpritchard.docking.DockingPhysics Instance -> a
+    java.lang.Object monitor -> c
+    com.johnpritchard.docking.PhysicsScript queue -> d
+    boolean running -> e
+    void Start() -> a
+    void Stop() -> b
+    void Exit(com.johnpritchard.docking.DockingPhysics) -> a
+    void Script(com.johnpritchard.docking.PhysicsScript) -> a
+    void _start() -> c
+    void _stop() -> d
+    void script(com.johnpritchard.docking.PhysicsScript) -> b
+    void run() -> run
+    void warn(java.lang.String,java.lang.Throwable) -> a
+com.johnpritchard.docking.DockingPostFinishPhysics -> com.johnpritchard.docking.bo:
+    void run() -> run
+com.johnpritchard.docking.DockingPostNextEnd -> com.johnpritchard.docking.bp:
+    void run() -> run
+com.johnpritchard.docking.DockingPostNextHistory -> com.johnpritchard.docking.bq:
+    void run() -> run
+com.johnpritchard.docking.DockingPostPrevEnd -> com.johnpritchard.docking.br:
+    void run() -> run
+com.johnpritchard.docking.DockingPostPrevHistory -> com.johnpritchard.docking.bs:
+    void run() -> run
+com.johnpritchard.docking.DockingPostScreenShot -> com.johnpritchard.docking.bt:
+    java.nio.ByteOrder nativeOrder -> a
+    com.johnpritchard.docking.View3D view -> b
+    com.johnpritchard.docking.View3DRenderer renderer -> c
+    int width -> d
+    int height -> e
+    int size -> f
+    java.lang.String session -> g
+    java.lang.String filename -> h
+    java.io.File externalDir -> i
+    java.io.File externalFile -> j
+    boolean external -> k
+    boolean valid -> l
+    android.graphics.Bitmap flip(android.graphics.Bitmap) -> a
+    android.graphics.Bitmap screenshot() -> a
+    void run() -> run
+com.johnpritchard.docking.DockingPostStartGame -> com.johnpritchard.docking.bu:
+    void run() -> run
+com.johnpritchard.docking.DockingPostStartHistory -> com.johnpritchard.docking.bv:
+    void run() -> run
+com.johnpritchard.docking.DockingPostStartModel -> com.johnpritchard.docking.bw:
+    void run() -> run
+com.johnpritchard.docking.DockingPostViewHardware -> com.johnpritchard.docking.bx:
+    void run() -> run
+com.johnpritchard.docking.Epsilon -> com.johnpritchard.docking.by:
+    float Z(float) -> b
+    double Z(double) -> f
+    float DE(float,float) -> a
+    float Seconds(double) -> g
+    float ClampRP(double,double) -> a
+    long ClampZP(long) -> c
+    long SubClampZP(long,long) -> a
+    java.lang.String Format7(float) -> c
+    java.lang.String FormatT(float) -> d
+    java.lang.String Format4(double) -> h
+    java.lang.String Format6(double) -> i
+    java.lang.String Format8(double) -> j
+com.johnpritchard.docking.Input -> com.johnpritchard.docking.bz:
+    com.johnpritchard.docking.Input Up -> a
+    com.johnpritchard.docking.Input Down -> b
+    com.johnpritchard.docking.Input Left -> c
+    com.johnpritchard.docking.Input Right -> d
+    com.johnpritchard.docking.Input Enter -> e
+    com.johnpritchard.docking.Input Back -> f
+    com.johnpritchard.docking.Input Skip -> g
+    com.johnpritchard.docking.Input Emphasis -> h
+    com.johnpritchard.docking.Input Deemphasis -> i
+    com.johnpritchard.docking.Input Key -> j
+    com.johnpritchard.docking.Input[] List -> k
+    int ListCount -> l
+    com.johnpritchard.docking.Input[] Geometric -> m
+    int GeometricCount -> n
+    int index -> o
+    boolean geometric -> p
+    com.johnpritchard.docking.Input[] $VALUES -> q
+    com.johnpritchard.docking.Input[] values() -> values
+    com.johnpritchard.docking.Input valueOf(java.lang.String) -> valueOf
+    com.johnpritchard.docking.Input type() -> a
+    com.johnpritchard.docking.Input[] Head(com.johnpritchard.docking.Input[],int) -> a
+    com.johnpritchard.docking.InputScript[] Add(com.johnpritchard.docking.InputScript[],com.johnpritchard.docking.InputScript[]) -> a
+com.johnpritchard.docking.InputScript -> com.johnpritchard.docking.ca:
+    com.johnpritchard.docking.Input type() -> a
+com.johnpritchard.docking.InputScript$Key -> com.johnpritchard.docking.cb:
+    com.johnpritchard.docking.Input type -> a
+    char key -> b
+    com.johnpritchard.docking.Input type() -> a
+    java.lang.String toString() -> toString
+com.johnpritchard.docking.ObjectActivity -> com.johnpritchard.docking.cc:
+    java.lang.String className -> b
+    java.lang.String baseName -> c
+    android.content.SharedPreferences preferences -> d
+    void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void onResume() -> onResume
+    void onStart() -> onStart
+    void onStop() -> onStop
+    void onDestroy() -> onDestroy
+com.johnpritchard.docking.ObjectLog -> com.johnpritchard.docking.cd:
+    com.johnpritchard.docking.ObjectActivity context -> P
+    java.lang.String className -> Q
+    java.lang.String baseName -> R
+    void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    void error(java.lang.String) -> b
+    void error(java.lang.String,java.lang.Throwable) -> a
+    java.lang.String Basename(java.lang.String) -> c
+    java.lang.String[] Add(java.lang.String[],java.lang.String) -> a
+com.johnpritchard.docking.Page -> com.johnpritchard.docking.ce:
+    com.johnpritchard.docking.Page start -> a
+    com.johnpritchard.docking.Page intro -> b
+    com.johnpritchard.docking.Page intro1 -> c
+    com.johnpritchard.docking.Page intro2 -> d
+    com.johnpritchard.docking.Page intro3 -> e
+    com.johnpritchard.docking.Page intro4 -> f
+    com.johnpritchard.docking.Page intro5 -> g
+    com.johnpritchard.docking.Page intro6 -> h
+    com.johnpritchard.docking.Page gameplay -> i
+    com.johnpritchard.docking.Page gamecrash -> j
+    com.johnpritchard.docking.Page gamestall -> k
+    com.johnpritchard.docking.Page gamelost -> l
+    com.johnpritchard.docking.Page gamedock -> m
+    com.johnpritchard.docking.Page gamehistory -> n
+    com.johnpritchard.docking.Page gamemodel -> o
+    com.johnpritchard.docking.Page gamehardware -> p
+    com.johnpritchard.docking.Page nohistory -> q
+    com.johnpritchard.docking.Page about -> r
+    com.johnpritchard.docking.ViewPage page -> s
+    boolean simpleInput -> t
+    com.johnpritchard.docking.Page[] $VALUES -> u
+    com.johnpritchard.docking.Page[] values() -> values
+    com.johnpritchard.docking.Page valueOf(java.lang.String) -> valueOf
+com.johnpritchard.docking.PhysicsDOF -> com.johnpritchard.docking.cf:
+    com.johnpritchard.docking.PhysicsDOF XP -> a
+    com.johnpritchard.docking.PhysicsDOF XM -> b
+    com.johnpritchard.docking.PhysicsDOF YP -> c
+    com.johnpritchard.docking.PhysicsDOF YM -> d
+    com.johnpritchard.docking.PhysicsDOF ZP -> e
+    com.johnpritchard.docking.PhysicsDOF ZM -> f
+    java.lang.String label -> g
+    int llen -> h
+    com.johnpritchard.docking.PhysicsDOF[] $VALUES -> i
+    com.johnpritchard.docking.PhysicsDOF[] values() -> values
+    com.johnpritchard.docking.PhysicsDOF valueOf(java.lang.String) -> valueOf
+    java.lang.String toString() -> toString
+com.johnpritchard.docking.PhysicsOperator -> com.johnpritchard.docking.cg:
+    com.johnpritchard.docking.PhysicsOperator TX0 -> a
+    com.johnpritchard.docking.PhysicsOperator TX1 -> b
+    java.lang.String label -> c
+    int llen -> d
+    java.lang.String format -> e
+    int flen -> f
+    com.johnpritchard.docking.PhysicsOperator[] $VALUES -> g
+    com.johnpritchard.docking.PhysicsOperator[] values() -> values
+    com.johnpritchard.docking.PhysicsOperator valueOf(java.lang.String) -> valueOf
+    java.lang.String toString() -> toString
+    int limit(long) -> a
+com.johnpritchard.docking.PhysicsOperator$1 -> com.johnpritchard.docking.ch:
+    int[] $SwitchMap$com$johnpritchard$docking$PhysicsOperator -> a
+com.johnpritchard.docking.PhysicsScript -> com.johnpritchard.docking.ci:
+    com.johnpritchard.docking.PhysicsOperator operator -> a
+    com.johnpritchard.docking.PhysicsDOF dof -> b
+    float operand -> c
+    com.johnpritchard.docking.PhysicsScript next -> d
+    long millis() -> a
+    java.lang.String toString() -> toString
+    com.johnpritchard.docking.PhysicsScript push(com.johnpritchard.docking.PhysicsScript) -> a
+    com.johnpritchard.docking.PhysicsScript append(com.johnpritchard.docking.PhysicsScript) -> b
+    com.johnpritchard.docking.PhysicsScript pop() -> b
+com.johnpritchard.docking.View -> com.johnpritchard.docking.cj:
+    boolean is2D() -> a
+    boolean is3D() -> b
+    android.view.SurfaceHolder getHolder() -> getHolder
+    void pageTo(com.johnpritchard.docking.Page) -> a
+    android.content.SharedPreferences preferences() -> c
+    void script(com.johnpritchard.docking.Page) -> b
+com.johnpritchard.docking.View$Script -> com.johnpritchard.docking.ck:
+    com.johnpritchard.docking.InputScript[] Direction(com.johnpritchard.docking.Input) -> a
+    com.johnpritchard.docking.InputScript[] Enter() -> a
+com.johnpritchard.docking.View2D -> com.johnpritchard.docking.cl:
+    android.view.GestureDetector touch -> b
+    android.view.SurfaceHolder holder -> c
+    android.content.SharedPreferences preferences -> d
+    com.johnpritchard.docking.Page pageId -> a
+    com.johnpritchard.docking.ViewPage2D page -> e
+    int bg -> f
+    boolean plumb -> g
+    int width -> h
+    int height -> i
+    boolean is2D() -> a
+    boolean is3D() -> b
+    android.content.SharedPreferences preferences() -> c
+    void onCreate(android.content.SharedPreferences) -> a
+    void onResume() -> d
+    void onPause(android.content.SharedPreferences$Editor) -> a
+    void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    boolean onKeyUp(int,android.view.KeyEvent) -> onKeyUp
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    boolean onSingleTapUp(android.view.MotionEvent) -> onSingleTapUp
+    void onLongPress(android.view.MotionEvent) -> onLongPress
+    boolean onScroll(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onScroll
+    boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onFling
+    void onShowPress(android.view.MotionEvent) -> onShowPress
+    boolean onDown(android.view.MotionEvent) -> onDown
+    boolean onSingleTapConfirmed(android.view.MotionEvent) -> onSingleTapConfirmed
+    boolean onDoubleTap(android.view.MotionEvent) -> onDoubleTap
+    boolean onDoubleTapEvent(android.view.MotionEvent) -> onDoubleTapEvent
+    boolean onTrackballEvent(android.view.MotionEvent) -> onTrackballEvent
+    boolean onGenericMotionEvent(android.view.MotionEvent) -> onGenericMotionEvent
+    void pageTo(com.johnpritchard.docking.Page) -> a
+    void repaint() -> e
+    void script(com.johnpritchard.docking.Page) -> b
+    void script(com.johnpritchard.docking.InputScript) -> a
+    void script(com.johnpritchard.docking.InputScript[]) -> a
+    void script(android.view.MotionEvent) -> a
+    void script(char) -> a
+    void onDraw(android.graphics.Canvas) -> onDraw
+com.johnpritchard.docking.View3D -> com.johnpritchard.docking.cm:
+    android.view.GestureDetector touch -> b
+    android.view.SurfaceHolder holder -> c
+    com.johnpritchard.docking.View3DRenderer renderer -> a
+    android.content.SharedPreferences preferences -> d
+    boolean is2D() -> a
+    boolean is3D() -> b
+    android.content.SharedPreferences preferences() -> c
+    void onCreate(android.content.SharedPreferences) -> a
+    void onResume() -> onResume
+    void onPause(android.content.SharedPreferences$Editor) -> a
+    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    boolean onKeyUp(int,android.view.KeyEvent) -> onKeyUp
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    boolean onSingleTapUp(android.view.MotionEvent) -> onSingleTapUp
+    void onLongPress(android.view.MotionEvent) -> onLongPress
+    boolean onScroll(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onScroll
+    boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onFling
+    void onShowPress(android.view.MotionEvent) -> onShowPress
+    boolean onDown(android.view.MotionEvent) -> onDown
+    boolean onSingleTapConfirmed(android.view.MotionEvent) -> onSingleTapConfirmed
+    boolean onDoubleTap(android.view.MotionEvent) -> onDoubleTap
+    boolean onDoubleTapEvent(android.view.MotionEvent) -> onDoubleTapEvent
+    boolean onTrackballEvent(android.view.MotionEvent) -> onTrackballEvent
+    boolean onGenericMotionEvent(android.view.MotionEvent) -> onGenericMotionEvent
+    void pageTo(com.johnpritchard.docking.Page) -> a
+    void script(com.johnpritchard.docking.Page) -> b
+    void script(com.johnpritchard.docking.InputScript) -> a
+    void script(android.view.MotionEvent) -> a
+    void script(char) -> a
+com.johnpritchard.docking.View3DFontFutural -> com.johnpritchard.docking.cn:
+    float[][] GlyphSet -> a
+com.johnpritchard.docking.View3DGeometry -> com.johnpritchard.docking.co:
+    java.nio.ByteOrder nativeOrder -> b
+    float[] Add(float[],float[]) -> a
+    float[] Lines(float[]) -> a
+com.johnpritchard.docking.View3DGeometryCircle -> com.johnpritchard.docking.cp:
+    int CircleTableSize(int) -> a
+    void CircleTable(double[],double[],int) -> a
+com.johnpritchard.docking.View3DRenderer -> com.johnpritchard.docking.cq:
+    com.johnpritchard.docking.View3D view -> e
+    android.content.SharedPreferences preferences -> f
+    com.johnpritchard.docking.Page pageId -> a
+    com.johnpritchard.docking.ViewPage3D page -> b
+    boolean plumb -> g
+    int width -> c
+    int height -> d
+    boolean stale -> h
+    boolean screenshot -> i
+    int screenshotFormat -> j
+    int screenshotType -> k
+    java.nio.ByteBuffer screenshotBuffer -> l
+    java.lang.Object screenshotMonitor -> m
+    void onCreate(android.content.SharedPreferences) -> a
+    void onResume() -> a
+    void onPause(android.content.SharedPreferences$Editor) -> a
+    void surfaceCreated(android.view.SurfaceHolder) -> surfaceCreated
+    void surfaceChanged(android.view.SurfaceHolder,int,int,int) -> surfaceChanged
+    void surfaceDestroyed(android.view.SurfaceHolder) -> surfaceDestroyed
+    void pageTo(com.johnpritchard.docking.Page) -> a
+    boolean screenshot(int,int,java.nio.ByteBuffer) -> a
+    void onDrawFrame(javax.microedition.khronos.opengles.GL10) -> onDrawFrame
+    void onSurfaceChanged(javax.microedition.khronos.opengles.GL10,int,int) -> onSurfaceChanged
+    void onSurfaceCreated(javax.microedition.khronos.opengles.GL10,javax.microedition.khronos.egl.EGLConfig) -> onSurfaceCreated
+com.johnpritchard.docking.View3DVersion -> com.johnpritchard.docking.cr:
+    boolean INIT -> a
+    java.lang.String VendorString -> b
+    java.lang.String ExtensionsString -> c
+    java.lang.String[] ExtensionsList -> d
+    int ExtensionsCount -> e
+    java.lang.String LongString -> f
+    java.lang.String NameString -> g
+    java.lang.String NumberString -> h
+    int Major -> i
+    int Minor -> j
+    void Init() -> a
+    java.lang.String GetVendorString() -> b
+    java.lang.String[] GetExtensions() -> c
+    java.lang.String GetLongString() -> d
+com.johnpritchard.docking.ViewAnimation -> com.johnpritchard.docking.cs:
+    java.lang.Object StaticMonitor -> a
+    com.johnpritchard.docking.ViewAnimation Instance -> b
+    com.johnpritchard.docking.View view -> c
+    android.view.SurfaceHolder holder -> d
+    boolean is2D -> e
+    boolean is3D -> f
+    java.lang.Object monitor -> g
+    com.johnpritchard.docking.ViewAnimation$Script queue -> h
+    boolean running -> i
+    boolean recover2D -> j
+    void Start(com.johnpritchard.docking.View) -> a
+    void Stop() -> a
+    void Exit(com.johnpritchard.docking.ViewAnimation) -> a
+    void Script(com.johnpritchard.docking.Page) -> a
+    void Script() -> b
+    void Script(com.johnpritchard.docking.ViewPage,com.johnpritchard.docking.InputScript[]) -> a
+    void Script(com.johnpritchard.docking.ViewPage,android.view.MotionEvent) -> a
+    void Script(com.johnpritchard.docking.ViewPage,char) -> a
+    void script(com.johnpritchard.docking.Page) -> b
+    void script() -> c
+    void script(com.johnpritchard.docking.ViewPage,android.view.MotionEvent) -> b
+    void script(com.johnpritchard.docking.ViewPage,char) -> b
+    void script(com.johnpritchard.docking.ViewPage,com.johnpritchard.docking.InputScript[]) -> b
+    void shutdown() -> d
+    void run() -> run
+    void paint() -> e
+com.johnpritchard.docking.ViewAnimation$1 -> com.johnpritchard.docking.ct:
+com.johnpritchard.docking.ViewAnimation$Script -> com.johnpritchard.docking.cu:
+    com.johnpritchard.docking.ViewAnimation$Script head -> a
+    com.johnpritchard.docking.Page pageTo -> b
+    com.johnpritchard.docking.ViewPage page -> c
+    android.view.MotionEvent motion -> d
+    com.johnpritchard.docking.InputScript[] input -> e
+    com.johnpritchard.docking.ViewAnimation$Script next -> f
+    com.johnpritchard.docking.ViewAnimation$Script head() -> a
+    com.johnpritchard.docking.ViewAnimation$Script append(com.johnpritchard.docking.ViewAnimation$Script) -> g
+    com.johnpritchard.docking.ViewAnimation$Script pop() -> b
+    com.johnpritchard.docking.ViewAnimation$Script access$100(com.johnpritchard.docking.ViewAnimation$Script) -> a
+    com.johnpritchard.docking.Page access$600(com.johnpritchard.docking.ViewAnimation$Script) -> b
+    com.johnpritchard.docking.ViewPage access$700(com.johnpritchard.docking.ViewAnimation$Script) -> c
+    android.view.MotionEvent access$800(com.johnpritchard.docking.ViewAnimation$Script) -> d
+    com.johnpritchard.docking.InputScript[] access$900(com.johnpritchard.docking.ViewAnimation$Script) -> e
+    com.johnpritchard.docking.ViewAnimation$Script access$1000(com.johnpritchard.docking.ViewAnimation$Script) -> f
+com.johnpritchard.docking.ViewPage -> com.johnpritchard.docking.cv:
+    int width -> S
+    int height -> T
+    float pad -> U
+    boolean plumb -> V
+    com.johnpritchard.docking.View view -> W
+    boolean landscape -> X
+    boolean portrait -> Y
+    java.lang.String name() -> a
+    com.johnpritchard.docking.ViewPage up(com.johnpritchard.docking.View,int,int) -> a
+    void down() -> h
+    void down(android.content.SharedPreferences$Editor) -> a
+    void init() -> c_
+    void layout() -> k
+    void navigation() -> g
+    void focus() -> f
+    com.johnpritchard.docking.InputScript[] script(android.view.MotionEvent) -> a
+    void input_emphasis() -> l
+    void input_deemphasis() -> m
+    void input(com.johnpritchard.docking.InputScript) -> a
+    android.content.SharedPreferences preferences() -> n
+    float[] Convert(android.view.MotionEvent) -> b
+com.johnpritchard.docking.ViewPage$1 -> com.johnpritchard.docking.cw:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.ViewPage2D -> com.johnpritchard.docking.cx:
+    com.johnpritchard.docking.ViewPage2DComponent[] components -> t
+    com.johnpritchard.docking.ViewPage2DComponent current -> u
+    com.johnpritchard.docking.ViewPageComponentInteractive interactive -> v
+    android.graphics.RectF measure() -> d
+    android.graphics.RectF measure(int,int) -> a
+    void scale() -> e
+    float pad(android.graphics.RectF) -> a
+    android.graphics.RectF center(int,int) -> b
+    android.graphics.RectF group(int,int,android.graphics.RectF,float) -> a
+    void group_vertical() -> i
+    android.graphics.RectF location(int,int,android.graphics.RectF,float,float) -> a
+    android.graphics.RectF col(int,int,float,float,float,float) -> a
+    void init() -> c_
+    void layout() -> k
+    void down(android.content.SharedPreferences$Editor) -> a
+    boolean navigationInclude(int,com.johnpritchard.docking.ViewPage2DComponent) -> a
+    void navigation() -> g
+    void focus() -> f
+    com.johnpritchard.docking.InputScript[] script(android.view.MotionEvent) -> a
+    com.johnpritchard.docking.InputScript[] script(com.johnpritchard.docking.InputScript[],float,float,float,com.johnpritchard.docking.ViewPage2DComponent) -> a
+    void input_emphasis() -> l
+    void input_deemphasis() -> m
+    void input(com.johnpritchard.docking.InputScript) -> a
+    void draw(android.graphics.Canvas) -> a
+    int enter() -> j
+    int current() -> o
+    com.johnpritchard.docking.ViewPage2DComponent current(com.johnpritchard.docking.Input) -> a
+    void current(com.johnpritchard.docking.ViewPage2DComponent) -> a
+    int first() -> c
+com.johnpritchard.docking.ViewPage2DButtonGroup -> com.johnpritchard.docking.cy:
+com.johnpritchard.docking.ViewPage2DButtonPlain -> com.johnpritchard.docking.cz:
+    void setCurrent() -> b_
+    void clearCurrent() -> b
+com.johnpritchard.docking.ViewPage2DClip -> com.johnpritchard.docking.da:
+com.johnpritchard.docking.ViewPage2DComponent -> com.johnpritchard.docking.db:
+    void setCardinal(com.johnpritchard.docking.Input,com.johnpritchard.docking.ViewPage2DComponent) -> a
+    com.johnpritchard.docking.ViewPage2DComponent getCardinal(com.johnpritchard.docking.Input) -> a
+    void draw(android.graphics.Canvas) -> a
+com.johnpritchard.docking.ViewPage2DComponentAbstract -> com.johnpritchard.docking.dc:
+    com.johnpritchard.docking.ViewPage2DComponent[] cardinals -> a
+    com.johnpritchard.docking.ViewPage2DClip clip -> b
+    void clearCardinals() -> c
+    int countCardinals() -> d
+    void setCardinal(com.johnpritchard.docking.Input,com.johnpritchard.docking.ViewPage2DComponent) -> a
+    com.johnpritchard.docking.ViewPage2DComponent getCardinal(com.johnpritchard.docking.Input) -> a
+    com.johnpritchard.docking.Input direction(float,float) -> b
+com.johnpritchard.docking.ViewPage2DComponentPath -> com.johnpritchard.docking.dd:
+    com.johnpritchard.docking.ViewPage2DPath path -> c
+    com.johnpritchard.docking.ViewPage2DPath group -> d
+    android.graphics.Paint fill -> e
+    android.graphics.Paint stroke -> f
+    void emphasis(boolean) -> a
+    com.johnpritchard.docking.ViewPage2DComponentPath setText(java.lang.String) -> a
+    void group(android.graphics.RectF,float) -> a
+    android.graphics.RectF bounds() -> e
+    com.johnpritchard.docking.ViewPage2DComponentPath plainFillType() -> f
+    com.johnpritchard.docking.ViewPage2DComponentPath inverseFillType() -> g
+    void transform(android.graphics.Matrix) -> a
+    void draw(android.graphics.Canvas) -> a
+    void reset() -> h
+    java.lang.String toString() -> toString
+com.johnpritchard.docking.ViewPage2DPath -> com.johnpritchard.docking.de:
+    boolean rounding -> a
+    float margin -> b
+    com.johnpritchard.docking.ViewPage2DPath margin(float) -> a
+    com.johnpritchard.docking.ViewPage2DPath rounding(boolean) -> a
+    com.johnpritchard.docking.ViewPage2DPath set(android.graphics.RectF) -> a
+    com.johnpritchard.docking.ViewPage2DPath rect(android.graphics.RectF,float) -> a
+    com.johnpritchard.docking.ViewPage2DPath rrect(android.graphics.RectF,float) -> b
+    com.johnpritchard.docking.ViewPage2DPath plainFillType() -> a
+    com.johnpritchard.docking.ViewPage2DPath inverseFillType() -> b
+    void add(com.johnpritchard.docking.ViewPage2DPath) -> a
+    java.lang.String toString() -> toString
+com.johnpritchard.docking.ViewPage2DPath$1 -> com.johnpritchard.docking.df:
+    int[] $SwitchMap$android$graphics$Path$FillType -> a
+    int[] $SwitchMap$path$Winding -> b
+    int[] $SwitchMap$path$Op -> c
+com.johnpritchard.docking.ViewPage2DTextLabel -> com.johnpritchard.docking.dg:
+    void draw(android.graphics.Canvas) -> a
+com.johnpritchard.docking.ViewPage2DTextMultiline -> com.johnpritchard.docking.dh:
+    int line_width -> g
+    com.johnpritchard.docking.ViewPage2DComponentPath setText(java.lang.String) -> a
+com.johnpritchard.docking.ViewPage3D -> com.johnpritchard.docking.di:
+    java.nio.ByteOrder nativeOrder -> Z
+    com.johnpritchard.docking.ViewPage3DComponent[] components -> aa
+    com.johnpritchard.docking.ViewPage3DComponent current -> ab
+    com.johnpritchard.docking.ViewPageComponentInteractive interactive -> ac
+    float lx -> a
+    float ly -> b
+    void init(javax.microedition.khronos.opengles.GL10) -> a
+    void draw(javax.microedition.khronos.opengles.GL10) -> b
+    void down(android.content.SharedPreferences$Editor) -> a
+    com.johnpritchard.docking.InputScript[] script(android.view.MotionEvent) -> a
+    void input(com.johnpritchard.docking.InputScript) -> a
+    boolean navigationInclude(int,com.johnpritchard.docking.ViewPage3DComponent) -> a
+    void navigation() -> g
+    void focus() -> f
+    void draw() -> e
+    int current() -> o
+    com.johnpritchard.docking.ViewPage3DComponent current(com.johnpritchard.docking.Input) -> a
+    void current(com.johnpritchard.docking.ViewPage3DComponent) -> a
+    int first() -> p
+    void gluPerspective(float,float,float,float) -> a
+com.johnpritchard.docking.ViewPage3DComponent -> com.johnpritchard.docking.dj:
+    void setCardinal(com.johnpritchard.docking.Input,com.johnpritchard.docking.ViewPage3DComponent) -> a
+    com.johnpritchard.docking.ViewPage3DComponent getCardinal(com.johnpritchard.docking.Input) -> d
+    void draw() -> a_
+com.johnpritchard.docking.ViewPage3DComponentAbstract -> com.johnpritchard.docking.dk:
+    java.nio.ByteOrder nativeOrder -> e
+    com.johnpritchard.docking.ViewPage3DComponent[] cardinals -> f
+    long blinkTime -> a
+    boolean blinkState -> b
+    void clearCardinals() -> c
+    int countCardinals() -> d
+    void setCardinal(com.johnpritchard.docking.Input,com.johnpritchard.docking.ViewPage3DComponent) -> a
+    com.johnpritchard.docking.ViewPage3DComponent getCardinal(com.johnpritchard.docking.Input) -> d
+    void unblink() -> f
+    void blink(long) -> a
+    com.johnpritchard.docking.Input direction(float,float) -> b
+com.johnpritchard.docking.ViewPage3DInputField -> com.johnpritchard.docking.dl:
+    boolean interactive -> g
+    boolean interactive() -> g
+    void input_edit(com.johnpritchard.docking.Input) -> a
+    void input_edit(com.johnpritchard.docking.InputScript$Key) -> a
+    void input_value(com.johnpritchard.docking.Input) -> b
+    void input_io(com.johnpritchard.docking.Input) -> c
+    void input_inter(com.johnpritchard.docking.InputScript) -> a
+    boolean input(com.johnpritchard.docking.InputScript) -> b
+    void clearCurrent() -> b
+com.johnpritchard.docking.ViewPage3DInputField$1 -> com.johnpritchard.docking.dm:
+    int[] $SwitchMap$com$johnpritchard$docking$Input -> a
+com.johnpritchard.docking.ViewPage3DTextGroup -> com.johnpritchard.docking.dn:
+    void open(int) -> a
+com.johnpritchard.docking.ViewPage3DTextLabel -> com.johnpritchard.docking.do:
+    double x -> h
+    double y -> i
+    double z -> j
+    double h -> k
+    double minX -> a
+    double minY -> b
+    double maxX -> c
+    double maxY -> d
+    float[] array -> g
+    java.nio.FloatBuffer[] b_m -> q
+    java.nio.FloatBuffer[] b_gv -> r
+    int[] b_count -> s
+    int b_current -> t
+    void format(java.lang.String,java.lang.Object[]) -> a
+    void setText(java.lang.String) -> d
+    void draw() -> a_
+    float em() -> h
+    float leading() -> i
+    float[] glyph(char) -> a
+    void append(float[],int,int) -> a
+    void fit() -> j
+    int cap(int) -> a
+    void pack() -> k
+com.johnpritchard.docking.ViewPage3DTextSelection -> com.johnpritchard.docking.dp:
+    int begin -> g
+    int end -> h
+    android.graphics.RectF[] outline -> i
+    int b_current -> j
+    float z -> k
+    java.nio.FloatBuffer[] b_m -> a
+    java.nio.FloatBuffer[] b_gv -> b
+    void open(int) -> a
+    void update(int,double) -> a
+    void update(int,double,double) -> a
+    void update(int,android.graphics.RectF) -> a
+    void update(float[]) -> a
+    android.graphics.RectF close(android.graphics.RectF) -> a
+    void close() -> g
+    void draw() -> a_
+com.johnpritchard.docking.ViewPageComponent -> com.johnpritchard.docking.dq:
+    float getCX() -> l
+    float getCY() -> m
+    float getX() -> n
+    float getY() -> o
+    android.graphics.RectF bounds() -> e
+    void translate(float,float) -> a_
+    void transform(android.graphics.Matrix) -> a
+    float distance(float,float) -> c
+    com.johnpritchard.docking.Input direction(com.johnpritchard.docking.ViewPageComponent) -> a
+    com.johnpritchard.docking.Input direction(float,float) -> b
+    void clearCardinals() -> c
+    int countCardinals() -> d
+    void setCurrent() -> b_
+    void clearCurrent() -> b
+com.johnpritchard.docking.ViewPageComponentAbstract -> com.johnpritchard.docking.dr:
+    com.johnpritchard.docking.ViewPageOperatorSelection NSel -> l
+    java.lang.String name -> m
+    boolean current -> n
+    android.graphics.RectF bounds -> o
+    com.johnpritchard.docking.ViewPageOperatorSelection selection -> p
+    void clear() -> p
+    void appendName(java.lang.String) -> e
+    android.graphics.RectF bounds() -> e
+    float getCX() -> l
+    float getCY() -> m
+    float getX() -> n
+    float getY() -> o
+    void translate(float,float) -> a_
+    void transform(android.graphics.Matrix) -> a
+    float distance(float,float) -> c
+    float distance(com.johnpritchard.docking.ViewPageComponent) -> b
+    com.johnpritchard.docking.Input direction(com.johnpritchard.docking.ViewPageComponent) -> a
+    void setCurrent() -> b_
+    void clearCurrent() -> b
+com.johnpritchard.docking.ViewPageComponentEmphasis -> com.johnpritchard.docking.ds:
+    void emphasis(boolean) -> a
+com.johnpritchard.docking.ViewPageComponentGroup -> com.johnpritchard.docking.dt:
+    void group(android.graphics.RectF,float) -> a
+com.johnpritchard.docking.ViewPageComponentInteractive -> com.johnpritchard.docking.du:
+    boolean interactive() -> g
+    boolean input(com.johnpritchard.docking.InputScript) -> b
+com.johnpritchard.docking.ViewPageOperatorGroup -> com.johnpritchard.docking.dv:
+com.johnpritchard.docking.ViewPageOperatorSelection -> com.johnpritchard.docking.dw:
+    void open(int) -> a
+    void update(int,double) -> a
+    void update(int,android.graphics.RectF) -> a
+    void update(int,double,double) -> a
+    void update(float[]) -> a
+    void close() -> g
+fv3.math.Abstract -> a.a.a:
+    float EPSILON(float,float) -> a
+    float Z(float) -> a
+    float Z1(float) -> b
+    boolean NEQ(float,float) -> b
+fv3.math.AbstractFloat -> a.a.b:
+fv3.math.Matrix -> a.a.c:
+    float[] m -> a
+    float[] Identity -> b
+    double[] IVIdentity -> c
+    java.lang.String toString() -> toString
+    java.lang.String toString(java.lang.String) -> a
+    java.lang.String toString(java.lang.String,java.lang.String) -> a
+    int I(int,int) -> a
+    float[] Identity() -> a
+    double[] IVIdentity() -> b
+    float[] Mul(float[],float[]) -> a
+    float[] Copy(double[]) -> a
+    void Scale(double[],double) -> a
+    void Scale(float[],float) -> a
+    double[] Translate(double[],double,double,double) -> a
+    float[] Translate(float[],float,float,float) -> a
+    float[] Translate(float,float,float) -> a
+    void Transform(double[],float[]) -> a
+    float[] RotateY(float) -> c
+fv3.math.Vector -> a.a.d:
+    float[] v -> a
+    float[] Zero -> b
+    fv3.math.Vector clone() -> a
+    java.lang.String toString() -> toString
+    boolean equals(java.lang.Object) -> equals
+    boolean equals(fv3.math.Vector) -> a
+    int compareTo(fv3.math.Vector) -> b
+    float Dot(float,float,float,float,float,float) -> a
+    float Length(float,float,float) -> a
+    float[] Cross(float[],float[]) -> a
+    float[] Normalize(float[]) -> a
+    float[] Normalize(float,float,float) -> b
+    float[] Sub(float[],float[]) -> b
+    float[] Normal(float,float,float,float,float,float,float,float,float) -> a
+    float[] Normal(float[],float[],float[]) -> a
+    java.lang.Object clone() -> clone
+    int compareTo(java.lang.Object) -> compareTo
+path.Op -> b.a:
+    path.Op MoveTo -> a
+    path.Op LineTo -> b
+    path.Op QuadTo -> c
+    path.Op CubicTo -> d
+    path.Op Close -> e
+    int operands -> f
+    path.Op[] $VALUES -> g
+    path.Op[] values() -> values
+    path.Op valueOf(java.lang.String) -> valueOf
+path.Winding -> b.b:
+    path.Winding EvenOdd -> a
+    path.Winding NonZero -> b
+    path.Winding Future -> c
+    java.lang.String label -> d
+    path.Winding Default -> e
+    java.util.Map Map -> f
+    path.Winding[] $VALUES -> g
+    path.Winding[] values() -> values
+    path.Winding valueOf(java.lang.String) -> valueOf
+    java.lang.String toString() -> toString
