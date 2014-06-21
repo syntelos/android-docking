@@ -78,7 +78,7 @@ public class ViewPage2DComponentPath
 
         if (on){
 
-            fill.setColor(Color.RED);
+            fill.setColor(Color.BLUE);
         }
         else {
 
