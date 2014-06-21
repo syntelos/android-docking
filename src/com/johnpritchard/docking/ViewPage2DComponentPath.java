@@ -91,27 +91,28 @@ public class ViewPage2DComponentPath
     }
     public ViewPage2DComponentPath setText(String text){
         reset();
+        if (null != text){
+            final int text_len = text.length();
+            /*
+             */
+            final ViewPageOperatorSelection selection = this.selection;
+            if (null != selection){
 
-        final int text_len = text.length();
-        /*
-         */
-        final ViewPageOperatorSelection selection = this.selection;
-        if (null != selection){
+                selection.open(1);
+            }
 
-            selection.open(1);
-        }
+            this.fill.getTextPath(text,0,text_len,0.0f,TextSize,this.path);
 
-        this.fill.getTextPath(text,0,text_len,0.0f,TextSize,this.path);
+            this.appendName(text);
 
-        this.appendName(text);
+            /*
+             */
+            if (null != selection){
 
-        /*
-         */
-        if (null != selection){
+                selection.update(0,this.bounds());
 
-            selection.update(0,this.bounds());
-
-            selection.close();
+                selection.close();
+            }
         }
         return this;
     }
