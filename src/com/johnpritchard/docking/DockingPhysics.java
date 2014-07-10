@@ -18,20 +18,29 @@ public final class DockingPhysics
 
     protected volatile static DockingPhysics Instance;
 
-    public static void Start(){
+    public static void Start(View view){
         synchronized(StaticMonitor){
             if (null == Instance){
 
-                Instance = new DockingPhysics();
+                Instance = new DockingPhysics(view);
 
                 Instance._start();
             }
+            else if (null != Instance && view != Instance.view){
+                try {
+                    Instance._stop();
+                }
+                finally {
+                    Instance = new DockingPhysics(view);
+                    Instance._start();
+                }
+            }
         }
     }
-    public static void Stop(){
+    public static void Stop(View view){
         synchronized(StaticMonitor){
             DockingPhysics instance = Instance;
-            if (null != instance){
+            if (null != instance && view == Instance.view){
                 try {
                     instance._stop();
                 }
@@ -64,6 +73,8 @@ public final class DockingPhysics
 
 
 
+    private final View view;
+
     private final Object monitor = new Object();
 
     private volatile PhysicsScript queue;
@@ -71,8 +82,14 @@ public final class DockingPhysics
     private volatile boolean running = true;
 
 
-    private DockingPhysics(){
+    private DockingPhysics(View view){
         super("Phys/Animation");
+        if (null != view){
+            this.view = view;
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
 

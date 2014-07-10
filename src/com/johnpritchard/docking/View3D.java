@@ -81,25 +81,11 @@ public final class View3D
         //info("onCreate");
 
         this.preferences = state;
-        /*
-         * Prevent continuations across app state boundaries while
-         * onPause(N) can follow onCreate(N+1) [in actual time]
-         * 
-         * onCreate(N)
-         * // ? onPause(N)
-         * onCreate(N+1)
-         * // ? onPause(N)
-         */
-        ViewAnimation.Stop();
-
-        DockingPhysics.Stop();
 
         this.renderer.onCreate(state);
     }
     public void onResume(){
         //info("onResume");
-
-        ViewAnimation.Start(this);
 
         this.renderer.onResume();
     }
@@ -109,8 +95,6 @@ public final class View3D
         this.holder.setKeepScreenOn(false);
 
         this.renderer.onPause(state);
-
-        ViewAnimation.Stop();
     }
     /**
      * Works on Sony-TV, but not MB860

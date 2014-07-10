@@ -18,23 +18,32 @@ public class DockingMovie
 
     protected volatile static DockingMovie Instance;
 
-    public static void Start(){
+    public static void Start(View view){
         if (Available){
             synchronized(StaticMonitor){
                 if (null == Instance){
 
-                    Instance = new DockingMovie();
+                    Instance = new DockingMovie(view);
 
                     Instance._start();
+                }
+                else if (null != Instance && view != Instance.view){
+                    try {
+                        Instance._stop();
+                    }
+                    finally {
+                        Instance = new DockingMovie(view);
+                        Instance._start();
+                    }
                 }
             }
         }
     }
-    public static void Stop(){
+    public static void Stop(View view){
         if (Available){
             synchronized(StaticMonitor){
                 DockingMovie instance = Instance;
-                if (null != instance){
+                if (null != instance && view == Instance.view){
                     try {
                         instance._stop();
                     }
@@ -50,13 +59,21 @@ public class DockingMovie
     private final static long TINC = 2000L;
 
 
+    private final View view;
+
     private final Object monitor = new Object();
 
     private volatile boolean running = true;
 
 
-    private DockingMovie(){
+    private DockingMovie(View view){
         super("ScreenShot/Animation");
+        if (null != view){
+            this.view = view;
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
 

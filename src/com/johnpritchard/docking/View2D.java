@@ -103,23 +103,9 @@ public final class View2D
         //info("onCreate");
 
         this.preferences = state;
-        /*
-         * Prevent continuations across app state boundaries while
-         * onPause(N) can follow onCreate(N+1) [in actual time]
-         * 
-         * onCreate(N)
-         * // ? onPause(N)
-         * onCreate(N+1)
-         * // ? onPause(N)
-         */
-        ViewAnimation.Stop();
-
-        DockingPhysics.Stop();
     }
     public void onResume(){
         //info("onResume");
-
-        ViewAnimation.Start(this);
 
         pageTo(Page.valueOf(preferences.getString("page","start")));
 
@@ -129,6 +115,8 @@ public final class View2D
     }
     public void onPause(SharedPreferences.Editor state){
         //info("onPause");
+
+        ViewAnimation.Stop(this);
 
         if (null != this.pageId){
 
@@ -141,8 +129,6 @@ public final class View2D
         }
 
         this.plumb = false;
-
-        ViewAnimation.Stop();
     }
     public void surfaceCreated(SurfaceHolder holder){
         //info("surfaceCreated");
@@ -161,7 +147,8 @@ public final class View2D
 
             this.page.up(this,width,height);
         }
-        this.repaint();
+
+        ViewAnimation.Start(this);
     }
     public void surfaceDestroyed(SurfaceHolder holder){
         //info("surfaceDestroyed");

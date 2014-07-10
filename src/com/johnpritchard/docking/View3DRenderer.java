@@ -68,6 +68,8 @@ public final class View3DRenderer
     }
     public synchronized void onPause(SharedPreferences.Editor state){
 
+        ViewAnimation.Stop(view);
+
         if (null != this.pageId){
             /*
              * {Input.Back} -> {Page.start}
@@ -104,6 +106,8 @@ public final class View3DRenderer
 
             this.page.up(view,width,height);
         }
+
+        ViewAnimation.Start(view);
     }
     public synchronized void surfaceDestroyed(SurfaceHolder holder){
         //info("surfaceDestroyed");

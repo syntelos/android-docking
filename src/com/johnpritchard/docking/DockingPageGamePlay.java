@@ -114,7 +114,7 @@ public final class DockingPageGamePlay
     public ViewPage up(View view, int w, int h){
         super.up(view,w,h);
 
-        DockingPhysics.Start();
+        DockingPhysics.Start(view);
 
         return this;
     }
@@ -122,7 +122,7 @@ public final class DockingPageGamePlay
     public void down(){
         super.down();
 
-        DockingPhysics.Stop();
+        DockingPhysics.Stop(view);
     }
     @Override
     protected void focus(){

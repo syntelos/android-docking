@@ -56,6 +56,15 @@ public final class ViewAnimation
                 Instance = new ViewAnimation(view);
                 Instance.start();
             }
+            else if (null != Instance && view != Instance.view){
+                try {
+                    Instance.shutdown();
+                }
+                finally {
+                    Instance = new ViewAnimation(view);
+                    Instance.start();
+                }
+            }
             else {
                 //Warn("start: not running");
             }
@@ -64,10 +73,10 @@ public final class ViewAnimation
     /**
      * Used by {@link View}
      */
-    protected static void Stop(){
+    protected static void Stop(View view){
 
         synchronized(StaticMonitor){
-            if (null != Instance){
+            if (null != Instance && view == Instance.view){
                 try {
                     Instance.shutdown();
                 }
