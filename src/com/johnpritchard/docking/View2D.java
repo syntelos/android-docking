@@ -70,7 +70,7 @@ public final class View2D
 
     private boolean plumb = false;
 
-    private int width = -1, height = -1;
+    protected int width = -1, height = -1;
 
 
 

@@ -20,8 +20,7 @@ import javax.microedition.khronos.opengles.GL10;
 public final class View3DRenderer
     extends ObjectLog
     implements android.opengl.GLSurfaceView.Renderer,
-               android.view.SurfaceHolder.Callback,
-               View3DScreenShot
+               android.view.SurfaceHolder.Callback
 {
 
     private View3D view;
@@ -181,6 +180,7 @@ public final class View3DRenderer
     }
     /**
      * @see View3DScreenShot
+     * @see DockingPostScreenShot
      */
     public boolean screenshot(int format, int type, ByteBuffer buffer)
         throws InterruptedException
