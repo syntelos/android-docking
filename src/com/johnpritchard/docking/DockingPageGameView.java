@@ -67,17 +67,23 @@ public abstract class DockingPageGameView
         case Up:
             break;
         case Left:
-            /*
-             */
-            Docking.Post3D(new DockingPostPrevEnd());
+
+            //Docking.Post3D(new DockingPostPrevEnd())//
+
+            view.script(new InputScript[]{
+                    new InputScript.Database(InputScript.Database.Op.GameEndPrev)
+                });
 
             break;
         case Down:
             break;
         case Right:
-            /*
-             */
-            Docking.Post3D(new DockingPostNextEnd());
+
+            //Docking.Post3D(new DockingPostNextEnd())//
+
+            view.script(new InputScript[]{
+                    new InputScript.Database(InputScript.Database.Op.GameEndNext)
+                });
 
             break;
         case Enter:

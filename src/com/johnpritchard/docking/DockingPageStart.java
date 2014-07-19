@@ -60,12 +60,20 @@ public final class DockingPageStart
 
             case GAME:
 
-                Docking.Post2D(new DockingPostStartGame());
+                //Docking.Post2D(new DockingPostStartGame())//
+
+                view.script(new InputScript[]{
+                        new InputScript.Database(InputScript.Database.Op.Game)
+                    });
                 break;
 
             case HISTORY:
 
-                Docking.Post2D(new DockingPostStartHistory());
+                //Docking.Post2D(new DockingPostStartHistory())//
+
+                view.script(new InputScript[]{
+                        new InputScript.Database(InputScript.Database.Op.History)
+                    });
                 break;
 
             case ABOUT:

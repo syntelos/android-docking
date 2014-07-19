@@ -20,12 +20,18 @@ import java.util.HashMap;
 public final class DockingDatabase 
     extends android.database.sqlite.SQLiteOpenHelper
 {
+    private final static Object StaticMonitor = new Object();
+
     private static DockingDatabase Instance;
 
     public static void Init(Context cx){
 
-        if (null == Instance){
-            Instance = new DockingDatabase(cx);
+        synchronized(StaticMonitor){
+
+            if (null == Instance || cx != Instance.context){
+
+                Instance = new DockingDatabase(cx);
+            }
         }
     }
     public static SQLiteDatabase Readable(){
@@ -94,8 +100,6 @@ public final class DockingDatabase
          */
         DockingCraftStateVector.Instance.game();
 
-        //Info("game: new");
-
         return true;
     }
     public static boolean Model(){
@@ -104,7 +108,7 @@ public final class DockingDatabase
          */
         DockingCraftStateVector.Instance.model();
 
-        //Info("game: new");
+        DockingPageGameAbstract.Range();
 
         return true;
     }
@@ -113,8 +117,6 @@ public final class DockingDatabase
          * Show hardware
          */
         DockingCraftStateVector.Instance.hardware();
-
-        //Info("game: new");
 
         return true;
     }
@@ -144,6 +146,8 @@ public final class DockingDatabase
         finally {
             db.close();
         }
+
+        DockingPageGameAbstract.View();
     }
     /**
      * Called from {@link DockingPageStart} "HISTORY" (enter) to setup
@@ -177,7 +181,7 @@ public final class DockingDatabase
                 try {
                     DockingCraftStateVector.Instance.read(cursor);
 
-                    //Info("history: existing");
+                    DockingPageGameAbstract.View();
 
                     return true;
                 }
@@ -189,10 +193,6 @@ public final class DockingDatabase
                 /*
                  * No history
                  */
-                // DockingCraftStateVector.Instance.game();
-
-                //Info("history: not found");
-
                 return false;
             }
         }
@@ -234,7 +234,7 @@ public final class DockingDatabase
                     try {
                         DockingCraftStateVector.Instance.read(cursor);
 
-                        //Info("history prev: ok");
+                        DockingPageGameAbstract.View();
 
                         return true;
                     }
@@ -296,7 +296,7 @@ public final class DockingDatabase
                     try {
                         DockingCraftStateVector.Instance.read(cursor);
 
-                        //Info("history next: ok");
+                        DockingPageGameAbstract.View();
 
                         return true;
                     }
@@ -340,8 +340,12 @@ public final class DockingDatabase
     protected final static String STATE = "state";
 
 
+    protected final Context context;
+
+
     private DockingDatabase(Context context) {
         super(context, NAME, null, VERSION);
+        this.context = context;
     }
 
     @Override

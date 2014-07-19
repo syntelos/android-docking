@@ -131,7 +131,12 @@ public final class DockingPageGameHardware
             /*
              * ad astra
              */
-            Docking.Post2D(new DockingPostStartModel());
+            //Docking.Post2D(new DockingPostStartModel())//
+
+            view.script(new InputScript[]{
+                    new InputScript.Database(InputScript.Database.Op.Model)
+                });
+
             break;
         case Down:
             view.script(Page.about);

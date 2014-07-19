@@ -314,7 +314,7 @@ public final class View3D
     }
     public boolean onDoubleTap(MotionEvent e){
 
-        Docking.ScreenShot3D();
+        Docking.ScreenShot3D(true);
 
         return true;
     }

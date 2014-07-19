@@ -47,14 +47,18 @@ public enum Input
     /**
      * Type for database operations.
      */
-    Database  (10, false);
+    Database  (10, false),
+    /**
+     * Type for page operation.
+     */
+    PageTo    (11, false);
 
 
     public final static Input[] List = Input.values();
 
     public final static int ListCount = List.length;
 
-    public final static int NonGeometricCount = 6;
+    public final static int NonGeometricCount = 7;
 
     public final static Input[] Geometric = Head(Input.List,(ListCount-NonGeometricCount));
 
@@ -77,6 +81,9 @@ public enum Input
     }
     public boolean isSkipping(){
         return (Skip == this);
+    }
+    public boolean isEval(){
+        return false;
     }
     public Input type(){
         return this;

@@ -125,12 +125,21 @@ public class DockingPageAbout
             /*
              * ad astra
              */
-            Docking.Post2D(new DockingPostStartModel());
+            //Docking.Post2D(new DockingPostStartModel())//
+
+            view.script(new InputScript[]{
+                    new InputScript.Database(InputScript.Database.Op.Model)
+                });
+
             break;
 
         case Down:
 
-            Docking.Post2D(new DockingPostViewHardware());
+            //Docking.Post2D(new DockingPostViewHardware())//
+
+            view.script(new InputScript[]{
+                    new InputScript.Database(InputScript.Database.Op.Hardware)
+                });
             break;
 
         case Left:

@@ -382,18 +382,29 @@ public final class ViewAnimation
 
                                         in = script[cc];
 
-                                        try {
-                                            page.input(in);
+                                        if (in.isEval()){
+
+                                            Page pageTo = ((InputScript.Eval)in).eval();
+
+                                            if (null != pageTo){
+
+                                                view.pageTo(pageTo);
+                                            }
                                         }
-                                        catch (Shutdown exi){
+                                        else {
+                                            try {
+                                                page.input(in);
+                                            }
+                                            catch (Shutdown exi){
 
-                                            info("shutdown");
+                                                info("shutdown");
 
-                                            return;
-                                        }
-                                        catch (Exception exc){
+                                                return;
+                                            }
+                                            catch (Exception exc){
 
-                                            error("input "+in+" to "+page,exc);
+                                                error("input "+in+" to "+page,exc);
+                                            }
                                         }
 
                                         if (in.isSkipping()){

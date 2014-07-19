@@ -3,16 +3,11 @@
  */
 package com.johnpritchard.docking;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.InputDevice;
-import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.Window;
 import android.view.WindowManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
 
 /**
  * 
@@ -28,8 +23,6 @@ public class DockingActivity2D
     public void onCreate(Bundle state)
     {
         Docking.Activate2D(this);
-
-        DockingDatabase.Init(this);
 
         super.onCreate(state);
         {
@@ -64,5 +57,12 @@ public class DockingActivity2D
         DockingGameLevel.OnResume(this.preferences);
 
         this.view.onResume();
+    }
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
+
+        view.script(new InputScript[]{
+                new InputScript.Database(InputScript.Database.Op.Init,this)
+            });
     }
 }

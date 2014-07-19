@@ -150,8 +150,14 @@ public final class DockingPhysics
 
                     if (!sv.update(FCOPY)){
 
-                        Docking.Post3D(new DockingPostFinishPhysics());
+                        /* Docking.Post3D(DockingPostFinishPhysics)
+                         */
+                        if (sv.inGame()){
 
+                            ViewAnimation.Script(pg,new InputScript[]{
+                                    new InputScript.Database(InputScript.Database.Op.GameOver)
+                                });
+                        }
                         return;
                     }
                     else if (sv.inGame()){

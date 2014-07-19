@@ -98,7 +98,7 @@ public class DockingMovie
 
             while (running){
 
-                Docking.ScreenShot3D();
+                Docking.ScreenShot3D(false);
 
                 synchronized(this.monitor){
                     this.monitor.wait(TINC);

@@ -19,6 +19,25 @@ public final class DockingCraftStateVector
     public final static DockingCraftStateVector Instance =
         new DockingCraftStateVector();
 
+    public static Page PageToEnd(){
+        final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
+        if (sv.dock()){
+
+            return Page.gamedock;
+        }
+        else if (sv.stall()){
+
+            return Page.gamestall;
+        }
+        else if (sv.free()){
+
+            return Page.gamelost;
+        }
+        else {
+            return Page.gamecrash;
+        }
+    }
+
 
     public DockingGameLevel meta, level;
     /**

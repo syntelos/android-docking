@@ -20,9 +20,6 @@ public class DockingPostScreenShot
     private final boolean report;
 
 
-    public DockingPostScreenShot(View3D view){
-        this(view,true);
-    }
     public DockingPostScreenShot(View3D view, boolean report){
         super(view);
         this.report = report;
