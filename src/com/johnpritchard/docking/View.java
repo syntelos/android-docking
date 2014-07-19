@@ -24,6 +24,8 @@ public interface View
      */
     public void pageTo(Page page);
 
+    public Page currentPage();
+
     public void onCreate(SharedPreferences state);
 
     public void onResume();

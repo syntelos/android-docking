@@ -13,44 +13,48 @@ package com.johnpritchard.docking;
 public enum Input
     implements InputScript
 {
-    Up        (0,true),
-    Down      (1,true),
-    Left      (2,true), 
-    Right     (3,true),
+    Up        ( 0, true),
+    Down      ( 1, true),
+    Left      ( 2, true), 
+    Right     ( 3, true),
     /**
      * Represents input "enter" and geometric "contains"
      */
-    Enter     (4,true),
+    Enter     ( 4, true),
     /**
      * Represents input "back" (without a geometric application)
      */
-    Back      (5,false),
+    Back      ( 5, false),
     /**
      * Visual operator to suspend repainting for the next operation,
      * typically not visual
      */
-    Skip      (6,false),
+    Skip      ( 6, false),
     /**
      * Visual operator for animated event sequence to raise the visual
      * presentation from its ground state.
      */
-    Emphasis  (7,false),
+    Emphasis  ( 7, false),
     /**
      * Visual operator to invert the effect of {@link #Emphasis},
      * restoring the visual presentation to its ground state.
      */
-    Deemphasis(8,false),
+    Deemphasis( 8, false),
     /**
-     * Type of printable (glyph) key (character) input.
+     * Type for printable (glyph) key (character) input.
      */
-    Key       (9,false);
+    Key       ( 9, false),
+    /**
+     * Type for database operations.
+     */
+    Database  (10, false);
 
 
     public final static Input[] List = Input.values();
 
     public final static int ListCount = List.length;
 
-    public final static int NonGeometricCount = 5;
+    public final static int NonGeometricCount = 6;
 
     public final static Input[] Geometric = Head(Input.List,(ListCount-NonGeometricCount));
 
@@ -70,6 +74,9 @@ public enum Input
 
     public boolean isEnum(){
         return true;
+    }
+    public boolean isSkipping(){
+        return (Skip == this);
     }
     public Input type(){
         return this;

@@ -3,14 +3,10 @@
  */
 package com.johnpritchard.docking;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.RectF;
-import android.view.InputDevice;
-import android.view.MotionEvent;
-import android.util.Log;
 
 /**
  * <h3>Layout</h3>
@@ -65,7 +61,7 @@ public abstract class ViewPage2D
 
         final RectF g = new RectF();
 
-        RectF selection_group = null;
+        // RectF selection_group = null;
 
         for (int cc = offset, end = (offset+count); cc < end; cc++){
             ViewPage2DComponent c = components[cc];
@@ -140,6 +136,30 @@ public abstract class ViewPage2D
             }
 
             for (ViewPage2DComponent c : components){
+
+                c.transform(m);
+            }
+        }
+        else {
+            throw new IllegalStateException();
+        }
+    }
+    protected void scale(int offset, int count){
+        final ViewPage2DComponent[] components = this.components;
+        if (0 < width && 0 < height && null != components){
+
+            final Matrix m = new Matrix();
+            {
+                final RectF src = measure(offset,count);
+
+                final RectF dst = new RectF(pad,pad,(width-pad),(height-pad));
+
+                m.setRectToRect(src,dst,Matrix.ScaleToFit.CENTER);
+            }
+
+            for (int cc = offset, cz = (offset+count); cc < cz; cc++){
+
+                ViewPage2DComponent c = components[cc];
 
                 c.transform(m);
             }
@@ -285,6 +305,23 @@ public abstract class ViewPage2D
             group = group(0,components.length,group,pad);
 
             col(0,components.length,pad,pad,(group.right-group.left),pad);
+        }
+        else {
+            throw new IllegalStateException();
+        }
+    }
+    protected void group_vertical(int offset, int count){
+
+        final ViewPage2DComponent[] components = this.components;
+        if (null != components){
+
+            RectF group = center(offset,count);
+
+            float pad = pad(group);
+
+            group = group(offset,count,group,pad);
+
+            col(offset,count,pad,pad,(group.right-group.left),pad);
         }
         else {
             throw new IllegalStateException();
@@ -480,134 +517,6 @@ public abstract class ViewPage2D
             }
         }
     }
-    /**
-     * Called from {@link ViewAnimation} to convert pointer activity
-     * to navigation activity for subsequent delivery to the input
-     * method.
-     */
-    @Override
-    public final InputScript[] script(MotionEvent event){
-        if (null != event){
-
-            if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)){
-                /*
-                 *  Absolute coordinate space
-                 */
-                switch(event.getActionMasked()){
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_POINTER_UP:
-                case MotionEvent.ACTION_MOVE:
-                    {
-                        final float[] xy = Convert(event);
-                        if (null != xy){
-
-                            //info("script motion <absolute> xy");
-
-                            return script(null,xy[0],xy[1],Float.MAX_VALUE,current);
-                        }
-                        else {
-                            //info("script motion <absolute> xy <null>");
-
-                            return null;
-                        }
-                    }
-                default:
-                    //info("script motion <absolute unknown>");
-                    break;
-                }
-            }
-            else {
-                //info("script motion <relative>");
-                /*
-                 * Relative coordinate space
-                 */
-                int px = event.getActionIndex();
-                final float dx = event.getX(px);
-                final float dy = event.getY(px);
-                if (0.0f != dx || 0.0f != dy){
-
-                    if (Math.abs(dx) > Math.abs(dy)){
-
-                        if (0.0f < dx){
-
-                            return new InputScript[]{Input.Left};
-                        }
-                        else {
-                            return new InputScript[]{Input.Right};
-                        }
-                    }
-                    else if (0.0f > dy){
-
-                        return new InputScript[]{Input.Up};
-                    }
-                    else {
-                        return new InputScript[]{Input.Down};
-                    }
-                }
-            }
-        }
-        // else {
-        //     info("script event <null>");
-        // }
-        return null;
-    }
-    /**
-     * Append to list while "distance" is decreasing or direction is "enter".
-     */
-    protected InputScript[] script(InputScript[] list, float x, float y, float distance, ViewPage2DComponent current){
-
-        if (null != current){
-
-            final Input dir = current.direction(x,y);
-
-            if (null == dir){
-
-                //info("script current "+current.getName()+" direction <null>");
-
-                return list;
-            }
-            else {
-                //info("script current "+current.getName()+" direction "+dir.name());
-
-                if (Input.Enter == dir){
-                    /*
-                     * Separate ENTER from selection process
-                     */
-                    if (null == list){
-
-                        return View.Script.Enter();
-                    }
-                    else {
-                        return list;
-                    }
-                }
-                else {
-                    final float dis = current.distance(x,y);
-
-                    if (dis < distance){
-                        /*
-                         * Visual code generation to not repeat {Deemphasis}
-                         */
-                        final InputScript[] add = View.Script.Direction(dir);
-
-                        if (null == list){
-
-                            list = add;
-                        }
-                        else {
-                            list = Input.Add(list,add);
-                        }
-
-                        return script(list,x,y,dis,current.getCardinal(dir));
-                    }
-                }
-            }
-        }
-        // else {
-        //     info("script current <null>" );
-        // }
-        return list;
-    }
     @Override
     protected void input_emphasis(){
 
@@ -637,22 +546,13 @@ public abstract class ViewPage2D
 
         Input in = event.type();
 
-        if (Input.Back == in){
-            /*
-             * Special case: the "view.script(page)" would return here
-             * without preserving the back button requirement.
-             */
-            view.pageTo(Page.start);
-        }
-        else if (in.geometric){
+        if (in.geometric){
 
             final ViewPageComponentInteractive interactive = this.interactive;
 
             if (null != interactive && 
                 (Input.Enter == in || interactive.interactive()))
             {
-                //info("interactive "+event);
-
                 interactive.input(event);
             }
             else {
@@ -661,16 +561,12 @@ public abstract class ViewPage2D
 
                 if (null != current){
 
-                    //info("navigation "+event);
-
                     current(current.getCardinal(in));
                 }
                 else {
                     current = this.current(in);
 
                     if (null != current){
-
-                        //info("navigation "+event);
 
                         current(current);
                     }
@@ -729,15 +625,26 @@ public abstract class ViewPage2D
             final int count = this.components.length;
             if (0 < count){
                 if (Input.Down == in){
-                    return this.components[0];
+
+                    for (int cc = 0; cc < count; cc++){
+                        final ViewPage2DComponent c = this.components[cc];
+                        if (navigationInclude(cc,c)){
+                            return c;
+                        }
+                    }
                 }
                 else {
-                    return this.components[count-1];
+
+                    for (int cc = (count-1); -1 < cc; cc--){
+                        final ViewPage2DComponent c = this.components[cc];
+                        if (navigationInclude(cc,c)){
+                            return c;
+                        }
+                    }
                 }
             }
-            else {
-                return null;
-            }
+
+            return null;
         }
     }
     protected void current(ViewPage2DComponent next){

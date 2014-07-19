@@ -17,6 +17,8 @@ public abstract class ViewPage2DComponentAbstract
     extends ViewPageComponentAbstract
     implements ViewPage2DComponent
 {
+    public final static ViewPage2DComponent Nil = null;
+
 
     protected ViewPage2DComponent[] cardinals = new ViewPage2DComponent[Input.GeometricCount];
 

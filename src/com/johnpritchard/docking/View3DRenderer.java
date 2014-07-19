@@ -31,7 +31,7 @@ public final class View3DRenderer
 
     protected volatile ViewPage3D page;
 
-    private boolean plumb = false;
+    protected volatile boolean plumb = false;
 
     protected int width = -1, height = -1;
 
@@ -64,6 +64,11 @@ public final class View3DRenderer
     public void onResume(){
 
         pageTo(Page.valueOf(preferences.getString("page","gamehistory")));
+
+        if (plumb){
+
+            ViewAnimation.Start(view);
+        }
     }
     public synchronized void onPause(SharedPreferences.Editor state){
 
@@ -109,7 +114,8 @@ public final class View3DRenderer
         ViewAnimation.Start(view);
     }
     public synchronized void surfaceDestroyed(SurfaceHolder holder){
-        //info("surfaceDestroyed");
+
+        ViewAnimation.Stop(view);
 
         this.plumb = false;
         this.screenshot = false;
@@ -230,6 +236,7 @@ public final class View3DRenderer
                 page.up(view,width,height);
 
                 plumb = true;
+                //stale = true
             }
         }
     }

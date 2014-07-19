@@ -3,7 +3,6 @@
  */
 package com.johnpritchard.docking;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ConfigurationInfo;
@@ -13,6 +12,7 @@ import android.graphics.Paint;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -55,6 +55,10 @@ public final class View2D
 {
     public final static String TAG = ObjectLog.TAG;
 
+    private final static long InputFilterGeneric = 100L;
+
+    private final static long InputFilterGesture = 150L;
+
 
     private final GestureDetector touch;
 
@@ -72,15 +76,18 @@ public final class View2D
 
     protected int width = -1, height = -1;
 
+    private long inputFilter = 0L;
 
 
-    public View2D(Activity context){
+
+    public View2D(ObjectActivity context){
         super(context);
 
         touch = new GestureDetector(context,this);
 
         holder = getHolder();
         holder.addCallback(this);
+        holder.addCallback(context);
 
         this.setFocusable(true);// enable key events
     }
@@ -92,6 +99,13 @@ public final class View2D
     public final boolean is3D(){
         return false;
     }
+    public final Page currentPage(){
+        ViewPage2D page = this.page;
+        if (null != page)
+            return page.value();
+        else
+            return null;
+    }
     public SharedPreferences preferences(){
 
         return this.preferences;
@@ -100,43 +114,31 @@ public final class View2D
      * Occurs before surface created
      */
     public void onCreate(SharedPreferences state){
-        //info("onCreate");
 
         this.preferences = state;
     }
     public void onResume(){
-        //info("onResume");
 
-        pageTo(Page.valueOf(preferences.getString("page","start")));
+        if (plumb){
 
-        DockingGeometryPort.Init();
-
-        DockingGeometryStarfield.Init();
+            ViewAnimation.Start(this);
+        }
     }
     public void onPause(SharedPreferences.Editor state){
-        //info("onPause");
 
         ViewAnimation.Stop(this);
 
-        if (null != this.pageId){
+        if (null != this.page){
 
-            state.putString("page",this.pageId.name());
-
-            if (null != this.page){
-
-                this.page.down(state);
-            }
+            this.page.down(state);
         }
-
         this.plumb = false;
     }
     public void surfaceCreated(SurfaceHolder holder){
-        //info("surfaceCreated");
 
         this.plumb = false;
     }
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
-        //info("surfaceChanged");
 
         this.width = w;
         this.height = h;
@@ -149,9 +151,11 @@ public final class View2D
         }
 
         ViewAnimation.Start(this);
+
     }
     public void surfaceDestroyed(SurfaceHolder holder){
-        //info("surfaceDestroyed");
+
+        ViewAnimation.Stop(this);
 
         this.plumb = false;
     }
@@ -193,257 +197,248 @@ public final class View2D
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
 
-        switch(keyCode){
+        if (plumb){
 
-        case KeyEvent.KEYCODE_BACK:
-            return false;
+            switch(keyCode){
 
-        case KeyEvent.KEYCODE_SOFT_LEFT:
-        case KeyEvent.KEYCODE_DPAD_LEFT:
-        case KeyEvent.KEYCODE_ALT_LEFT:
-        case KeyEvent.KEYCODE_SHIFT_LEFT:
-        case KeyEvent.KEYCODE_LEFT_BRACKET:
-        case KeyEvent.KEYCODE_CTRL_LEFT:
-        case KeyEvent.KEYCODE_META_LEFT:
-            return true;
+            case KeyEvent.KEYCODE_BACK:
+                return false;
 
-        case KeyEvent.KEYCODE_SOFT_RIGHT:
-        case KeyEvent.KEYCODE_DPAD_RIGHT:
-        case KeyEvent.KEYCODE_ALT_RIGHT:
-        case KeyEvent.KEYCODE_SHIFT_RIGHT:
-        case KeyEvent.KEYCODE_RIGHT_BRACKET:
-        case KeyEvent.KEYCODE_CTRL_RIGHT:
-        case KeyEvent.KEYCODE_META_RIGHT:
-            return true;
+            case KeyEvent.KEYCODE_SOFT_LEFT:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_ALT_LEFT:
+            case KeyEvent.KEYCODE_SHIFT_LEFT:
+            case KeyEvent.KEYCODE_LEFT_BRACKET:
+            case KeyEvent.KEYCODE_CTRL_LEFT:
+            case KeyEvent.KEYCODE_META_LEFT:
+                return true;
 
-        case KeyEvent.KEYCODE_DPAD_UP:
-        case KeyEvent.KEYCODE_PAGE_UP:
-            return true;
+            case KeyEvent.KEYCODE_SOFT_RIGHT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_ALT_RIGHT:
+            case KeyEvent.KEYCODE_SHIFT_RIGHT:
+            case KeyEvent.KEYCODE_RIGHT_BRACKET:
+            case KeyEvent.KEYCODE_CTRL_RIGHT:
+            case KeyEvent.KEYCODE_META_RIGHT:
+                return true;
 
-        case KeyEvent.KEYCODE_DPAD_DOWN:
-        case KeyEvent.KEYCODE_PAGE_DOWN:
-            return true;
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_PAGE_UP:
+                return true;
 
-        case KeyEvent.KEYCODE_DPAD_CENTER:
-        case KeyEvent.KEYCODE_ENTER:
-            return true;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_PAGE_DOWN:
+                return true;
 
-        default:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+                return true;
+
+            default:
+                return false;
+            }
+        }
+        else {
             return false;
         }
     }
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event){
 
-        switch(keyCode){
+        if (plumb){
 
-        case KeyEvent.KEYCODE_BACK:
-            return false;
+            switch(keyCode){
 
-        case KeyEvent.KEYCODE_SOFT_LEFT:
-        case KeyEvent.KEYCODE_DPAD_LEFT:
-        case KeyEvent.KEYCODE_ALT_LEFT:
-        case KeyEvent.KEYCODE_SHIFT_LEFT:
-        case KeyEvent.KEYCODE_LEFT_BRACKET:
-        case KeyEvent.KEYCODE_CTRL_LEFT:
-        case KeyEvent.KEYCODE_META_LEFT:
-
-            if (this.pageId.simpleInput){
-
-                script(Input.Left);
-            }
-            else {
-                script(View.Script.Direction(Input.Left));
-            }
-            return true;
-
-        case KeyEvent.KEYCODE_SOFT_RIGHT:
-        case KeyEvent.KEYCODE_DPAD_RIGHT:
-        case KeyEvent.KEYCODE_ALT_RIGHT:
-        case KeyEvent.KEYCODE_SHIFT_RIGHT:
-        case KeyEvent.KEYCODE_RIGHT_BRACKET:
-        case KeyEvent.KEYCODE_CTRL_RIGHT:
-        case KeyEvent.KEYCODE_META_RIGHT:
-
-            if (this.pageId.simpleInput){
-
-                script(Input.Right);
-            }
-            else {
-                script(View.Script.Direction(Input.Right));
-            }
-            return true;
-
-        case KeyEvent.KEYCODE_DPAD_UP:
-        case KeyEvent.KEYCODE_PAGE_UP:
-
-            script(View.Script.Direction(Input.Up));
-            return true;
-
-        case KeyEvent.KEYCODE_DPAD_DOWN:
-        case KeyEvent.KEYCODE_PAGE_DOWN:
-
-            if (this.pageId.simpleInput){
-
-                script(Input.Down);
-            }
-            else {
-                script(View.Script.Direction(Input.Down));
-            }
-            return true;
-
-        case KeyEvent.KEYCODE_DPAD_CENTER:
-        case KeyEvent.KEYCODE_ENTER:
-
-            if (this.pageId.simpleInput){
-
-                script(Input.Enter);
-            }
-            else {
-                script(View.Script.Enter());
-            }
-            return true;
-
-        default:
-
-            if ((!this.pageId.simpleInput) && event.isPrintingKey()){
-
-                script((char)event.getUnicodeChar());
-
-                return true;
-            }
-            else {
+            case KeyEvent.KEYCODE_BACK:
                 return false;
+
+            case KeyEvent.KEYCODE_SOFT_LEFT:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_ALT_LEFT:
+            case KeyEvent.KEYCODE_SHIFT_LEFT:
+            case KeyEvent.KEYCODE_LEFT_BRACKET:
+            case KeyEvent.KEYCODE_CTRL_LEFT:
+            case KeyEvent.KEYCODE_META_LEFT:
+
+                if (this.pageId.simpleInput){
+
+                    script(Input.Left);
+                }
+                else {
+                    script(View.Script.Direction(Input.Left));
+                }
+                return true;
+
+            case KeyEvent.KEYCODE_SOFT_RIGHT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+            case KeyEvent.KEYCODE_ALT_RIGHT:
+            case KeyEvent.KEYCODE_SHIFT_RIGHT:
+            case KeyEvent.KEYCODE_RIGHT_BRACKET:
+            case KeyEvent.KEYCODE_CTRL_RIGHT:
+            case KeyEvent.KEYCODE_META_RIGHT:
+
+                if (this.pageId.simpleInput){
+
+                    script(Input.Right);
+                }
+                else {
+                    script(View.Script.Direction(Input.Right));
+                }
+                return true;
+
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_PAGE_UP:
+
+                script(View.Script.Direction(Input.Up));
+                return true;
+
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_PAGE_DOWN:
+
+                if (this.pageId.simpleInput){
+
+                    script(Input.Down);
+                }
+                else {
+                    script(View.Script.Direction(Input.Down));
+                }
+                return true;
+
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+
+                if (this.pageId.simpleInput){
+
+                    script(Input.Enter);
+                }
+                else {
+                    script(View.Script.Enter());
+                }
+                return true;
+
+            default:
+
+                if ((!this.pageId.simpleInput) && event.isPrintingKey()){
+
+                    script((char)event.getUnicodeChar());
+
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
+        }
+        else {
+            return false;
         }
     }
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
-        if (this.pageId.simpleInput){
+        if (plumb){
 
-            touch.onTouchEvent(event);
+            if (this.pageId.simpleInput){
+
+                touch.onTouchEvent(event);
+            }
+            else {
+
+                ViewAnimation.Script(page,generic(event)); //
+            }
+            return true;
         }
         else {
 
-            script(event);
+            return false;
         }
-        return true;
     }
     /**
      * @see android.view.GestureDetector$OnGestureListener
      */
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        //info("onSingleTapUp");
 
         return false;
     }
     public void onLongPress(MotionEvent e) {
-        //info("onLongPress {Enter}");
 
-        script(Input.Enter);
+        final long eventTime = e.getEventTime();
+
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGesture);
+
+            script(Input.Enter);
+        }
     }
     public boolean onScroll(MotionEvent e1, MotionEvent e2,
                             float dx, float dy)
     {
-        //info("onScroll");
+        ViewAnimation.Script(page,gesture(e2.getEventTime(),dx,dy));
 
-        /*
-         * Relative coordinate space for gestures
-         */
-        if (Math.abs(dx) > Math.abs(dy)){
-
-            if (0.0f > dx){
-
-                script(Input.Left);
-            }
-            else {
-                script(Input.Right);
-            }
-        }
-        else if (0.0f < dy){
-
-            script(Input.Up);
-        }
-        else {
-            script(Input.Down);
-        }
         return true;
     }
     public boolean onFling(MotionEvent e1, MotionEvent e2,
                            float dx, float dy)
     {
-        //info("onFling");
+        ViewAnimation.Script(page,gesture(e2.getEventTime(),dx,dy));
 
-        /*
-         * Relative coordinate space for gestures
-         */
-        if (Math.abs(dx) > Math.abs(dy)){
-
-            if (0.0f > dx){
-
-                script(Input.Left);
-            }
-            else {
-                script(Input.Right);
-            }
-        }
-        else if (0.0f < dy){
-
-            script(Input.Up);
-        }
-        else {
-            script(Input.Down);
-        }
         return true;
     }
     public void onShowPress(MotionEvent e){
-        //info("onShowPress");
-
     }
     public boolean onDown(MotionEvent e){
-        //info("onDown");
-
         return false;
     }
     /**
      * @see android.view.GestureDetector$OnDoubleTapListener
      */
     public boolean onSingleTapConfirmed(MotionEvent e){
-        //info("onSingleTapConfirmed {Enter}");
 
-        script(Input.Enter);
+        final long eventTime = e.getEventTime();
 
-        return true;
-    }
-    public boolean onDoubleTap(MotionEvent e){
-        //info("onDoubleTap {Enter}");
+        if (inputFilter < eventTime){
 
-        if (Page.about == this.pageId){
+            inputFilter = (eventTime + InputFilterGesture);
 
-            Docking.Post2D(new DockingPostStartModel());
+            script(Input.Enter);
         }
         return true;
     }
+    public boolean onDoubleTap(MotionEvent e){
+
+        return true;
+    }
     public boolean onDoubleTapEvent(MotionEvent e){
-        //info("onDoubleTapEvent");
 
         return true;
     }
     @Override
     public boolean onTrackballEvent(MotionEvent event){
 
-        script(event);
+        if (plumb){
 
-        return true;
+            ViewAnimation.Script(page,generic(event)); //
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     @Override
     public boolean onGenericMotionEvent(MotionEvent event){
 
-        script(event);
+        if (plumb){
 
-        return true;
+            ViewAnimation.Script(page,generic(event)); //
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     /**
      * Called from {@link ViewAnimator}
@@ -534,10 +529,6 @@ public final class View2D
 
         ViewAnimation.Script(page,in);
     }
-    protected void script(MotionEvent event){
-
-        ViewAnimation.Script(page,event);
-    }
     protected void script(char key){
 
         ViewAnimation.Script(page,key);
@@ -547,6 +538,8 @@ public final class View2D
 
         if (null != g){
 
+            //info("draw <X> "+Thread.currentThread().getName());
+
             g.drawColor(bg);
 
             ViewPage2D page = this.page;
@@ -555,42 +548,207 @@ public final class View2D
                 page.draw(g);
             }
         }
+        else {
+            //info("draw <*> "+Thread.currentThread().getName());
+        }
+    }
+
+    private final InputScript[] gesture(long eventTime, float dx, float dy){
+
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGesture);
+
+            /*
+             * Relative coordinate space for gestures
+             */
+            if (Math.abs(dx) > Math.abs(dy)){
+
+                if (0.0f < dx){
+
+                    return new InputScript[]{Input.Left};
+                }
+                else {
+                    return new InputScript[]{Input.Right};
+                }
+            }
+            else if (0.0f < dy){
+
+                return new InputScript[]{Input.Up};
+            }
+            else {
+                return new InputScript[]{Input.Down};
+            }
+        }
+        return null;
+    }
+    /**
+     * Called from {@link ViewAnimation} to convert pointer activity
+     * to navigation activity for subsequent delivery to the input
+     * method.
+     */
+    private final InputScript[] generic(MotionEvent event){
+
+        final long eventTime = event.getEventTime();
+
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGeneric);
+
+            if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)){
+                /*
+                 *  Absolute coordinate space
+                 */
+                switch(event.getActionMasked()){
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                case MotionEvent.ACTION_MOVE:
+                    {
+                        final float[] xy = Convert(event);
+
+                        if (null != xy && null != page){
+
+                            return add(null,xy[0],xy[1],Float.MAX_VALUE,page.current);
+                        }
+                        else {
+                            return null;
+                        }
+                    }
+                default:
+                    break;
+                }
+            }
+            else {
+                /*
+                 * Relative coordinate space
+                 */
+                final int px = event.getActionIndex();
+
+                final float dx = event.getX(px);
+                final float dy = event.getY(px);
+
+                if (0.0f != dx || 0.0f != dy){
+
+                    if (Math.abs(dx) > Math.abs(dy)){
+
+                        if (0.0f < dx){
+
+                            return new InputScript[]{Input.Left};
+                        }
+                        else {
+                            return new InputScript[]{Input.Right};
+                        }
+                    }
+                    else if (0.0f > dy){
+
+                        return new InputScript[]{Input.Up};
+                    }
+                    else {
+                        return new InputScript[]{Input.Down};
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    /**
+     * Append to list while "distance" is decreasing or direction is "enter".
+     */
+    private InputScript[] add(InputScript[] list, float x, float y, float distance, ViewPage2DComponent current){
+
+        if (null != current){
+
+            final Input dir = current.direction(x,y);
+
+            if (null == dir){
+
+                return list;
+            }
+            else if (Input.Enter == dir){
+                /*
+                 * Separate ENTER from selection process
+                 */
+                if (null == list){
+
+                    return View.Script.Enter();
+                }
+                else {
+                    return list;
+                }
+            }
+            else {
+                final float dis = current.distance(x,y);
+
+                if (dis < distance){
+                    /*
+                     * Visual code generation to not repeat {Deemphasis}
+                     */
+                    final InputScript[] add = View.Script.Direction(dir);
+
+                    if (null == list){
+
+                        list = add;
+                    }
+                    else {
+                        list = Input.Add(list,add);
+                    }
+
+                    return add(list,x,y,dis,current.getCardinal(dir));
+                }
+            }
+        }
+        return list;
     }
 
     protected void verbose(String m){
-        Log.i(TAG,("View2D "+m));
+        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,("View2D "+m),t);
+        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,("View2D "+m));
+        Log.d(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,("View2D "+m),t);
+        Log.d(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,("View2D "+m));
+        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,("View2D "+m),t);
+        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,("View2D "+m));
+        Log.w(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,("View2D "+m),t);
+        Log.w(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,("View2D "+m));
+        Log.e(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,("View2D "+m),t);
+        Log.e(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,("View2D "+m));
+        Log.wtf(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,("View2D "+m),t);
+        Log.wtf(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
+    }
+
+    protected static float[] Convert(MotionEvent event){
+        if (1 == event.getPointerCount()){
+
+            float[] re = new float[2];
+            {
+                re[0] = event.getX(0);
+                re[1] = event.getY(0);
+            }
+            return re;
+        }
+        else {
+            return null;
+        }
     }
 }

@@ -5,7 +5,6 @@ package com.johnpritchard.docking;
 
 import android.graphics.Canvas;
 import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.util.Log;
 
@@ -29,17 +28,24 @@ public final class ViewAnimation
 {
     public final static String TAG = ObjectLog.TAG;
 
-
-    protected final static long TouchInputFilter = 300L;
-
     protected final static long OutputFilter = 20L;
 
     private final static int SKIP_NOT = 0;
     private final static int SKIP_SKIP = 1;
     private final static int SKIP_OP = 2;
 
-
     private final static Object StaticMonitor = ViewAnimation.class;
+
+    /**
+     * 
+     */
+    public final static class Shutdown
+        extends RuntimeException
+    {
+        public Shutdown(){
+            super();
+        }
+    }
 
 
     private volatile static ViewAnimation Instance;
@@ -66,7 +72,7 @@ public final class ViewAnimation
                 }
             }
             else {
-                //Warn("start: not running");
+                //Warn("<Start>");
             }
         }
     }
@@ -85,7 +91,7 @@ public final class ViewAnimation
                 }
             }
             else {
-                //Warn("stop: not shutdown");
+                //Warn("<Stop>");
             }
         }
     }
@@ -140,19 +146,6 @@ public final class ViewAnimation
     /**
      * Used by {@link View}
      */
-    protected static void Script(ViewPage page, MotionEvent event){
-
-        if (null != Instance){
-
-            Instance.script(page,event);
-        }
-        else {
-            //Warn("script: dropped motion");
-        }
-    }
-    /**
-     * Used by {@link View}
-     */
     protected static void Script(ViewPage page, char key){
 
         if (null != Instance){
@@ -175,8 +168,6 @@ public final class ViewAnimation
 
         private ViewPage page;
 
-        private MotionEvent motion;
-
         private InputScript[] input;
 
         private Script next;
@@ -196,12 +187,6 @@ public final class ViewAnimation
             this(head);
 
             this.pageTo = pageTo;
-        }
-        private Script(Script head, ViewPage page, MotionEvent motion){
-            this(head);
-
-            this.page = page;
-            this.motion = motion;
         }
         private Script(Script head, ViewPage page, char key){
             this(head);
@@ -253,18 +238,22 @@ public final class ViewAnimation
 
     private volatile Script queue;
 
-    private volatile boolean running = true;
+    private volatile boolean running;
 
-    private boolean recover2D = false;
+    private boolean recover2D;
 
 
     private ViewAnimation(View view){
         super("View/Animation");
+        setPriority(8);
         if (null != view){
             this.view = view;
             this.holder = view.getHolder();
             this.is2D = view.is2D();
             this.is3D = view.is3D();
+            this.queue = null;
+            this.running = true;
+            this.recover2D = false;
         }
         else {
             throw new IllegalArgumentException();
@@ -287,15 +276,6 @@ public final class ViewAnimation
     private void script(){
 
         this.queue = (new Script(this.queue)).head();
-
-        synchronized(this.monitor){
-
-            this.monitor.notify();
-        }
-    }
-    private void script(ViewPage page, MotionEvent motion){
-
-        this.queue = (new Script(this.queue,page,motion)).head();
 
         synchronized(this.monitor){
 
@@ -333,9 +313,9 @@ public final class ViewAnimation
         try {
             //info("running");
 
-            long touchInputFilter = 0L;
-
             int skip = 0;
+
+            this.paint();
 
             while (running){
 
@@ -351,8 +331,6 @@ public final class ViewAnimation
 
                     if (null == sequence){
 
-                        //info("waiting");
-
                         synchronized(this.monitor){
 
                             this.monitor.wait();
@@ -364,56 +342,22 @@ public final class ViewAnimation
                         while (null != sequence){
 
                             if (null != sequence.pageTo){
-
-                                //info("pageTo");
                                 /*
                                  * pageTo
                                  */
                                 view.pageTo(sequence.pageTo);
                             }
-                            else if (null != sequence.page){
+                            else if (null != sequence.page && view.currentPage() == sequence.page.value()){
                                 /*
-                                 * motion and input
+                                 * input script
                                  */
-                                InputScript[] script = null;
-
-                                if (null != sequence.motion){
-                                    /*
-                                     * touch input filtering
-                                     */
-                                    if (touchInputFilter < SystemClock.uptimeMillis()){
-
-                                        //info("include motion");
-
-                                        script = sequence.page.script(sequence.motion);
-                                    }
-                                    else {
-                                        //warn("exclude motion");
-                                    }
-                                }
-                                else if (null != sequence.input){
-                                    /*
-                                     * touch input filtering
-                                     */
-                                    if (touchInputFilter < SystemClock.uptimeMillis()){
-
-                                        //info("include input");
-
-                                        script = sequence.input;
-                                    }
-                                    else {
-                                        //warn("exclude input");
-                                    }
-                                }
-
+                                InputScript[] script = sequence.input;
 
                                 if (null != script){
 
                                     final ViewPage page = sequence.page;
 
                                     final int count = script.length;
-
-                                    //info("exec script "+count);
 
                                     for (int cc = 0; cc < count; cc++){
 
@@ -438,19 +382,24 @@ public final class ViewAnimation
 
                                         in = script[cc];
 
-                                        //info("input "+in.name()+" to "+page.name());
+                                        try {
+                                            page.input(in);
+                                        }
+                                        catch (Shutdown exi){
 
-                                        page.input(in);
+                                            info("shutdown");
 
-                                        if (Input.Skip == in){
+                                            return;
+                                        }
+                                        catch (Exception exc){
+
+                                            error("input "+in+" to "+page,exc);
+                                        }
+
+                                        if (in.isSkipping()){
                                             skip = SKIP_SKIP;
                                         }
                                     }
-
-                                    touchInputFilter = SystemClock.uptimeMillis()+TouchInputFilter;
-                                }
-                                else {
-                                    //warn("ignore script <null>");
                                 }
                             }
 
@@ -474,7 +423,7 @@ public final class ViewAnimation
             return;
         }
         finally {
-            //info("returning"); 
+            //info("returning");
 
             Exit(this);
         }
@@ -501,72 +450,95 @@ public final class ViewAnimation
         }
     }
     protected void verbose(String m){
-        Log.i(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.i(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.i(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void debug(String m){
-        Log.d(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.d(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.d(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void info(String m){
-        Log.i(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.i(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.i(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void warn(String m){
-        Log.w(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.w(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.w(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void error(String m){
-        Log.e(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.e(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.e(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,"View/Animation "+m);
+        Page page = view.currentPage();
+        Log.wtf(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m);
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,"View/Animation "+m,t);
+        Page page = view.currentPage();
+        Log.wtf(TAG,"View/Animation "+((null != page)?(page.name()):("<*>"))+' '+m,t);
     }
     protected static void Verbose(String m){
+
         Log.i(TAG,"View/Animation "+m);
     }
     protected static void Verbose(String m, Throwable t){
+
         Log.i(TAG,"View/Animation "+m,t);
     }
     protected static void Debug(String m){
+
         Log.d(TAG,"View/Animation "+m);
     }
     protected static void Debug(String m, Throwable t){
+
         Log.d(TAG,"View/Animation "+m,t);
     }
     protected static void Info(String m){
+
         Log.i(TAG,"View/Animation "+m);
     }
     protected static void Info(String m, Throwable t){
+
         Log.i(TAG,"View/Animation "+m,t);
     }
     protected static void Warn(String m){
+
         Log.w(TAG,"View/Animation "+m);
     }
     protected static void Warn(String m, Throwable t){
+
         Log.w(TAG,"View/Animation "+m,t);
     }
     protected static void Error(String m){
+
         Log.e(TAG,"View/Animation "+m);
     }
     protected static void Error(String m, Throwable t){
+
         Log.e(TAG,"View/Animation "+m,t);
     }
     protected static void WTF(String m){
+
         Log.wtf(TAG,"View/Animation "+m);
     }
     protected static void WTF(String m, Throwable t){

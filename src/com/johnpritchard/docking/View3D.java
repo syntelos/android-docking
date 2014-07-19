@@ -11,6 +11,7 @@ import static android.opengl.GLES11Ext.*;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -34,6 +35,10 @@ public final class View3D
 {
     protected final static String TAG = ObjectLog.TAG;
 
+    private final static long InputFilterGeneric = 100L;
+
+    private final static long InputFilterGesture = 150L;
+
 
     private final GestureDetector touch;
 
@@ -42,6 +47,8 @@ public final class View3D
     protected final View3DRenderer renderer;
 
     private SharedPreferences preferences;
+
+    private long inputFilter = 0L;
 
 
 
@@ -57,6 +64,7 @@ public final class View3D
         setRenderer(renderer);
 
         holder.addCallback(renderer);
+        holder.addCallback(context);
 
         holder.setKeepScreenOn(true);
 
@@ -70,6 +78,13 @@ public final class View3D
     public final boolean is3D(){
         return true;
     }
+    public final Page currentPage(){
+        ViewPage3D page = renderer.page;
+        if (null != page)
+            return page.value();
+        else
+            return null;
+    }
     public SharedPreferences preferences(){
 
         return this.preferences;
@@ -78,19 +93,16 @@ public final class View3D
      * Occurs before surface created
      */
     public void onCreate(SharedPreferences state){
-        //info("onCreate");
 
         this.preferences = state;
 
         this.renderer.onCreate(state);
     }
     public void onResume(){
-        //info("onResume");
 
         this.renderer.onResume();
     }
     public void onPause(SharedPreferences.Editor state){
-        //info("onPause");
 
         this.holder.setKeepScreenOn(false);
 
@@ -230,120 +242,111 @@ public final class View3D
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
-        touch.onTouchEvent(event);
+        if (renderer.plumb){
 
-        return true;
+            if (renderer.pageId.simpleInput){
+
+                touch.onTouchEvent(event);
+            }
+            else {
+
+                ViewAnimation.Script(renderer.page,generic(event)); //
+            }
+            return true;
+        }
+        else {
+
+            return false;
+        }
     }
     /**
      * @see android.view.GestureDetector$OnGestureListener
      */
     @Override
     public boolean onSingleTapUp(MotionEvent e) {
-        //info("onSingleTapUp");
 
         return false;
     }
     public void onLongPress(MotionEvent e) {
-        //info("onLongPress {Enter}");
 
-        script(Input.Enter);
+        final long eventTime = e.getEventTime();
+
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGesture);
+
+            script(Input.Enter);
+        }
     }
     public boolean onScroll(MotionEvent e1, MotionEvent e2,
                             float dx, float dy)
     {
-        //info("onScroll");
+        ViewAnimation.Script(renderer.page,gesture(e2.getEventTime(),dx,dy));
 
-        /*
-         * Relative coordinate space [LANDSCAPE]
-         */
-        if (Math.abs(dx) > Math.abs(dy)){
-
-            if (0.0f < dx){
-
-                script(Input.Left);
-            }
-            else {
-                script(Input.Right);
-            }
-        }
-        else if (0.0f < dy){
-
-            script(Input.Up);
-        }
-        else {
-            script(Input.Down);
-        }
         return true;
     }
     public boolean onFling(MotionEvent e1, MotionEvent e2,
                            float dx, float dy)
     {
-        //info("onFling");
+        ViewAnimation.Script(renderer.page,gesture(e2.getEventTime(),dx,dy));
 
-        /*
-         * Relative coordinate space [LANDSCAPE]
-         */
-        if (Math.abs(dx) > Math.abs(dy)){
-
-            if (0.0f < dx){
-
-                script(Input.Left);
-            }
-            else {
-                script(Input.Right);
-            }
-        }
-        else if (0.0f < dy){
-
-            script(Input.Up);
-        }
-        else {
-            script(Input.Down);
-        }
         return true;
     }
     public void onShowPress(MotionEvent e){
-        //info("onShowPress");
-
     }
     public boolean onDown(MotionEvent e){
-        //info("onDown");
-
         return false;
     }
     /**
      * @see android.view.GestureDetector$OnDoubleTapListener
      */
     public boolean onSingleTapConfirmed(MotionEvent e){
-        //info("onSingleTapConfirmed {Enter}");
 
-        script(Input.Enter);
+        final long eventTime = e.getEventTime();
 
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGesture);
+
+            script(Input.Enter);
+        }
         return true;
     }
     public boolean onDoubleTap(MotionEvent e){
-        //info("onDoubleTap {Enter}");
 
         Docking.ScreenShot3D();
 
         return true;
     }
     public boolean onDoubleTapEvent(MotionEvent e){
+
         return false;
     }
     @Override
     public boolean onTrackballEvent(MotionEvent event){
 
-        script(event);
+        if (renderer.plumb){
 
-        return true;
+            ViewAnimation.Script(renderer.page,generic(event)); //
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     @Override
     public boolean onGenericMotionEvent(MotionEvent event){
 
-        script(event);
+        if (renderer.plumb){
 
-        return true;
+            ViewAnimation.Script(renderer.page,generic(event)); //
+
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     /**
      * Called from {@link ViewAnimator}
@@ -378,10 +381,6 @@ public final class View3D
 
         ViewAnimation.Script(renderer.page,in);
     }
-    protected void script(MotionEvent event){
-
-        ViewAnimation.Script(renderer.page,event);
-    }
     protected void script(char key){
 
         ViewAnimation.Script(renderer.page,key);
@@ -393,6 +392,153 @@ public final class View3D
     protected DisplayMetrics displayMetrics(){
 
         return ((ObjectActivity)getContext()).displayMetrics();
+    }
+
+    private final InputScript[] gesture(long eventTime, float dx, float dy){
+
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGesture);
+
+            /*
+             * Relative coordinate space for gestures
+             */
+            if (Math.abs(dx) > Math.abs(dy)){
+
+                if (0.0f < dx){
+
+                    return new InputScript[]{Input.Left};
+                }
+                else {
+                    return new InputScript[]{Input.Right};
+                }
+            }
+            else if (0.0f < dy){
+
+                return new InputScript[]{Input.Up};
+            }
+            else {
+                return new InputScript[]{Input.Down};
+            }
+        }
+        return null;
+    }
+    /**
+     * Called from {@link ViewAnimation} to convert pointer activity
+     * to navigation activity for subsequent delivery to the input
+     * method.
+     */
+    private final InputScript[] generic(MotionEvent event){
+
+        final long eventTime = event.getEventTime();
+
+        if (inputFilter < eventTime){
+
+            inputFilter = (eventTime + InputFilterGeneric);
+
+            if (0 != (event.getSource() & InputDevice.SOURCE_CLASS_POINTER)){
+                /*
+                 *  Absolute coordinate space
+                 */
+                switch(event.getActionMasked()){
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                case MotionEvent.ACTION_MOVE:
+                    {
+                        final float[] xy = Convert(event);
+
+                        if (null != xy && null != renderer.page){
+
+                            return add(null,xy[0],xy[1],Float.MAX_VALUE,renderer.page.current);
+                        }
+                        else {
+                            return null;
+                        }
+                    }
+                default:
+                    break;
+                }
+            }
+            else {
+                /*
+                 * Relative coordinate space
+                 */
+                final int px = event.getActionIndex();
+
+                final float dx = event.getX(px);
+                final float dy = event.getY(px);
+
+                if (0.0f != dx || 0.0f != dy){
+
+                    if (Math.abs(dx) > Math.abs(dy)){
+
+                        if (0.0f < dx){
+
+                            return new InputScript[]{Input.Left};
+                        }
+                        else {
+                            return new InputScript[]{Input.Right};
+                        }
+                    }
+                    else if (0.0f > dy){
+
+                        return new InputScript[]{Input.Up};
+                    }
+                    else {
+                        return new InputScript[]{Input.Down};
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    /**
+     * Append to list while "distance" is decreasing or direction is "enter".
+     */
+    private InputScript[] add(InputScript[] list, float x, float y, float distance, ViewPage3DComponent current){
+
+        if (null != current){
+
+            final Input dir = current.direction(x,y);
+
+            if (null == dir){
+
+                return list;
+            }
+            else if (Input.Enter == dir){
+                /*
+                 * Separate ENTER from selection process
+                 */
+                if (null == list){
+
+                    return View.Script.Enter();
+                }
+                else {
+                    return list;
+                }
+            }
+            else {
+                final float dis = current.distance(x,y);
+
+                if (dis < distance){
+                    /*
+                     * Visual code generation to not repeat {Deemphasis}
+                     */
+                    final InputScript[] add = View.Script.Direction(dir);
+
+                    if (null == list){
+
+                        list = add;
+                    }
+                    else {
+                        list = Input.Add(list,add);
+                    }
+
+                    return add(list,x,y,dis,current.getCardinal(dir));
+                }
+            }
+        }
+        return list;
     }
 
     protected void verbose(String m){
@@ -430,5 +576,20 @@ public final class View3D
     }
     protected void wtf(String m, Throwable t){
         Log.wtf(TAG,("View3D "+m),t);
+    }
+
+    protected static float[] Convert(MotionEvent event){
+        if (1 == event.getPointerCount()){
+
+            float[] re = new float[2];
+            {
+                re[0] = event.getX(0);
+                re[1] = event.getY(0);
+            }
+            return re;
+        }
+        else {
+            return null;
+        }
     }
 }
