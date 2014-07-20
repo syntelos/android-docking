@@ -8,9 +8,9 @@ package com.johnpritchard.docking;
  */
 public final class DockingVersion {
 
-    public final static int Code = 1;
+    public final static int Code = 2;
 
-    public final static String Name = "1";
+    public final static String Name = "2";
 
     public final static String Type = "beta";
 
