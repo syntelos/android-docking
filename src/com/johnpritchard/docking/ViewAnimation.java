@@ -311,7 +311,7 @@ public final class ViewAnimation
     }
     public void run(){
         try {
-            //info("running");
+            info("running");
 
             int skip = 0;
 
@@ -342,6 +342,9 @@ public final class ViewAnimation
                         while (null != sequence){
 
                             if (null != sequence.pageTo){
+
+                                info("pageTo "+sequence.pageTo);
+
                                 /*
                                  * pageTo
                                  */
@@ -384,15 +387,21 @@ public final class ViewAnimation
 
                                         if (in.isEval()){
 
+                                            info("eval "+in);
+
                                             Page pageTo = ((InputScript.Eval)in).eval();
 
                                             if (null != pageTo){
+
+                                                info("eval "+in+" returned "+pageTo);
 
                                                 view.pageTo(pageTo);
                                             }
                                         }
                                         else {
                                             try {
+                                                info("input "+in+" to "+page);
+
                                                 page.input(in);
                                             }
                                             catch (Shutdown exi){
@@ -434,7 +443,7 @@ public final class ViewAnimation
             return;
         }
         finally {
-            //info("returning");
+            info("returning");
 
             Exit(this);
         }
@@ -456,7 +465,7 @@ public final class ViewAnimation
 
                 recover2D = true;
 
-                //warn("paint",exc);
+                warn("paint",exc);
             }
         }
     }

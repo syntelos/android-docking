@@ -119,6 +119,8 @@ public final class View2D
     }
     public void onResume(){
 
+        pageTo(Page.start);
+
         if (plumb){
 
             ViewAnimation.Start(this);
