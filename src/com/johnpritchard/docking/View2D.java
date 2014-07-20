@@ -130,6 +130,13 @@ public final class View2D
 
         ViewAnimation.Stop(this);
 
+        if (null != pageId){
+            state.putString("page",pageId.name());
+        }
+        else {
+            state.putString("page","start");
+        }
+
         if (null != this.page){
 
             this.page.down(state);

@@ -199,6 +199,9 @@ public abstract class ViewPage
             break;
         }
     }
+    public final String toString(){
+        return name();
+    }
     protected final SharedPreferences preferences(){
 
         if (null != view){
