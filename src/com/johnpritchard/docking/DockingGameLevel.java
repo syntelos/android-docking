@@ -4,6 +4,8 @@
 package com.johnpritchard.docking;
 
 import android.content.SharedPreferences;
+import android.util.Log;
+
 /**
  * 
  */
@@ -115,5 +117,44 @@ public enum DockingGameLevel {
         default:
             return L1;
         }
+    }
+
+    protected final static String TAG = ObjectLog.TAG;
+
+    protected static void Verbose(String m){
+        Log.i(TAG,"DockingGameLevel "+m);
+    }
+    protected static void Verbose(String m, Throwable t){
+        Log.i(TAG,"DockingGameLevel "+m,t);
+    }
+    protected static void Debug(String m){
+        Log.d(TAG,"DockingGameLevel "+m);
+    }
+    protected static void Debug(String m, Throwable t){
+        Log.d(TAG,"DockingGameLevel "+m,t);
+    }
+    protected static void Info(String m){
+        Log.i(TAG,"DockingGameLevel "+m);
+    }
+    protected static void Info(String m, Throwable t){
+        Log.i(TAG,"DockingGameLevel "+m,t);
+    }
+    protected static void Warn(String m){
+        Log.w(TAG,"DockingGameLevel "+m);
+    }
+    protected static void Warn(String m, Throwable t){
+        Log.w(TAG,"DockingGameLevel "+m,t);
+    }
+    protected static void Error(String m){
+        Log.e(TAG,"DockingGameLevel "+m);
+    }
+    protected static void Error(String m, Throwable t){
+        Log.e(TAG,"DockingGameLevel "+m,t);
+    }
+    protected static void WTF(String m){
+        Log.wtf(TAG,"DockingGameLevel "+m);
+    }
+    protected static void WTF(String m, Throwable t){
+        Log.wtf(TAG,"DockingGameLevel "+m,t);
     }
 }

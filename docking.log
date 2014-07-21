@@ -1,0 +1,366 @@
+07-21 01:38:29.608  1637  2472 I ActivityManager: Start proc com.johnpritchard.docking for activity com.johnpritchard.docking/.DockingActivity2D: pid=6639 uid=10068 gids={1015}
+07-21 01:38:29.647  6639  6639 I ActivityThread: Pub com.johnpritchard.docking.provider.History: com.johnpritchard.docking.DockingDatabaseHistoryProvider
+07-21 01:38:29.757  6639  6650 I Docking : View/Animation start running
+07-21 01:38:29.787  6639  6650 I Docking : View/Animation start eval Database Init
+07-21 01:38:31.417  6639  6650 I Docking : View/Animation start returning
+07-21 01:38:31.517  6639  6655 I Docking : View/Animation start running
+07-21 01:38:31.527  6639  6655 I Docking : View/Animation start eval Database Init
+07-21 01:38:34.277  6639  6655 I Docking : View/Animation start input Emphasis to start
+07-21 01:38:34.277  6639  6655 I Docking : View/Animation start input Skip to start
+07-21 01:38:34.277  6639  6655 I Docking : View/Animation start input Deemphasis to start
+07-21 01:38:34.277  6639  6655 I Docking : View/Animation start input Enter to start
+07-21 01:38:34.297  6639  6655 I Docking : View/Animation start eval Database Game
+07-21 01:38:34.307  6639  6655 I Docking : View/Animation start eval Database Game returned gameplay
+07-21 01:38:34.317  1637  2222 I ActivityManager: Starting: Intent { flg=0x4000008 cmp=com.johnpritchard.docking/.DockingActivity3D } from pid 6639
+07-21 01:38:34.349  6639  6655 I Docking : View/Animation <*> returning
+07-21 01:38:34.398  6639  6661 D libEGL  : loaded /system/lib/egl/libGLES_android.so
+07-21 01:38:34.407  6639  6661 D libEGL  : loaded /system/lib/egl/libEGL_tegra.so
+07-21 01:38:34.417  6639  6661 D libEGL  : loaded /system/lib/egl/libGLESv1_CM_tegra.so
+07-21 01:38:34.427  6639  6639 I Docking : Phys/Animation start
+07-21 01:38:34.427  6639  6639 I Docking : java.lang.Throwable
+07-21 01:38:34.427  6639  6639 I Docking : 	at com.johnpritchard.docking.DockingPhysics._start(DockingPhysics.java:98)
+07-21 01:38:34.427  6639  6639 I Docking : 	at com.johnpritchard.docking.DockingPhysics.Start(DockingPhysics.java:27)
+07-21 01:38:34.427  6639  6639 I Docking : 	at com.johnpritchard.docking.DockingPageGamePlay.up(DockingPageGamePlay.java:117)
+07-21 01:38:34.427  6639  6639 I Docking : 	at com.johnpritchard.docking.View3DRenderer.surfaceChanged(View3DRenderer.java:111)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.SurfaceView.updateWindow(SurfaceView.java:549)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.SurfaceView.dispatchDraw(SurfaceView.java:348)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.ViewGroup.drawChild(ViewGroup.java:1644)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.ViewGroup.drawChild(ViewGroup.java:1644)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.View.draw(View.java:6883)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.widget.FrameLayout.draw(FrameLayout.java:357)
+07-21 01:38:34.427  6639  6639 I Docking : 	at com.android.internal.policy.impl.PhoneWindow$DecorView.draw(PhoneWindow.java:2094)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.ViewRoot.draw(ViewRoot.java:1525)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.ViewRoot.performTraversals(ViewRoot.java:1261)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.view.ViewRoot.handleMessage(ViewRoot.java:1862)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.os.Handler.dispatchMessage(Handler.java:99)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.os.Looper.loop(Looper.java:130)
+07-21 01:38:34.427  6639  6639 I Docking : 	at android.app.ActivityThread.main(ActivityThread.java:3806)
+07-21 01:38:34.427  6639  6639 I Docking : 	at java.lang.reflect.Method.invokeNative(Native Method)
+07-21 01:38:34.427  6639  6639 I Docking : 	at java.lang.reflect.Method.invoke(Method.java:507)
+07-21 01:38:34.427  6639  6639 I Docking : 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:839)
+07-21 01:38:34.427  6639  6639 I Docking : 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:597)
+07-21 01:38:34.427  6639  6639 I Docking : 	at dalvik.system.NativeStart.main(Native Method)
+07-21 01:38:34.427  6639  6662 I Docking : Phys/Animation entering with title
+07-21 01:38:34.427  6639  6663 I Docking : View/Animation gameplay running
+07-21 01:38:34.427  6639  6663 I Docking : View/Animation gameplay eval Database Init
+07-21 01:38:34.437  6639  6661 D libEGL  : loaded /system/lib/egl/libGLESv2_tegra.so
+07-21 01:38:36.077  6639  6661 D dalvikvm: GC_FOR_MALLOC freed 1477K, 55% free 3214K/7111K, external 2400K/2773K, paused 17ms
+07-21 01:38:36.117  6639  6642 D dalvikvm: GC_CONCURRENT freed 746K, 54% free 3341K/7111K, external 2400K/2773K, paused 1ms+2ms
+07-21 01:38:36.147  6639  6661 D dalvikvm: GC_FOR_MALLOC freed 910K, 52% free 3422K/7111K, external 2400K/2773K, paused 15ms
+07-21 01:38:36.187  6639  6642 D dalvikvm: GC_CONCURRENT freed 946K, 51% free 3497K/7111K, external 2400K/2773K, paused 1ms+1ms
+07-21 01:38:36.217  6639  6661 D dalvikvm: GC_FOR_MALLOC freed 976K, 52% free 3418K/7111K, external 2400K/2773K, paused 15ms
+07-21 01:38:36.257  6639  6642 D dalvikvm: GC_CONCURRENT freed 764K, 50% free 3605K/7111K, external 2400K/2773K, paused 1ms+1ms
+07-21 01:38:36.277  6639  6661 D dalvikvm: GC_FOR_MALLOC freed 632K, 49% free 3637K/7111K, external 2400K/2773K, paused 15ms
+07-21 01:38:36.307  6639  6661 D dalvikvm: GC_EXTERNAL_ALLOC freed 603K, 49% free 3653K/7111K, external 2717K/2773K, paused 21ms
+07-21 01:38:37.427  6639  6662 I Docking : Phys/Animation running
+07-21 01:38:38.799  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:38:38.968  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:38:39.769  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:38:39.931  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:38:40.558  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:38:40.729  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:38:41.287  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:38:41.457  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:38:42.937  6639  6663 I Docking : View/Animation gameplay input Enter to gameplay
+07-21 01:38:43.158  6639  6642 D dalvikvm: GC_CONCURRENT freed 1576K, 58% free 3054K/7111K, external 3230K/3776K, paused 3ms+3ms
+07-21 01:38:43.827  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:38:44.537  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:38:50.288  6639  6642 D dalvikvm: GC_CONCURRENT freed 1051K, 58% free 3057K/7111K, external 3264K/3776K, paused 2ms+4ms
+07-21 01:38:57.897  6639  6642 D dalvikvm: GC_CONCURRENT freed 1092K, 57% free 3060K/7111K, external 3278K/3776K, paused 3ms+3ms
+07-21 01:39:00.467  6639  6663 I Docking : View/Animation gameplay input Enter to gameplay
+07-21 01:39:03.547  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:39:04.288  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:39:05.247  6639  6663 I Docking : View/Animation gameplay input Enter to gameplay
+07-21 01:39:05.537  6639  6642 D dalvikvm: GC_CONCURRENT freed 1083K, 57% free 3067K/7111K, external 3273K/3776K, paused 5ms+3ms
+07-21 01:39:06.018  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:06.487  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:06.929  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:07.357  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:07.827  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:08.287  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:08.867  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:09.367  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:09.807  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:10.317  6639  6663 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:39:11.058  6639  6663 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:39:12.857  6639  6642 D dalvikvm: GC_CONCURRENT freed 1072K, 57% free 3061K/7111K, external 3268K/3776K, paused 3ms+4ms
+07-21 01:39:20.838  6639  6642 D dalvikvm: GC_CONCURRENT freed 1107K, 57% free 3061K/7111K, external 3275K/3776K, paused 3ms+3ms
+07-21 01:39:28.987  6639  6642 D dalvikvm: GC_CONCURRENT freed 1075K, 57% free 3059K/7111K, external 3267K/3776K, paused 3ms+6ms
+07-21 01:39:37.107  6639  6642 D dalvikvm: GC_CONCURRENT freed 1076K, 57% free 3062K/7111K, external 3268K/3776K, paused 3ms+3ms
+07-21 01:39:38.407  6639  6663 I Docking : View/Animation gameplay input Enter to gameplay
+07-21 01:39:44.817  6639  6642 D dalvikvm: GC_CONCURRENT freed 1100K, 57% free 3067K/7111K, external 3278K/3776K, paused 3ms+3ms
+07-21 01:39:52.487  6639  6642 D dalvikvm: GC_CONCURRENT freed 1132K, 57% free 3063K/7111K, external 3283K/3776K, paused 3ms+3ms
+07-21 01:39:59.607  6639  6642 D dalvikvm: GC_CONCURRENT freed 1072K, 57% free 3062K/7111K, external 3271K/3776K, paused 2ms+7ms
+07-21 01:40:06.747  6639  6642 D dalvikvm: GC_CONCURRENT freed 1081K, 57% free 3061K/7111K, external 3270K/3776K, paused 4ms+3ms
+07-21 01:40:13.857  6639  6642 D dalvikvm: GC_CONCURRENT freed 1086K, 57% free 3061K/7111K, external 3272K/3776K, paused 2ms+2ms
+07-21 01:40:20.988  6639  6642 D dalvikvm: GC_CONCURRENT freed 1073K, 57% free 3063K/7111K, external 3272K/3776K, paused 3ms+3ms
+07-21 01:40:28.577  6639  6642 D dalvikvm: GC_CONCURRENT freed 1125K, 57% free 3061K/7111K, external 3282K/3776K, paused 4ms+3ms
+07-21 01:40:36.187  6639  6642 D dalvikvm: GC_CONCURRENT freed 1098K, 57% free 3064K/7111K, external 3274K/3776K, paused 3ms+4ms
+07-21 01:40:43.768  6639  6642 D dalvikvm: GC_CONCURRENT freed 1123K, 57% free 3062K/7111K, external 3276K/3776K, paused 3ms+2ms
+07-21 01:40:51.387  6639  6642 D dalvikvm: GC_CONCURRENT freed 1138K, 57% free 3063K/7111K, external 3286K/3776K, paused 3ms+2ms
+07-21 01:40:58.987  6639  6642 D dalvikvm: GC_CONCURRENT freed 1141K, 57% free 3062K/7111K, external 3286K/3776K, paused 5ms+2ms
+07-21 01:41:06.647  6639  6642 D dalvikvm: GC_CONCURRENT freed 1129K, 57% free 3066K/7111K, external 3284K/3776K, paused 3ms+5ms
+07-21 01:41:14.267  6639  6642 D dalvikvm: GC_CONCURRENT freed 1102K, 57% free 3075K/7111K, external 3282K/3776K, paused 4ms+2ms
+07-21 01:41:21.888  6639  6642 D dalvikvm: GC_CONCURRENT freed 1151K, 57% free 3066K/7111K, external 3296K/3776K, paused 3ms+7ms
+07-21 01:41:29.428  6639  6642 D dalvikvm: GC_CONCURRENT freed 1131K, 57% free 3079K/7111K, external 3290K/3776K, paused 5ms+4ms
+07-21 01:41:37.167  6639  6642 D dalvikvm: GC_CONCURRENT freed 1130K, 57% free 3066K/7111K, external 3296K/3776K, paused 3ms+9ms
+07-21 01:41:44.767  6639  6642 D dalvikvm: GC_CONCURRENT freed 1135K, 57% free 3063K/7111K, external 3282K/3776K, paused 3ms+2ms
+07-21 01:41:52.358  6639  6642 D dalvikvm: GC_CONCURRENT freed 1131K, 57% free 3071K/7111K, external 3286K/3776K, paused 3ms+2ms
+07-21 01:41:59.478  6639  6642 D dalvikvm: GC_CONCURRENT freed 1081K, 57% free 3061K/7111K, external 3279K/3776K, paused 4ms+3ms
+07-21 01:42:06.528  6639  6642 D dalvikvm: GC_CONCURRENT freed 1070K, 57% free 3062K/7111K, external 3270K/3776K, paused 3ms+2ms
+07-21 01:42:14.138  6639  6642 D dalvikvm: GC_CONCURRENT freed 1121K, 57% free 3063K/7111K, external 3283K/3776K, paused 3ms+3ms
+07-21 01:42:21.737  6639  6642 D dalvikvm: GC_CONCURRENT freed 1139K, 57% free 3062K/7111K, external 3283K/3776K, paused 3ms+3ms
+07-21 01:42:28.818  6639  6642 D dalvikvm: GC_CONCURRENT freed 1076K, 57% free 3061K/7111K, external 3269K/3776K, paused 3ms+4ms
+07-21 01:42:35.918  6639  6642 D dalvikvm: GC_CONCURRENT freed 1088K, 57% free 3063K/7111K, external 3276K/3776K, paused 4ms+4ms
+07-21 01:42:43.028  6639  6642 D dalvikvm: GC_CONCURRENT freed 1086K, 57% free 3069K/7111K, external 3276K/3776K, paused 2ms+2ms
+07-21 01:42:50.167  6639  6642 D dalvikvm: GC_CONCURRENT freed 1086K, 57% free 3063K/7111K, external 3280K/3776K, paused 9ms+2ms
+07-21 01:42:57.248  6639  6642 D dalvikvm: GC_CONCURRENT freed 1070K, 57% free 3062K/7111K, external 3267K/3776K, paused 3ms+7ms
+07-21 01:43:04.328  6639  6642 D dalvikvm: GC_CONCURRENT freed 1101K, 57% free 3063K/7111K, external 3278K/3776K, paused 3ms+3ms
+07-21 01:43:11.438  6639  6642 D dalvikvm: GC_CONCURRENT freed 1087K, 57% free 3063K/7111K, external 3276K/3776K, paused 4ms+7ms
+07-21 01:43:18.527  6639  6642 D dalvikvm: GC_CONCURRENT freed 1075K, 57% free 3061K/7111K, external 3271K/3776K, paused 3ms+3ms
+07-21 01:43:25.648  6639  6642 D dalvikvm: GC_CONCURRENT freed 1083K, 57% free 3062K/7111K, external 3274K/3776K, paused 5ms+8ms
+07-21 01:43:32.758  6639  6642 D dalvikvm: GC_CONCURRENT freed 1094K, 57% free 3062K/7111K, external 3274K/3776K, paused 3ms+4ms
+07-21 01:43:39.857  6639  6642 D dalvikvm: GC_CONCURRENT freed 1092K, 57% free 3062K/7111K, external 3274K/3776K, paused 3ms+4ms
+07-21 01:43:46.948  6639  6642 D dalvikvm: GC_CONCURRENT freed 1088K, 57% free 3061K/7111K, external 3274K/3776K, paused 5ms+5ms
+07-21 01:43:54.557  6639  6642 D dalvikvm: GC_CONCURRENT freed 1132K, 57% free 3062K/7111K, external 3283K/3776K, paused 2ms+2ms
+07-21 01:44:01.667  6639  6642 D dalvikvm: GC_CONCURRENT freed 1084K, 57% free 3061K/7111K, external 3273K/3776K, paused 4ms+7ms
+07-21 01:44:08.758  6639  6642 D dalvikvm: GC_CONCURRENT freed 1071K, 57% free 3061K/7111K, external 3270K/3776K, paused 2ms+3ms
+07-21 01:44:16.378  6639  6642 D dalvikvm: GC_CONCURRENT freed 1109K, 57% free 3066K/7111K, external 3282K/3776K, paused 3ms+3ms
+07-21 01:44:23.978  6639  6642 D dalvikvm: GC_CONCURRENT freed 1118K, 57% free 3062K/7111K, external 3282K/3776K, paused 3ms+7ms
+07-21 01:44:31.597  6639  6642 D dalvikvm: GC_CONCURRENT freed 1100K, 57% free 3063K/7111K, external 3279K/3776K, paused 3ms+3ms
+07-21 01:44:39.178  6639  6642 D dalvikvm: GC_CONCURRENT freed 1107K, 57% free 3064K/7111K, external 3280K/3776K, paused 2ms+3ms
+07-21 01:44:46.817  6639  6642 D dalvikvm: GC_CONCURRENT freed 1125K, 57% free 3063K/7111K, external 3282K/3776K, paused 3ms+5ms
+07-21 01:44:54.417  6639  6642 D dalvikvm: GC_CONCURRENT freed 1098K, 57% free 3062K/7111K, external 3282K/3776K, paused 3ms+3ms
+07-21 01:45:02.038  6639  6642 D dalvikvm: GC_CONCURRENT freed 1101K, 57% free 3064K/7111K, external 3279K/3776K, paused 3ms+3ms
+07-21 01:45:09.648  6639  6642 D dalvikvm: GC_CONCURRENT freed 1106K, 57% free 3077K/7111K, external 3282K/3776K, paused 4ms+4ms
+07-21 01:45:17.258  6639  6642 D dalvikvm: GC_CONCURRENT freed 1124K, 57% free 3067K/7111K, external 3291K/3776K, paused 3ms+3ms
+07-21 01:45:24.897  6639  6642 D dalvikvm: GC_CONCURRENT freed 1094K, 57% free 3062K/7111K, external 3277K/3776K, paused 3ms+4ms
+07-21 01:45:32.557  6639  6642 D dalvikvm: GC_CONCURRENT freed 1067K, 57% free 3061K/7111K, external 3270K/3776K, paused 3ms+10ms
+07-21 01:45:40.187  6639  6642 D dalvikvm: GC_CONCURRENT freed 1074K, 57% free 3063K/7111K, external 3272K/3776K, paused 2ms+4ms
+07-21 01:45:47.848  6639  6642 D dalvikvm: GC_CONCURRENT freed 1094K, 57% free 3063K/7111K, external 3275K/3776K, paused 3ms+2ms
+07-21 01:45:55.027  6639  6642 D dalvikvm: GC_CONCURRENT freed 1069K, 57% free 3060K/7111K, external 3271K/3776K, paused 4ms+5ms
+07-21 01:46:02.058  6639  6642 D dalvikvm: GC_CONCURRENT freed 1063K, 57% free 3060K/7111K, external 3270K/3776K, paused 4ms+7ms
+07-21 01:46:09.697  6639  6642 D dalvikvm: GC_CONCURRENT freed 1129K, 57% free 3062K/7111K, external 3286K/3776K, paused 3ms+3ms
+07-21 01:46:17.327  6639  6642 D dalvikvm: GC_CONCURRENT freed 1112K, 57% free 3064K/7111K, external 3277K/3776K, paused 3ms+2ms
+07-21 01:46:24.478  6639  6642 D dalvikvm: GC_CONCURRENT freed 1078K, 57% free 3063K/7111K, external 3274K/3776K, paused 3ms+3ms
+07-21 01:46:32.128  6639  6642 D dalvikvm: GC_CONCURRENT freed 1130K, 57% free 3062K/7111K, external 3284K/3776K, paused 3ms+4ms
+07-21 01:46:39.778  6639  6642 D dalvikvm: GC_CONCURRENT freed 1115K, 57% free 3065K/7111K, external 3277K/3776K, paused 3ms+3ms
+07-21 01:46:47.387  6639  6642 D dalvikvm: GC_CONCURRENT freed 1140K, 57% free 3064K/7111K, external 3286K/3776K, paused 3ms+3ms
+07-21 01:46:55.037  6639  6642 D dalvikvm: GC_CONCURRENT freed 1139K, 57% free 3063K/7111K, external 3286K/3776K, paused 3ms+4ms
+07-21 01:47:02.147  6639  6642 D dalvikvm: GC_CONCURRENT freed 1080K, 57% free 3062K/7111K, external 3273K/3776K, paused 4ms+7ms
+07-21 01:47:09.297  6639  6642 D dalvikvm: GC_CONCURRENT freed 1067K, 57% free 3061K/7111K, external 3267K/3776K, paused 1ms+2ms
+07-21 01:47:16.978  6639  6642 D dalvikvm: GC_CONCURRENT freed 1114K, 57% free 3069K/7111K, external 3281K/3776K, paused 3ms+3ms
+07-21 01:47:24.097  6639  6642 D dalvikvm: GC_CONCURRENT freed 1084K, 57% free 3063K/7111K, external 3278K/3776K, paused 3ms+3ms
+07-21 01:47:31.218  6639  6642 D dalvikvm: GC_CONCURRENT freed 1077K, 57% free 3063K/7111K, external 3274K/3776K, paused 5ms+4ms
+07-21 01:47:38.327  6639  6642 D dalvikvm: GC_CONCURRENT freed 1072K, 57% free 3065K/7111K, external 3272K/3776K, paused 1ms+4ms
+07-21 01:47:45.617  6639  6642 D dalvikvm: GC_CONCURRENT freed 1070K, 57% free 3060K/7111K, external 3273K/3776K, paused 3ms+6ms
+07-21 01:47:53.128  6639  6642 D dalvikvm: GC_CONCURRENT freed 1127K, 57% free 3063K/7111K, external 3283K/3776K, paused 2ms+2ms
+07-21 01:48:00.448  6639  6642 D dalvikvm: GC_CONCURRENT freed 1071K, 57% free 3060K/7111K, external 3268K/3776K, paused 4ms+2ms
+07-21 01:48:07.377  6639  6642 D dalvikvm: GC_CONCURRENT freed 1080K, 57% free 3063K/7111K, external 3274K/3776K, paused 3ms+3ms
+07-21 01:48:15.007  6639  6642 D dalvikvm: GC_CONCURRENT freed 1124K, 57% free 3062K/7111K, external 3284K/3776K, paused 2ms+3ms
+07-21 01:48:22.638  6639  6642 D dalvikvm: GC_CONCURRENT freed 1138K, 57% free 3065K/7111K, external 3287K/3776K, paused 3ms+6ms
+07-21 01:48:29.997  6639  6642 D dalvikvm: GC_CONCURRENT freed 1075K, 57% free 3061K/7111K, external 3272K/3776K, paused 3ms+3ms
+07-21 01:48:36.887  6639  6642 D dalvikvm: GC_CONCURRENT freed 1072K, 57% free 3064K/7111K, external 3273K/3776K, paused 3ms+3ms
+07-21 01:48:44.007  6639  6642 D dalvikvm: GC_CONCURRENT freed 1076K, 57% free 3064K/7111K, external 3275K/3776K, paused 4ms+3ms
+07-21 01:48:51.638  6639  6642 D dalvikvm: GC_CONCURRENT freed 1136K, 57% free 3063K/7111K, external 3289K/3776K, paused 3ms+6ms
+07-21 01:48:59.277  6639  6642 D dalvikvm: GC_CONCURRENT freed 1129K, 57% free 3062K/7111K, external 3282K/3776K, paused 2ms+6ms
+07-21 01:49:06.387  6639  6642 D dalvikvm: GC_CONCURRENT freed 1075K, 57% free 3062K/7111K, external 3272K/3776K, paused 3ms+4ms
+07-21 01:49:13.707  6639  6642 D dalvikvm: GC_CONCURRENT freed 1066K, 57% free 3060K/7111K, external 3273K/3776K, paused 4ms+6ms
+07-21 01:49:21.147  6639  6642 D dalvikvm: GC_CONCURRENT freed 1134K, 57% free 3063K/7111K, external 3289K/3776K, paused 3ms+3ms
+07-21 01:49:28.777  6639  6642 D dalvikvm: GC_CONCURRENT freed 1118K, 57% free 3062K/7111K, external 3280K/3776K, paused 4ms+2ms
+07-21 01:49:36.387  6639  6642 D dalvikvm: GC_CONCURRENT freed 1104K, 57% free 3066K/7111K, external 3282K/3776K, paused 3ms+3ms
+07-21 01:49:43.647  6639  6642 D dalvikvm: GC_CONCURRENT freed 1074K, 57% free 3061K/7111K, external 3274K/3776K, paused 5ms+3ms
+07-21 01:49:51.128  6639  6642 D dalvikvm: GC_CONCURRENT freed 1128K, 57% free 3063K/7111K, external 3287K/3776K, paused 3ms+2ms
+07-21 01:49:58.767  6639  6642 D dalvikvm: GC_CONCURRENT freed 1108K, 57% free 3064K/7111K, external 3277K/3776K, paused 3ms+3ms
+07-21 01:50:06.367  6639  6642 D dalvikvm: GC_CONCURRENT freed 1110K, 57% free 3077K/7111K, external 3283K/3776K, paused 4ms+2ms
+07-21 01:50:13.978  6639  6642 D dalvikvm: GC_CONCURRENT freed 1149K, 57% free 3064K/7111K, external 3300K/3776K, paused 2ms+2ms
+07-21 01:50:21.597  6639  6642 D dalvikvm: GC_CONCURRENT freed 1114K, 57% free 3062K/7111K, external 3283K/3776K, paused 2ms+3ms
+07-21 01:50:29.228  6639  6642 D dalvikvm: GC_CONCURRENT freed 1078K, 57% free 3064K/7111K, external 3273K/3776K, paused 3ms+3ms
+07-21 01:50:37.367  6639  6642 D dalvikvm: GC_CONCURRENT freed 1125K, 57% free 3065K/7111K, external 3283K/3776K, paused 3ms+3ms
+07-21 01:50:44.977  6639  6642 D dalvikvm: GC_CONCURRENT freed 1089K, 57% free 3064K/7111K, external 3275K/3776K, paused 3ms+3ms
+07-21 01:50:52.597  6639  6642 D dalvikvm: GC_CONCURRENT freed 1118K, 57% free 3063K/7111K, external 3282K/3776K, paused 4ms+3ms
+07-21 01:51:00.207  6639  6642 D dalvikvm: GC_CONCURRENT freed 1124K, 57% free 3062K/7111K, external 3282K/3776K, paused 2ms+2ms
+07-21 01:51:07.887  6639  6642 D dalvikvm: GC_CONCURRENT freed 1109K, 57% free 3064K/7111K, external 3278K/3776K, paused 4ms+2ms
+07-21 01:51:15.467  6639  6642 D dalvikvm: GC_CONCURRENT freed 1091K, 57% free 3069K/7111K, external 3276K/3776K, paused 1ms+2ms
+07-21 01:51:23.127  6639  6642 D dalvikvm: GC_CONCURRENT freed 1138K, 57% free 3064K/7111K, external 3292K/3776K, paused 3ms+3ms
+07-21 01:51:30.767  6639  6642 D dalvikvm: GC_CONCURRENT freed 1118K, 57% free 3064K/7111K, external 3283K/3776K, paused 2ms+3ms
+07-21 01:51:38.388  6639  6642 D dalvikvm: GC_CONCURRENT freed 1100K, 57% free 3065K/7111K, external 3278K/3776K, paused 3ms+3ms
+07-21 01:51:46.027  6639  6642 D dalvikvm: GC_CONCURRENT freed 1112K, 57% free 3064K/7111K, external 3281K/3776K, paused 3ms+3ms
+07-21 01:51:53.658  6639  6642 D dalvikvm: GC_CONCURRENT freed 1129K, 57% free 3062K/7111K, external 3285K/3776K, paused 5ms+2ms
+07-21 01:52:01.287  6639  6642 D dalvikvm: GC_CONCURRENT freed 1137K, 57% free 3063K/7111K, external 3284K/3776K, paused 3ms+3ms
+07-21 01:52:08.407  6639  6642 D dalvikvm: GC_CONCURRENT freed 1079K, 57% free 3062K/7111K, external 3274K/3776K, paused 6ms+7ms
+07-21 01:52:16.007  6639  6642 D dalvikvm: GC_CONCURRENT freed 1123K, 57% free 3062K/7111K, external 3281K/3776K, paused 4ms+2ms
+07-21 01:52:23.157  6639  6642 D dalvikvm: GC_CONCURRENT freed 1080K, 57% free 3062K/7111K, external 3273K/3776K, paused 3ms+3ms
+07-21 01:52:30.277  6639  6642 D dalvikvm: GC_CONCURRENT freed 1082K, 57% free 3061K/7111K, external 3271K/3776K, paused 3ms+3ms
+07-21 01:52:37.397  6639  6642 D dalvikvm: GC_CONCURRENT freed 1087K, 57% free 3064K/7111K, external 3277K/3776K, paused 5ms+6ms
+07-21 01:52:44.498  6639  6642 D dalvikvm: GC_CONCURRENT freed 1084K, 57% free 3061K/7111K, external 3275K/3776K, paused 3ms+3ms
+07-21 01:52:51.627  6639  6642 D dalvikvm: GC_CONCURRENT freed 1070K, 57% free 3061K/7111K, external 3271K/3776K, paused 3ms+7ms
+07-21 01:52:58.757  6639  6642 D dalvikvm: GC_CONCURRENT freed 1073K, 57% free 3061K/7111K, external 3269K/3776K, paused 3ms+4ms
+07-21 01:53:05.898  6639  6642 D dalvikvm: GC_CONCURRENT freed 1094K, 57% free 3061K/7111K, external 3279K/3776K, paused 3ms+2ms
+07-21 01:53:13.018  6639  6642 D dalvikvm: GC_CONCURRENT freed 1074K, 57% free 3061K/7111K, external 3274K/3776K, paused 4ms+6ms
+07-21 01:53:20.157  6639  6642 D dalvikvm: GC_CONCURRENT freed 1073K, 57% free 3064K/7111K, external 3273K/3776K, paused 4ms+6ms
+07-21 01:53:27.268  6639  6642 D dalvikvm: GC_CONCURRENT freed 1080K, 57% free 3062K/7111K, external 3271K/3776K, paused 2ms+5ms
+07-21 01:53:34.398  6639  6642 D dalvikvm: GC_CONCURRENT freed 1088K, 57% free 3064K/7111K, external 3277K/3776K, paused 3ms+3ms
+07-21 01:53:41.507  6639  6642 D dalvikvm: GC_CONCURRENT freed 1081K, 57% free 3062K/7111K, external 3275K/3776K, paused 3ms+3ms
+07-21 01:53:48.627  6639  6642 D dalvikvm: GC_CONCURRENT freed 1067K, 57% free 3060K/7111K, external 3270K/3776K, paused 2ms+3ms
+07-21 01:53:56.308  6639  6642 D dalvikvm: GC_CONCURRENT freed 1104K, 57% free 3065K/7111K, external 3278K/3776K, paused 4ms+2ms
+07-21 01:54:03.428  6639  6642 D dalvikvm: GC_CONCURRENT freed 1072K, 57% free 3061K/7111K, external 3271K/3776K, paused 5ms+4ms
+07-21 01:54:10.538  6639  6642 D dalvikvm: GC_CONCURRENT freed 1064K, 57% free 3061K/7111K, external 3270K/3776K, paused 3ms+2ms
+07-21 01:54:17.987  6639  6642 D dalvikvm: GC_CONCURRENT freed 1063K, 57% free 3060K/7111K, external 3273K/3776K, paused 3ms+7ms
+07-21 01:54:25.268  6639  6642 D dalvikvm: GC_CONCURRENT freed 1117K, 57% free 3061K/7111K, external 3281K/3776K, paused 3ms+3ms
+07-21 01:54:32.887  6639  6642 D dalvikvm: GC_CONCURRENT freed 1114K, 57% free 3062K/7111K, external 3281K/3776K, paused 5ms+7ms
+07-21 01:54:40.458  6639  6642 D dalvikvm: GC_CONCURRENT freed 1128K, 57% free 3063K/7111K, external 3286K/3776K, paused 3ms+2ms
+07-21 01:54:47.777  6639  6642 D dalvikvm: GC_CONCURRENT freed 1073K, 57% free 3060K/7111K, external 3272K/3776K, paused 3ms+4ms
+07-21 01:54:55.147  6639  6642 D dalvikvm: GC_CONCURRENT freed 1107K, 57% free 3062K/7111K, external 3281K/3776K, paused 4ms+3ms
+07-21 01:55:02.747  6639  6642 D dalvikvm: GC_CONCURRENT freed 1117K, 57% free 3065K/7111K, external 3279K/3776K, paused 4ms+2ms
+07-21 01:55:10.307  6639  6642 D dalvikvm: GC_CONCURRENT freed 1132K, 57% free 3065K/7111K, external 3283K/3776K, paused 3ms+2ms
+07-21 01:55:17.917  6639  6642 D dalvikvm: GC_CONCURRENT freed 1134K, 57% free 3065K/7111K, external 3287K/3776K, paused 5ms+3ms
+07-21 01:55:25.528  6639  6642 D dalvikvm: GC_CONCURRENT freed 1109K, 57% free 3063K/7111K, external 3286K/3776K, paused 3ms+3ms
+07-21 01:55:33.107  6639  6642 D dalvikvm: GC_CONCURRENT freed 1094K, 57% free 3062K/7111K, external 3275K/3776K, paused 2ms+2ms
+07-21 01:55:40.708  6639  6642 D dalvikvm: GC_CONCURRENT freed 1102K, 57% free 3063K/7111K, external 3279K/3776K, paused 4ms+5ms
+07-21 01:55:48.288  6639  6642 D dalvikvm: GC_CONCURRENT freed 1113K, 57% free 3067K/7111K, external 3283K/3776K, paused 3ms+2ms
+07-21 01:55:55.877  6639  6642 D dalvikvm: GC_CONCURRENT freed 1146K, 57% free 3064K/7111K, external 3288K/3776K, paused 3ms+2ms
+07-21 01:56:02.998  6639  6642 D dalvikvm: GC_CONCURRENT freed 1078K, 57% free 3062K/7111K, external 3274K/3776K, paused 2ms+3ms
+07-21 01:56:10.597  6639  6642 D dalvikvm: GC_CONCURRENT freed 1134K, 57% free 3062K/7111K, external 3285K/3776K, paused 2ms+3ms
+07-21 01:56:18.167  6639  6642 D dalvikvm: GC_CONCURRENT freed 1130K, 57% free 3064K/7111K, external 3288K/3776K, paused 3ms+3ms
+07-21 01:56:25.247  6639  6642 D dalvikvm: GC_CONCURRENT freed 1074K, 57% free 3060K/7111K, external 3274K/3776K, paused 4ms+3ms
+07-21 01:56:32.827  6639  6642 D dalvikvm: GC_CONCURRENT freed 1134K, 57% free 3062K/7111K, external 3285K/3776K, paused 3ms+3ms
+07-21 01:56:40.447  6639  6642 D dalvikvm: GC_CONCURRENT freed 1130K, 57% free 3063K/7111K, external 3283K/3776K, paused 2ms+3ms
+07-21 01:56:48.088  6639  6642 D dalvikvm: GC_CONCURRENT freed 1135K, 57% free 3063K/7111K, external 3290K/3776K, paused 3ms+4ms
+07-21 01:56:55.687  6639  6642 D dalvikvm: GC_CONCURRENT freed 1144K, 57% free 3063K/7111K, external 3291K/3776K, paused 3ms+2ms
+07-21 01:57:03.257  6639  6642 D dalvikvm: GC_CONCURRENT freed 1112K, 57% free 3074K/7111K, external 3282K/3776K, paused 4ms+4ms
+07-21 01:57:10.918  6639  6642 D dalvikvm: GC_CONCURRENT freed 1121K, 57% free 3066K/7111K, external 3290K/3776K, paused 3ms+3ms
+07-21 01:57:18.518  6639  6642 D dalvikvm: GC_CONCURRENT freed 1109K, 57% free 3064K/7111K, external 3276K/3776K, paused 3ms+4ms
+07-21 01:57:25.797  6639  6662 I Docking : Phys/Animation returning
+07-21 01:57:25.797  6639  6663 I Docking : View/Animation gameplay eval Database GameOver
+07-21 01:57:26.257  6639  6642 D dalvikvm: GC_CONCURRENT freed 1182K, 57% free 3074K/7111K, external 3276K/3776K, paused 3ms+4ms
+07-21 01:57:26.267  6639  6663 I Docking : View/Animation gameplay eval Database GameOver returned gamedock
+07-21 01:57:29.367  6639  6663 I Docking : View/Animation gamedock input Up to gamedock
+07-21 01:57:31.127  6639  6663 I Docking : View/Animation gamedock input Enter to gamedock
+07-21 01:57:31.127  6639  6663 I Docking : View/Animation gamedock pageTo start
+07-21 01:57:31.137  6639  6663 I Docking : View/Animation <*> returning
+07-21 01:57:31.217  6639  6748 I Docking : View/Animation start running
+07-21 01:57:31.258  6639  6748 I Docking : View/Animation start eval Database Init
+07-21 01:57:33.017  6639  6748 I Docking : View/Animation start input Skip to start
+07-21 01:57:33.017  6639  6748 I Docking : View/Animation start input Down to start
+07-21 01:57:33.017  6639  6748 I Docking : View/Animation start input Emphasis to start
+07-21 01:57:33.055  6639  6748 I Docking : View/Animation start input Skip to start
+07-21 01:57:33.055  6639  6748 I Docking : View/Animation start input Deemphasis to start
+07-21 01:57:33.469  6639  6748 I Docking : View/Animation start input Emphasis to start
+07-21 01:57:33.469  6639  6748 I Docking : View/Animation start input Skip to start
+07-21 01:57:33.469  6639  6748 I Docking : View/Animation start input Deemphasis to start
+07-21 01:57:33.469  6639  6748 I Docking : View/Animation start input Enter to start
+07-21 01:57:33.487  6639  6748 I Docking : View/Animation start eval Database History
+07-21 01:57:33.507  6639  6748 I Docking : View/Animation start eval Database History returned gamehistory
+07-21 01:57:33.507  1637  2202 I ActivityManager: Starting: Intent { flg=0x4000008 cmp=com.johnpritchard.docking/.DockingActivity3D } from pid 6639
+07-21 01:57:33.517  6639  6748 I Docking : View/Animation <*> returning
+07-21 01:57:33.607  6639  6755 I Docking : View/Animation gamehistory running
+07-21 01:57:33.618  6639  6755 I Docking : View/Animation gamehistory eval Database Init
+07-21 01:57:36.497  6639  6755 I Docking : View/Animation gamehistory input Enter to gamehistory
+07-21 01:57:36.497  6639  6755 I Docking : View/Animation gamehistory pageTo start
+07-21 01:57:36.497  6639  6755 I Docking : View/Animation <*> returning
+07-21 01:57:36.557  6639  6757 I Docking : View/Animation start running
+07-21 01:57:36.597  6639  6757 I Docking : View/Animation start eval Database Init
+07-21 01:57:37.663  6639  6757 I Docking : View/Animation start input Emphasis to start
+07-21 01:57:37.663  6639  6757 I Docking : View/Animation start input Skip to start
+07-21 01:57:37.663  6639  6757 I Docking : View/Animation start input Deemphasis to start
+07-21 01:57:37.663  6639  6757 I Docking : View/Animation start input Enter to start
+07-21 01:57:37.677  6639  6757 I Docking : View/Animation start eval Database Game
+07-21 01:57:37.677  6639  6757 I Docking : View/Animation start eval Database Game returned gameplay
+07-21 01:57:37.677  1637  2000 I ActivityManager: Starting: Intent { flg=0x4000008 cmp=com.johnpritchard.docking/.DockingActivity3D } from pid 6639
+07-21 01:57:37.711  6639  6757 I Docking : View/Animation <*> returning
+07-21 01:57:37.798  6639  6639 I Docking : Phys/Animation start
+07-21 01:57:37.798  6639  6639 I Docking : java.lang.Throwable
+07-21 01:57:37.798  6639  6639 I Docking : 	at com.johnpritchard.docking.DockingPhysics._start(DockingPhysics.java:98)
+07-21 01:57:37.798  6639  6639 I Docking : 	at com.johnpritchard.docking.DockingPhysics.Start(DockingPhysics.java:27)
+07-21 01:57:37.798  6639  6639 I Docking : 	at com.johnpritchard.docking.DockingPageGamePlay.up(DockingPageGamePlay.java:117)
+07-21 01:57:37.798  6639  6639 I Docking : 	at com.johnpritchard.docking.View3DRenderer.surfaceChanged(View3DRenderer.java:111)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.SurfaceView.updateWindow(SurfaceView.java:549)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.SurfaceView.dispatchDraw(SurfaceView.java:348)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.ViewGroup.drawChild(ViewGroup.java:1644)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.ViewGroup.drawChild(ViewGroup.java:1644)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.ViewGroup.dispatchDraw(ViewGroup.java:1373)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.View.draw(View.java:6883)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.widget.FrameLayout.draw(FrameLayout.java:357)
+07-21 01:57:37.798  6639  6639 I Docking : 	at com.android.internal.policy.impl.PhoneWindow$DecorView.draw(PhoneWindow.java:2094)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.ViewRoot.draw(ViewRoot.java:1525)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.ViewRoot.performTraversals(ViewRoot.java:1261)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.view.ViewRoot.handleMessage(ViewRoot.java:1862)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.os.Handler.dispatchMessage(Handler.java:99)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.os.Looper.loop(Looper.java:130)
+07-21 01:57:37.798  6639  6639 I Docking : 	at android.app.ActivityThread.main(ActivityThread.java:3806)
+07-21 01:57:37.798  6639  6639 I Docking : 	at java.lang.reflect.Method.invokeNative(Native Method)
+07-21 01:57:37.798  6639  6639 I Docking : 	at java.lang.reflect.Method.invoke(Method.java:507)
+07-21 01:57:37.798  6639  6639 I Docking : 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:839)
+07-21 01:57:37.798  6639  6639 I Docking : 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:597)
+07-21 01:57:37.798  6639  6639 I Docking : 	at dalvik.system.NativeStart.main(Native Method)
+07-21 01:57:37.798  6639  6763 I Docking : Phys/Animation entering without title
+07-21 01:57:37.808  6639  6764 I Docking : View/Animation gameplay running
+07-21 01:57:37.808  6639  6764 I Docking : View/Animation gameplay eval Database Init
+07-21 01:57:39.297  6639  6763 I Docking : Phys/Animation running
+07-21 01:57:41.958  6639  6642 D dalvikvm: GC_CONCURRENT freed 1059K, 57% free 3105K/7111K, external 3208K/3776K, paused 3ms+4ms
+07-21 01:57:43.489  6639  6764 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:57:43.649  6639  6764 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:57:44.448  6639  6764 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:57:45.087  6639  6764 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:57:45.897  6639  6764 I Docking : View/Animation gameplay input Enter to gameplay
+07-21 01:57:46.597  6639  6764 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:57:47.237  6639  6764 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:57:48.558  6639  6642 D dalvikvm: GC_CONCURRENT freed 1060K, 57% free 3113K/7111K, external 3302K/3776K, paused 5ms+2ms
+07-21 01:57:56.167  6639  6642 D dalvikvm: GC_CONCURRENT freed 1125K, 57% free 3113K/7111K, external 3309K/3776K, paused 3ms+3ms
+07-21 01:58:03.788  6639  6642 D dalvikvm: GC_CONCURRENT freed 1110K, 57% free 3110K/7111K, external 3310K/3776K, paused 3ms+8ms
+07-21 01:58:11.407  6639  6642 D dalvikvm: GC_CONCURRENT freed 1102K, 57% free 3110K/7111K, external 3310K/3776K, paused 2ms+4ms
+07-21 01:58:19.057  6639  6642 D dalvikvm: GC_CONCURRENT freed 1137K, 57% free 3112K/7111K, external 3314K/3776K, paused 3ms+3ms
+07-21 01:58:20.427  6639  6764 I Docking : View/Animation gameplay input Enter to gameplay
+07-21 01:58:26.197  6639  6642 D dalvikvm: GC_CONCURRENT freed 1138K, 57% free 3113K/7111K, external 3314K/3776K, paused 5ms+2ms
+07-21 01:58:33.317  6639  6642 D dalvikvm: GC_CONCURRENT freed 1146K, 57% free 3115K/7111K, external 3317K/3776K, paused 2ms+4ms
+07-21 01:58:40.458  6639  6642 D dalvikvm: GC_CONCURRENT freed 1142K, 57% free 3115K/7111K, external 3315K/3776K, paused 4ms+2ms
+07-21 01:58:48.087  6639  6642 D dalvikvm: GC_CONCURRENT freed 1156K, 57% free 3113K/7111K, external 3309K/3776K, paused 3ms+3ms
+07-21 01:58:55.178  6639  6642 D dalvikvm: GC_CONCURRENT freed 1124K, 57% free 3113K/7111K, external 3308K/3776K, paused 3ms+2ms
+07-21 01:59:02.287  6639  6642 D dalvikvm: GC_CONCURRENT freed 1151K, 57% free 3115K/7111K, external 3318K/3776K, paused 2ms+2ms
+07-21 01:59:09.398  6639  6642 D dalvikvm: GC_CONCURRENT freed 1132K, 57% free 3114K/7111K, external 3312K/3776K, paused 3ms+3ms
+07-21 01:59:17.037  6639  6642 D dalvikvm: GC_CONCURRENT freed 1164K, 57% free 3114K/7111K, external 3317K/3776K, paused 2ms+3ms
+07-21 01:59:18.757  6639  6764 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:59:18.909  6639  6764 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:59:20.027  6639  6764 I Docking : View/Animation gameplay input Enter to gameplay
+07-21 01:59:20.967  6639  6764 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:59:21.128  6639  6764 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:59:21.578  6639  6764 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:59:22.147  6639  6764 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:59:22.647  6639  6764 I Docking : View/Animation gameplay input Up to gameplay
+07-21 01:59:22.797  6639  6764 I Docking : View/Animation gameplay input Down to gameplay
+07-21 01:59:23.279  6639  6639 D AndroidRuntime: Shutting down VM
+07-21 01:59:23.279  6639  6639 W dalvikvm: threadid=1: thread exiting with uncaught exception (group=0x40018560)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: FATAL EXCEPTION: main
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: java.lang.IllegalStateException
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.johnpritchard.docking.View3DScreenShot.<init>(View3DScreenShot.java:59)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.johnpritchard.docking.DockingPostScreenShot.<init>(DockingPostScreenShot.java:24)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.johnpritchard.docking.Docking.ScreenShot3D(Docking.java:74)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.johnpritchard.docking.View3D.onDoubleTap(View3D.java:317)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.view.GestureDetector.onTouchEvent(GestureDetector.java:486)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.johnpritchard.docking.View3D.onTouchEvent(View3D.java:249)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.view.View.dispatchTouchEvent(View.java:3885)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:869)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:869)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.android.internal.policy.impl.PhoneWindow$DecorView.superDispatchTouchEvent(PhoneWindow.java:1923)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.android.internal.policy.impl.PhoneWindow.superDispatchTouchEvent(PhoneWindow.java:1190)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.app.Activity.dispatchTouchEvent(Activity.java:2155)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.android.internal.policy.impl.PhoneWindow$DecorView.dispatchTouchEvent(PhoneWindow.java:1907)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.view.ViewRoot.deliverPointerEvent(ViewRoot.java:2197)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.view.ViewRoot.handleMessage(ViewRoot.java:1881)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:130)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:3806)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at java.lang.reflect.Method.invokeNative(Native Method)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Method.java:507)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:839)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:597)
+07-21 01:59:23.287  6639  6639 E AndroidRuntime: 	at dalvik.system.NativeStart.main(Native Method)
+07-21 01:59:24.168  6639  6642 D dalvikvm: GC_CONCURRENT freed 1120K, 57% free 3126K/7111K, external 3288K/3776K, paused 4ms+2ms
+07-21 01:59:32.897  6639  6642 D dalvikvm: GC_CONCURRENT freed 1141K, 56% free 3135K/7111K, external 3315K/3776K, paused 2ms+2ms
+07-21 01:59:33.898  6639  6639 I Process : Sending signal. PID: 6639 SIG: 9
+07-21 01:59:33.917  1637  2222 I ActivityManager: Process com.johnpritchard.docking (pid 6639) has died.
+07-21 01:59:34.077  1637  2414 W InputManagerService: Got RemoteException sending setActive(false) notification to pid 6639 uid 10068

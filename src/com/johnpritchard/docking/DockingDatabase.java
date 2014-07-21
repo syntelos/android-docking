@@ -100,6 +100,8 @@ public final class DockingDatabase
          */
         DockingCraftStateVector.Instance.game();
 
+        DockingPageGameAbstract.View();
+
         return true;
     }
     public static boolean Model(){
@@ -125,20 +127,19 @@ public final class DockingDatabase
      * {@link DockingCraftStateVector}.
      */
     public static void GameOver(){
+        final DockingCraftStateVector vector = DockingCraftStateVector.Instance;
+
         SQLiteDatabase db = Writable();
         try {
-            final DockingCraftStateVector vector = DockingCraftStateVector.Instance;
             /*
              * State
              */
             ContentValues state = vector.write();
 
-            DockingGameLevel.Review(vector.score);
-
             long id = db.insert(DockingDatabase.STATE,DockingDatabaseHistory.State.LABEL,state);
 
             if (-1L < id){
-                //Info("gameover: insert success");
+                Info("gameover: insert success");
 
                 vector.cursor(id);
             }
@@ -149,6 +150,8 @@ public final class DockingDatabase
         finally {
             db.close();
         }
+
+        DockingGameLevel.Review(vector.score);
 
         DockingPageGameAbstract.View();
     }

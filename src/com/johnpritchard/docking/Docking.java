@@ -70,8 +70,12 @@ public final class Docking
         Activity3D.runOnUiThread(action);
     }
     protected final static void ScreenShot3D(boolean report){
-
-        Post3D(new DockingPostScreenShot(Activity3D.view,report));
+        try {
+            Post3D(new DockingPostScreenShot(Activity3D.view,report));
+        }
+        catch (RuntimeException storage){
+            Info("ScreenShot3D",storage);
+        }
     }
     protected final static void Toast2D(String msg){
 
