@@ -5,6 +5,7 @@ package com.johnpritchard.docking;
 
 import android.content.Context;
 import android.content.Intent;
+import static android.content.Intent.*;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public final class Docking
 
     protected final static int FileModePublic = (Context.MODE_WORLD_READABLE|Context.MODE_WORLD_WRITEABLE);
 
+    private final static int IntentFlags = (FLAG_ACTIVITY_CLEAR_TOP|FLAG_DEBUG_LOG_RESOLUTION);
 
     private static DockingActivity2D Activity2D;
     private static DockingActivity3D Activity3D;
@@ -33,7 +35,9 @@ public final class Docking
     public final static void StartActivity3D(){
 
         Intent intent = new Intent(Activity2D, DockingActivity3D.class);
-
+        {
+            intent.setFlags(IntentFlags);
+        }
         Activity2D.startActivity(intent);
     }
     /**

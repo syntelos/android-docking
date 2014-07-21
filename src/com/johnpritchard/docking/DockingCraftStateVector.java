@@ -39,43 +39,42 @@ public final class DockingCraftStateVector
     }
 
 
-    public DockingGameLevel meta, level;
+    public volatile DockingGameLevel meta, level;
     /**
      * m
      */
-    public double range_x;
+    public volatile double range_x;
     /**
      * m/s
      */
-    public double velocity_x;
+    public volatile double velocity_x;
     /**
      * m/s/s
      */
-    public double acceleration_x;
+    public volatile double acceleration_x;
     /**
-     * millis
-     */
-    public long time_start;
-    public long time_last;
-    public long time_clock;
-    public long time_source;
-    public long time_xp0;
-    public long time_xm0;
-    public long time_xp1;
-    public long time_xm1;
+     * millis */
+    public volatile long time_start;
+    public volatile long time_last;
+    public volatile long time_clock;
+    public volatile long time_source;
+    public volatile long time_xp0;
+    public volatile long time_xm0;
+    public volatile long time_xp1;
+    public volatile long time_xm1;
 
     /*
      * infrastructure
      */
-    private long copy;
+    private volatile long copy;
 
-    private long cursor = -1;
+    private volatile long cursor = -1;
 
-    protected String label, identifier;
+    protected volatile String label, identifier;
 
-    protected Date created, completed;
+    protected volatile Date created, completed;
 
-    protected float score;
+    protected volatile float score;
 
 
     private DockingCraftStateVector(){
@@ -114,7 +113,7 @@ public final class DockingCraftStateVector
         return (crash() || dock() || stall());
     }
     public boolean free(){
-        return (0.001f < range_x);
+        return (0.010f < range_x && 0.011f > velocity_x && 0L >= time_source);
     }
     public boolean crash(){
         return (0.011f > range_x && 0.010f < velocity_x);
@@ -123,7 +122,7 @@ public final class DockingCraftStateVector
         return (0.011f > range_x && 0.011f > velocity_x);
     }
     public boolean stall(){
-        return (0.001f > velocity_x && 0L >= time_source);
+        return (0.010f < range_x && 0.00f == velocity_x && 0L >= time_source);
     }
     public synchronized void add(PhysicsScript prog){
 
@@ -203,7 +202,7 @@ public final class DockingCraftStateVector
 
                         final double da0 = Z(dt * DockingGameLevel.Current.accel_thruster_0);
 
-                        acceleration_x = +(da0);
+                        acceleration_x = +(DockingGameLevel.Current.accel_thruster_0);
 
                         velocity_x += da0;
 
@@ -222,7 +221,7 @@ public final class DockingCraftStateVector
 
                     final double da0 = Z(dt * DockingGameLevel.Current.accel_thruster_0);
 
-                    acceleration_x = -(da0);
+                    acceleration_x = -(DockingGameLevel.Current.accel_thruster_0);
 
                     velocity_x -= da0;
 
@@ -250,7 +249,7 @@ public final class DockingCraftStateVector
 
                         final double da1 = Z(dt * DockingGameLevel.Current.accel_thruster_1);
 
-                        acceleration_x += da1;
+                        acceleration_x += DockingGameLevel.Current.accel_thruster_1;
 
                         velocity_x += da1;
 
@@ -269,7 +268,7 @@ public final class DockingCraftStateVector
 
                     final double da1 = Z(dt * DockingGameLevel.Current.accel_thruster_1);
 
-                    acceleration_x -= da1;
+                    acceleration_x -= DockingGameLevel.Current.accel_thruster_1;
 
                     velocity_x -= da1;
 
@@ -585,7 +584,5 @@ public final class DockingCraftStateVector
     protected synchronized void cursor(long c){
 
         this.cursor = c;
-
-        DockingGameLevel.Review(this.score);
     }
 }

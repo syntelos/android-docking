@@ -482,7 +482,7 @@ public abstract class DockingPageGameAbstract
         final float fovy = 45.0f;
         final float aspect = ( (float)width / (float)height);
         final float near = 0.1f;
-        final float far = 1000.0f;
+        final float far = 100000.0f;
 
         gluPerspective(fovy,aspect,near,far);
 

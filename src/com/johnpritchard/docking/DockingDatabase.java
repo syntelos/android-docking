@@ -127,17 +127,20 @@ public final class DockingDatabase
     public static void GameOver(){
         SQLiteDatabase db = Writable();
         try {
+            final DockingCraftStateVector vector = DockingCraftStateVector.Instance;
             /*
              * State
              */
-            ContentValues state = DockingCraftStateVector.Instance.write();
+            ContentValues state = vector.write();
+
+            DockingGameLevel.Review(vector.score);
 
             long id = db.insert(DockingDatabase.STATE,DockingDatabaseHistory.State.LABEL,state);
 
             if (-1L < id){
                 //Info("gameover: insert success");
 
-                DockingCraftStateVector.Instance.cursor(id);
+                vector.cursor(id);
             }
             else {
                 Warn("gameover: insert failure");

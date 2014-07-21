@@ -40,7 +40,7 @@ public final class DockingPhysics
     public static void Stop(View view){
         synchronized(StaticMonitor){
             DockingPhysics instance = Instance;
-            if (null != instance && view == Instance.view){
+            if (null != instance && view == instance.view){
                 try {
                     instance._stop();
                 }
@@ -176,6 +176,7 @@ public final class DockingPhysics
                 return;
             }
             finally {
+
                 info("returning");
 
                 Exit(this);

@@ -231,33 +231,15 @@ public final class View3DRenderer
                 }
                 page.draw(gl);
             }
-            else {
-
-                page.up(view,width,height);
-
-                plumb = true;
-                //stale = true
-            }
+            /*
+             * else (activity exiting)
+             */
         }
     }
     /**
      * Renderer
      */
     public void onSurfaceChanged(GL10 gl, int width, int height){
-
-        // this.width = width;
-        // this.height = height;
-
-        // if (null != page){
-
-        //     page.down();
-
-        //     plumb = false;
-
-        //     page.up(view,width,height);
-
-        //     plumb = true;
-        // }
     }
     /**
      * Renderer

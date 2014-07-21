@@ -543,7 +543,7 @@ public class DockingGeometryStarfield
     };
     private final static float[] MODEL = Matrix.Identity();
     static {
-        Matrix.Scale(MODEL,10f);
+        Matrix.Scale(MODEL,1000f);
     }
 
     public final static DockingGeometryStarfield Instance = new DockingGeometryStarfield();
