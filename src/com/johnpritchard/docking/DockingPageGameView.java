@@ -38,7 +38,7 @@ public abstract class DockingPageGameView
 
 
     @Override
-    protected void focus(){
+    protected final void focus(){
 
         stale = true;
 
@@ -52,7 +52,7 @@ public abstract class DockingPageGameView
         }
     }
     @Override
-    protected void navigation(){
+    protected final void navigation(){
     }
     /**
      * Input processor shared by {@link DockingPageGameCrash}, {@link
@@ -68,8 +68,6 @@ public abstract class DockingPageGameView
             break;
         case Left:
 
-            //Docking.Post3D(new DockingPostPrevEnd())//
-
             view.script(new InputScript[]{
                     new InputScript.Database(InputScript.Database.Op.GameEndPrev)
                 });
@@ -78,8 +76,6 @@ public abstract class DockingPageGameView
         case Down:
             break;
         case Right:
-
-            //Docking.Post3D(new DockingPostNextEnd())//
 
             view.script(new InputScript[]{
                     new InputScript.Database(InputScript.Database.Op.GameEndNext)

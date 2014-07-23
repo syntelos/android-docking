@@ -23,7 +23,7 @@ public final class View3DRenderer
                android.view.SurfaceHolder.Callback
 {
 
-    private View3D view;
+    private final View3D view;
 
     private SharedPreferences preferences;
 
@@ -45,8 +45,13 @@ public final class View3DRenderer
 
 
     public View3DRenderer(View3D view){
-        super();
-        this.view = view;
+        super(view.logPrefix);
+        if (null != view){
+            this.view = view;
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
 
@@ -131,7 +136,6 @@ public final class View3DRenderer
             return;
         }
         else {
-            //info("pageTo "+page);
 
             if (null == page){
 
@@ -147,6 +151,7 @@ public final class View3DRenderer
 
                         this.page = (ViewPage3D)page.page;
 
+
                         if (this.plumb){
 
                             this.page.up(view,width,height);
@@ -155,8 +160,6 @@ public final class View3DRenderer
                     catch (ClassCastException exc){
 
                         this.page = null;
-
-                        //warn("switching to 2D for page: "+page);
 
                         Docking.StartActivity2D();
                     }
@@ -176,8 +179,6 @@ public final class View3DRenderer
                 catch (ClassCastException exc){
 
                     this.page = null;
-
-                    //warn("switching to 2D for page: "+page);
 
                     Docking.StartActivity2D();
                 }
@@ -245,5 +246,19 @@ public final class View3DRenderer
      * Renderer
      */
     public void onSurfaceCreated(GL10 gl, EGLConfig config){
+    }
+    @Override
+    public String toString(){
+        return logPrefix;
+    }
+    protected synchronized ViewPage3D currentPage(){
+
+        ViewPage3D page = this.page;
+
+        if (null == page)
+            throw new IllegalStateException(this.logPrefix+this.pageId.name());
+        else {
+            return page;
+        }
     }
 }

@@ -68,17 +68,17 @@ public abstract class ViewPage
     /**
      * Surface properties
      */
-    protected int width, height;
+    protected volatile int width, height;
 
-    protected float pad;
+    protected volatile float pad;
     /**
      * Completed up
      */
-    protected boolean plumb;
+    protected volatile boolean plumb;
 
-    protected View view;
+    protected volatile View view;
 
-    protected boolean landscape, portrait;
+    protected volatile boolean landscape, portrait;
 
 
 
@@ -108,8 +108,10 @@ public abstract class ViewPage
     }
     public ViewPage up(View view, int width, int height)
     {
+        this.view = view;
+
         if (width != this.width || height != this.height){
-            this.view = view;
+
             this.width = width;
             this.height = height;
 
@@ -199,6 +201,7 @@ public abstract class ViewPage
             break;
         }
     }
+    @Override
     public final String toString(){
         return name();
     }

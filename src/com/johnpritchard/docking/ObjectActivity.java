@@ -31,6 +31,8 @@ public class ObjectActivity
 
     protected final String baseName;
 
+    protected final String objectIdentity, logPrefix;
+
     protected SharedPreferences preferences;
 
 
@@ -40,6 +42,10 @@ public class ObjectActivity
         this.className = this.getClass().getName();
 
         this.baseName = ObjectLog.Basename(className);
+
+        this.objectIdentity = String.valueOf(System.identityHashCode(this));
+
+        this.logPrefix = this.baseName+'#'+objectIdentity+' ';
     }
 
 
@@ -123,39 +129,39 @@ public class ObjectActivity
         sensorManager().unregisterListener(li);
     }
     protected void verbose(String m){
-        Log.i(TAG,(baseName+' '+m));
+        Log.i(TAG,(logPrefix+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,(baseName+' '+m),t);
+        Log.i(TAG,(logPrefix+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,(baseName+' '+m));
+        Log.d(TAG,(logPrefix+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,(baseName+' '+m),t);
+        Log.d(TAG,(logPrefix+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,(baseName+' '+m));
+        Log.i(TAG,(logPrefix+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,(baseName+' '+m),t);
+        Log.i(TAG,(logPrefix+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,(baseName+' '+m));
+        Log.w(TAG,(logPrefix+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,(baseName+' '+m),t);
+        Log.w(TAG,(logPrefix+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,(baseName+' '+m));
+        Log.e(TAG,(logPrefix+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,(baseName+' '+m),t);
+        Log.e(TAG,(logPrefix+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,(baseName+' '+m));
+        Log.wtf(TAG,(logPrefix+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,(baseName+' '+m),t);
+        Log.wtf(TAG,(logPrefix+m),t);
     }
 }

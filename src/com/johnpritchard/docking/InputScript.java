@@ -80,6 +80,7 @@ public interface InputScript {
         public Input type(){
             return type;
         }
+        @Override
         public String toString(){
             return type.name()+"[0x"+Integer.toHexString(key)+",'"+key+"']";
         }
@@ -121,6 +122,7 @@ public interface InputScript {
         public Input type(){
             return type;
         }
+        @Override
         public String toString(){
             return type.name()+' '+page.name();
         }
@@ -201,6 +203,7 @@ public interface InputScript {
         public Input type(){
             return type;
         }
+        @Override
         public String toString(){
             return type.name()+' '+op.name();
         }

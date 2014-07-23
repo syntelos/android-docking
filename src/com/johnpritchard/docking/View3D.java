@@ -40,6 +40,8 @@ public final class View3D
     private final static long InputFilterGesture = 150L;
 
 
+    protected final String objectIdentity, logPrefix;
+
     private final GestureDetector touch;
 
     private final SurfaceHolder holder;
@@ -54,6 +56,10 @@ public final class View3D
 
     public View3D(ObjectActivity context){
         super(context);
+
+        objectIdentity = String.valueOf(System.identityHashCode(this));
+
+        logPrefix = "View3D#"+objectIdentity+' ';
 
         touch = new GestureDetector(context,this);
 
@@ -250,7 +256,7 @@ public final class View3D
             }
             else {
 
-                ViewAnimation.Script(renderer.page,generic(event)); //
+                script(generic(event));
             }
             return true;
         }
@@ -281,14 +287,14 @@ public final class View3D
     public boolean onScroll(MotionEvent e1, MotionEvent e2,
                             float dx, float dy)
     {
-        ViewAnimation.Script(renderer.page,gesture(e2.getEventTime(),dx,dy));
+        script(gesture(e2.getEventTime(),dx,dy));
 
         return true;
     }
     public boolean onFling(MotionEvent e1, MotionEvent e2,
                            float dx, float dy)
     {
-        ViewAnimation.Script(renderer.page,gesture(e2.getEventTime(),dx,dy));
+        script(gesture(e2.getEventTime(),dx,dy));
 
         return true;
     }
@@ -327,7 +333,7 @@ public final class View3D
 
         if (renderer.plumb){
 
-            ViewAnimation.Script(renderer.page,generic(event)); //
+            script(generic(event));
 
             return true;
         }
@@ -340,7 +346,7 @@ public final class View3D
 
         if (renderer.plumb){
 
-            ViewAnimation.Script(renderer.page,generic(event)); //
+            script(generic(event));
 
             return true;
         }
@@ -373,17 +379,23 @@ public final class View3D
 
         if (null != in){
 
-            ViewAnimation.Script(renderer.page,new InputScript[]{in});
+            final ViewPage3D page = renderer.currentPage();
+
+            ViewAnimation.Script(page,new InputScript[]{in});
         }
     }
     @Override
     public void script(InputScript[] in){
 
-        ViewAnimation.Script(renderer.page,in);
+        final ViewPage3D page = renderer.currentPage();
+
+        ViewAnimation.Script(page,in);
     }
     protected void script(char key){
 
-        ViewAnimation.Script(renderer.page,key);
+        final ViewPage3D page = renderer.currentPage();
+
+        ViewAnimation.Script(page,new InputScript[]{new InputScript.Key(key)});
     }
     protected Display display(){
 
@@ -392,6 +404,10 @@ public final class View3D
     protected DisplayMetrics displayMetrics(){
 
         return ((ObjectActivity)getContext()).displayMetrics();
+    }
+    @Override
+    public String toString(){
+        return logPrefix;
     }
 
     private final InputScript[] gesture(long eventTime, float dx, float dy){
@@ -542,40 +558,40 @@ public final class View3D
     }
 
     protected void verbose(String m){
-        Log.i(TAG,("View3D "+m));
+        Log.i(TAG,(logPrefix+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,("View3D "+m),t);
+        Log.i(TAG,(logPrefix+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,("View3D "+m));
+        Log.d(TAG,(logPrefix+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,("View3D "+m),t);
+        Log.d(TAG,(logPrefix+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,("View3D "+m));
+        Log.i(TAG,(logPrefix+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,("View3D "+m),t);
+        Log.i(TAG,(logPrefix+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,("View3D "+m));
+        Log.w(TAG,(logPrefix+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,("View3D "+m),t);
+        Log.w(TAG,(logPrefix+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,("View3D "+m));
+        Log.e(TAG,(logPrefix+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,("View3D "+m),t);
+        Log.e(TAG,(logPrefix+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,("View3D "+m));
+        Log.wtf(TAG,(logPrefix+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,("View3D "+m),t);
+        Log.wtf(TAG,(logPrefix+m),t);
     }
 
     protected static float[] Convert(MotionEvent event){

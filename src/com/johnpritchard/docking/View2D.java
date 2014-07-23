@@ -60,6 +60,8 @@ public final class View2D
     private final static long InputFilterGesture = 150L;
 
 
+    protected final String objectIdentity, logPrefix;
+
     private final GestureDetector touch;
 
     private final SurfaceHolder holder;
@@ -82,6 +84,10 @@ public final class View2D
 
     public View2D(ObjectActivity context){
         super(context);
+
+        objectIdentity = String.valueOf(System.identityHashCode(this));
+
+        logPrefix = "View2D#"+objectIdentity+' ';
 
         touch = new GestureDetector(context,this);
 
@@ -353,7 +359,7 @@ public final class View2D
             }
             else {
 
-                ViewAnimation.Script(page,generic(event)); //
+                script(generic(event));
             }
             return true;
         }
@@ -384,14 +390,14 @@ public final class View2D
     public boolean onScroll(MotionEvent e1, MotionEvent e2,
                             float dx, float dy)
     {
-        ViewAnimation.Script(page,gesture(e2.getEventTime(),dx,dy));
+        script(gesture(e2.getEventTime(),dx,dy));
 
         return true;
     }
     public boolean onFling(MotionEvent e1, MotionEvent e2,
                            float dx, float dy)
     {
-        ViewAnimation.Script(page,gesture(e2.getEventTime(),dx,dy));
+        script(gesture(e2.getEventTime(),dx,dy));
 
         return true;
     }
@@ -428,7 +434,7 @@ public final class View2D
 
         if (plumb){
 
-            ViewAnimation.Script(page,generic(event)); //
+            script(generic(event));
 
             return true;
         }
@@ -441,7 +447,7 @@ public final class View2D
 
         if (plumb){
 
-            ViewAnimation.Script(page,generic(event)); //
+            script(generic(event));
 
             return true;
         }
@@ -454,8 +460,6 @@ public final class View2D
      * @see #script
      */
     public void pageTo(Page page){
-
-        //info("pageTo "+page);
 
         if (null == page){
 
@@ -480,8 +484,6 @@ public final class View2D
 
                     this.page = null;
 
-                    //warn("switching to 3D for page: "+page);
-
                     Docking.StartActivity3D();
                 }
             }
@@ -501,11 +503,13 @@ public final class View2D
 
                 this.page = null;
 
-                //warn("switching to 3D for page: "+page);
-
                 Docking.StartActivity3D();
             }
         }
+    }
+    @Override
+    public String toString(){
+        return logPrefix;
     }
     /**
      * Repaint (2D only)
@@ -530,24 +534,28 @@ public final class View2D
 
         if (null != in){
 
+            final ViewPage2D page = this.page;
+
             ViewAnimation.Script(page,new InputScript[]{in});
         }
     }
     @Override
     public void script(InputScript[] in){
 
+        final ViewPage2D page = this.page;
+
         ViewAnimation.Script(page,in);
     }
     protected void script(char key){
 
-        ViewAnimation.Script(page,key);
+        final ViewPage2D page = this.page;
+
+        ViewAnimation.Script(page,new InputScript[]{new InputScript.Key(key)});
     }
     @Override
     protected void onDraw(Canvas g){
 
         if (null != g){
-
-            //info("draw <X> "+Thread.currentThread().getName());
 
             g.drawColor(bg);
 
@@ -556,9 +564,6 @@ public final class View2D
 
                 page.draw(g);
             }
-        }
-        else {
-            //info("draw <*> "+Thread.currentThread().getName());
         }
     }
 
@@ -710,40 +715,40 @@ public final class View2D
     }
 
     protected void verbose(String m){
-        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
+        Log.i(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void verbose(String m, Throwable t){
-        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
+        Log.i(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void debug(String m){
-        Log.d(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
+        Log.d(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void debug(String m, Throwable t){
-        Log.d(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
+        Log.d(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void info(String m){
-        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
+        Log.i(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void info(String m, Throwable t){
-        Log.i(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
+        Log.i(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void warn(String m){
-        Log.w(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
+        Log.w(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void warn(String m, Throwable t){
-        Log.w(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
+        Log.w(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void error(String m){
-        Log.e(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
+        Log.e(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void error(String m, Throwable t){
-        Log.e(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
+        Log.e(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
     protected void wtf(String m){
-        Log.wtf(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m));
+        Log.wtf(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m));
     }
     protected void wtf(String m, Throwable t){
-        Log.wtf(TAG,("View2D "+((null != page)?(page.name()):("<*>"))+' '+m),t);
+        Log.wtf(TAG,(logPrefix+((null != page)?(page.name()):("<*>"))+' '+m),t);
     }
 
     protected static float[] Convert(MotionEvent event){

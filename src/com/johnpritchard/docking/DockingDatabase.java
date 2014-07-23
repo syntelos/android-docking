@@ -139,12 +139,8 @@ public final class DockingDatabase
             long id = db.insert(DockingDatabase.STATE,DockingDatabaseHistory.State.LABEL,state);
 
             if (-1L < id){
-                Info("gameover: insert success");
 
                 vector.cursor(id);
-            }
-            else {
-                Warn("gameover: insert failure");
             }
         }
         finally {
@@ -238,6 +234,7 @@ public final class DockingDatabase
                 if (cursor.moveToFirst()){
 
                     try {
+
                         DockingCraftStateVector.Instance.read(cursor);
 
                         DockingPageGameAbstract.View();
@@ -249,7 +246,6 @@ public final class DockingDatabase
                     }
                 }
                 else {
-                    //Info("history prev: <end>");
 
                     return false;
                 }
@@ -258,13 +254,7 @@ public final class DockingDatabase
                 db.close();
             }
         }
-        else if (0L > id){
-            //Info("history prev: <missing cursor>");
-
-            return false;
-        }
         else {
-            //Info("history prev: <end>");
 
             return false;
         }
@@ -300,6 +290,7 @@ public final class DockingDatabase
                 if (cursor.moveToFirst()){
 
                     try {
+
                         DockingCraftStateVector.Instance.read(cursor);
 
                         DockingPageGameAbstract.View();
@@ -312,8 +303,6 @@ public final class DockingDatabase
                 }
                 else {
 
-                    //Info("history next: <end>");
-
                     return false;
                 }
             }
@@ -322,7 +311,6 @@ public final class DockingDatabase
             }
         }
         else {
-            //Info("history next: <missing cursor>");
 
             return false;
         }

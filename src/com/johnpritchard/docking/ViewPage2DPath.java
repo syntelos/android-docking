@@ -346,6 +346,7 @@ public class ViewPage2DPath
     /**
      * @return In format of attribute 'd' of SVG Element 'Path'.
      */
+    @Override
     public String toString(){
         throw new UnsupportedOperationException();
     }

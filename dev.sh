@@ -9,7 +9,7 @@ i)
     set -x
     adb -d logcat -c
     adb -d install bin/Docking-debug.apk
-    adb -d logcat | grep Docking
+    adb -d logcat | tee docking.log | grep Docking
     ;;
 *)
     cat<<EOF>&2

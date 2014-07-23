@@ -362,6 +362,7 @@ public class ViewPage2DComponentPath
     /**
      * @return In format of attribute 'd' of SVG Element 'Path'.
      */
+    @Override
     public String toString(){
         return this.path.toString();
     }

@@ -143,19 +143,7 @@ public final class ViewAnimation
             //Warn("script: dropped input");
         }
     }
-    /**
-     * Used by {@link View}
-     */
-    protected static void Script(ViewPage page, char key){
 
-        if (null != Instance){
-
-            Instance.script(page,key);
-        }
-        else {
-            //Warn("script: dropped key");
-        }
-    }
 
     /**
      * Animation event used by {@link ViewAnimation}
@@ -187,12 +175,6 @@ public final class ViewAnimation
             this(head);
 
             this.pageTo = pageTo;
-        }
-        private Script(Script head, ViewPage page, char key){
-            this(head);
-
-            this.page = page;
-            this.input = new InputScript[]{new InputScript.Key(key)};
         }
         private Script(Script head, ViewPage page, InputScript[] input){
             this(head);
@@ -282,15 +264,6 @@ public final class ViewAnimation
             this.monitor.notify();
         }
     }
-    private void script(ViewPage page, char key){
-
-        this.queue = (new Script(this.queue,page,key)).head();
-
-        synchronized(this.monitor){
-
-            this.monitor.notify();
-        }
-    }
     private void script(ViewPage page, InputScript[] input){
 
         this.queue = (new Script(this.queue,page,input)).head();
@@ -337,7 +310,6 @@ public final class ViewAnimation
                         }
                     }
                     else {
-                        InputScript in = null;
 
                         while (null != sequence){
 
@@ -383,19 +355,32 @@ public final class ViewAnimation
                                             }
                                         }
 
-                                        in = script[cc];
+                                        InputScript in = script[cc];
 
                                         if (in.isEval()){
 
-                                            info("eval "+in);
+                                            try {
+                                                Page pageTo = ((InputScript.Eval)in).eval();
 
-                                            Page pageTo = ((InputScript.Eval)in).eval();
+                                                if (null != pageTo){
 
-                                            if (null != pageTo){
+                                                    info("eval "+in+" returned "+pageTo);
 
-                                                info("eval "+in+" returned "+pageTo);
+                                                    view.pageTo(pageTo);
+                                                }
+                                                else {
+                                                    info("eval "+in+" returned <null>");
+                                                }
+                                            }
+                                            catch (Shutdown exi){
 
-                                                view.pageTo(pageTo);
+                                                info("shutdown via eval "+in,exi);
+
+                                                return;
+                                            }
+                                            catch (Exception exc){
+
+                                                error("error in eval "+in,exc);
                                             }
                                         }
                                         else {
@@ -406,19 +391,43 @@ public final class ViewAnimation
                                             }
                                             catch (Shutdown exi){
 
-                                                info("shutdown");
+                                                info("shutdown via input "+in+" to "+page,exi);
 
                                                 return;
                                             }
                                             catch (Exception exc){
 
-                                                error("input "+in+" to "+page,exc);
+                                                error("error in input "+in+" to "+page,exc);
                                             }
                                         }
 
                                         if (in.isSkipping()){
                                             skip = SKIP_SKIP;
                                         }
+                                    }
+                                }
+                            }
+                            else if (null != sequence.page){
+
+                                final InputScript[] script = sequence.input;
+
+                                if (null != script){
+                                    final String prefix = "drop script page "+sequence.page.name()+' ';
+
+                                    for (InputScript in: script){
+                                        warn(prefix+in);
+                                    }
+                                }
+                            }
+                            else {
+
+                                final InputScript[] script = sequence.input;
+
+                                if (null != script){
+                                    final String prefix = "drop script <*> ";
+
+                                    for (InputScript in: script){
+                                        warn(prefix+in);
                                     }
                                 }
                             }

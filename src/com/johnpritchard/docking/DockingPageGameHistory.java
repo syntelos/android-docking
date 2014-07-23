@@ -79,21 +79,19 @@ public final class DockingPageGameHistory
             break;
         case Left:
 
-            //Docking.Post3D(new DockingPostPrevHistory())//
-
             view.script(new InputScript[]{
                     new InputScript.Database(InputScript.Database.Op.HistoryPrev)
                 });
+
             break;
         case Down:
             break;
         case Right:
 
-            //Docking.Post3D(new DockingPostNextHistory())//
-
             view.script(new InputScript[]{
                     new InputScript.Database(InputScript.Database.Op.HistoryNext)
                 });
+
             break;
         case Enter:
             view.script(Page.start);
