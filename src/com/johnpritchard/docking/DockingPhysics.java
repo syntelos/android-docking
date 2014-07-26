@@ -3,7 +3,6 @@
  */
 package com.johnpritchard.docking;
 
-import android.os.SystemClock;
 import android.util.Log;
 
 /**

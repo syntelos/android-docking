@@ -34,7 +34,13 @@ public class View3DScreenShot
 
     protected final File dir;
 
+    protected final ByteBuffer buffer;
+
+    protected final Bitmap image;
+
     private int series = 1;
+
+    private long local = 0L;
 
 
     public View3DScreenShot(View3D view){
@@ -49,14 +55,20 @@ public class View3DScreenShot
 
             this.size = (RGB_565_BYTES * width * height);
 
-            if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+            this.dir = Docking.ExternalDirectory3D(Environment.DIRECTORY_PICTURES);
 
-                this.dir = Docking.ExternalDirectory3D(Environment.DIRECTORY_PICTURES);
+            if (null != dir){
 
                 this.dir.mkdirs();
+
+                this.buffer = ByteBuffer.allocateDirect(size);
+                {
+                    buffer.order(nativeOrder);
+                }
+                this.image = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);
             }
             else {
-                throw new IllegalStateException();
+                throw new IllegalArgumentException();
             }
         }
         else {
@@ -66,29 +78,21 @@ public class View3DScreenShot
 
 
     /**
-     * Capture and invert image for normal use
-     * @see save(android.graphics.Bitmap)
+     * Capture and invert OGL FB from non-OGL thread
+     * @see save()
      */
-    public Bitmap screenshot()
+    public final Bitmap screenshot_ext()
         throws InterruptedException
     {
+        buffer.position(0);
 
-        final ByteBuffer buffer = ByteBuffer.allocateDirect(size);
-        {
-            buffer.order(nativeOrder);
-            buffer.position(0);
-        }
-
-        if (renderer.screenshot(GL_RGB,GL_UNSIGNED_SHORT_5_6_5,buffer)){
+        if (renderer.screenshot_ext(GL_RGB,GL_UNSIGNED_SHORT_5_6_5,buffer)){
 
             buffer.position(0);
-
-
-            final Bitmap image = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);
 
             image.copyPixelsFromBuffer(buffer);
 
-            return flip(image);
+            return flip();
         }
         else {
 
@@ -96,10 +100,46 @@ public class View3DScreenShot
         }
     }
     /**
+     * Capture and invert OGL FB from OGL thread
+     * @see save()
+     */
+    public final Bitmap screenshot_loc()
+    {
+        buffer.position(0);
+
+        glReadPixels(0,0,width,height,GL_RGB,GL_UNSIGNED_SHORT_5_6_5,buffer);
+
+        buffer.position(0);
+
+        image.copyPixelsFromBuffer(buffer);
+
+        return flip();
+    }
+    /**
+     * Movie snap with interframe period
+     */
+    public final boolean frame(long period)
+    {
+        final long next = (local + period);
+        final long time = DockingGameClock.uptimeMillis();
+
+        if (next <= time){
+            local = time;
+
+            screenshot_loc();
+            save();
+
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    /**
      * Image flip about the horizontal for OGL fb called from {@link
      * #screenshot(android.graphics.Bitmap) screenshot}
      */
-    private Bitmap flip(Bitmap image){
+    protected final Bitmap flip(){
 
         final int count = width*height;
         
@@ -124,12 +164,12 @@ public class View3DScreenShot
         }
         return image;
     }
-    public void save(Bitmap raw){
+    public final void save(){
         final File file = next();
         try {
             FileOutputStream fout = new FileOutputStream(file);
             try {
-                raw.compress(Bitmap.CompressFormat.PNG,100,fout);
+                image.compress(Bitmap.CompressFormat.PNG,100,fout);
 
                 fout.flush();
             }
@@ -142,21 +182,17 @@ public class View3DScreenShot
             error(file.getPath(),exc);
         }
     }
-    private File next(){
+    protected final File next(){
 
         final String session = DockingCraftStateVector.Instance.identifier;
 
-        String frame = String.format("%04d",this.series++);
-
-        String filename = "Docking-"+session+'-'+frame+".png";
+        String filename = String.format("Docking-%s-%04d.png",session,this.series++);
 
         File file = new File(this.dir,filename);
         {
             while (file.exists()){
 
-                frame = String.format("%04d",this.series++);
-
-                filename = "Docking-"+session+'-'+frame+".png";
+                filename = String.format("Docking-%s-%04d.png",session,this.series++);
 
                 file = new File(this.dir,filename);
             }

@@ -5,7 +5,7 @@ package com.johnpritchard.docking;
 
 import android.content.SharedPreferences;
 import android.view.SurfaceHolder;
-import android.opengl.GLES10;
+import static android.opengl.GLES10.*;
 
 import java.nio.ByteBuffer;
 
@@ -37,11 +37,13 @@ public final class View3DRenderer
 
     private boolean stale = true;
 
-    private volatile boolean screenshot = false;
-    private volatile int screenshotFormat = 0;
-    private volatile int screenshotType = 0;
-    private volatile ByteBuffer screenshotBuffer = null;
-    private final Object screenshotMonitor = new Object();
+    private volatile boolean screenshot_ext = false;
+    private volatile int screenshot_extFormat = 0;
+    private volatile int screenshot_extType = 0;
+    private volatile ByteBuffer screenshot_extBuffer = null;
+    private final Object screenshot_extMonitor = new Object();
+
+    private volatile View3DScreenShot screenshot_movie = null;
 
 
     public View3DRenderer(View3D view){
@@ -101,7 +103,7 @@ public final class View3DRenderer
     public synchronized void surfaceCreated(SurfaceHolder holder){
 
         this.plumb = false;
-        this.screenshot = false;
+        this.screenshot_ext = false;
     }
     public synchronized void surfaceChanged(SurfaceHolder holder, int format, int w, int h){
 
@@ -109,7 +111,7 @@ public final class View3DRenderer
         this.height = h;
 
         this.plumb = true;
-        this.screenshot = false;
+        this.screenshot_ext = false;
 
         if (null != this.page){
 
@@ -117,13 +119,21 @@ public final class View3DRenderer
         }
 
         ViewAnimation.Start(view);
+
+        try {
+            screenshot_movie = new View3DScreenShot(view);
+        }
+        catch (Exception exc){
+
+            error("movie",exc);
+        }
     }
     public synchronized void surfaceDestroyed(SurfaceHolder holder){
 
         ViewAnimation.Stop(view);
 
         this.plumb = false;
-        this.screenshot = false;
+        this.screenshot_ext = false;
     }
     /**
      * Called from {@link ViewAnimator}
@@ -131,7 +141,7 @@ public final class View3DRenderer
      */
     public synchronized void pageTo(Page page){
 
-        if (screenshot){
+        if (screenshot_ext){
 
             return;
         }
@@ -189,37 +199,41 @@ public final class View3DRenderer
      * @see View3DScreenShot
      * @see DockingPostScreenShot
      */
-    public boolean screenshot(int format, int type, ByteBuffer buffer)
+    public boolean screenshot_ext(int format, int type, ByteBuffer buffer)
         throws InterruptedException
     {
 
-        this.screenshotFormat = format;
-        this.screenshotType = type;
-        this.screenshotBuffer = buffer;
-        this.screenshot = true;
+        this.screenshot_extFormat = format;
+        this.screenshot_extType = type;
+        this.screenshot_extBuffer = buffer;
+        this.screenshot_ext = true;
 
-        synchronized(screenshotMonitor){
+        synchronized(screenshot_extMonitor){
 
-            screenshotMonitor.wait(1000L);
+            screenshot_extMonitor.wait(1000L);
         }
 
-        return (!screenshot);
+        return (!screenshot_ext);
     }
     /**
      * Renderer
      */
     public void onDrawFrame(GL10 gl){
-        if (screenshot){
+        if (screenshot_ext){
             try {
-                GLES10.glReadPixels(0,0,width,height,screenshotFormat,screenshotType,screenshotBuffer);
+                glReadPixels(0,0,width,height,screenshot_extFormat,screenshot_extType,screenshot_extBuffer);
             }
             finally {
-                this.screenshot = false;
+                this.screenshot_ext = false;
             }
-            synchronized(screenshotMonitor){
+            synchronized(screenshot_extMonitor){
 
-                screenshotMonitor.notifyAll();
+                screenshot_extMonitor.notifyAll();
             }
+        }
+        else if (null != screenshot_movie && screenshot_movie.frame(500L)){
+
+            return;
         }
         else if (null != page){
 

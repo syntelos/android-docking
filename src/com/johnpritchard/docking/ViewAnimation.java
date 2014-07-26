@@ -4,7 +4,6 @@
 package com.johnpritchard.docking;
 
 import android.graphics.Canvas;
-import android.os.SystemClock;
 import android.view.SurfaceHolder;
 import android.util.Log;
 

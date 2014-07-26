@@ -5,7 +5,6 @@ package com.johnpritchard.docking;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.os.SystemClock;
 
 import java.util.Date;
 
@@ -171,7 +170,7 @@ public final class DockingCraftStateVector
          */
         final long last = this.time_last;
 
-        final long time = SystemClock.uptimeMillis();
+        final long time = DockingGameClock.uptimeMillis();
 
         if (0 != last){
 

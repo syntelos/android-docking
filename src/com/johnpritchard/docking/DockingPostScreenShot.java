@@ -28,7 +28,8 @@ public class DockingPostScreenShot
 
     public void run(){
         try {
-            save(screenshot());
+            screenshot_ext();
+            save();
 
             if (report){
 
