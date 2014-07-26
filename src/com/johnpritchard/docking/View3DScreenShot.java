@@ -116,11 +116,12 @@ public class View3DScreenShot
         return flip();
     }
     /**
-     * Movie snap with interframe period
+     * Movie snap for docking game clock period
      */
-    public final boolean frame(long period)
+    public final boolean frame()
     {
-        final long next = (local + period);
+        final long next = (local + DockingGameClock.mode.period);
+
         final long time = DockingGameClock.uptimeMillis();
 
         if (next <= time){

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -f /tmp/move-edit.log
+
 export fok=1
 export fer=0
 
@@ -29,7 +31,8 @@ function fcopy {
     do
         printf -v fcopy_tgt "%s/%04d.png" ${session} ${number}
 
-        if echo cp ${fcopy_src} ${fcopy_tgt}
+        echo cp ${fcopy_src} ${fcopy_tgt} | tee -a /tmp/move-edit.log
+        if cp ${fcopy_src} ${fcopy_tgt}
         then
             number=$(( ${number} + 1 ))
         else
@@ -54,7 +57,8 @@ function fmove {
             printf -v fmove_src "%s/%04d.png" ${session} ${number_old}
             printf -v fmove_tgt "%s/%04d.png" ${session} ${number_new}
 
-            if echo mv ${fmove_src} ${fmove_tgt}
+            echo mv ${fmove_src} ${fmove_tgt} | tee -a /tmp/move-edit.log
+            if mv ${fmove_src} ${fmove_tgt}
             then
                 continue
             else
@@ -100,18 +104,18 @@ EOF
     fi
 }
 
-session="${1}"
-shift
 
-if [ -n "${session}" ]&&[ -d "${session}" ]&& finit
+if session=$(echo "${1}" | sed 's%^\./%%; s%/%%g;') &&[ -n "${session}" ]&&[ -d "${session}" ]&& finit
 then
-    while [ -n "${1}" ]
-    do
+    shift
+
+    if [ -n "${1}" ]
+    then
         command="${1}"
         shift
 
-        case "${command}" in
-            copy)
+        case "${#}" in
+            2)
                 printf -v src "%d" $(ftrim "${1}" )
                 shift
                 printf -v count "%d" $(ftrim "${1}" )
@@ -125,9 +129,11 @@ then
 $0: Error from command "${command}".
 EOF
                     exit 1
+                else
+                    exit 0
                 fi
                 ;;
-            insert)
+            3)
                 printf -v src "%d" $(ftrim "${1}" )
                 shift
                 printf -v tgt "%d" $(ftrim "${1}" )
@@ -141,16 +147,21 @@ EOF
 $0: Error from command "${command}".
 EOF
                     exit 1
+                else
+                    exit 0
                 fi
                 ;;
             *)
                 cat<<EOF>&2
-$0: Error unrecognized command "${command}".
+$0: Error unrecognized command "${command} $*".
 EOF
                 exit 1
                 ;;
         esac
-    done
+    else
+        # (print session and exit)
+        exit 0
+    fi
 else
     cat<<EOF>&2
 Synopsis
@@ -170,6 +181,14 @@ Description
 
   In directory <session>, copy frame number <src> into sequence before
   frame number <tgt> for <count> times in sequence.
+
+Synopsis
+
+  $0 <session>
+
+Description
+
+  Validate and describe <session> and exit.
 
 EOF
     exit 1

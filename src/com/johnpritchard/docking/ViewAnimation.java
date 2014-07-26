@@ -285,6 +285,8 @@ public final class ViewAnimation
         try {
             info("running");
 
+            final long outputFilter = DockingGameClock.millis(OutputFilter,is3D);
+
             int skip = 0;
 
             this.paint();
@@ -293,7 +295,7 @@ public final class ViewAnimation
 
                 if (recover2D){
 
-                    sleep(OutputFilter);
+                    sleep(outputFilter);
 
                     this.paint();
                 }
@@ -343,7 +345,7 @@ public final class ViewAnimation
                                                  */
                                                 this.paint();
 
-                                                sleep(OutputFilter);
+                                                sleep(outputFilter);
                                                 break;
                                             case SKIP_SKIP:
                                                 skip = SKIP_OP;
@@ -440,7 +442,7 @@ public final class ViewAnimation
 
                             if (null != sequence){
 
-                                sleep(OutputFilter);
+                                sleep(outputFilter);
                             }
                         }
                     }

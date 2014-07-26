@@ -7,7 +7,6 @@ import path.Operand;
 
 import android.graphics.Matrix;
 import android.graphics.RectF;
-import android.os.SystemClock;
 import android.util.Log;
 
 import java.nio.ByteOrder;
@@ -106,7 +105,7 @@ public abstract class ViewPage3DComponentAbstract
     }
     public final void blink(long period){
 
-        final long time = SystemClock.uptimeMillis();
+        final long time = DockingGameClock.uptimeMillis();
 
         if (time >= (blinkTime+period)){
 

@@ -231,11 +231,12 @@ public final class View3DRenderer
                 screenshot_extMonitor.notifyAll();
             }
         }
-        else if (null != screenshot_movie && screenshot_movie.frame(500L)){
+        else {
 
-            return;
-        }
-        else if (null != page){
+            if (null != screenshot_movie){
+
+                screenshot_movie.frame();
+            }
 
             if (plumb){
 

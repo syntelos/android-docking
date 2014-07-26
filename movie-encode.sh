@@ -2,8 +2,10 @@
 
 export session="${1}"
 shift
+export session_fps=16
 export session_begin
 export session_end
+export session_count
 
 
 function ftrim {
@@ -27,6 +29,8 @@ function finit {
 
         printf "session %s (begin: %04d, end: %04d)\n" ${session} ${session_begin} ${session_end}
 
+        session_count=$(( ${session_end} - ${session_begin} + 1 ))
+
         return 0
     else
         return 1
@@ -39,8 +43,8 @@ then
     tgtf_yuv=${session}.yuv
     tgtf_wbm=${session}.webm
 
-    if png2yuv -I p -f 2 -b 1 -n 359 -j ${session}/%04d.png > ${session}/${tgtf_yuv} &&
-       vpxenc ${session}/${tgtf_yuv} -o ${session}/${tgtf_wbm} -w 960 -h 540 -p 2 --best --fps=2/1 -v
+    if png2yuv -I p -f ${session_fps} -b ${session_begin} -n ${session_count} -j ${session}/%04d.png > ${session}/${tgtf_yuv} &&
+       vpxenc ${session}/${tgtf_yuv} -o ${session}/${tgtf_wbm} -w 960 -h 540 -p 2 --best --fps=${session_fps}/1 -v
     then
         ls -l ${session}/${tgtf_yuv} ${session}/${tgtf_wbm}
         exit 0
