@@ -283,7 +283,7 @@ public final class ViewAnimation
     }
     public void run(){
         try {
-            info("running");
+            //info("running");
 
             final long outputFilter = ViewClock.millis(OutputFilter,is3D);
 
@@ -316,7 +316,7 @@ public final class ViewAnimation
 
                             if (null != sequence.pageTo){
 
-                                info("pageTo "+sequence.pageTo);
+                                //info("pageTo "+sequence.pageTo);
 
                                 /*
                                  * pageTo
@@ -365,17 +365,17 @@ public final class ViewAnimation
 
                                                 if (null != pageTo){
 
-                                                    info("eval "+in+" returned "+pageTo);
+                                                    //info("eval "+in+" returned "+pageTo);
 
                                                     view.pageTo(pageTo);
                                                 }
                                                 else {
-                                                    info("eval "+in+" returned <null>");
+                                                    //info("eval "+in+" returned <null>");
                                                 }
                                             }
                                             catch (Shutdown exi){
 
-                                                info("shutdown via eval "+in,exi);
+                                                //info("shutdown via eval "+in,exi);
 
                                                 return;
                                             }
@@ -386,13 +386,13 @@ public final class ViewAnimation
                                         }
                                         else {
                                             try {
-                                                info("input "+in+" to "+page);
+                                                //info("input "+in+" to "+page);
 
                                                 page.input(in);
                                             }
                                             catch (Shutdown exi){
 
-                                                info("shutdown via input "+in+" to "+page,exi);
+                                                //info("shutdown via input "+in+" to "+page,exi);
 
                                                 return;
                                             }
@@ -408,30 +408,30 @@ public final class ViewAnimation
                                     }
                                 }
                             }
-                            else if (null != sequence.page){
+                            // else if (null != sequence.page){
 
-                                final InputScript[] script = sequence.input;
+                            //     final InputScript[] script = sequence.input;
 
-                                if (null != script){
-                                    final String prefix = "drop script page "+sequence.page.name()+' ';
+                            //     if (null != script){
+                            //         final String prefix = "drop script page "+sequence.page.name()+' ';
 
-                                    for (InputScript in: script){
-                                        warn(prefix+in);
-                                    }
-                                }
-                            }
-                            else {
+                            //         for (InputScript in: script){
+                            //             warn(prefix+in);
+                            //         }
+                            //     }
+                            // }
+                            // else {
 
-                                final InputScript[] script = sequence.input;
+                            //     final InputScript[] script = sequence.input;
 
-                                if (null != script){
-                                    final String prefix = "drop script <*> ";
+                            //     if (null != script){
+                            //         final String prefix = "drop script <*> ";
 
-                                    for (InputScript in: script){
-                                        warn(prefix+in);
-                                    }
-                                }
-                            }
+                            //         for (InputScript in: script){
+                            //             warn(prefix+in);
+                            //         }
+                            //     }
+                            // }
 
                             sequence = sequence.pop();
 
@@ -453,7 +453,7 @@ public final class ViewAnimation
             return;
         }
         finally {
-            info("returning");
+            //info("returning");
 
             Exit(this);
         }

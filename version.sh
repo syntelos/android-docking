@@ -9,9 +9,10 @@ then
     cp -p bin/proguard.txt  ${version}
     for src in  bin/proguard/*.txt
     do 
-        tgt=${version}proguard-$(basename $src )
+        tgt=${version}/proguard-$(basename $src )
         cp -p $src $tgt
     done
+    git add ${version}
     ls -l ${version}
     exit 0
 else

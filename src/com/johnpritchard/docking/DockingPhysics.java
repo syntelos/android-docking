@@ -121,19 +121,19 @@ public final class DockingPhysics
             try {
                 if (pg.isTitle()){
 
-                    info("entering with title");
+                    //info("entering with title");
 
                     ViewClock.sleep(1500L);
 
                     pg.clearTitle();
                 }
                 else {
-                    info("entering without title");
+                    //info("entering without title");
                 }
 
                 ViewClock.sleep(1500L);
 
-                info("running");
+                //info("running");
 
                 while (running){
                     {
@@ -166,7 +166,7 @@ public final class DockingPhysics
                         }
                     }
                     else {
-                        info("exiting game");
+                        //info("exiting game");
                         return;
                     }
                 }
@@ -177,13 +177,13 @@ public final class DockingPhysics
             }
             finally {
 
-                info("returning");
+                //info("returning");
 
                 Exit(this);
             }
         }
         else {
-            info("exiting not in game");
+            //info("exiting not in game");
 
             Exit(this);
         }
