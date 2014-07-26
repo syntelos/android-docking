@@ -170,7 +170,7 @@ public final class DockingCraftStateVector
          */
         final long last = this.time_last;
 
-        final long time = DockingGameClock.uptimeMillis();
+        final long time = ViewClock.uptimeMillis();
 
         if (0 != last){
 

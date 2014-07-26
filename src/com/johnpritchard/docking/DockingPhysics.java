@@ -117,13 +117,13 @@ public final class DockingPhysics
         final DockingCraftStateVector sv = DockingCraftStateVector.Instance;
         final DockingPageGamePlay pg = DockingPageGamePlay.Instance;
         if (sv.inGame()){
-            final long tinc = DockingGameClock.millis(TINC);
+            final long tinc = ViewClock.millis(TINC);
             try {
                 if (pg.isTitle()){
 
                     info("entering with title");
 
-                    DockingGameClock.sleep(1500L);
+                    ViewClock.sleep(1500L);
 
                     pg.clearTitle();
                 }
@@ -131,7 +131,7 @@ public final class DockingPhysics
                     info("entering without title");
                 }
 
-                DockingGameClock.sleep(1500L);
+                ViewClock.sleep(1500L);
 
                 info("running");
 

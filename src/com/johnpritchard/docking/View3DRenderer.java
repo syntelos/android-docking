@@ -43,7 +43,7 @@ public final class View3DRenderer
     private volatile ByteBuffer screenshot_extBuffer = null;
     private final Object screenshot_extMonitor = new Object();
 
-    private volatile View3DScreenShot screenshot_movie = null;
+    // private volatile View3DScreenShot screenshot_movie = null;
 
 
     public View3DRenderer(View3D view){
@@ -120,13 +120,13 @@ public final class View3DRenderer
 
         ViewAnimation.Start(view);
 
-        try {
-            screenshot_movie = new View3DScreenShot(view);
-        }
-        catch (Exception exc){
+        // try {
+        //     screenshot_movie = new View3DScreenShot(view);
+        // }
+        // catch (Exception exc){
 
-            error("movie",exc);
-        }
+        //     error("movie",exc);
+        // }
     }
     public synchronized void surfaceDestroyed(SurfaceHolder holder){
 
@@ -233,10 +233,10 @@ public final class View3DRenderer
         }
         else {
 
-            if (null != screenshot_movie){
+            // if (null != screenshot_movie){
 
-                screenshot_movie.frame();
-            }
+            //     screenshot_movie.frame();
+            // }
 
             if (plumb){
 

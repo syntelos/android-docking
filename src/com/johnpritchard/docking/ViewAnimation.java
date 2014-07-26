@@ -285,7 +285,7 @@ public final class ViewAnimation
         try {
             info("running");
 
-            final long outputFilter = DockingGameClock.millis(OutputFilter,is3D);
+            final long outputFilter = ViewClock.millis(OutputFilter,is3D);
 
             int skip = 0;
 

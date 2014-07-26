@@ -120,9 +120,9 @@ public class View3DScreenShot
      */
     public final boolean frame()
     {
-        final long next = (local + DockingGameClock.mode.period);
+        final long next = (local + ViewClock.mode.period);
 
-        final long time = DockingGameClock.uptimeMillis();
+        final long time = ViewClock.uptimeMillis();
 
         if (next <= time){
             local = time;

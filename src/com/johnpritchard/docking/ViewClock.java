@@ -8,7 +8,7 @@ import android.os.SystemClock;
 /**
  * Time dilation for application programming.
  */
-public final class DockingGameClock {
+public final class ViewClock {
     /**
      * 
      */
@@ -37,7 +37,7 @@ public final class DockingGameClock {
         }
     }
 
-    public final static Mode mode = Mode.Sixteen;
+    public final static Mode mode = Mode.Normal;
 
     public static long uptimeMillis(){
 
@@ -66,7 +66,7 @@ public final class DockingGameClock {
     }
 
 
-    private DockingGameClock(){
+    private ViewClock(){
         super();
     }
 

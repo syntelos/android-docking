@@ -105,7 +105,7 @@ public abstract class ViewPage3DComponentAbstract
     }
     public final void blink(long period){
 
-        final long time = DockingGameClock.uptimeMillis();
+        final long time = ViewClock.uptimeMillis();
 
         if (time >= (blinkTime+period)){
 
