@@ -1,0 +1,43 @@
+com.johnpritchard.docking.Docking
+com.johnpritchard.docking.Docking: Docking()
+com.johnpritchard.docking.DockingActivity2D
+com.johnpritchard.docking.DockingActivity2D: DockingActivity2D()
+com.johnpritchard.docking.DockingActivity3D
+com.johnpritchard.docking.DockingActivity3D: DockingActivity3D()
+com.johnpritchard.docking.DockingDatabaseHistoryProvider
+com.johnpritchard.docking.DockingDatabaseHistoryProvider: DockingDatabaseHistoryProvider()
+com.johnpritchard.docking.DockingGameLevel: com.johnpritchard.docking.DockingGameLevel[] values()
+com.johnpritchard.docking.DockingGameLevel: com.johnpritchard.docking.DockingGameLevel valueOf(java.lang.String)
+com.johnpritchard.docking.Input: com.johnpritchard.docking.Input[] values()
+com.johnpritchard.docking.Input: com.johnpritchard.docking.Input valueOf(java.lang.String)
+com.johnpritchard.docking.InputScript$Database$Op: com.johnpritchard.docking.InputScript$Database$Op[] values()
+com.johnpritchard.docking.InputScript$Database$Op: com.johnpritchard.docking.InputScript$Database$Op valueOf(java.lang.String)
+com.johnpritchard.docking.ObjectActivity: ObjectActivity()
+com.johnpritchard.docking.Page: com.johnpritchard.docking.Page[] values()
+com.johnpritchard.docking.Page: com.johnpritchard.docking.Page valueOf(java.lang.String)
+com.johnpritchard.docking.PhysicsDOF: com.johnpritchard.docking.PhysicsDOF[] values()
+com.johnpritchard.docking.PhysicsDOF: com.johnpritchard.docking.PhysicsDOF valueOf(java.lang.String)
+com.johnpritchard.docking.PhysicsOperator: com.johnpritchard.docking.PhysicsOperator[] values()
+com.johnpritchard.docking.PhysicsOperator: com.johnpritchard.docking.PhysicsOperator valueOf(java.lang.String)
+com.johnpritchard.docking.R$drawable: int icon
+com.johnpritchard.docking.R$layout: int main
+com.johnpritchard.docking.R$string: int app_name
+com.johnpritchard.docking.R$string: int pro_history_name
+com.johnpritchard.docking.View2DFontDPad$Char: com.johnpritchard.docking.View2DFontDPad$Char[] values()
+com.johnpritchard.docking.View2DFontDPad$Char: com.johnpritchard.docking.View2DFontDPad$Char valueOf(java.lang.String)
+com.johnpritchard.docking.ViewClock$Mode: com.johnpritchard.docking.ViewClock$Mode[] values()
+com.johnpritchard.docking.ViewClock$Mode: com.johnpritchard.docking.ViewClock$Mode valueOf(java.lang.String)
+com.johnpritchard.docking.ViewPage2DComponentRect
+com.johnpritchard.docking.ViewPage2DNavigator
+fv3.math.Vector$Direction1: fv3.math.Vector$Direction1[] values()
+fv3.math.Vector$Direction1: fv3.math.Vector$Direction1 valueOf(java.lang.String)
+fv3.math.Vector$Direction2: fv3.math.Vector$Direction2[] values()
+fv3.math.Vector$Direction2: fv3.math.Vector$Direction2 valueOf(java.lang.String)
+fv3.math.Vector$Magnitude1: fv3.math.Vector$Magnitude1[] values()
+fv3.math.Vector$Magnitude1: fv3.math.Vector$Magnitude1 valueOf(java.lang.String)
+path.Op: path.Op[] values()
+path.Op: path.Op valueOf(java.lang.String)
+path.Token: path.Token[] values()
+path.Token: path.Token valueOf(java.lang.String)
+path.Winding: path.Winding[] values()
+path.Winding: path.Winding valueOf(java.lang.String)

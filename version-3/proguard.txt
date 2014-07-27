@@ -1,0 +1,12 @@
+# view AndroidManifest.xml #generated:15
+-keep class com.johnpritchard.docking.Docking { <init>(...); }
+
+# view AndroidManifest.xml #generated:24
+-keep class com.johnpritchard.docking.DockingActivity2D { <init>(...); }
+
+# view AndroidManifest.xml #generated:34
+-keep class com.johnpritchard.docking.DockingActivity3D { <init>(...); }
+
+# view AndroidManifest.xml #generated:19
+-keep class com.johnpritchard.docking.DockingDatabaseHistoryProvider { <init>(...); }
+
